@@ -1,0 +1,413 @@
+~ $ echo 'WS-016
+> Date: 2026-08-13
+> Purpose: Determine whether the Cytube Engine.IO session becomes invalid because of an intervening polling request. Establish a fresh Engine.IO polling session, immediately perform the SID-bound WebSocket upgrade without issuing any additional polling GET, record the exact HTTP response, then test the original SID afterward.
+ f"User-Agent: {UA}\r\n"
+    "Cache-Control: no-cache\r\n"
+    "Pragma: no-cache\r\n"
+    "\r\n"
+)
+
+> Target: https://cytu.be/r/EMAIL
+> Evidence type: EXPERIMENTALLY-CONFIRMED
+i>
+> === WS-015 IMMEDIATE SID-BOUND WEBSOCKET UPGRADE TEST ===' &&
+e True:
+        chunk = tls_sock.recv(4096)
+
+        if not ch> python - <<'PY'
+> import requests
+> import socket
+> import ssl
+> import base64
+> import os
+> import json
+onse:
+      > import time
+      time.s> import sys
+>
+> BASE = "https://cytu.be"
+> ROOM = "https://cytu.be/r/EMAIL"
+>
+> UA = "Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0"
+>
+> print("=== TEST PARAMETERS ===")
+> print("HTTP :", BASE)
+> print("ROOM :", ROOM)
+> print("UA   :", UA)
+> print()
+>
+> session = requests.Session()
+>
+> headers = {
+>     "User-Agent": UA,
+>     "Origin": BASE,
+>     "Referer": ROOM,
+> }
+>
+> # ------------------------------------------------------------
+> # STEP 1
+eout")
+
+except Exception as e:
+    print("WebSocket receive error:", repr(e))
+
+try:
+    tls_sock.close()
+except Exception:
+    pass
+
+decoded = response.decode(
+> # Establish a completely fresh Engine.IO polling session.
+> # ------------------------------------------------------------
+>
+> print("=== STEP 1: FRESH ENGINE.IO POLLING HANDSHAKE ===")
+>
+> try:
+>     r = session.get(
+s
+
+print()
+pr>         BASE + "/socket.io/?EIO=4&transport=polling",
+>         headers=headers,
+>         timeout=10,
+>     )
+>
+# ST>     print("HTTP status:", r.status_code)
+>     print("Content-Type:", r.headers.get("content-type"))
+>     print("Response:", repr(r.text[:1000]))
+>
+> except Exception as e:
+>     print("HANDSHAKE ERROR:", repr(e))
+>     sys.exit(1)
+>
+> if r.status_code != 200 or not r.text.startswith("0"):
+>     print("HANDSHAKE FAILED")
+ (
+ >     sys.exit(1)
+>
+> try:
+>     handshake = json.loads(r.text[1:])
+> except Exception as e:
+>     print("HANDSHAKE JSON ERROR:", repr(e))
+>     sys.exit(1)
+>
+> sid = handshake.get("sid")
+>
+> print()
+> print("SID:", sid)
+> print("Upgrades:", handshake.get("upgrades"))
+> print("Ping interval:", handshake.get("pingInterval"))
+> print("Ping timeout:", handshake.get("pingTimeout"))
+> print()
+>
+> if not sid:
+>     print("NO SID")
+>     sys.exit(1)
+ TI>
+M> # ------------------------------------------------------------
+> # IMPORTANT:
+s e:
+    prin> #
+> # DO NOT perform a polling GET here.
+> #
+> # WS-014 performed a polling request before the WebSocket
+> # attempt. That request remained open and timed out locally.
+> #
+> # This test intentionally removes that variable.
+> # ------------------------------------------------------------
+>
+> print("=== STEP 2: NO INTERVENING POLLING REQUEST ===")
+> print("Immediately proceeding to SID-bound WebSocket upgrade.")
+> print()
+>
+> # ------------------------------------------------------------
+> # STEP 3
+> # Construct the exact Engine.IO WebSocket URL using the
+> # freshly issued SID.
+> # ------------------------------------------------------------
+>
+> ws_path = (
+>     "/socket.io/"
+>     "?EIO=4"
+>     "&transport=websocket"
+>     "&sid=" + sid
+> )
+>
+> print("=== STEP 3: WEBSOCKET URL ===")
+> print(ws_path)
+> print()
+>
+> ws_key = base64.b64encode(os.urandom(16)).decode("ascii")
+>
+> print("Sec-WebSocket-Key:", ws_key)
+> print()
+>
+> # ------------------------------------------------------------
+> # STEP 4
+> # Establish a completely separate raw TLS connection.
+> # ------------------------------------------------------------
+>
+> print("=== STEP 4: RAW TLS CONNECTION ===")
+>
+> try:
+>     raw_sock = socket.create_connection(
+>         ("cytu.be", 443),
+>         timeout=10,
+>     )
+>
+>     context = ssl.create_default_context()
+>
+>     tls_sock = context.wrap_socket(
+>         raw_sock,
+>         server_hostname="cytu.be",
+>     )
+>
+>     print("TLS version:", tls_sock.version())
+>     print("Cipher:", tls_sock.cipher())
+>
+> except Exception as e:
+>     print("TLS ERROR:", repr(e))
+>     sys.exit(1)
+>
+> # ------------------------------------------------------------
+> # STEP 5
+> # Send RFC 6455 WebSocket upgrade.
+> #
+> # No polling request occurs between the SID handshake and this
+> # request.
+> # ------------------------------------------------------------
+>
+> request = (
+>     f"GET {ws_path} HTTP/1.1\r\n"
+>     "Host: cytu.be\r\n"
+>     "Connection: Upgrade\r\n"
+>     "Upgrade: websocket\r\n"
+>     f"Sec-WebSocket-Key: {ws_key}\r\n"
+>     "Sec-WebSocket-Version: 13\r\n"
+>     f"Origin: {BASE}\r\n"
+>     f"Referer: {ROOM}\r\n"
+>     f"User-Agent: {UA}\r\n"
+>     "Cache-Control: no-cache\r\n"
+>     "Pragma: no-cache\r\n"
+>     "\r\n"
+> )
+>
+> print()
+> print("=== STEP 5: SEND IMMEDIATE WEBSOCKET UPGRADE ===")
+>
+> try:
+>     tls_sock.sendall(request.encode("utf-8"))
+> except Exception as e:
+>     print("SEND ERROR:", repr(e))
+>     tls_sock.close()
+>     sys.exit(1)
+>
+> tls_sock.settimeout(10)
+>
+> response = b""
+>
+> try:
+>     while True:
+>         chunk = tls_sock.recv(4096)
+>
+>         if not chunk:
+>             break
+>
+>         response += chunk
+>
+>         if b"\r\n\r\n" in response:
+>             time.sleep(0.2)
+>
+>             try:
+>                 extra = tls_sock.recv(4096)
+>
+>                 if extra:
+>                     response += extra
+>
+>             except socket.timeout:
+>                 pass
+>
+>             break
+>
+> except socket.timeout:
+>     print("WebSocket response timeout")
+>
+> except Exception as e:
+>     print("WebSocket receive error:", repr(e))
+>
+> try:
+>     tls_sock.close()
+> except Exception:
+>     pass
+>
+> decoded = response.decode(
+>     "utf-8",
+>     errors="replace"
+> )
+>
+> print()
+> print("=== STEP 6: EXACT WEBSOCKET RESPONSE ===")
+> print(decoded)
+>
+> first_line = ""
+>
+> try:
+>     first_line = decoded.splitlines()[0]
+> except Exception:
+>     pass
+>
+> print()
+> print("HTTP status:", repr(first_line))
+>
+> # ------------------------------------------------------------
+> # STEP 7
+> # Test the original SID AFTER the WebSocket attempt.
+> #
+> # This is the only polling request after the initial handshake.
+> # ------------------------------------------------------------
+>
+> print()
+> print("=== STEP 7: POST-WEBSOCKET SID VALIDATION ===")
+> print("Original SID:")
+> print(sid)
+> print()
+>
+> poll_url = (
+>     BASE
+>     + "/socket.io/?EIO=4&transport=polling&sid="
+>     + sid
+> )
+>
+> try:
+>     r2 = session.get(
+>         poll_url,
+>         headers=headers,
+>         timeout=5,
+>     )
+>
+>     print("HTTP status:", r2.status_code)
+>     print("Content-Type:", r2.headers.get("content-type"))
+>     print("Response:", repr(r2.text[:1000]))
+>
+> except requests.exceptions.ReadTimeout:
+>     print("RESULT: POLLING REQUEST REMAINED OPEN / READ TIMEOUT")
+>     print("SID may still be valid.")
+>
+> except Exception as e:
+>     print("POST-WEBSOCKET POLLING ERROR:", repr(e))
+>
+> # ------------------------------------------------------------
+> # STEP 8
+> # Classification.
+> # ------------------------------------------------------------
+>
+> print()
+> print("=== STEP 8: CLASSIFICATION ===")
+>
+> if "101 Switching Protocols" in decoded:
+>     print("WEBSOCKET RESULT: ACCEPTED")
+>
+> elif '"code":1' in decoded and "Session ID unknown" in decoded:
+>     print("WEBSOCKET RESULT: SESSION ID UNKNOWN")
+>
+> elif "400 Bad Request" in decoded:
+>     print("WEBSOCKET RESULT: HTTP 400 BAD REQUEST")
+>
+> else:
+>     print("WEBSOCKET RESULT: OTHER")
+>
+> print()
+> print("=== WS-016 COMPLETE ===")
+> print()
+> print("Record these observations:")
+> print("1. Fresh Engine.IO SID")
+> print("2. Advertised upgrades")
+> print("3. Whether WebSocket was attempted immediately")
+> print("4. Exact WebSocket HTTP response")
+> print("5. Whether response says Session ID unknown")
+> print("6. Post-WebSocket polling status")
+> print("7. Whether the original SID survives the failed upgrade")
+> PY
+WS-016
+Date: 2026-08-13
+Purpose: Determine whether the Cytube Engine.IO session becomes invalid because of an intervening polling request. Establish a fresh Engine.IO polling session, immediately perform the SID-bound WebSocket upgrade without issuing any additional polling GET, record the exact HTTP response, then test the original SID afterward.
+Target: https://cytu.be/r/EMAIL
+Evidence type: EXPERIMENTALLY-CONFIRMED
+
+=== WS-015 IMMEDIATE SID-BOUND WEBSOCKET UPGRADE TEST ===
+=== TEST PARAMETERS ===
+HTTP : https://cytu.be
+ROOM : https://cytu.be/r/EMAIL
+UA   : Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0
+
+=== STEP 1: FRESH ENGINE.IO POLLING HANDSHAKE ===
+HTTP status: 200
+Content-Type: text/plain; charset=UTF-8
+Response: '0{"sid":"WxLLJz8pFS8eaJdbBJm5","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}'
+
+SID: WxLLJz8pFS8eaJdbBJm5
+Upgrades: ['websocket']
+Ping interval: 25000
+Ping timeout: 120000
+
+=== STEP 2: NO INTERVENING POLLING REQUEST ===
+Immediately proceeding to SID-bound WebSocket upgrade.
+
+=== STEP 3: WEBSOCKET URL ===
+/socket.io/?EIO=4&transport=websocket&sid=WxLLJz8pFS8eaJdbBJm5
+
+Sec-WebSocket-Key: dX3YzKXO2p4ZDn7JeqPHIQ==
+
+=== STEP 4: RAW TLS CONNECTION ===
+TLS version: TLSv1.3
+Cipher: ('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256)
+
+=== STEP 5: SEND IMMEDIATE WEBSOCKET UPGRADE ===
+
+=== STEP 6: EXACT WEBSOCKET RESPONSE ===
+HTTP/1.1 400 Bad Request
+Date: Fri, 14 Aug 2026 03:36:37 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Access-Control-Allow-Origin: https://cytu.be
+Vary: Origin
+Access-Control-Allow-Credentials: true
+cf-cache-status: DYNAMIC
+Server-Timing: cfCacheStatus;desc="DYNAMIC"
+Server-Timing: cfEdge;dur=12,cfOrigin;dur=38
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=EkMA51PCyND4SjJmo6pV5OfdHB%2FIDrskG%2BVOF0yGblHmoz9hzk%2Bgw5GXJ4Vifri%2FxrgQYcdn47e77oyJpfEylDtq2PD83lsnsylfhlgJNaDnoV8Un8U5fqWTE%2Bq9EAJ57%2BMzdKP%2F"}]}
+CF-RAY: a2acea901c6bce4c-SJC
+alt-svc: h3=":443"; ma=86400
+
+22
+{"code":3,"message":"Bad request"}
+0
+
+
+
+HTTP status: 'HTTP/1.1 400 Bad Request'
+
+=== STEP 7: POST-WEBSOCKET SID VALIDATION ===
+Original SID:
+WxLLJz8pFS8eaJdbBJm5
+
+RESULT: POLLING REQUEST REMAINED OPEN / READ TIMEOUT
+SID may still be valid.
+
+=== STEP 8: CLASSIFICATION ===
+WEBSOCKET RESULT: HTTP 400 BAD REQUEST
+
+=== WS-016 COMPLETE ===
+
+Record these observations:
+1. Fresh Engine.IO SID
+2. Advertised upgrades
+3. Whether WebSocket was attempted immediately
+4. Exact WebSocket HTTP response
+5. Whether response says Session ID unknown
+6. Post-WebSocket polling status
+7. Whether the original SID survives the failed upgrade
+~ $
