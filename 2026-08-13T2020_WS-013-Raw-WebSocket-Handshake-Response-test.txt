@@ -1,0 +1,473 @@
+~ $ echo 'WS-013
+> Date: 2026-08-13
+       headers=headers,
+        timeout=10,
+    )
+
+    print("HT> Purpose: Capture the complete HTTP response returned by Cytube/Cloudflare when a raw RFC 6455 WebSocket upgrade is attempted against the Engine.IO v4 endpoint. Use a valid Engine.IO polling SID and manually construct the WebSocket HTTP/1.1 upgrade request so the exact status, response headers, and response body can be observed.
+> Target: https://cytu.be/r/EMAIL
+> Evidence type: EXPERIMENTALLY-CONFIRMED
+>
+> === WS-013 RAW WEBSOCKET HANDSHAKE RESPONSE TEST ===' &&
+> python - <<'PY'
+> import requests
+> import json
+> import socket
+> import ssl
+> import base64
+> import os
+> import sys
+> import time
+>
+> BASE = "https://cytu.be"
+> ROOM = "https://cytu.be/r/EMAIL"
+>
+> UA = "Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0"
+>
+> print("=== TEST PARAMETERS ===")
+> print("HTTP :", BASE)
+> print("ROOM :", ROOM)
+> print("UA   :", UA)
+> print()
+>
+> # ------------------------------------------------------------
+> # STEP 1
+> # Establish a real Engine.IO polling session.
+> # ------------------------------------------------------------
+>
+> print("=== STEP 1: ENGINE.IO POLLING HANDSHAKE ===")
+>
+> session = requests.Session()
+>
+ > headers = {
+>     "User-Agent": UA,
+>     "Origin": BASE,
+ i>     "Referer": ROOM,
+> }
+>
+> try:
+>     r = session.get(
+>         BASE + "/socket.io/?EIO=4&transport=polling",
+>         headers=headers,
+>         timeout=10,
+>     )
+>
+>     print("HTTP status:", r.status_code)
+>     print("Content-Type:", r.headers.get("content-type"))
+>     print("Response:", repr(r.text[:1000]))
+imeou>
+> except Exception as e:
+
+>     print("POLLING ERROR:", repr(e))
+>     sys.exit(1)
+>
+"> if r.status_code != 200:
+>     print("POLLING HANDSHAKE FAILED")
+>     sys.exit(1)
+>
+> try:
+>     if not r.text.startswith("0"):
+>         print("Unexpected Engine.IO packet:")
+>         print(repr(r.text))
+"r>         sys.exit(1)
+e>
+p>     handshake = json.loads(r.text[1:])
+>
+> except Exception as e:
+P>     print("HANDSHAKE JSON ERROR:", repr(e))
+>     sys.exit(1)
+>
+> sid = handshake.get("sid")
+->
+> print()
+> print("Engine.IO SID:", sid)
+> print("Advertised upgrades:", handshake.get("upgrades"))
+h> print("Ping interval:", handshake.get("pingInterval"))
+> print("Ping timeout:", handshake.get("pingTimeout"))
+> print("Max payload:", handshake.get("maxPayload"))
+>
+> if not sid:
+>     print("NO SID")
+>     sys.exit(1)
+>
+> # ------------------------------------------------------------
+> # STEP 2
+> # Generate a real RFC 6455 Sec-WebSocket-Key.
+> # ------------------------------------------------------------
+>
+> print()
+> print("=== STEP 2: GENERATE WEBSOCKET HANDSHAKE KEY ===")
+>
+> ws_key = base64.b64encode(os.urandom(16)).decode("ascii")
+>
+> print("Sec-WebSocket-Key:", ws_key)
+> print("Key length:", len(ws_key))
+>
+> # ------------------------------------------------------------
+> # STEP 3
+> # Build the exact Engine.IO WebSocket URL.
+> # ------------------------------------------------------------
+>
+> path = (
+>     "/socket.io/"
+>     "?EIO=4"
+>     "&transport=websocket"
+>     "&sid=" + sid
+> )
+ R>
+> print()
+> print("=== STEP 3: TARGET ===")
+> print("Host: cytu.be")
+> print("Path:", path)
+> print()
+>
+> # ------------------------------------------------------------
+> # STEP 4
+> # Establish raw TLS connection.
+> #
+> # We deliberately avoid websocket-client here.
+> # This lets us see the actual HTTP response sent by the server
+> # or Cloudflare.
+> # ------------------------------------------------------------
+>
+> print("=== STEP 4: RAW TLS CONNECTION ===")
+>
+> try:
+"404" >     raw_sock = socket.create_connection(
+>         ("cytu.be", 443),
+>         timeout=10,
+>     )
+ pri>
+n>     context = ssl.create_default_context()
+>
+>     tls_sock = context.wrap_socket(
+>         raw_sock,
+>         server_hostname="cytu.be",
+>     )
+>
+>     print("TLS connection established")
+>     print("TLS version:", tls_sock.version())
+>     print("Cipher:", tls_sock.cipher())
+>
+=> except Exception as e:
+>     print("TLS CONNECTION ERROR:", repr(e))
+>     sys.exit(1)
+>
+> # ------------------------------------------------------------
+> # STEP 5
+> # Manually construct RFC 6455 WebSocket upgrade.
+> #
+> # Important:
+> # - HTTP/1.1
+> # - Connection: Upgrade
+> # - Upgrade: websocket
+> # - Sec-WebSocket-Version: 13
+> # - Sec-WebSocket-Key
+> # - Origin
+> # - Referer
+> # - User-Agent
+> # ------------------------------------------------------------
+>
+> print()
+> print("=== STEP 5: RAW WEBSOCKET HTTP UPGRADE REQUEST ===")
+>
+> request = (
+>     f"GET {path} HTTP/1.1\r\n"
+>     "Host: cytu.be\r\n"
+>     "Connection: Upgrade\r\n"
+>     "Upgrade: websocket\r\n"
+>     f"Sec-WebSocket-Key: {ws_key}\r\n"
+>     "Sec-WebSocket-Version: 13\r\n"
+>     f"Origin: {BASE}\r\n"
+>     f"Referer: {ROOM}\r\n"
+>     f"User-Agent: {UA}\r\n"
+>     "Cache-Control: no-cache\r\n"
+>     "Pragma: no-cache\r\n"
+>     "\r\n"
+> )
+>
+> print(request)
+>
+> # ------------------------------------------------------------
+> # STEP 6
+> # Send the request and capture the COMPLETE HTTP response.
+> # ------------------------------------------------------------
+>
+> print("=== STEP 6: SEND RAW UPGRADE ===")
+>
+> try:
+>     tls_sock.sendall(request.encode("utf-8"))
+>
+> except Exception as e:
+>     print("SEND ERROR:", repr(e))
+>     tls_sock.close()
+>     sys.exit(1)
+>
+> print("Request sent.")
+> print()
+> print("=== STEP 7: RAW SERVER RESPONSE ===")
+>
+> tls_sock.settimeout(10)
+>
+> response = b""
+>
+> try:
+>     while True:
+>         chunk = tls_sock.recv(4096)
+>
+>         if not chunk:
+>             break
+>
+>         response += chunk
+>
+>         # Once HTTP headers have arrived, continue briefly so
+>         # that a JSON error body is also captured.
+>         if b"\r\n\r\n" in response:
+>             # Give the server a moment to deliver the body.
+>             time.sleep(0.2)
+>
+>             try:
+>                 extra = tls_sock.recv(4096)
+>                 if extra:
+>                     response += extra
+>             except socket.timeout:
+>                 pass
+>
+>             break
+>
+> except socket.timeout:
+>     print("RECEIVE TIMEOUT")
+>
+> except Exception as e:
+>     print("RECEIVE ERROR:", repr(e))
+>
+> print()
+> print("RAW RESPONSE BYTES:", len(response))
+> print()
+>
+> try:
+>     decoded = response.decode("utf-8", errors="replace")
+> except Exception:
+>     decoded = repr(response)
+>
+> print("----- BEGIN RAW HTTP RESPONSE -----")
+> print(decoded)
+> print("----- END RAW HTTP RESPONSE -----")
+>
+> # ------------------------------------------------------------
+> # STEP 8
+> # Parse the HTTP status line and headers separately.
+> # ------------------------------------------------------------
+>
+> print()
+> print("=== STEP 8: PARSED RESPONSE ===")
+>
+> if b"\r\n\r\n" in response:
+>
+>     header_bytes, body_bytes = response.split(
+>         b"\r\n\r\n",
+>         1
+>     )
+>
+>     header_text = header_bytes.decode(
+>         "utf-8",
+>         errors="replace"
+>     )
+>
+>     body_text = body_bytes.decode(
+>         "utf-8",
+>         errors="replace"
+>     )
+>
+>     print("STATUS / HEADERS:")
+>     print(header_text)
+>
+>     print()
+>     print("BODY:")
+>     print(repr(body_text))
+>
+> else:
+>     print("No complete HTTP header delimiter received.")
+>
+> # ------------------------------------------------------------
+> # STEP 9
+> # Determine whether the response looks like:
+> #
+> # 101 Switching Protocols
+> # OR
+> # 400/403/etc.
+> # ------------------------------------------------------------
+>
+> print()
+> print("=== STEP 9: RESULT CLASSIFICATION ===")
+>
+> first_line = ""
+>
+> try:
+>     first_line = decoded.splitlines()[0]
+> except Exception:
+>     pass
+>
+> print("HTTP status line:", repr(first_line))
+>
+> if "101 Switching Protocols" in first_line:
+>     print()
+>     print("RESULT: WEBSOCKET UPGRADE ACCEPTED")
+>
+> elif "400" in first_line:
+>     print()
+>     print("RESULT: HTTP 400 BAD REQUEST")
+>
+> elif "403" in first_line:
+>     print()
+>     print("RESULT: HTTP 403 FORBIDDEN")
+>
+> elif "404" in first_line:
+>     print()
+>     print("RESULT: HTTP 404 NOT FOUND")
+>
+> else:
+>     print()
+>     print("RESULT: OTHER / UNKNOWN RESPONSE")
+>
+> # ------------------------------------------------------------
+> # STEP 10
+> # Close connection.
+> # ------------------------------------------------------------
+>
+> try:
+>     tls_sock.close()
+> except Exception:
+>     pass
+>
+> print()
+> print("=== WS-013 COMPLETE ===")
+> print()
+> print("Important evidence to examine:")
+> print("1. Exact HTTP status")
+> print("2. Server / Cloudflare headers")
+> print("3. Complete JSON response body, if present")
+> print("4. Whether response is generated by Cloudflare or Cytube origin")
+> print("5. Whether the response contains an Engine.IO-specific error")
+> print("6. Whether the server returns 101 Switching Protocols")
+> PY
+WS-013
+Date: 2026-08-13
+Purpose: Capture the complete HTTP response returned by Cytube/Cloudflare when a raw RFC 6455 WebSocket upgrade is attempted against the Engine.IO v4 endpoint. Use a valid Engine.IO polling SID and manually construct the WebSocket HTTP/1.1 upgrade request so the exact status, response headers, and response body can be observed.
+Target: https://cytu.be/r/EMAIL
+Evidence type: EXPERIMENTALLY-CONFIRMED
+
+=== WS-013 RAW WEBSOCKET HANDSHAKE RESPONSE TEST ===
+=== TEST PARAMETERS ===
+HTTP : https://cytu.be
+ROOM : https://cytu.be/r/EMAIL
+UA   : Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0
+
+=== STEP 1: ENGINE.IO POLLING HANDSHAKE ===
+HTTP status: 200
+Content-Type: text/plain; charset=UTF-8
+Response: '0{"sid":"Pzh3_q8Yl05HxA_RBJm2","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}'
+
+Engine.IO SID: Pzh3_q8Yl05HxA_RBJm2
+Advertised upgrades: ['websocket']
+Ping interval: 25000
+Ping timeout: 120000
+Max payload: 1048576
+
+=== STEP 2: GENERATE WEBSOCKET HANDSHAKE KEY ===
+Sec-WebSocket-Key: iSsonX4Z0UX2AHCJa3PM1Q==
+Key length: 24
+
+=== STEP 3: TARGET ===
+Host: cytu.be
+Path: /socket.io/?EIO=4&transport=websocket&sid=Pzh3_q8Yl05HxA_RBJm2
+
+=== STEP 4: RAW TLS CONNECTION ===
+TLS connection established
+TLS version: TLSv1.3
+Cipher: ('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256)
+
+=== STEP 5: RAW WEBSOCKET HTTP UPGRADE REQUEST ===
+GET /socket.io/?EIO=4&transport=websocket&sid=Pzh3_q8Yl05HxA_RBJm2 HTTP/1.1
+Host: cytu.be
+Connection: Upgrade
+Upgrade: websocket
+Sec-WebSocket-Key: iSsonX4Z0UX2AHCJa3PM1Q==
+Sec-WebSocket-Version: 13
+Origin: https://cytu.be
+Referer: https://cytu.be/r/EMAIL
+User-Agent: Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0
+Cache-Control: no-cache
+Pragma: no-cache
+
+
+=== STEP 6: SEND RAW UPGRADE ===
+Request sent.
+
+=== STEP 7: RAW SERVER RESPONSE ===
+
+RAW RESPONSE BYTES: 827
+
+----- BEGIN RAW HTTP RESPONSE -----
+HTTP/1.1 400 Bad Request
+Date: Fri, 14 Aug 2026 03:19:34 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Access-Control-Allow-Origin: https://cytu.be
+Vary: Origin
+Access-Control-Allow-Credentials: true
+cf-cache-status: DYNAMIC
+Server-Timing: cfCacheStatus;desc="DYNAMIC"
+Server-Timing: cfEdge;dur=9,cfOrigin;dur=40
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=YxDYJ%2BhdgVPDObS6NyUlw6CiQ9pDWh%2F3HrguVic%2BBjBLY5%2BCkC46K0MQh7hrLpoB2TMZuQ7Q1CA43svP7BzKGwc0V4iLkS4xEjUqVhM0n4MeY%2FZ%2F%2BTEyVwLP0Rf7%2F8kk%2BMFcQfbi"}]}
+CF-RAY: a2acd196b9da148e-SJC
+alt-svc: h3=":443"; ma=86400
+
+22
+{"code":3,"message":"Bad request"}
+0
+
+
+----- END RAW HTTP RESPONSE -----
+
+=== STEP 8: PARSED RESPONSE ===
+STATUS / HEADERS:
+HTTP/1.1 400 Bad Request
+Date: Fri, 14 Aug 2026 03:19:34 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Access-Control-Allow-Origin: https://cytu.be
+Vary: Origin
+Access-Control-Allow-Credentials: true
+cf-cache-status: DYNAMIC
+Server-Timing: cfCacheStatus;desc="DYNAMIC"
+Server-Timing: cfEdge;dur=9,cfOrigin;dur=40
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=YxDYJ%2BhdgVPDObS6NyUlw6CiQ9pDWh%2F3HrguVic%2BBjBLY5%2BCkC46K0MQh7hrLpoB2TMZuQ7Q1CA43svP7BzKGwc0V4iLkS4xEjUqVhM0n4MeY%2FZ%2F%2BTEyVwLP0Rf7%2F8kk%2BMFcQfbi"}]}
+CF-RAY: a2acd196b9da148e-SJC
+alt-svc: h3=":443"; ma=86400
+
+BODY:
+'22\r\n{"code":3,"message":"Bad request"}\r\n0\r\n\r\n'
+
+=== STEP 9: RESULT CLASSIFICATION ===
+HTTP status line: 'HTTP/1.1 400 Bad Request'
+
+RESULT: HTTP 400 BAD REQUEST
+
+=== WS-013 COMPLETE ===
+
+Important evidence to examine:
+1. Exact HTTP status
+2. Server / Cloudflare headers
+3. Complete JSON response body, if present
+4. Whether response is generated by Cloudflare or Cytube origin
+5. Whether the response contains an Engine.IO-specific error
+6. Whether the server returns 101 Switching Protocols
+~ $
+
