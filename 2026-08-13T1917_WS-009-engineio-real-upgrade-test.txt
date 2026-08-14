@@ -1,0 +1,238 @@
+~ $ echo 'WS-009
+> Date: 2026-08-13
+> Purpose: Reproduce the exact Engine.IO v4 polling-to-WebSocket upgrade sequence used by Socket.IO v4. Establish a polling session, reuse its Engine.IO SID, connect WebSocket with that SID, respond to the Engine.IO probe, and determine whether Cytube/Cloudflare accepts the actual upgrade protocol.
+failure occurs before the Engine.IO probe.")
+    raise SystemExit(1)
+
+print("=== STEP 3> Target: https://cytu.be/r/EMAIL
+obe":
+
+            pr> Evidence type: EXPERIMENTALLY-CONFIRMED
+    elif msg == "5":
+
+            prin>
+> === ENGINE.IO V4 REAL UPGRADE TEST ===' &&
+            break
+
+        elif> python - <<'PY'
+> import requests
+> import websocket
+> import ssl
+> import json
+> import time
+> import re
+>
+> BASE = "https://cytu.be"
+> WSBASE = "wss://cytu.be/socket.io/"
+>
+> UA = "Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0"
+>
+> headers = {
+>     "User-Agent": UA,
+>     "Origin": "https://cytu.be",
+>     "Referer": "https://cytu.be/r/EMAIL",
+> }
+>
+> print("=== STEP 1: CREATE ENGINE.IO POLLING SESSION ===")
+> print()
+>
+> s = requests.Session()
+>
+> r = s.get(
+>     BASE + "/socket.io/?EIO=4&transport=polling",
+>     headers=headers,
+>     timeout=10,
+> )
+>
+:
+
+            print("Other Engine.IO frame")
+
+except Exception as e:
+
+    print()
+    print("=== PROBE/UPGRADE FAILED ===")
+    print(type(e).__name__)
+    print(repr(e))
+
+print()
+print("=== WS-009 COMPLETE ===")
+
+try:
+    ws.close()
+except:
+    pass
+
+PY> print("HTTP:", r.status_code)
+> print("Response:", repr(r.text))
+> print()
+>
+> if r.status_code != 200:
+>     raise SystemExit("Polling handshake failed")
+>
+> body = r.text
+>
+> if not body.startswith("0"):
+>     raise SystemExit("Unexpected Engine.IO handshake")
+>
+> handshake = json.loads(body[1:])
+>
+> sid = handshake["sid"]
+>
+> print("=== ENGINE.IO HANDSHAKE ===")
+> print("SID:", sid)
+> print("Upgrades:", handshake.get("upgrades"))
+> print("Ping interval:", handshake.get("pingInterval"))
+> print("Ping timeout:", handshake.get("pingTimeout"))
+> print("Max payload:", handshake.get("maxPayload"))
+> print()
+>
+> print("=== STEP 2: OPEN WEBSOCKET WITH EXISTING SID ===")
+> print()
+>
+> ws_url = (
+>     WSBASE +
+>     "?EIO=4&transport=websocket&sid=" +
+>     sid
+> )
+>
+> print("WebSocket URL:")
+> print(ws_url)
+> print()
+>
+> ws_headers = [
+>     "User-Agent: " + UA,
+>     "Origin: https://cytu.be",
+>     "Referer: https://cytu.be/r/EMAIL",
+> ]
+>
+> cookie_header = "; ".join(
+>     f"{c.name}={c.value}" for c in s.cookies
+> )
+>
+> if cookie_header:
+>     ws_headers.append("Cookie: " + cookie_header)
+>
+> print("Headers:")
+> for h in ws_headers:
+>     print(" ", h)
+>
+> print()
+>
+> try:
+>
+>     ws = websocket.create_connection(
+>         ws_url,
+>         origin="https://cytu.be",
+>         host="cytu.be",
+>         header=ws_headers,
+>         timeout=10,
+>         sslopt={
+>             "cert_reqs": ssl.CERT_REQUIRED
+>         },
+>     )
+>
+>     print("=== WEBSOCKET HANDSHAKE ACCEPTED ===")
+>     print("SUCCESS")
+>     print()
+>
+> except Exception as e:
+>
+>     print("=== WEBSOCKET HANDSHAKE FAILED ===")
+>     print(type(e).__name__)
+>     print(repr(e))
+>     print()
+>     print("This means the failure occurs before the Engine.IO probe.")
+>     raise SystemExit(1)
+>
+> print("=== STEP 3: ENGINE.IO PROBE ===")
+> print()
+>
+> ws.settimeout(10)
+>
+> try:
+>
+>     while True:
+>
+>         msg = ws.recv()
+>
+>         print("RECEIVED:", repr(msg))
+>
+>         if msg == "2probe":
+>
+>             print()
+>             print("=== RECEIVED ENGINE.IO PROBE ===")
+>             print("Sending: 3probe")
+>             print()
+>
+>             ws.send("3probe")
+>
+>         elif msg == "5":
+>
+>             print()
+>             print("=== ENGINE.IO UPGRADE ACCEPTED ===")
+>             print("SUCCESS")
+>             print()
+>
+>             break
+>
+>         elif msg == "2":
+>
+>             print("Received ping; sending pong")
+>             ws.send("3")
+>
+>         else:
+>
+>             print("Other Engine.IO frame")
+>
+> except Exception as e:
+>
+>     print()
+>     print("=== PROBE/UPGRADE FAILED ===")
+>     print(type(e).__name__)
+>     print(repr(e))
+>
+> print()
+> print("=== WS-009 COMPLETE ===")
+>
+> try:
+>     ws.close()
+> except:
+>     pass
+>
+> PY
+WS-009
+Date: 2026-08-13
+Purpose: Reproduce the exact Engine.IO v4 polling-to-WebSocket upgrade sequence used by Socket.IO v4. Establish a polling session, reuse its Engine.IO SID, connect WebSocket with that SID, respond to the Engine.IO probe, and determine whether Cytube/Cloudflare accepts the actual upgrade protocol.
+Target: https://cytu.be/r/EMAIL
+Evidence type: EXPERIMENTALLY-CONFIRMED
+
+=== ENGINE.IO V4 REAL UPGRADE TEST ===
+=== STEP 1: CREATE ENGINE.IO POLLING SESSION ===
+
+HTTP: 200
+Response: '0{"sid":"Ko3YvstW87Dmd7vhBJmy","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}'
+
+=== ENGINE.IO HANDSHAKE ===
+SID: Ko3YvstW87Dmd7vhBJmy
+Upgrades: ['websocket']
+Ping interval: 25000
+Ping timeout: 120000
+Max payload: 1048576
+
+=== STEP 2: OPEN WEBSOCKET WITH EXISTING SID ===
+
+WebSocket URL:
+wss://cytu.be/socket.io/?EIO=4&transport=websocket&sid=Ko3YvstW87Dmd7vhBJmy
+
+Headers:
+  User-Agent: Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0
+  Origin: https://cytu.be
+  Referer: https://cytu.be/r/EMAIL
+
+=== WEBSOCKET HANDSHAKE FAILED ===
+WebSocketBadStatusException
+WebSocketBadStatusException('Handshake status 400 Bad Request -+-+- {\'date\': \'Fri, 14 Aug 2026 02:18:19 GMT\', \'content-type\': \'application/json\', \'transfer-encoding\': \'chunked\', \'connection\': \'keep-alive\', \'server\': \'cloudflare\', \'nel\': \'{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}\', \'cf-cache-status\': \'DYNAMIC\', \'server-timing\': \'cfEdge;dur=15,cfOrigin;dur=39\', \'report-to\': \'{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=%2BlTzwdmJPYBYOMlCxh3tpdyjBfvmHSdD1RPOy8ivvk08ZJJPOQUaYP0zOB%2FB0mRRQZ43VfUCd1hGdOWbHjD%2FV%2F1BG0Z99jzti01mh4%2BQLeCHka14xrNC2tygKWbZf1aJmMR99f6W"}]}\', \'cf-ray\': \'a2ac77e1084a15fd-SJC\', \'alt-svc\': \'h3=":443"; ma=86400\'} -+-+- None')
+
+This means the failure occurs before the Engine.IO probe.
+~ $
