@@ -1,0 +1,463 @@
+~ $ echo 'WS-014
+> Date: 2026-08-13
+v:153.0) Gecko/153.0 Firefox/153.0"
+
+print("=== TEST PARAMETERS ===")
+print("HTTP :", BASE)
+print("ROOM :", ROOM)
+print("UA   :", UA)
+print()
+
+session = requests.Session()
+
+header> Purpose: Test Engine.IO session continuity before and after a failed WebSocket upgrade. Establish a polling session, send a valid Engine.IO polling request using the returned SID, attempt a SID-bound WebSocket upgrade, then immediately test the original polling SID again. Determine whether the SID survives, whether the upgrade invalidates the session, and whether the failure is consistent with backend/session affinity.
+> Target: https://cytu.be/r/EMAIL
+> Evidence type: EXPERIMENTALLY-CONFIRMED
+
+ >
+> === WS-014 ENGINE.IO SESSION CONTINUITY TEST ===' &&
+> python - <<'PY'
+> import requests
+> import json
+t> import socket
+o> import ssl
+> import base64
+> import os
+> import sys
+> import time
+>
+> BASE = "https://cytu.be"
+> ROOM = "https://cytu.be/r/EMAIL"
+>
+ > UA = "Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0"
+>
+> print("=== TEST PARAMETERS ===")
+> print("HTTP :", BASE)
+> print("ROOM :", ROOM)
+> print("UA   :", UA)
+> print()
+>
+ > session = requests.Session()
+>
+> headers = {
+>     "User-Agent": UA,
+>     "Origin": BASE,
+>     "Referer": ROOM,
+> }
+>
+> # ------------------------------------------------------------
+> # STEP 1
+> # Establish Engine.IO polling session.
+> # ------------------------------------------------------------
+>
+> print("=== STEP 1: INITIAL POLLING HANDSHAKE ===")
+>
+> try:
+xcept>     r = session.get(
+>         BASE + "/socket.io/?EIO=4&transport=polling",
+>         headers=headers,
+ption>         timeout=10,
+>     )
+>
+>     print("HTTP status:", r.status_code)
+>     print("Response:", repr(r.text[:1000]))
+>
+E> except Exception as e:
+>     print("HANDSHAKE ERROR:", repr(e))
+>     sys.exit(1)
+>
+> if r.status_code != 200 or not r.text.startswith("0"):
+>     print("INITIAL HANDSHAKE FAILED")
+>     sys.exit(1)
+>
+-> try:
+>     handshake = json.loads(r.text[1:])
+> except Exception as e:
+>     print("HANDSHAKE JSON ERROR:", repr(e))
+>     sys.exit(1)
+>
+-> sid = handshake.get("sid")
+>
+> print()
+> print("SID:", sid)
+> print("Upgrades:", handshake.get("upgrades"))
+> print("Ping interval:", handshake.get("pingInterval"))
+> print("Ping timeout:", handshake.get("pingTimeout"))
+> print()
+>
+> if not sid:
+>     print("NO SID")
+>     sys.exit(1)
+>
+ > # ------------------------------------------------------------
+> # STEP 2
+> # Immediately poll using the SID.
+> #
+> # A valid Engine.IO polling GET may remain open waiting for
+> # server data, so use a short timeout and distinguish timeout
+> # from an HTTP rejection.
+> # ------------------------------------------------------------
+>
+a> print("=== STEP 2: PRE-UPGRADE SID VALIDATION ===")
+>
+)> poll_url = (
+>     BASE
+>     + "/socket.io/?EIO=4&transport=polling&sid="
+>     + sid
+> )
+>
+ > print("Polling URL:")
+> print(poll_url)
+> print()
+>
+l> try:
+>     r2 = session.get(
+t>         poll_url,
+>         headers=headers,
+>         timeout=3,
+>     )
+>
+>     print("HTTP status:", r2.status_code)
+>     print("Content-Type:", r2.headers.get("content-type"))
+>     print("Response:", repr(r2.text[:1000]))
+>
+E> except requests.exceptions.ReadTimeout:
+>     print("RESULT: POLLING REQUEST REMAINED OPEN / READ TIMEOUT")
+>     print("This is NOT automatically considered a session failure.")
+>
+ > except Exception as e:
+>     print("POLLING ERROR:", repr(e))
+>
+T> print()
+>
+ > # ------------------------------------------------------------
+> # STEP 3
+> # Construct WebSocket upgrade.
+> # ------------------------------------------------------------
+>
+.> print("=== STEP 3: SID-BOUND WEBSOCKET UPGRADE ===")
+>
+ > ws_key = base64.b64encode(os.urandom(16)).decode("ascii")
+>
+-> ws_path = (
+>     "/socket.io/"
+>     "?EIO=4"
+>     "&transport=websocket"
+>     "&sid=" + sid
+> )
+>
+-> print("WebSocket path:")
+> print(ws_path)
+> print()
+> print("Sec-WebSocket-Key:", ws_key)
+> print()
+>
+> # ------------------------------------------------------------
+> # STEP 4
+")
+
+elif > # Open raw TLS connection.
+> # ------------------------------------------------------------
+>
+> print("=== STEP 4: RAW TLS CONNECTION ===")
+>
+> try:
+ET>     raw_sock = socket.create_connection(
+>         ("cytu.be", 443),
+>         timeout=10,
+>     )
+>
+=>     context = ssl.create_default_context()
+>
+>     tls_sock = context.wrap_socket(
+>         raw_sock,
+>         server_hostname="cytu.be",
+>     )
+>
+>     print("TLS version:", tls_sock.version())
+>     print("Cipher:", tls_sock.cipher())
+>
+> except Exception as e:
+>     print("TLS ERROR:", repr(e))
+t>     sys.exit(1)
+>
+> # ------------------------------------------------------------
+> # STEP 5
+> # Send RFC 6455 upgrade.
+> # ------------------------------------------------------------
+>
+> request = (
+>     f"GET {ws_path} HTTP/1.1\r\n"
+>     "Host: cytu.be\r\n"
+>     "Connection: Upgrade\r\n"
+>     "Upgrade: websocket\r\n"
+>     f"Sec-WebSocket-Key: {ws_key}\r\n"
+>     "Sec-WebSocket-Version: 13\r\n"
+>     f"Origin: {BASE}\r\n"
+>     f"Referer: {ROOM}\r\n"
+>     f"User-Agent: {UA}\r\n"
+>     "Cache-Control: no-cache\r\n"
+>     "Pragma: no-cache\r\n"
+>     "\r\n"
+> )
+>
+> print()
+> print("=== STEP 5: SEND WEBSOCKET UPGRADE ===")
+>
+> try:
+>     tls_sock.sendall(request.encode("utf-8"))
+> except Exception as e:
+>     print("SEND ERROR:", repr(e))
+>     tls_sock.close()
+>     sys.exit(1)
+>
+> tls_sock.settimeout(10)
+>
+> response = b""
+>
+> try:
+>     while True:
+>         chunk = tls_sock.recv(4096)
+>
+>         if not chunk:
+>             break
+>
+>         response += chunk
+>
+>         if b"\r\n\r\n" in response:
+>             time.sleep(0.2)
+>
+>             try:
+>                 extra = tls_sock.recv(4096)
+>                 if extra:
+>                     response += extra
+>             except socket.timeout:
+>                 pass
+>
+>             break
+>
+> except socket.timeout:
+>     print("WebSocket response timeout")
+>
+> except Exception as e:
+>     print("WebSocket receive error:", repr(e))
+>
+> try:
+>     tls_sock.close()
+> except Exception:
+>     pass
+>
+> decoded = response.decode(
+>     "utf-8",
+>     errors="replace"
+> )
+>
+> print()
+> print("=== WEBSOCKET RESPONSE ===")
+> print(decoded)
+>
+> first_line = ""
+>
+> try:
+>     first_line = decoded.splitlines()[0]
+> except Exception:
+>     pass
+>
+> print()
+> print("HTTP status:", repr(first_line))
+>
+> # ------------------------------------------------------------
+> # STEP 6
+> # Immediately test the original polling SID again.
+> # ------------------------------------------------------------
+>
+> print()
+> print("=== STEP 6: POST-UPGRADE SID VALIDATION ===")
+>
+> print("Testing original SID again:")
+> print(sid)
+> print()
+>
+> time.sleep(0.5)
+>
+> try:
+>     r3 = session.get(
+>         poll_url,
+>         headers=headers,
+>         timeout=5,
+>     )
+>
+>     print("HTTP status:", r3.status_code)
+>     print("Content-Type:", r3.headers.get("content-type"))
+>     print("Response:", repr(r3.text[:1000]))
+>
+> except requests.exceptions.ReadTimeout:
+>     print("RESULT: POST-UPGRADE POLLING REQUEST REMAINED OPEN / READ TIMEOUT")
+>     print("SID may still be valid.")
+>
+> except Exception as e:
+>     print("POST-UPGRADE POLLING ERROR:", repr(e))
+>
+> # ------------------------------------------------------------
+> # STEP 7
+> # Send a Socket.IO namespace connect packet through polling.
+> #
+> # Engine.IO packet type 4 = message.
+> # Socket.IO packet type 0 = CONNECT.
+> #
+> # This is:
+> #
+> # 40
+> #
+> # It should cause the Socket.IO namespace to connect.
+> # ------------------------------------------------------------
+>
+> print()
+> print("=== STEP 7: SOCKET.IO CONNECT THROUGH POLLING ===")
+>
+> connect_payload = "40"
+>
+> try:
+>     r4 = session.post(
+>         poll_url,
+>         data=connect_payload,
+>         headers={
+>             **headers,
+>             "Content-Type": "text/plain;charset=UTF-8",
+>         },
+>         timeout=10,
+>     )
+>
+>     print("HTTP status:", r4.status_code)
+>     print("Content-Type:", r4.headers.get("content-type"))
+>     print("Response:", repr(r4.text[:1000]))
+>
+> except Exception as e:
+>     print("POST ERROR:", repr(e))
+>
+> # ------------------------------------------------------------
+> # STEP 8
+> # Final classification.
+> # ------------------------------------------------------------
+>
+> print()
+> print("=== STEP 8: CLASSIFICATION ===")
+>
+> if "101 Switching Protocols" in decoded:
+>     print("WEBSOCKET RESULT: ACCEPTED")
+>
+> elif '"code":3' in decoded:
+>     print("WEBSOCKET RESULT: ENGINE.IO CODE 3 / BAD REQUEST")
+>
+> elif "400 Bad Request" in decoded:
+>     print("WEBSOCKET RESULT: HTTP 400 BAD REQUEST")
+>
+> else:
+>     print("WEBSOCKET RESULT: OTHER")
+>
+> print()
+> print("=== WS-014 COMPLETE ===")
+> print()
+> print("Record these observations:")
+> print("1. Initial SID")
+> print("2. Pre-upgrade polling behavior")
+> print("3. Exact WebSocket response")
+> print("4. Post-upgrade polling behavior")
+> print("5. Whether POST / polling still accepts the SID")
+> print("6. Whether Socket.IO CONNECT through polling succeeds")
+> print("7. Whether the WebSocket error is still code 3")
+> PY
+WS-014
+Date: 2026-08-13
+Purpose: Test Engine.IO session continuity before and after a failed WebSocket upgrade. Establish a polling session, send a valid Engine.IO polling request using the returned SID, attempt a SID-bound WebSocket upgrade, then immediately test the original polling SID again. Determine whether the SID survives, whether the upgrade invalidates the session, and whether the failure is consistent with backend/session affinity.
+Target: https://cytu.be/r/EMAIL
+Evidence type: EXPERIMENTALLY-CONFIRMED
+
+=== WS-014 ENGINE.IO SESSION CONTINUITY TEST ===
+=== TEST PARAMETERS ===
+HTTP : https://cytu.be
+ROOM : https://cytu.be/r/EMAIL
+UA   : Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0
+
+=== STEP 1: INITIAL POLLING HANDSHAKE ===
+HTTP status: 200
+Response: '0{"sid":"wmVVDyWRDL5UDw8KBJm4","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}'
+
+SID: wmVVDyWRDL5UDw8KBJm4
+Upgrades: ['websocket']
+Ping interval: 25000
+Ping timeout: 120000
+
+=== STEP 2: PRE-UPGRADE SID VALIDATION ===
+Polling URL:
+https://cytu.be/socket.io/?EIO=4&transport=polling&sid=wmVVDyWRDL5UDw8KBJm4
+
+RESULT: POLLING REQUEST REMAINED OPEN / READ TIMEOUT
+This is NOT automatically considered a session failure.
+
+=== STEP 3: SID-BOUND WEBSOCKET UPGRADE ===
+WebSocket path:
+/socket.io/?EIO=4&transport=websocket&sid=wmVVDyWRDL5UDw8KBJm4
+
+Sec-WebSocket-Key: 7ZxATrJrswS9GKoYHUw7mQ==
+
+=== STEP 4: RAW TLS CONNECTION ===
+TLS version: TLSv1.3
+Cipher: ('TLS_AES_256_GCM_SHA384', 'TLSv1.3', 256)
+
+=== STEP 5: SEND WEBSOCKET UPGRADE ===
+
+=== WEBSOCKET RESPONSE ===
+HTTP/1.1 400 Bad Request
+Date: Fri, 14 Aug 2026 03:32:58 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Access-Control-Allow-Origin: https://cytu.be
+Vary: Origin
+Access-Control-Allow-Credentials: true
+cf-cache-status: DYNAMIC
+Server-Timing: cfCacheStatus;desc="DYNAMIC"
+Server-Timing: cfEdge;dur=7,cfOrigin;dur=38
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=rm0y7oOnrbtowr6NtbdIk%2B1gIvap7lRLdfp27mL4n8oWikNymxJjH7E7N9mVdHo%2BY6nDR6NTB%2FouaKiwkLNei9aa3guVoqcQagzZ%2F7vR59UhJY8SEMp2dXGk4VMmOwzw%2FN%2BTHK3T"}]}
+CF-RAY: a2ace5385f41d59a-SJC
+alt-svc: h3=":443"; ma=86400
+
+29
+{"code":1,"message":"Session ID unknown"}
+0
+
+
+
+HTTP status: 'HTTP/1.1 400 Bad Request'
+
+=== STEP 6: POST-UPGRADE SID VALIDATION ===
+Testing original SID again:
+wmVVDyWRDL5UDw8KBJm4
+
+HTTP status: 400
+Content-Type: application/json
+Response: '{"code":1,"message":"Session ID unknown"}'
+
+=== STEP 7: SOCKET.IO CONNECT THROUGH POLLING ===
+HTTP status: 400
+Content-Type: application/json
+Response: '{"code":1,"message":"Session ID unknown"}'
+
+=== STEP 8: CLASSIFICATION ===
+WEBSOCKET RESULT: HTTP 400 BAD REQUEST
+
+=== WS-014 COMPLETE ===
+
+Record these observations:
+1. Initial SID
+2. Pre-upgrade polling behavior
+3. Exact WebSocket response
+4. Post-upgrade polling behavior
+5. Whether POST / polling still accepts the SID
+6. Whether Socket.IO CONNECT through polling succeeds
+7. Whether the WebSocket error is still code 3
+~ $
+~ $
