@@ -1,0 +1,229 @@
+~ $ echo 'WS-008
+t requests
+import sys
+
+BASE = "https://cytu.be"
+WS   = "wss://cytu.be/socket.io/?EIO=4&transport=websocket"
+
+UA = "Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0"
+
+print("=== TEST PARAMETERS ===")
+print("H> Date: 2026-08-13
+TTP :", BASE)> Purpose: Diagnose Cytube Engine.IO WebSocket upgrade failure after a successful Engine.IO v4 polling handshake. Compare browser-like headers, Origin handling, cookies, and the exact WebSocket upgrade request.
+> Target: https://cytu.be/r/EMAIL
+, repr(e))
+    sys.exit(1)
+
+print> Evidence type: EXPERIMENTALLY-CONFIRMED
+/cytu.be/r/EMAIL",
+]
+
+print("Headers:")
+fo>
+aders:
+    print(" ", h)
+
+print()
+
+try:
+    > === WEBSOCKET UPGRADE DIAGNOSTIC ===' &&
+,
+        header=ws_headers,
+        cookie="; ".join(
+    > python - <<'PY'
+        f"{c.name}={c.value}" for c in s.cookies
+  > import websocket
+> import ssl
+10,
+        sslopt={
+            > import requests
+   print("=== WEBSOCKET CONNECTE> import sys
+
+        ws.settimeout(5)
+
+  >
+True:
+            msg = ws> BASE = "https://cytu.be"
+ <None>")
+                break
+
+           > WS   = "wss://cytu.be/socket.io/?EIO=4&transport=websocket"
+>
+> UA = "Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0"
+   header=[
+            "User-Agent: " + UA,
+            "Referer: https:>
+> print("=== TEST PARAMETERS ===")
+D
+        },
+    )
+
+    print("CONNECTED WITHOUT > print("HTTP :", BASE)
+  print("FRAME:", repr(ws.recv()))
+    excep> print("WS   :", WS)
+e()
+
+except Exceptio> print("Origin: https://cytu.be")
+> print("UA   :", UA)
+> print()
+>
+> print("=== STEP 1: ENGINE.IO POLLING HANDSHAKE ===")
+>
+> s = requests.Session()
+>
+> headers = {
+>     "User-Agent": UA,
+>     "Origin": "https://cytu.be",
+>     "Referer": "https://cytu.be/r/EMAIL",
+> }
+>
+> try:
+>     r = s.get(
+>         BASE + "/socket.io/?EIO=4&transport=polling",
+>         headers=headers,
+>         timeout=10,
+>     )
+>
+>     print("HTTP status:", r.status_code)
+>     print("Content-Type:", r.headers.get("content-type"))
+>     print("Access-Control-Allow-Origin:",
+>           r.headers.get("access-control-allow-origin"))
+>     print("Access-Control-Allow-Credentials:",
+>           r.headers.get("access-control-allow-credentials"))
+>     print("Set-Cookie:", r.headers.get("set-cookie"))
+>     print("Response:")
+>     print(repr(r.text[:1000]))
+>     print()
+>
+> except Exception as e:
+>     print("POLLING ERROR:", repr(e))
+>     sys.exit(1)
+>
+> print("=== STEP 2: RAW WEBSOCKET CONNECTION ===")
+>
+> ws_headers = [
+>     "User-Agent: " + UA,
+>     "Origin: https://cytu.be",
+>     "Referer: https://cytu.be/r/EMAIL",
+> ]
+>
+> print("Headers:")
+> for h in ws_headers:
+>     print(" ", h)
+>
+> print()
+>
+> try:
+>     ws = websocket.create_connection(
+>         WS,
+>         origin="https://cytu.be",
+>         host="cytu.be",
+>         header=ws_headers,
+>         cookie="; ".join(
+>             f"{c.name}={c.value}" for c in s.cookies
+>         ),
+>         timeout=10,
+>         sslopt={
+>             "cert_reqs": ssl.CERT_REQUIRED
+>         },
+>     )
+>
+>     print("=== WEBSOCKET CONNECTED ===")
+>     print("SUCCESS")
+>
+>     try:
+>         ws.settimeout(5)
+>
+>         while True:
+>             msg = ws.recv()
+>
+>             if msg is None:
+>                 print("FRAME: <None>")
+>                 break
+>
+>             print("FRAME:", repr(msg))
+>
+>     except Exception as e:
+>         print("RECEIVE COMPLETE:", repr(e))
+>
+>     ws.close()
+>
+> except Exception as e:
+>     print("=== WEBSOCKET CONNECTION FAILED ===")
+>     print(type(e).__name__)
+>     print(repr(e))
+>
+> print()
+> print("=== STEP 3: TEST WITHOUT ORIGIN OVERRIDE ===")
+>
+> try:
+>     ws = websocket.create_connection(
+>         WS,
+>         host="cytu.be",
+>         header=[
+>             "User-Agent: " + UA,
+>             "Referer: https://cytu.be/r/EMAIL",
+>         ],
+>         timeout=10,
+>         sslopt={
+>             "cert_reqs": ssl.CERT_REQUIRED
+>         },
+>     )
+>
+>     print("CONNECTED WITHOUT EXPLICIT ORIGIN")
+>
+>     try:
+>         print("FRAME:", repr(ws.recv()))
+>     except Exception as e:
+>         print("RECEIVE:", repr(e))
+>
+>     ws.close()
+>
+> except Exception as e:
+>     print("FAILED WITHOUT ORIGIN:")
+>     print(type(e).__name__)
+>     print(repr(e))
+>
+> print()
+> print("=== WS-008 COMPLETE ===")
+> PY
+WS-008
+Date: 2026-08-13
+Purpose: Diagnose Cytube Engine.IO WebSocket upgrade failure after a successful Engine.IO v4 polling handshake. Compare browser-like headers, Origin handling, cookies, and the exact WebSocket upgrade request.
+Target: https://cytu.be/r/EMAIL
+Evidence type: EXPERIMENTALLY-CONFIRMED
+
+=== WEBSOCKET UPGRADE DIAGNOSTIC ===
+=== TEST PARAMETERS ===
+HTTP : https://cytu.be
+WS   : wss://cytu.be/socket.io/?EIO=4&transport=websocket
+Origin: https://cytu.be
+UA   : Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0
+
+=== STEP 1: ENGINE.IO POLLING HANDSHAKE ===
+HTTP status: 200
+Content-Type: text/plain; charset=UTF-8
+Access-Control-Allow-Origin: https://cytu.be
+Access-Control-Allow-Credentials: true
+Set-Cookie: None
+Response:
+'0{"sid":"tmz-8ASEgnF_CT19BJmx","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}'
+
+=== STEP 2: RAW WEBSOCKET CONNECTION ===
+Headers:
+  User-Agent: Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0
+  Origin: https://cytu.be
+  Referer: https://cytu.be/r/EMAIL
+
+=== WEBSOCKET CONNECTION FAILED ===
+WebSocketBadStatusException
+WebSocketBadStatusException('Handshake status 400 Bad Request -+-+- {\'date\': \'Fri, 14 Aug 2026 02:11:06 GMT\', \'content-type\': \'application/json\', \'transfer-encoding\': \'chunked\', \'connection\': \'keep-alive\', \'server\': \'cloudflare\', \'nel\': \'{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}\', \'cf-cache-status\': \'DYNAMIC\', \'server-timing\': \'cfEdge;dur=8,cfOrigin;dur=40\', \'report-to\': \'{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=rY%2Bz30m%2FrgmBPfa%2FXF%2Fy7Z2r4%2FQtD8o8NjBTN0WwZblVdmsTlzam0FQk8SnDLF74X6uvtXf%2F8sUwz0CUwm6afI5CH5P4JZUEWHI86Nf4QQVAxzLI3p5GoRFgfsn4oDpHMDHL7lzD"}]}\', \'cf-ray\': \'a2ac6d506e57ed38-SJC\', \'alt-svc\': \'h3=":443"; ma=86400\'} -+-+- None')
+
+=== STEP 3: TEST WITHOUT ORIGIN OVERRIDE ===
+FAILED WITHOUT ORIGIN:
+WebSocketBadStatusException
+WebSocketBadStatusException('Handshake status 400 Bad Request -+-+- {\'date\': \'Fri, 14 Aug 2026 02:11:07 GMT\', \'content-type\': \'application/json\', \'transfer-encoding\': \'chunked\', \'connection\': \'keep-alive\', \'server\': \'cloudflare\', \'nel\': \'{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}\', \'access-control-allow-origin\': \'https://cytu.be\', \'vary\': \'Origin\', \'access-control-allow-credentials\': \'true\', \'cf-cache-status\': \'DYNAMIC\', \'server-timing\': \'cfEdge;dur=20,cfOrigin;dur=36\', \'report-to\': \'{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=2SSIosXtqKPDXNk%2BZMsq%2FivSC1gNCtOr%2BTbtQT1NT7VEi3%2FgJcseF7WuHGdW3uHNVTNNq349HMvAI61UHHadZtybvJYcu%2BeO6RecD3PqzzPxA01BCZrsELetLibx3T7ap89%2F0eRR"}]}\', \'cf-ray\': \'a2ac6d5208518fc5-SJC\', \'alt-svc\': \'h3=":443"; ma=86400\'} -+-+- None')
+
+=== WS-008 COMPLETE ===
+~ $
+~ $
