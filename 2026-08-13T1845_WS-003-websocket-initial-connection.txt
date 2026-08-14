@@ -1,0 +1,141 @@
+~ $ echo 'WS-003
+> Date: 2026-08-13
+> Purpose: Establish a direct secure WebSocket connection to Cytube Engine.IO and observe the initial server frames.
+> Target: https://cytu.be/r/EMAIL
+> Evidence type: OBSERVED
+>
+> === EIO=3 DIRECT WEBSOCKET ===' &&
+> timeout 10 curl --no-buffer -v \
+>   'wss://cytu.be/socket.io/?EIO=3&transport=websocket' 2>&1 || true &&
+> echo &&
+> echo '=== EIO=4 DIRECT WEBSOCKET ===' &&
+> timeout 10 curl --no-buffer -v \
+>   'wss://cytu.be/socket.io/?EIO=4&transport=websocket' 2>&1 || true
+WS-003
+Date: 2026-08-13
+Purpose: Establish a direct secure WebSocket connection to Cytube Engine.IO and observe the initial server frames.
+Target: https://cytu.be/r/EMAIL
+Evidence type: OBSERVED
+
+=== EIO=3 DIRECT WEBSOCKET ===
+*   Trying [2606:4700:3035::ac43:8e8b]:443...
+* Host cytu.be:443 was resolved.
+* IPv6: 2606:4700:3035::ac43:8e8b, 2606:4700:3033::6815:4f3d
+* IPv4: 104.21.79.61, 172.67.142.139
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* SSL Trust Anchors:
+*   CAfile: /data/data/com.termux/files/usr/etc/tls/cert.pem
+*   CApath: /data/data/com.termux/files/usr/etc/tls/certs
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.3 (IN), TLS change cipher, Change cipher spec (1):
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384 / X25519MLKEM768 / id-ecPublicKey
+* Server certificate:
+*   subject: CN=cytu.be
+*   start date: Jul  4 15:00:02 2026 GMT
+*   expire date: Oct  2 15:57:41 2026 GMT
+*   issuer: C=US; O=Google Trust Services; CN=WE1
+*   Certificate level 0: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA256
+*   Certificate level 1: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA384
+*   Certificate level 2: Public key type EC/secp384r1 (384/192 Bits/secBits), signed using ecdsa-with-SHA384
+*   subjectAltName: "cytu.be" matches cert's "cytu.be"
+* OpenSSL verify result: 0
+* SSL certificate verified via OpenSSL.
+* Established connection to cytu.be (2606:4700:3035::ac43:8e8b port 443) from 2600:1010:b111:f92a:f154:962f:3a9f:10ed port 38680
+* using HTTP/1.x
+> GET /socket.io/?EIO=3&transport=websocket HTTP/1.1
+> Host: cytu.be
+> User-Agent: curl/8.21.0
+> Accept: */*
+> Upgrade: websocket
+> Sec-WebSocket-Version: 13
+> Sec-WebSocket-Key: MC7WMDJk7PDmBX/OuecA7g==
+> Connection: Upgrade
+>
+* Request completely sent off
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+< HTTP/1.1 400 Bad Request
+< Date: Fri, 14 Aug 2026 01:46:12 GMT
+< Content-Type: application/json
+< Transfer-Encoding: chunked
+< Connection: keep-alive
+< Server: cloudflare
+< Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+< Vary: Origin
+< Access-Control-Allow-Credentials: true
+< cf-cache-status: DYNAMIC
+< Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=2ykdnZyzy7rkeqtfyRXAMYQqbl6zJwUykobDpiXnyjMi%2FCpjFBK42s6YyPewnGZHWrpQD9d%2BgRs5mS9%2F%2BnPzxVRMfStQgnU%2FqOrAAGox6jO4UMExsaAWpDPGEP3BAoTQIjlRMCKt"}]}
+< CF-RAY: a2ac48d69a48cf4d-SJC
+< alt-svc: h3=":443"; ma=86400
+* Refused WebSocket upgrade: 400
+<
+* closing connection #0
+curl: (22) Refused WebSocket upgrade: 400
+
+=== EIO=4 DIRECT WEBSOCKET ===
+*   Trying [2606:4700:3035::ac43:8e8b]:443...
+* Host cytu.be:443 was resolved.
+* IPv6: 2606:4700:3035::ac43:8e8b, 2606:4700:3033::6815:4f3d
+* IPv4: 104.21.79.61, 172.67.142.139
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* SSL Trust Anchors:
+*   CAfile: /data/data/com.termux/files/usr/etc/tls/cert.pem
+*   CApath: /data/data/com.termux/files/usr/etc/tls/certs
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.3 (IN), TLS change cipher, Change cipher spec (1):
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384 / X25519MLKEM768 / id-ecPublicKey
+* Server certificate:
+*   subject: CN=cytu.be
+*   start date: Jul  4 15:00:02 2026 GMT
+*   expire date: Oct  2 15:57:41 2026 GMT
+*   issuer: C=US; O=Google Trust Services; CN=WE1
+*   Certificate level 0: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA256
+*   Certificate level 1: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA384
+*   Certificate level 2: Public key type EC/secp384r1 (384/192 Bits/secBits), signed using ecdsa-with-SHA384
+*   subjectAltName: "cytu.be" matches cert's "cytu.be"
+* OpenSSL verify result: 0
+* SSL certificate verified via OpenSSL.
+* Established connection to cytu.be (2606:4700:3035::ac43:8e8b port 443) from 2600:1010:b111:f92a:f154:962f:3a9f:10ed port 38696
+* using HTTP/1.x
+> GET /socket.io/?EIO=4&transport=websocket HTTP/1.1
+> Host: cytu.be
+> User-Agent: curl/8.21.0
+> Accept: */*
+> Upgrade: websocket
+> Sec-WebSocket-Version: 13
+> Sec-WebSocket-Key: YDTLteog33teVo2oldiDBg==
+> Connection: Upgrade
+>
+* Request completely sent off
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+< HTTP/1.1 400 Bad Request
+< Date: Fri, 14 Aug 2026 01:46:13 GMT
+< Content-Type: application/json
+< Transfer-Encoding: chunked
+< Connection: keep-alive
+< Server: cloudflare
+< Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+< Vary: Origin
+< Access-Control-Allow-Credentials: true
+< cf-cache-status: DYNAMIC
+< Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=hEq6nzKjDXGPcz8x7LX4MHBW17eXDobgdaslGwgqBZk4qdVrcZIVuooYObedMdxdNrzMOj5Zzyaf4ozGhFVjEnom%2FB7aG%2BmGR0t432dkg5lb4ADBbh%2Bz%2FEuJ5p%2FnJfhrUF5LsExT"}]}
+< CF-RAY: a2ac48d8ba781ed2-SJC
+< alt-svc: h3=":443"; ma=86400
+* Refused WebSocket upgrade: 400
+<
+* closing connection #0
+curl: (22) Refused WebSocket upgrade: 400
+~ $

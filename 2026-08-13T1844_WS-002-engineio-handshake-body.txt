@@ -1,0 +1,27 @@
+ $ echo 'WS-002
+> Date: 2026-08-13
+> Purpose: Capture the complete Engine.IO polling handshake body from Cytube and identify the session ID, protocol parameters, ping timing, and WebSocket upgrade availability.
+> Target: https://cytu.be/r/EMAIL
+> Evidence type: OBSERVED
+>
+> === EIO=3 HANDSHAKE ===' &&
+> curl -sS \
+>   'https://cytu.be/socket.io/?EIO=3&transport=polling' &&
+> echo &&
+> echo &&
+> echo '=== EIO=4 HANDSHAKE ===' &&
+> curl -sS \
+>   'https://cytu.be/socket.io/?EIO=4&transport=polling' &&
+> echo
+WS-002
+Date: 2026-08-13
+Purpose: Capture the complete Engine.IO polling handshake body from Cytube and identify the session ID, protocol parameters, ping timing, and WebSocket upgrade availability.
+Target: https://cytu.be/r/EMAIL
+Evidence type: OBSERVED
+
+=== EIO=3 HANDSHAKE ===
+119:0{"sid":"HhlwDzca9q8rgVzRBJmr","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}
+
+=== EIO=4 HANDSHAKE ===
+0{"sid":"TiC_sNNXfoDjPzPqBJms","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}
+~ $

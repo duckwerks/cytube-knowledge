@@ -1,0 +1,226 @@
+~ $ echo 'WS-007
+vents.
+Target: https://cytu.be/r/EMAIL
+Evidence type: EXPERIMENTALLY-CONFIRMED
+
+=== INSTALL PYTHON SOCKET.IO CLIENT ===' &&
+python -m pip install --upgrade "python-socketio[client]" &&
+echo &&
+echo '=== SOCKET.IO CONNECTION TEST ===' &&
+python - <<'PY'
+import socketio
+import time
+
+print("Creating Socket.IO v4 client...")
+print()
+
+sio = socketio.Client(
+    logger=Tru> Date: 2026-08-13
+lse,
+)
+
+@sio.event
+def connect():> Purpose: Connect to Cytube using a real Socket.IO v4 client implementation and observe the Engine.IO polling handshake, Socket.IO namespace connection, transport selection, WebSocket upgrade, and initial server events.
+> Target: https://cytu.be/r/EMAIL
+> Evidence type: EXPERIMENTALLY-CONFIRMED
+>
+> === INSTALL PYTHON SOCKET.IO CLIENT ===' &&
+> python -m pip install --upgrade "python-socketio[client]" &&
+> echo &&
+> echo '=== SOCKET.IO CONNECTION TEST ===' &&
+> python - <<'PY'
+  "User-Agent":
+                "Mozilla> import socketio
+> import time
+>
+> print("Creating Socket.IO v4 client...")
+> print()
+nt()
+    print(>
+> sio = socketio.Client(
+>     logger=True,
+>     engineio_logger=True,
+>     reconnection=False,
+> )
+>
+> @sio.event
+> def connect():
+>     print()
+>     print("=== SOCKET.IO CONNECTED ===")
+>     print("Connected:", sio.connected)
+>
+>     try:
+>         print("Transport:", sio.transport())
+>     except Exception as e:
+>         print("Transport query error:", repr(e))
+>
+>     print("Socket.IO SID:", sio.sid)
+>
+> @sio.event
+> def connect_error(data):
+pr(e))
+
+    if sio.connected:
+        sio.disconnect()
+>     print()
+>     print("=== SOCKET.IO CONNECT ERROR ===")
+>     print(repr(data))
+>
+> @sio.event
+> def disconnect():
+>     print()
+>     print("=== SOCKET.IO DISCONNECTED ===")
+>
+> @sio.on("*")
+> def catch_all(event, data):
+>     print()
+>     print("=== SOCKET.IO EVENT ===")
+>     print("EVENT:", event)
+>     print("DATA:", repr(data))
+>
+> try:
+>     print("Connecting to https://cytu.be ...")
+>     print()
+>
+>     sio.connect(
+>         "https://cytu.be",
+>         socketio_path="socket.io",
+>         transports=["polling", "websocket"],
+>         wait_timeout=15,
+>         headers={
+>             "User-Agent":
+>                 "Mozilla/5.0 (Android 10; Mobile) Gecko/153.0 Firefox/153.0"
+>         },
+>     )
+>
+>     print()
+>     print("=== POST-CONNECTION STATE ===")
+>     print("Connected:", sio.connected)
+>     print("Socket.IO SID:", sio.sid)
+>
+>     try:
+>         print("Current transport:", sio.transport())
+>     except Exception as e:
+>         print("Transport query error:", repr(e))
+>
+>     print()
+>     print("Waiting 15 seconds for server events / transport upgrade...")
+>     time.sleep(15)
+>
+> except Exception as e:
+>     print()
+>     print("=== CONNECTION EXCEPTION ===")
+>     print(repr(e))
+>
+> finally:
+>     print()
+>     print("=== FINAL STATE ===")
+>     print("Connected:", sio.connected)
+>
+>     try:
+>         print("Socket.IO SID:", sio.sid)
+>     except Exception:
+>         pass
+>
+>     try:
+>         print("Transport:", sio.transport())
+>     except Exception as e:
+>         print("Transport unavailable:", repr(e))
+>
+>     if sio.connected:
+>         sio.disconnect()
+>
+> PY
+WS-007
+Date: 2026-08-13
+Purpose: Connect to Cytube using a real Socket.IO v4 client implementation and observe the Engine.IO polling handshake, Socket.IO namespace connection, transport selection, WebSocket upgrade, and initial server events.
+Target: https://cytu.be/r/EMAIL
+Evidence type: EXPERIMENTALLY-CONFIRMED
+
+=== INSTALL PYTHON SOCKET.IO CLIENT ===
+Collecting python-socketio[client]
+  Downloading python_socketio-5.16.4-py3-none-any.whl.metadata (3.3 kB)
+Collecting bidict>=0.21.0 (from python-socketio[client])
+  Downloading bidict-0.23.1-py3-none-any.whl.metadata (8.7 kB)
+Collecting python-engineio>=4.13.2 (from python-socketio[client])
+  Downloading python_engineio-4.13.5-py3-none-any.whl.metadata (1.9 kB)
+Collecting requests>=2.21.0 (from python-socketio[client])
+  Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Requirement already satisfied: websocket-client>=0.54.0 in /data/data/com.termux/files/usr/lib/python3.13/site-packages (from python-socketio[client]) (1.9.0)
+Collecting simple-websocket>=0.10.0 (from python-engineio>=4.13.2->python-socketio[client])
+  Downloading simple_websocket-1.1.0-py3-none-any.whl.metadata (1.5 kB)
+Collecting charset_normalizer<4,>=2 (from requests>=2.21.0->python-socketio[client])
+  Downloading charset_normalizer-3.5.0-cp313-cp313-android_24_arm64_v8a.whl.metadata (44 kB)
+Collecting idna<4,>=2.5 (from requests>=2.21.0->python-socketio[client])
+  Downloading idna-3.18-py3-none-any.whl.metadata (6.1 kB)
+Collecting urllib3<3,>=1.26 (from requests>=2.21.0->python-socketio[client])
+  Downloading urllib3-2.7.0-py3-none-any.whl.metadata (6.9 kB)
+Collecting certifi>=2023.5.7 (from requests>=2.21.0->python-socketio[client])
+  Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+Collecting wsproto (from simple-websocket>=0.10.0->python-engineio>=4.13.2->python-socketio[client])
+  Downloading wsproto-1.3.2-py3-none-any.whl.metadata (5.2 kB)
+Collecting h11<1,>=0.16.0 (from wsproto->simple-websocket>=0.10.0->python-engineio>=4.13.2->python-socketio[client])
+  Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Downloading python_socketio-5.16.4-py3-none-any.whl (82 kB)
+Downloading bidict-0.23.1-py3-none-any.whl (32 kB)
+Downloading python_engineio-4.13.5-py3-none-any.whl (59 kB)
+Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+Downloading charset_normalizer-3.5.0-cp313-cp313-android_24_arm64_v8a.whl (211 kB)
+Downloading idna-3.18-py3-none-any.whl (65 kB)
+Downloading urllib3-2.7.0-py3-none-any.whl (131 kB)
+Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+Downloading simple_websocket-1.1.0-py3-none-any.whl (13 kB)
+Downloading wsproto-1.3.2-py3-none-any.whl (24 kB)
+Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+Installing collected packages: urllib3, idna, h11, charset_normalizer, certifi, bidict, wsproto, requests, simple-websocket, python-engineio, python-socketio
+Successfully installed bidict-0.23.1 certifi-2026.7.22 charset_normalizer-3.5.0 h11-0.16.0 idna-3.18 python-engineio-4.13.5 python-socketio-5.16.4 requests-2.34.2 simple-websocket-1.1.0 urllib3-2.7.0 wsproto-1.3.2
+
+=== SOCKET.IO CONNECTION TEST ===
+Creating Socket.IO v4 client...
+
+Connecting to https://cytu.be ...
+
+Attempting polling connection to https://cytu.be/socket.io/?transport=polling&EIO=4
+Polling connection accepted with {'sid': 'Cw0xuZaO9QGXvrmMBJmv', 'upgrades': ['websocket'], 'pingInterval': 25000, 'pingTimeout': 120000, 'maxPayload': 1048576}
+Engine.IO connection established
+Sending packet MESSAGE data 0{}
+Attempting WebSocket upgrade to wss://cytu.be/socket.io/?transport=websocket&EIO=4
+WebSocket upgrade failed: connection error
+Sending polling GET request to https://cytu.be/socket.io/?transport=polling&EIO=4&sid=Cw0xuZaO9QGXvrmMBJmv
+Received packet MESSAGE data 0{"sid":"XX6mhOF29f8x5Tq1BJmw"}
+Namespace / is connected
+
+=== SOCKET.IO CONNECTED ===
+Sending polling GET request to https://cytu.be/socket.io/?transport=polling&EIO=4&sid=Cw0xuZaO9QGXvrmMBJmv
+Connected: False
+Transport: polling
+Socket.IO SID: Cw0xuZaO9QGXvrmMBJmv
+
+=== POST-CONNECTION STATE ===
+Connected: True
+Socket.IO SID: Cw0xuZaO9QGXvrmMBJmv
+Current transport: polling
+
+Waiting 15 seconds for server events / transport upgrade...
+Received packet MESSAGE data 2["rank",-1]
+Received event "rank" [/]
+
+=== SOCKET.IO EVENT ===
+EVENT: rank
+DATA: -1
+Sending polling GET request to https://cytu.be/socket.io/?transport=polling&EIO=4&sid=Cw0xuZaO9QGXvrmMBJmv
+
+=== FINAL STATE ===
+Connected: True
+Socket.IO SID: Cw0xuZaO9QGXvrmMBJmv
+Transport: polling
+Sending packet MESSAGE data 1
+Sending packet CLOSE data None
+Engine.IO connection dropped
+
+=== SOCKET.IO DISCONNECTED ===
+Received packet NOOP data
+Exiting write loop task
+Waiting for write loop task to end
+Exiting read loop task
+~ $

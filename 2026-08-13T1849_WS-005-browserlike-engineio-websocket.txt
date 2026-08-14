@@ -1,0 +1,79 @@
+~ $ echo 'WS-005
+> Date: 2026-08-13
+> Purpose: Test Cytube Engine.IO WebSocket connectivity using a browser-like Python WebSocket client with Origin and User-Agent headers.
+> Target: https://cytu.be/r/EMAIL
+> Evidence type: EXPERIMENTALLY-CONFIRMED
+>
+> === INSTALL PYTHON WEBSOCKET CLIENT ===' &&
+> pkg install python -y &&
+> python -m pip install --upgrade websocket-client &&
+> echo &&
+> echo '=== EIO=3 WEBSOCKET TEST ===' &&
+> python - <<'PY'
+> import websocket
+> import ssl
+>
+> url = "wss://cytu.be/socket.io/?EIO=3&transport=websocket"
+>
+> print("URL:", url)
+> print("Origin: https://cytu.be")
+> print()
+>
+> try:
+>     ws = websocket.create_connection(
+>         url,
+>         origin="https://cytu.be",
+>         host="cytu.be",
+>         header=[
+>             "User-Agent: Mozilla/5.0 (Android 10; Mobile) Gecko/153.0 Firefox/153.0"
+>         ],
+>         timeout=10,
+>         sslopt={"cert_reqs": ssl.CERT_REQUIRED}
+>     )
+>
+>     print("CONNECTED")
+>     print("Waiting for server frame...")
+>     ws.settimeout(5)
+>
+>     try:
+>         while True:
+>             msg = ws.recv()
+>             print("FRAME:", repr(msg))
+>     except Exception as e:
+>         print("RECEIVE COMPLETE:", repr(e))
+>
+>     ws.close()
+>
+> except Exception as e:
+>     print("CONNECTION ERROR:", repr(e))
+> PY
+WS-005
+Date: 2026-08-13
+Purpose: Test Cytube Engine.IO WebSocket connectivity using a browser-like Python WebSocket client with Origin and User-Agent headers.
+Target: https://cytu.be/r/EMAIL
+Evidence type: EXPERIMENTALLY-CONFIRMED
+
+=== INSTALL PYTHON WEBSOCKET CLIENT ===
+Hit:1 https://root-packages.termux.net root InRelease
+Hit:2 https://termux.net stable InRelease
+Hit:3 https://x11-packages.termux.net x11 InRelease
+53 packages can be upgraded. Run 'apt list --upgradable' to see them.
+python is already the newest version (3.13.13-1).
+The following package was automatically installed and is no longer required:
+  gzip
+Use 'apt autoremove' to remove it.
+
+Summary:
+  Upgrading: 0, Installing: 0, Removing: 0, Not Upgrading: 53
+Collecting websocket-client
+  Downloading websocket_client-1.9.0-py3-none-any.whl.metadata (8.3 kB)
+Downloading websocket_client-1.9.0-py3-none-any.whl (82 kB)
+Installing collected packages: websocket-client
+Successfully installed websocket-client-1.9.0
+
+=== EIO=3 WEBSOCKET TEST ===
+URL: wss://cytu.be/socket.io/?EIO=3&transport=websocket
+Origin: https://cytu.be
+
+CONNECTION ERROR: WebSocketBadStatusException('Handshake status 400 Bad Request -+-+- {\'date\': \'Fri, 14 Aug 2026 01:50:14 GMT\', \'content-type\': \'application/json\', \'transfer-encoding\': \'chunked\', \'connection\': \'keep-alive\', \'server\': \'cloudflare\', \'nel\': \'{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}\', \'access-control-allow-origin\': \'https://cytu.be\', \'vary\': \'Origin\', \'access-control-allow-credentials\': \'true\', \'cf-cache-status\': \'DYNAMIC\', \'server-timing\': \'cfEdge;dur=13,cfOrigin;dur=34\', \'report-to\': \'{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=CCmHYTVY08kTvOE8vwLp%2BQdxAT%2BBhpb4rB8wm%2BXByk6IYEqKZM0iN0cv9hQ%2B7uSKpds4umZxvt0ADlEqGaK1Ks%2Fgb7iu1KD%2BE0o0npM%2Fk8H%2BMVniYOrVuYoLG%2Fysle%2BTr%2FnDpj%2B%2F"}]}\', \'cf-ray\': \'a2ac4ebaeddc67b5-SJC\', \'alt-svc\': \'h3=":443"; ma=86400\'} -+-+- None')
+~ $

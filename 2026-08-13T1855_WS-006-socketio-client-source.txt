@@ -1,0 +1,461 @@
+~ $ echo 'WS-006
+d|socket\.io|Manager|Socket|openPacket|doOpen|setTransport' |
+head -200 &&
+echo &&
+echo '=== FIRST 40 LINES ===' &&
+curl -L --silent --show-error 'https://cytu.be/socket.io/socket.io.js' |
+head -40> Date: 2026-08-13
+> Purpose: Inspect Cytube Socket.IO client source directly without downloading a local file. Identify Engine.IO/Socket.IO version, transport configuration, path, upgrade behavior, and connection initialization.
+> Target: https://cytu.be/r/EMAIL
+> Evidence type: SOURCE-CONFIRMED
+>
+> === SOCKET.IO CLIENT SIZE ===' &&
+> curl -L --silent --show-error 'https://cytu.be/socket.io/socket.io.js' | wc -c &&
+> echo &&
+> echo '=== VERSION / PROTOCOL REFERENCES ===' &&
+> curl -L --silent --show-error 'https://cytu.be/socket.io/socket.io.js' |
+> grep -oE 'engine\.io[^,;)]*|socket\.io[^,;)]*|protocol[^,;)]*|EIO[=:][0-9]+' |
+> head -100 &&
+> echo &&
+> echo '=== TRANSPORT / WEBSOCKET / POLLING REFERENCES ===' &&
+> curl -L --silent --show-error 'https://cytu.be/socket.io/socket.io.js' |
+> grep -inE 'transport|websocket|polling|upgrade|upgradeTimeout|path' |
+> head -150 &&
+> echo &&
+> echo '=== CONNECTION / HANDSHAKE REFERENCES ===' &&
+> curl -L --silent --show-error 'https://cytu.be/socket.io/socket.io.js' |
+> grep -inE 'handshake|sid|socket\.io|Manager|Socket|openPacket|doOpen|setTransport' |
+> head -200 &&
+> echo &&
+> echo '=== FIRST 40 LINES ===' &&
+> curl -L --silent --show-error 'https://cytu.be/socket.io/socket.io.js' |
+> head -40
+WS-006
+Date: 2026-08-13
+Purpose: Inspect Cytube Socket.IO client source directly without downloading a local file. Identify Engine.IO/Socket.IO version, transport configuration, path, upgrade behavior, and connection initialization.
+Target: https://cytu.be/r/EMAIL
+Evidence type: SOURCE-CONFIRMED
+
+=== SOCKET.IO CLIENT SIZE ===
+119021
+
+=== VERSION / PROTOCOL REFERENCES ===
+protocol$1 = 4
+protocol
+protocols = this.opts.protocols
+protocolVersion"
+protocols ? new WebSocket(uri
+protocols
+protocols
+protocol'
+protocol === "https" || uri.protocol === "wss"
+protocol
+protocol default
+engine.io"
+engine.io protocol identifier
+protocol$1
+protocol = protocol$1
+protocol
+protocol + "//" + loc.host
+protocol + uri
+protocol + "//" + uri
+protocol
+protocol
+protocol + "://" + host + ":" + obj.port + path
+protocol + "://" + host + (loc && loc.port === obj.port ? "" : ":" + obj.port
+socket.io event packet
+protocol = 5
+socket.io Encoder instance
+socket.io Decoder instance
+protocol: protocol
+socket.io/docs/v3/migrating-from-2-x-to-3-0/
+socket.io"
+socket.io"
+socket.io.js.map
+
+=== TRANSPORT / WEBSOCKET / POLLING REFERENCES ===
+313:  PACKET_TYPES["upgrade"] = "5";
+731:  var TransportError = /*#__PURE__*/function (_Error) {
+732:    _inherits(TransportError, _Error);
+734:    var _super = _createSuper(TransportError);
+736:    function TransportError(reason, description, context) {
+739:      _classCallCheck(this, TransportError);
+744:      _this.type = "TransportError";
+748:    return _createClass(TransportError);
+751:  var Transport = /*#__PURE__*/function (_Emitter) {
+752:    _inherits(Transport, _Emitter);
+754:    var _super2 = _createSuper(Transport);
+757:     * Transport abstract constructor.
+762:    function Transport(opts) {
+765:      _classCallCheck(this, Transport);
+782:     * @return {Transport} for chaining
+787:    _createClass(Transport, [{
+790:        _get(_getPrototypeOf(Transport.prototype), "emitReserved", this).call(this, "error", new TransportError(reason, description, context));
+795:       * Opens the transport.
+811:       * Closes the transport.
+852:        _get(_getPrototypeOf(Transport.prototype), "emitReserved", this).call(this, "open");
+876:        _get(_getPrototypeOf(Transport.prototype), "emitReserved", this).call(this, "packet", packet);
+889:        _get(_getPrototypeOf(Transport.prototype), "emitReserved", this).call(this, "close", details);
+893:    return Transport;
+1018:  var Polling = /*#__PURE__*/function (_Transport) {
+1019:    _inherits(Polling, _Transport);
+1021:    var _super = _createSuper(Polling);
+1024:     * XHR Polling constructor.
+1029:    function Polling(opts) {
+1032:      _classCallCheck(this, Polling);
+1035:      _this.polling = false;
+1058:     * Transport name.
+1062:    _createClass(Polling, [{
+1065:        return "polling";
+1068:       * Opens the socket (triggers polling). We write a PING message to determine
+1069:       * when the transport is open.
+1080:       * Pauses polling.
+1082:       * @param {Function} callback upon buffers are flushed and transport is paused
+1098:        if (this.polling || !this.writable) {
+1101:          if (this.polling) {
+1119:       * Starts polling cycle.
+1127:        this.polling = true;
+1143:          // if its the first message we consider the transport open
+1151:              description: "transport closed by the server"
+1165:          // if we got data we're not polling
+1166:          this.polling = false;
+1175:       * For polling, send a close packet.
+1249:        return schema + "://" + (ipv6 ? "[" + this.opts.hostname + "]" : this.opts.hostname) + port + this.opts.path + (encodedQuery.length ? "?" + encodedQuery : "");
+1312:    return Polling;
+1313:  }(Transport);
+1534:  var WebSocket = globalThisShim.WebSocket || globalThisShim.MozWebSocket;
+1535:  var usingBrowserWebSocket = true;
+1539:  var WS = /*#__PURE__*/function (_Transport) {
+1540:    _inherits(WS, _Transport);
+1545:     * WebSocket transport constructor.
+1560:     * Transport name.
+1569:        return "websocket";
+1595:          this.ws = usingBrowserWebSocket && !isReactNative ? protocols ? new WebSocket(uri, protocols) : new WebSocket(uri) : new WebSocket(uri, protocols, opts);
+1624:            description: "websocket connection closed",
+1634:          return _this2.onError("websocket error", e);
+1663:              if (usingBrowserWebSocket) {
+1728:        return schema + "://" + (ipv6 ? "[" + this.opts.hostname + "]" : this.opts.hostname) + port + this.opts.path + (encodedQuery.length ? "?" + encodedQuery : "");
+1731:       * Feature detection for WebSocket.
+1733:       * @return {Boolean} whether this transport is available.
+1740:        return !!WebSocket;
+1745:  }(Transport);
+1747:  var transports = {
+1748:    websocket: WS,
+1749:    polling: Polling
+1761:  var parts = ['source', 'protocol', 'authority', 'userInfo', 'user', 'password', 'host', 'port', 'relative', 'path', 'directory', 'file', 'query', 'anchor'];
+1786:    uri.pathNames = pathNames(uri, uri['path']);
+1791:  function pathNames(obj, path) {
+1793:        names = path.replace(regx, "/").split("/");
+1795:    if (path.slice(0, 1) == '/' || path.length === 0) {
+1799:    if (path.slice(-1) == '/') {
+1862:      _this.transports = opts.transports || ["polling", "websocket"];
+1867:        path: "/engine.io",
+1870:        upgrade: true,
+1872:        rememberUpgrade: false,
+1877:        transportOptions: {},
+1880:      _this.opts.path = _this.opts.path.replace(/\/$/, "") + "/";
+1888:      _this.upgrades = null;
+1900:            if (_this.transport) {
+1901:              // silently close the transport
+1902:              _this.transport.removeAllListeners();
+1904:              _this.transport.close();
+1913:            _this.onClose("transport close", {
+1927:     * Creates transport of the given type.
+1929:     * @param {String} transport name
+1930:     * @return {Transport}
+1936:      key: "createTransport",
+1937:      value: function createTransport(name) {
+1941:        query.EIO = protocol$1; // transport name
+1943:        query.transport = name; // session id if we already have one
+1947:        var opts = _extends({}, this.opts.transportOptions[name], this.opts, {
+1955:        return new transports[name](opts);
+1958:       * Initializes transport to use and starts probe.
+1968:        var transport;
+1970:        if (this.opts.rememberUpgrade && Socket.priorWebsocketSuccess && this.transports.indexOf("websocket") !== -1) {
+1971:          transport = "websocket";
+1972:        } else if (0 === this.transports.length) {
+1975:            _this2.emitReserved("error", "No transports available");
+1979:          transport = this.transports[0];
+1982:        this.readyState = "opening"; // Retry with the next transport if the transport is disabled (jsonp: false)
+1985:          transport = this.createTransport(transport);
+1987:          this.transports.shift();
+1992:        transport.open();
+1993:        this.setTransport(transport);
+1996:       * Sets the current transport. Disables the existing one (if any).
+2002:      key: "setTransport",
+2003:      value: function setTransport(transport) {
+2006:        if (this.transport) {
+2007:          this.transport.removeAllListeners();
+2008:        } // set up transport
+2011:        this.transport = transport; // set up transport listeners
+2013:        transport.on("drain", this.onDrain.bind(this)).on("packet", this.onPacket.bind(this)).on("error", this.onError.bind(this)).on("close", function (reason) {
+2014:          return _this3.onClose("transport close", reason);
+2018:       * Probes a transport.
+2020:       * @param {String} transport name
+2029:        var transport = this.createTransport(name);
+2031:        Socket.priorWebsocketSuccess = false;
+2033:        var onTransportOpen = function onTransportOpen() {
+2035:          transport.send([{
+2039:          transport.once("packet", function (msg) {
+2045:              _this4.emitReserved("upgrading", transport);
+2047:              if (!transport) return;
+2048:              Socket.priorWebsocketSuccess = "websocket" === transport.name;
+2050:              _this4.transport.pause(function () {
+2055:                _this4.setTransport(transport);
+2057:                transport.send([{
+2058:                  type: "upgrade"
+2061:                _this4.emitReserved("upgrade", transport);
+2063:                transport = null;
+2071:              err.transport = transport.name;
+2073:              _this4.emitReserved("upgradeError", err);
+2078:        function freezeTransport() {
+2079:          if (failed) return; // Any callback called by transport should be ignored since now
+2083:          transport.close();
+2084:          transport = null;
+2091:          error.transport = transport.name;
+2092:          freezeTransport();
+2094:          _this4.emitReserved("upgradeError", error);
+2097:        function onTransportClose() {
+2098:          onerror("transport closed");
+2104:        } // When the socket is upgraded while we're probing
+2107:        function onupgrade(to) {
+2108:          if (transport && to.name !== transport.name) {
+2109:            freezeTransport();
+2111:        } // Remove all listeners on the transport and on self
+2115:          transport.removeListener("open", onTransportOpen);
+2116:          transport.removeListener("error", onerror);
+
+=== CONNECTION / HANDSHAKE REFERENCES ===
+2: * Socket.IO v4.5.4
+773:      _this2.socket = opts.socket;
+805:          this.doOpen();
+864:        var packet = decodePacket(data, this.socket.binaryType);
+1068:       * Opens the socket (triggers polling). We write a PING message to determine
+1075:      key: "doOpen",
+1076:      value: function doOpen() {
+1143:          // if its the first message we consider the transport open
+1162:        decodePayload(data, this.socket.binaryType).forEach(callback); // if an event did not trigger closing
+1238:        if (!this.supportsBinary && !query.sid) {
+1534:  var WebSocket = globalThisShim.WebSocket || globalThisShim.MozWebSocket;
+1535:  var usingBrowserWebSocket = true;
+1545:     * WebSocket transport constructor.
+1569:        return "websocket";
+1572:       * Opens socket.
+1578:      key: "doOpen",
+1579:      value: function doOpen() {
+1595:          this.ws = usingBrowserWebSocket && !isReactNative ? protocols ? new WebSocket(uri, protocols) : new WebSocket(uri) : new WebSocket(uri, protocols, opts);
+1600:        this.ws.binaryType = this.socket.binaryType || defaultBinaryType;
+1604:       * Adds event listeners to the socket
+1616:            _this2.ws._socket.unref();
+1624:            description: "websocket connection closed",
+1634:          return _this2.onError("websocket error", e);
+1638:       * Writes data to socket.
+1663:              if (usingBrowserWebSocket) {
+1671:              // defer to next tick to allow Socket to clear writeBuffer
+1686:       * Closes socket.
+1731:       * Feature detection for WebSocket.
+1740:        return !!WebSocket;
+1748:    websocket: WS,
+1816:  var Socket$1 = /*#__PURE__*/function (_Emitter) {
+1817:    _inherits(Socket, _Emitter);
+1819:    var _super = _createSuper(Socket);
+1822:     * Socket constructor.
+1828:    function Socket(uri) {
+1833:      _classCallCheck(this, Socket);
+1862:      _this.transports = opts.transports || ["polling", "websocket"];
+1884:      } // set on handshake
+1897:          // ensures every browser behaves the same (no "disconnect" event at the Socket.IO level when the page is
+1935:    _createClass(Socket, [{
+1945:        if (this.id) query.sid = this.id;
+1949:          socket: this,
+1970:        if (this.opts.rememberUpgrade && Socket.priorWebsocketSuccess && this.transports.indexOf("websocket") !== -1) {
+1971:          transport = "websocket";
+1993:        this.setTransport(transport);
+2002:      key: "setTransport",
+2003:      value: function setTransport(transport) {
+2031:        Socket.priorWebsocketSuccess = false;
+2048:              Socket.priorWebsocketSuccess = "websocket" === transport.name;
+2055:                _this4.setTransport(transport);
+2099:        } // When the socket is closed while we're probing
+2103:          onerror("socket closed");
+2104:        } // When the socket is upgraded while we're probing
+2141:        Socket.priorWebsocketSuccess = "websocket" === this.transport.name;
+2144:        // listener already closed the socket
+2165:          this.emitReserved("packet", packet); // Socket is live - any packet counts
+2171:              this.onHandshake(JSON.parse(packet.data));
+2196:       * Called upon handshake completion.
+2198:       * @param {Object} data - handshake obj
+2203:      key: "onHandshake",
+2204:      value: function onHandshake(data) {
+2205:        this.emitReserved("handshake", data);
+2206:        this.id = data.sid;
+2207:        this.transport.query.sid = data.sid;
+2212:        this.onOpen(); // In case open handler closes socket
+2316:       * @return {Socket} for chaining.
+2432:        Socket.priorWebsocketSuccess = false;
+2495:    return Socket;
+2497:  Socket$1.protocol = protocol$1;
+2499:  Socket$1.protocol;
+2612:   * @param {Object} packet - socket.io event packet
+2724:   * A socket.io Encoder instance
+2812:   * A socket.io Decoder instance
+3014:   * A manager of a binary event's 'buffer sequence'. Should
+3099:   * A Socket is the fundamental class for interacting with the server.
+3101:   * A Socket belongs to a certain Namespace (by default /) and uses an underlying {@link Manager} to communicate.
+3104:   * const socket = io();
+3106:   * socket.on("connect", () => {
+3111:   * socket.emit("foo", "bar");
+3113:   * socket.on("foobar", () => {
+3118:   * socket.on("disconnect", (reason) => {
+3123:  var Socket = /*#__PURE__*/function (_Emitter) {
+3124:    _inherits(Socket, _Emitter);
+3126:    var _super = _createSuper(Socket);
+3129:     * `Socket` constructor.
+3131:    function Socket(io, nsp, opts) {
+3134:      _classCallCheck(this, Socket);
+3138:       * Whether the socket is currently connected to the server.
+3141:       * const socket = io();
+3143:       * socket.on("connect", () => {
+3144:       *   console.log(socket.connected); // true
+3147:       * socket.on("disconnect", () => {
+3148:       *   console.log(socket.connected); // false
+3159:       * Buffer for packets that will be sent once the socket is connected
+3177:     * Whether the socket is currently disconnected
+3180:     * const socket = io();
+3182:     * socket.on("connect", () => {
+3183:     *   console.log(socket.disconnected); // false
+3186:     * socket.on("disconnect", () => {
+3187:     *   console.log(socket.disconnected); // true
+3192:    _createClass(Socket, [{
+3211:       * Whether the Socket will try to reconnect when its Manager connects or reconnects.
+3214:       * const socket = io();
+3216:       * console.log(socket.active); // true
+3218:       * socket.on("disconnect", (reason) => {
+3221:       *     console.log(socket.active); // false
+3223:       *   // else the socket will automatically try to reconnect
+3224:       *   console.log(socket.active); // true
+3234:       * "Opens" the socket.
+3237:       * const socket = io({
+3241:       * socket.connect();
+3266:       * This method mimics the WebSocket.send() method.
+3268:       * @see https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/send
+3271:       * socket.send("hello");
+3274:       * socket.emit("message", "hello");
+3295:       * socket.emit("hello", "world");
+3298:       * socket.emit("hello", 1, "2", { 3: ["4"], 5: Uint8Array.from([6]) });
+3301:       * socket.emit("hello", "world", (val) => {
+3429:       * Called upon engine or manager `error`.
+3458:       * Called with socket packet.
+3472:            if (packet.data && packet.data.sid) {
+3473:              var id = packet.data.sid;
+3476:              this.emitReserved("connect_error", new Error("It seems you are trying to reach a Socket.IO server in v2.x with a v3.x client, but they are not compatible (more information here: https://socket.io/docs/v3/migrating-from-2-x-to-3-0/)"));
+3547:        _get(_getPrototypeOf(Socket.prototype), "emit", this).apply(this, args);
+3642:       * Called upon forced client/server side disconnections,
+3643:       * this method ensures the manager stops tracking us and
+3663:       * Disconnects the socket manually. In that case, the socket will not try to reconnect.
+3665:       * If this is the last active Socket instance of the {@link Manager}, the low-level connection will be closed.
+3668:       * const socket = io();
+3670:       * socket.on("disconnect", (reason) => {
+3674:       * socket.disconnect();
+3686:        } // remove socket from pool
+3713:       * socket.compress(false).emit("hello");
+3726:       * Sets a modifier for a subsequent event emission that the event message will be dropped when this socket is not
+3730:       * socket.volatile.emit("hello"); // the server may or may not receive it
+3746:       * socket.timeout(5000).emit("my-event", (err) => {
+3766:       * socket.onAny((event, ...args) => {
+3787:       * socket.prependAny((event, ...args) => {
+3811:       * socket.onAny(catchAllListener);
+3814:       * socket.offAny(catchAllListener);
+3817:       * socket.offAny();
+3861:       * socket.onAnyOutgoing((event, ...args) => {
+3884:       * socket.prependAnyOutgoing((event, ...args) => {
+3908:       * socket.onAnyOutgoing(catchAllListener);
+3911:       * socket.offAnyOutgoing(catchAllListener);
+3914:       * socket.offAnyOutgoing();
+3982:    return Socket;
+4063:  var Manager = /*#__PURE__*/function (_Emitter) {
+4064:    _inherits(Manager, _Emitter);
+4066:    var _super = _createSuper(Manager);
+4068:    function Manager(uri, opts) {
+4071:      _classCallCheck(this, Manager);
+4085:      opts.path = opts.path || "/socket.io";
+4119:    _createClass(Manager, [{
+4187:       * Sets the current transport `socket`.
+4200:        this.engine = new Socket$1(this.uri, this.opts);
+4201:        var socket = this.engine;
+4206:        var openSubDestroy = on(socket, "open", function () {
+4211:        var errorSub = on(socket, "error", function (err) {
+4235:            socket.close(); // @ts-ignore
+4237:            socket.emit("error", new Error("timeout"));
+4280:        var socket = this.engine;
+4281:        this.subs.push(on(socket, "ping", this.onping.bind(this)), on(socket, "data", this.ondata.bind(this)), on(socket, "error", this.onerror.bind(this)), on(socket, "close", this.onclose.bind(this)), on(this.decoder, "decoded", this.ondecoded.bind(this)));
+4326:       * Called upon socket error.
+4337:       * Creates a new socket for the given `nsp`.
+4339:       * @return {Socket}
+4344:      key: "socket",
+4345:      value: function socket(nsp, opts) {
+4346:        var socket = this.nsps[nsp];
+4348:        if (!socket) {
+4349:          socket = new Socket(this, nsp, opts);
+4350:          this.nsps[nsp] = socket;
+4353:        return socket;
+4356:       * Called upon a socket close.
+4358:       * @param socket
+4364:      value: function _destroy(socket) {
+4369:          var _socket = this.nsps[nsp];
+4371:          if (_socket.active) {
+4410:       * Close the current socket.
+4476:            _this4.emitReserved("reconnect_attempt", self.backoff.attempts); // check again for the case socket closed in above events
+4517:    return Manager;
+4521:   * Managers cache.
+4533:    var parsed = url(uri, opts.path || "/socket.io");
+4542:      io = new Manager(source, opts);
+4545:        cache[id] = new Manager(source, opts);
+4555:    return io.socket(parsed.path, opts);
+4561:    Manager: Manager,
+4562:    Socket: Socket,
+4570://# sourceMappingURL=socket.io.js.map
+
+=== FIRST 40 LINES ===
+/*!
+ * Socket.IO v4.5.4
+ * (c) 2014-2022 Guillermo Rauch
+ * Released under the MIT License.
+ */
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.io = factory());
+})(this, (function () { 'use strict';
+
+  function _typeof(obj) {
+    "@babel/helpers - typeof";
+
+    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+      return typeof obj;
+    } : function (obj) {
+      return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    }, _typeof(obj);
+  }
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+curl: (23) Failure writing output to destination, passed 1369 returned 0
+~ $

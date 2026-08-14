@@ -1,0 +1,187 @@
+~ $ echo 'WS-004
+> Date: 2026-08-13
+> Purpose: Perform the Engine.IO polling handshake first, extract the assigned session ID, then attempt the WebSocket transport upgrade using that session ID.
+> Target: https://cytu.be/r/EMAIL
+> Evidence type: OBSERVED
+>
+> === EIO=3 POLLING HANDSHAKE ===' &&
+> EIO3=$(curl -sS 'https://cytu.be/socket.io/?EIO=3&transport=polling') &&
+> echo "$EIO3" &&
+> echo &&
+> echo '=== EIO=3 EXTRACTED SID ===' &&
+> SID3=$(printf '%s' "$EIO3" | sed -n 's/.*"sid":"\([^"]*\)".*/\1/p') &&
+> echo "$SID3" &&
+> echo &&
+> echo '=== EIO=3 WEBSOCKET UPGRADE ===' &&
+> timeout 10 curl --no-buffer -v \
+SID3" 2>&1 || true &&
+echo &&
+echo '========================================' &&
+echo &&
+echo '=== EIO=4 POLLING HANDSHAKE ===' &&
+EIO4=$(curl -sS 'https://cytu.be/socket.io/?EIO=4&transport=polling') &&
+echo "$EIO4" &&
+echo &&
+echo '=== EIO=4 EXTRACTED SID ===' &&
+SID4=$(printf '%s' "$EIO4" | sed -n 's/.*"sid":"\([^"]*\)".*/\1/p') &&
+echo "$SID4" &&
+echo &&
+echo '=== EIO=4 WEBSOCKET UPGRADE ===' &&
+timeout 10 curl --no-buffer -v \
+  "wss://cytu.be/socket.io/?EIO=4&transport=websocket&sid=$SID4" 2>&1 || true>   "wss://cytu.be/socket.io/?EIO=3&transport=websocket&sid=$SID3" 2>&1 || true &&
+> echo &&
+> echo '========================================' &&
+> echo &&
+> echo '=== EIO=4 POLLING HANDSHAKE ===' &&
+> EIO4=$(curl -sS 'https://cytu.be/socket.io/?EIO=4&transport=polling') &&
+> echo "$EIO4" &&
+> echo &&
+> echo '=== EIO=4 EXTRACTED SID ===' &&
+> SID4=$(printf '%s' "$EIO4" | sed -n 's/.*"sid":"\([^"]*\)".*/\1/p') &&
+> echo "$SID4" &&
+> echo &&
+> echo '=== EIO=4 WEBSOCKET UPGRADE ===' &&
+> timeout 10 curl --no-buffer -v \
+>   "wss://cytu.be/socket.io/?EIO=4&transport=websocket&sid=$SID4" 2>&1 || true
+WS-004
+Date: 2026-08-13
+Purpose: Perform the Engine.IO polling handshake first, extract the assigned session ID, then attempt the WebSocket transport upgrade using that session ID.
+Target: https://cytu.be/r/EMAIL
+Evidence type: OBSERVED
+
+=== EIO=3 POLLING HANDSHAKE ===
+119:0{"sid":"OR8ZTcpr3Rx-fL5ZBJmt","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}
+
+=== EIO=3 EXTRACTED SID ===
+OR8ZTcpr3Rx-fL5ZBJmt
+
+=== EIO=3 WEBSOCKET UPGRADE ===
+*   Trying [2606:4700:3035::ac43:8e8b]:443...
+* Host cytu.be:443 was resolved.
+* IPv6: 2606:4700:3035::ac43:8e8b, 2606:4700:3033::6815:4f3d
+* IPv4: 104.21.79.61, 172.67.142.139
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* SSL Trust Anchors:
+*   CAfile: /data/data/com.termux/files/usr/etc/tls/cert.pem
+*   CApath: /data/data/com.termux/files/usr/etc/tls/certs
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.3 (IN), TLS change cipher, Change cipher spec (1):
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384 / X25519MLKEM768 / id-ecPublicKey
+* Server certificate:
+*   subject: CN=cytu.be
+*   start date: Jul  4 15:00:02 2026 GMT
+*   expire date: Oct  2 15:57:41 2026 GMT
+*   issuer: C=US; O=Google Trust Services; CN=WE1
+*   Certificate level 0: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA256
+*   Certificate level 1: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA384
+*   Certificate level 2: Public key type EC/secp384r1 (384/192 Bits/secBits), signed using ecdsa-with-SHA384
+*   subjectAltName: "cytu.be" matches cert's "cytu.be"
+* OpenSSL verify result: 0
+* SSL certificate verified via OpenSSL.
+* Established connection to cytu.be (2606:4700:3035::ac43:8e8b port 443) from 2600:1010:b111:f92a:f154:962f:3a9f:10ed port 51944
+* using HTTP/1.x
+> GET /socket.io/?EIO=3&transport=websocket&sid=OR8ZTcpr3Rx-fL5ZBJmt HTTP/1.1
+> Host: cytu.be
+> User-Agent: curl/8.21.0
+> Accept: */*
+> Upgrade: websocket
+> Sec-WebSocket-Version: 13
+> Sec-WebSocket-Key: JbeBkfqVQa0Se9cwLz2XIA==
+> Connection: Upgrade
+>
+* Request completely sent off
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+< HTTP/1.1 400 Bad Request
+< Date: Fri, 14 Aug 2026 01:48:08 GMT
+< Content-Type: application/json
+< Transfer-Encoding: chunked
+< Connection: keep-alive
+< Server: cloudflare
+< Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+< Vary: Origin
+< Access-Control-Allow-Credentials: true
+< cf-cache-status: DYNAMIC
+< Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=u1%2F7NLYe8Ba2g4o8%2F42s9Nm03TUq8YUp1IAVunFfEEz73qQQlIu%2Fpx1PLzUW94v5HbTjKJcxilybnIYDQIclK8ZdM6OKC1pD0wF5MdAXt2sMa2Dd20jegpjPfnc47YK%2FecECrs%2Fq"}]}
+< CF-RAY: a2ac4bab8a952271-SJC
+< alt-svc: h3=":443"; ma=86400
+* Refused WebSocket upgrade: 400
+<
+* closing connection #0
+curl: (22) Refused WebSocket upgrade: 400
+
+========================================
+
+=== EIO=4 POLLING HANDSHAKE ===
+0{"sid":"eiR81cvztniubTpkBJmu","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}
+
+=== EIO=4 EXTRACTED SID ===
+eiR81cvztniubTpkBJmu
+
+=== EIO=4 WEBSOCKET UPGRADE ===
+*   Trying [2606:4700:3035::ac43:8e8b]:443...
+* Host cytu.be:443 was resolved.
+* IPv6: 2606:4700:3035::ac43:8e8b, 2606:4700:3033::6815:4f3d
+* IPv4: 104.21.79.61, 172.67.142.139
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* SSL Trust Anchors:
+*   CAfile: /data/data/com.termux/files/usr/etc/tls/cert.pem
+*   CApath: /data/data/com.termux/files/usr/etc/tls/certs
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.3 (IN), TLS change cipher, Change cipher spec (1):
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384 / X25519MLKEM768 / id-ecPublicKey
+* Server certificate:
+*   subject: CN=cytu.be
+*   start date: Jul  4 15:00:02 2026 GMT
+*   expire date: Oct  2 15:57:41 2026 GMT
+*   issuer: C=US; O=Google Trust Services; CN=WE1
+*   Certificate level 0: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA256
+*   Certificate level 1: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA384
+*   Certificate level 2: Public key type EC/secp384r1 (384/192 Bits/secBits), signed using ecdsa-with-SHA384
+*   subjectAltName: "cytu.be" matches cert's "cytu.be"
+* OpenSSL verify result: 0
+* SSL certificate verified via OpenSSL.
+* Established connection to cytu.be (2606:4700:3035::ac43:8e8b port 443) from 2600:1010:b111:f92a:f154:962f:3a9f:10ed port 45618
+* using HTTP/1.x
+> GET /socket.io/?EIO=4&transport=websocket&sid=eiR81cvztniubTpkBJmu HTTP/1.1
+> Host: cytu.be
+> User-Agent: curl/8.21.0
+> Accept: */*
+> Upgrade: websocket
+> Sec-WebSocket-Version: 13
+> Sec-WebSocket-Key: px7dIJmreKH0C2YlEvBU4A==
+> Connection: Upgrade
+>
+* Request completely sent off
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+< HTTP/1.1 400 Bad Request
+< Date: Fri, 14 Aug 2026 01:48:09 GMT
+< Content-Type: application/json
+< Transfer-Encoding: chunked
+< Connection: keep-alive
+< Server: cloudflare
+< Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+< Vary: Origin
+< Access-Control-Allow-Credentials: true
+< cf-cache-status: DYNAMIC
+< Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=7X0K7V1wXA%2BDPPhRsbIGWh6kui%2FyGdArJzWo%2FjwTD6dR2fVVJvgRqC8EWBbI8vWV0v2CMaBQI5ypepKqIt6EGySyReegabR9Bb5jO1KS6HaqoC%2BxaufpL%2BYrUPIlWhEUqN8tdfK2"}]}
+< CF-RAY: a2ac4baf0c04138a-SJC
+< alt-svc: h3=":443"; ma=86400
+* Refused WebSocket upgrade: 400
+<
+* closing connection #0
+curl: (22) Refused WebSocket upgrade: 400
+~ $
