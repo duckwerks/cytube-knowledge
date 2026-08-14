@@ -1,0 +1,477 @@
+~ $ echo 'WS-017
+> Date: 2026-08-13
+> Purpose: Compare WebSocket upgrade behavior using multiple client implementations and handshake header sets. WS-016 established that a fresh SID-bound Engine.IO WebSocket attempt still returns HTTP 400 code 3 Bad request, while the SID remains valid. This test determines whether the failure is caused by the raw HTTP upgrade headers, websocket-client behavior, or the Engine.IO endpoint itself.
+ print("FIRST FRAME:", repr(ws.recv()))
+    except Exception as e:
+        print("FRAME ERROR:", repr(e))
+
+    ws.close()
+
+except Exception as e:
+    print("RESULT: FAILED")
+    print("TYPE:", type(e).__name__)
+    print("ERROR:", repr(e))
+
+print()
+
+# ------------------------------------------------------------
+# TEST B
+# Explicit RFC6455 upgrade headers.
+# ------------------------------------------------------------
+
+print("=== TEST B: websocket-client / EXPLICIT RFC6455 HEADERS ===")
+
+try:
+    key = base64.b64encode(os.urandom(16)).decode()
+
+    ws = websocket.create_connection(
+        ws_url,
+        timeout=8,
+        origin=BASE,
+        host="cytu.be",
+        header=[
+            "User-Agent: " + UA,
+            "Accept: */*",
+            "Cache-Control: no-cache",
+            "Pragma: no-cache",
+            "Sec-WebSocket-Version: 13",
+            "Sec-WebSocket-Key: " + key,
+        ],
+        sslopt={
+            "cert_reqs": ssl.CERT_REQUIRED,
+        },
+    )
+
+    print("RESULT: CONNECTED")
+
+    try:
+        print("FIRST FRAME:", repr(ws.recv()))
+    except Exception as e:
+        print("FRAME ERROR:", repr(e))
+
+    ws.close()
+
+except Exception as e:
+    print("RESULT: FAILED")
+    print("TYPE:", type(e).__name__)
+    print("ERROR:", repr(e))
+
+print()
+
+# ------------------------------------------------------------
+# TEST C
+# Direct WebSocket with NO SID.
+#
+# This t> Target: https://cytu.be/r/EMAIL
+> Evidence type: EXPERIMENTALLY-CONFIRMED
+>
+> === INSTALL / VERIFY WEBSOCKET CLIENT ===' &&
+> python -m pip install --upgrade websocket-client python-socketio[client] &&
+> echo &&
+> echo '=== WS-017 WEBSOCKET UPGRADE HEADER COMPARISON ===' &&
+ytu.be"> python - <<'PY'
+ader> import requests
+> import websocket
+> import socketio
+> import ssl
+> import socket
+> import base64
+> import os
+> import json
+ "Cache-Control: no-cache",
+        > import time
+>
+ > BASE = "https://cytu.be"
+> ROOM = "https://cytu.be/r/EMAIL"
+> UA = "Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0"
+>
+> print("=== TEST PARAMETERS ===")
+> print("HTTP :", BASE)
+)
+ > print("ROOM :", ROOM)
+> print("UA   :", UA)
+> print()
+>
+> # ------------------------------------------------------------
+> # STEP 1
+> # Obtain a completely fresh Engine.IO session.
+> # ------------------------------------------------------------
+>
+> print("=== STEP 1: FRESH ENGINE.IO HANDSHAKE ===")
+>
+> session = requests.Session()
+>
+> headers = {
+>     "User-Agent": UA,
+>     "Origin": BASE,
+>     "Referer": ROOM,
+>     "Accept": "*/*",
+>     "Cache-Control": "no-cache",
+>     "Pragma": "no-cache",
+-----> }
+>
+> try:
+------>     r = session.get(
+>         BASE + "/socket.io/?EIO=4&transport=polling",
+>         headers=headers,
+>         timeout=10,
+>     )
+>
+>     print("HTTP:", r.status_code)
+>     print("Content-Type:", r.headers.get("content-type"))
+>     print("Response:", repr(r.text[:500]))
+>
+> except Exception as e:
+>     print("HANDSHAKE ERROR:", repr(e))
+>     raise SystemExit(1)
+>
+> if r.status_code != 200 or not r.text.startswith("0"):
+>     print("HANDSHAKE FAILED")
+>     raise SystemExit(1)
+>
+> try:
+>     handshake = json.loads(r.text[1:])
+> except Exception as e:
+>     print("JSON ERROR:", repr(e))
+>     raise SystemExit(1)
+>
+t> sid = handshake["sid"]
+>
+> print("SID:", sid)
+> print("Upgrades:", handshake.get("upgrades"))
+> print("Ping interval:", handshake.get("pingInterval"))
+> print("Ping timeout:", handshake.get("pingTimeout"))
+> print()
+>
+> # ------------------------------------------------------------
+> # TEST A
+> # websocket-client with minimal browser-like headers.
+> # ------------------------------------------------------------
+>
+ > print("=== TEST A: websocket-client / MINIMAL ===")
+-->
+> ws_url = (
+>     BASE.replace("https://", "wss://")
+>     + "/socket.io/?EIO=4&transport=websocket&sid="
+>     + sid
+> )
+>
+> try:
+>     ws = websocket.create_connection(
+>         ws_url,
+>         timeout=8,
+>         origin=BASE,
+>         host="cytu.be",
+>         header=[
+>             "User-Agent: " + UA,
+>         ],
+>         sslopt={
+>             "cert_reqs": ssl.CERT_REQUIRED,
+>         },
+>     )
+>
+>     print("RESULT: CONNECTED")
+>
+d>     try:
+>         print("FIRST FRAME:", repr(ws.recv()))
+>     except Exception as e:
+>         print("FRAME ERROR:", repr(e))
+>
+>     ws.close()
+>
+> except Exception as e:
+>     print("RESULT: FAILED")
+exce>     print("TYPE:", type(e).__name__)
+>     print("ERROR:", repr(e))
+>
+> print()
+>
+> # ------------------------------------------------------------
+> # TEST B
+> # Explicit RFC6455 upgrade headers.
+> # ------------------------------------------------------------
+>
+> print("=== TEST B: websocket-client / EXPLICIT RFC6455 HEADERS ===")
+>
+> try:
+>     key = base64.b64encode(os.urandom(16)).decode()
+>
+>     ws = websocket.create_connection(
+>         ws_url,
+>         timeout=8,
+>         origin=BASE,
+>         host="cytu.be",
+>         header=[
+>             "User-Agent: " + UA,
+>             "Accept: */*",
+>             "Cache-Control: no-cache",
+>             "Pragma: no-cache",
+>             "Sec-WebSocket-Version: 13",
+>             "Sec-WebSocket-Key: " + key,
+>         ],
+>         sslopt={
+>             "cert_reqs": ssl.CERT_REQUIRED,
+>         },
+>     )
+>
+a>     print("RESULT: CONNECTED")
+>
+>     try:
+>         print("FIRST FRAME:", repr(ws.recv()))
+>     except Exception as e:
+>         print("FRAME ERROR:", repr(e))
+>
+>     ws.close()
+>
+> except Exception as e:
+>     print("RESULT: FAILED")
+>     print("TYPE:", type(e).__name__)
+>     print("ERROR:", repr(e))
+>
+> print()
+>
+> # ------------------------------------------------------------
+> # TEST C
+> # Direct WebSocket with NO SID.
+> #
+> # This tells us whether the endpoint itself accepts the
+> # Engine.IO websocket transport before session binding.
+> # ------------------------------------------------------------
+>
+> print("=== TEST C: DIRECT WEBSOCKET / NO SID ===")
+>
+> direct_url = (
+>     "wss://cytu.be/socket.io/"
+>     "?EIO=4&transport=websocket"
+> )
+>
+> try:
+>     ws = websocket.create_connection(
+>         direct_url,
+>         timeout=8,
+>         origin=BASE,
+>         host="cytu.be",
+>         header=[
+>             "User-Agent: " + UA,
+>             "Accept: */*",
+>             "Cache-Control: no-cache",
+>             "Pragma: no-cache",
+>         ],
+>         sslopt={
+>             "cert_reqs": ssl.CERT_REQUIRED,
+>         },
+>     )
+>
+>     print("RESULT: CONNECTED")
+>
+>     try:
+>         print("FIRST FRAME:", repr(ws.recv()))
+>     except Exception as e:
+>         print("FRAME ERROR:", repr(e))
+>
+>     ws.close()
+>
+> except Exception as e:
+>     print("RESULT: FAILED")
+>     print("TYPE:", type(e).__name__)
+>     print("ERROR:", repr(e))
+>
+> print()
+>
+> # ------------------------------------------------------------
+> # TEST D
+> # Real python-socketio client forced to WebSocket only.
+> #
+> # This removes our manually constructed HTTP upgrade from the
+> # equation and lets Engine.IO construct the request.
+> # ------------------------------------------------------------
+>
+> print("=== TEST D: python-socketio / WEBSOCKET ONLY ===")
+>
+> sio = socketio.Client(
+>     logger=True,
+>     engineio_logger=True,
+>     reconnection=False,
+> )
+>
+> @sio.event
+> def connect():
+>     print()
+>     print("SOCKET.IO RESULT: CONNECTED")
+>     print("SID:", sio.sid)
+>
+> @sio.event
+> def connect_error(data):
+>     print()
+>     print("SOCKET.IO CONNECT ERROR:")
+>     print(repr(data))
+>
+> @sio.event
+> def disconnect():
+>     print()
+>     print("SOCKET.IO DISCONNECTED")
+>
+> try:
+>     sio.connect(
+>         BASE,
+>         socketio_path="socket.io",
+>         transports=["websocket"],
+>         wait_timeout=10,
+>         headers={
+>             "User-Agent": UA,
+>             "Origin": BASE,
+>             "Referer": ROOM,
+>         },
+>     )
+>
+>     print("python-socketio connected:", sio.connected)
+>
+>     if sio.connected:
+>         time.sleep(5)
+>
+> except Exception as e:
+>     print("python-socketio EXCEPTION:")
+>     print(type(e).__name__)
+>     print(repr(e))
+>
+> finally:
+>     if sio.connected:
+>         sio.disconnect()
+>
+> print()
+>
+> # ------------------------------------------------------------
+> # TEST E
+> # Verify that the original polling SID is still alive after
+> # all failed WebSocket attempts.
+> # ------------------------------------------------------------
+>
+> print("=== TEST E: ORIGINAL SID VALIDATION ===")
+>
+> poll_url = (
+>     BASE
+>     + "/socket.io/?EIO=4&transport=polling&sid="
+>     + sid
+> )
+>
+> try:
+>     r2 = session.get(
+>         poll_url,
+>         headers=headers,
+>         timeout=5,
+>     )
+>
+>     print("HTTP:", r2.status_code)
+>     print("Content-Type:", r2.headers.get("content-type"))
+>     print("Response:", repr(r2.text[:500]))
+>
+> except requests.exceptions.ReadTimeout:
+>     print("RESULT: POLLING REMAINED OPEN / READ TIMEOUT")
+>     print("SID appears to remain active.")
+>
+> except Exception as e:
+>     print("POLLING ERROR:", repr(e))
+>
+> print()
+>
+> print("=== WS-017 CLASSIFICATION ===")
+> print()
+> print("Record these results:")
+> print("A. websocket-client minimal")
+> print("B. websocket-client explicit RFC6455")
+> print("C. direct WebSocket without SID")
+> print("D. python-socketio forced WebSocket")
+> print("E. original SID validation")
+> print()
+> print("Key question:")
+> print("Does every WebSocket attempt fail with HTTP 400/code 3")
+> print("while the Engine.IO polling SID remains valid?")
+> print()
+> print("If YES, the investigation should move away from SID/session")
+> print("continuity and toward Cytube's WebSocket endpoint/proxy")
+> print("or the exact Engine.IO server configuration.")
+> print()
+> print("=== WS-017 COMPLETE ===")
+> PY
+WS-017
+Date: 2026-08-13
+Purpose: Compare WebSocket upgrade behavior using multiple client implementations and handshake header sets. WS-016 established that a fresh SID-bound Engine.IO WebSocket attempt still returns HTTP 400 code 3 Bad request, while the SID remains valid. This test determines whether the failure is caused by the raw HTTP upgrade headers, websocket-client behavior, or the Engine.IO endpoint itself.
+Target: https://cytu.be/r/EMAIL
+Evidence type: EXPERIMENTALLY-CONFIRMED
+
+=== INSTALL / VERIFY WEBSOCKET CLIENT ===
+Requirement already satisfied: websocket-client in /data/data/com.termux/files/usr/lib/python3.13/site-packages (1.9.0)
+Requirement already satisfied: python-socketio[client] in /data/data/com.termux/files/usr/lib/python3.13/site-packages (5.16.4)
+Requirement already satisfied: bidict>=0.21.0 in /data/data/com.termux/files/usr/lib/python3.13/site-packages (from python-socketio[client]) (0.23.1)
+Requirement already satisfied: python-engineio>=4.13.2 in /data/data/com.termux/files/usr/lib/python3.13/site-packages (from python-socketio[client]) (4.13.5)
+Requirement already satisfied: requests>=2.21.0 in /data/data/com.termux/files/usr/lib/python3.13/site-packages (from python-socketio[client]) (2.34.2)
+Requirement already satisfied: simple-websocket>=0.10.0 in /data/data/com.termux/files/usr/lib/python3.13/site-packages (from python-engineio>=4.13.2->python-socketio[client]) (1.1.0)
+Requirement already satisfied: charset_normalizer<4,>=2 in /data/data/com.termux/files/usr/lib/python3.13/site-packages (from requests>=2.21.0->python-socketio[client]) (3.5.0)
+Requirement already satisfied: idna<4,>=2.5 in /data/data/com.termux/files/usr/lib/python3.13/site-packages (from requests>=2.21.0->python-socketio[client]) (3.18)
+Requirement already satisfied: urllib3<3,>=1.26 in /data/data/com.termux/files/usr/lib/python3.13/site-packages (from requests>=2.21.0->python-socketio[client]) (2.7.0)
+Requirement already satisfied: certifi>=2023.5.7 in /data/data/com.termux/files/usr/lib/python3.13/site-packages (from requests>=2.21.0->python-socketio[client]) (2026.7.22)
+Requirement already satisfied: wsproto in /data/data/com.termux/files/usr/lib/python3.13/site-packages (from simple-websocket>=0.10.0->python-engineio>=4.13.2->python-socketio[client]) (1.3.2)
+Requirement already satisfied: h11<1,>=0.16.0 in /data/data/com.termux/files/usr/lib/python3.13/site-packages (from wsproto->simple-websocket>=0.10.0->python-engineio>=4.13.2->python-socketio[client]) (0.16.0)
+
+=== WS-017 WEBSOCKET UPGRADE HEADER COMPARISON ===
+=== TEST PARAMETERS ===
+HTTP : https://cytu.be
+ROOM : https://cytu.be/r/EMAIL
+UA   : Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0
+
+=== STEP 1: FRESH ENGINE.IO HANDSHAKE ===
+HTTP: 200
+Content-Type: text/plain; charset=UTF-8
+Response: '0{"sid":"a94FMYaIjwiFJLCPBJm6","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}'
+SID: a94FMYaIjwiFJLCPBJm6
+Upgrades: ['websocket']
+Ping interval: 25000
+Ping timeout: 120000
+
+=== TEST A: websocket-client / MINIMAL ===
+RESULT: FAILED
+TYPE: WebSocketBadStatusException
+ERROR: WebSocketBadStatusException('Handshake status 400 Bad Request -+-+- {\'date\': \'Fri, 14 Aug 2026 03:47:15 GMT\', \'content-type\': \'application/json\', \'transfer-encoding\': \'chunked\', \'connection\': \'keep-alive\', \'server\': \'cloudflare\', \'nel\': \'{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}\', \'access-control-allow-origin\': \'https://cytu.be\', \'vary\': \'Origin\', \'access-control-allow-credentials\': \'true\', \'cf-cache-status\': \'DYNAMIC\', \'server-timing\': \'cfEdge;dur=15,cfOrigin;dur=30\', \'report-to\': \'{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=FnzB4vXfsclRPMd52lCvgnW8T7A0D7zEoISC%2BkiwcK8zCN3zIC6W6kyUercL3su4cmzMVi3cUvtCnI1l68ZP%2B6SJov25UKh%2FTWQg8MwA8o83Yf3McRd06Tk0O4lvMspoQ8GqnZlg"}]}\', \'cf-ray\': \'a2acfa22c9185d19-SJC\', \'alt-svc\': \'h3=":443"; ma=86400\'} -+-+- None')
+
+=== TEST B: websocket-client / EXPLICIT RFC6455 HEADERS ===
+RESULT: FAILED
+TYPE: WebSocketBadStatusException
+ERROR: WebSocketBadStatusException('Handshake status 400 Bad Request -+-+- {\'date\': \'Fri, 14 Aug 2026 03:47:15 GMT\', \'content-type\': \'application/json\', \'transfer-encoding\': \'chunked\', \'connection\': \'keep-alive\', \'server\': \'cloudflare\', \'nel\': \'{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}\', \'access-control-allow-origin\': \'https://cytu.be\', \'vary\': \'Origin\', \'access-control-allow-credentials\': \'true\', \'cf-cache-status\': \'DYNAMIC\', \'report-to\': \'{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=0Vo03QLEPy7NHTegEDZaKfKk1%2F%2Bpv0SaYUPJt3Dl3%2FEAZzblF%2BWGQUhft93u%2F1WrBxDNo4tkmMPcxQk0xhbyZ6MVEbl9P2tqD6KlQxPPkzA9CnLBM0dxuPzZBgdJwvW4hqpL%2Bi81"}]}\', \'cf-ray\': \'a2acfa258d6a208c-SJC\', \'alt-svc\': \'h3=":443"; ma=86400\'} -+-+- None')
+
+=== TEST C: DIRECT WEBSOCKET / NO SID ===
+RESULT: FAILED
+TYPE: WebSocketBadStatusException
+ERROR: WebSocketBadStatusException('Handshake status 400 Bad Request -+-+- {\'date\': \'Fri, 14 Aug 2026 03:47:15 GMT\', \'content-type\': \'application/json\', \'transfer-encoding\': \'chunked\', \'connection\': \'keep-alive\', \'server\': \'cloudflare\', \'nel\': \'{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}\', \'access-control-allow-origin\': \'https://cytu.be\', \'vary\': \'Origin\', \'access-control-allow-credentials\': \'true\', \'cf-cache-status\': \'DYNAMIC\', \'report-to\': \'{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=3VfW5%2B4nBO7dF3yWrKJJPIcdBqPrahjl8NO3hP9pVzfIBT5OiaFRsi6zRUJJvFXJ0QJkBiNYvJFqHcyuHAh8SWwlxddzMuWclk6lCGS70Oiqi0i2UX5i7VMGeBFFBBQpOftt9UOB"}]}\', \'cf-ray\': \'a2acfa27ad1e2518-SJC\', \'alt-svc\': \'h3=":443"; ma=86400\'} -+-+- None')
+
+=== TEST D: python-socketio / WEBSOCKET ONLY ===
+Attempting WebSocket connection to wss://cytu.be/socket.io/?transport=websocket&EIO=4
+
+SOCKET.IO CONNECT ERROR:
+'Connection error'
+python-socketio EXCEPTION:
+ConnectionError
+ConnectionError('Connection error')
+
+=== TEST E: ORIGINAL SID VALIDATION ===
+RESULT: POLLING REMAINED OPEN / READ TIMEOUT
+SID appears to remain active.
+
+=== WS-017 CLASSIFICATION ===
+
+Record these results:
+A. websocket-client minimal
+B. websocket-client explicit RFC6455
+C. direct WebSocket without SID
+D. python-socketio forced WebSocket
+E. original SID validation
+
+Key question:
+Does every WebSocket attempt fail with HTTP 400/code 3
+while the Engine.IO polling SID remains valid?
+
+If YES, the investigation should move away from SID/session
+continuity and toward Cytube's WebSocket endpoint/proxy
+or the exact Engine.IO server configuration.
+
+=== WS-017 COMPLETE ===
+~ $
