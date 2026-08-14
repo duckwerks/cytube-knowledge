@@ -1,0 +1,414 @@
+~ $ echo 'WS-011
+NE.IO SESSION-BOUND WEBSOCKET UPGRADE TEST ===' &&
+python - <<'PY'
+import requests
+import websocket
+import json
+import ssl
+import sys
+
+BASE = "https://cytu.be"
+POLL = BASE + "/socket.io/?EIO=4&transport=polling"
+UA = "Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0"
+
+print("=== TEST PARAMETERS ===")
+print("HTTP :", BASE)
+print("POLL :", POLL)
+print("UA   :", UA)
+print()
+
+# ------------------------------------------------------------
+# STEP 1
+# Establish a real Engine.IO polling session.
+# ------------------------------------------------------------
+
+print("=== STEP 1: ENGINE.IO POLLING HANDSHAKE ===")
+
+session = requests.Session()
+
+headers = {
+    "User-Agent": UA,
+    "Origin": BASE,
+    "Referer": BASE + "/r/EMAIL",
+}
+
+try:
+    r = session.get(
+        POL> Date: 2026-08-13
+!= 200:
+        print()
+  > Purpose: Test whether Cytube requires the WebSocket transport to reuse the exact Engine.IO session ID obtained from the preceding polling handshake.
+epr(body))
+    sys.exit(1)
+
+try:
+    handshake = json.loads(body[1:])
+except Exception as e:
+    print("JSON PARSE ERROR:", repr(e))
+    sys.exit(1)
+
+sid = handshake.get("sid")
+
+print()
+print("=== ENGINE.IO HANDSHAKE DATA ===")
+print("Engine.IO SID:", sid)
+print("Upgrades     :", handshake.get("upgrades"))
+print("Ping interval:", handshake.get("pingInterval"))
+print("Ping timeout :", handshake.get("pingTimeout"))
+print("Max payload  :", handshake.get("maxPayload"))
+
+if not sid:
+    print()
+    print("NO SID RECEIVED")
+    sys.exit(1)
+
+# ------------------------------------------------------------
+# STEP 2
+# Ask the polling sessio> Target: https://cytu.be/r/EMAIL
+------------------------> Evidence type: EXPERIMENTALLY-CONFIRMED
+>
+Referer": BASE + "/r/EMAIL",
+        "Content-Type": "text/plain;charset=UTF-8",
+    }
+
+    p = session.post(
+        BASE + "/socket.io/",
+        params={
+            "EIO": "4",
+            "transport": "polling",
+            "sid": sid,
+        },
+        headers=post_headers,
+        data="40",
+        timeout=15,
+    )
+
+    print("POST status:"> === ENGINE.IO SESSION-BOUND WEBSOCKET UPGRADE TEST ===' &&
+> python - <<'PY'
+> import requests
+> import websocket
+> import json
+> import ssl
+> import sys
+>
+> BASE = "https://cytu.be"
+> POLL = BASE + "/socket.io/?EIO=4&transport=polling"
+> UA = "Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0"
+>
+> print("=== TEST PARAMETERS ===")
+> print("HTTP :", BASE)
+> print("POLL :", POLL)
+> print("UA   :", UA)
+> print()
+>
+> # ------------------------------------------------------------
+> # STEP 1
+> # Establish a real Engine.IO polling session.
+> # ------------------------------------------------------------
+>
+> print("=== STEP 1: ENGINE.IO POLLING HANDSHAKE ===")
+>
+c> session = requests.Session()
+>
+> headers = {
+>     "User-Agent": UA,
+>     "Origin": BASE,
+>     "Referer": BASE + "/r/EMAIL",
+> }
+>
+> try:
+>     r = session.get(
+(msg))>         POLL,
+>         headers=headers,
+>         timeout=15,
+>     )
+>
+>     print("HTTP status:", r.status_code)
+>     print("Content-Type:", r.headers.get("content-type"))
+>     print("Response:", repr(r.text[:1000]))
+>
+r>     if r.status_code != 200:
+>         print()
+>         print("POLLING HANDSHAKE FAILED")
+>         sys.exit(1)
+>
+> except Exception as e:
+>     print("POLLING ERROR:", repr(e))
+>     sys.exit(1)
+>
+> # ------------------------------------------------------------
+g e> # Parse Engine.IO open packet.
+> # Expected:
+> #
+> # 0{"sid":"...","upgrades":["websocket"],...}
+> # ------------------------------------------------------------
+ID =>
+> body = r.text
+>
+> if not body.startswith("0"):
+>     print()
+>     print("UNEXPECTED ENGINE.IO RESPONSE")
+>     print(repr(body))
+>     sys.exit(1)
+>
+> try:
+>     handshake = json.loads(body[1:])
+> except Exception as e:
+>     print("JSON PARSE ERROR:", repr(e))
+>     sys.exit(1)
+>
+> sid = handshake.get("sid")
+>
+> print()
+imeout=15> print("=== ENGINE.IO HANDSHAKE DATA ===")
+> print("Engine.IO SID:", sid)
+> print("Upgrades     :", handshake.get("upgrades"))
+> print("Ping interval:", handshake.get("pingInterval"))
+> print("Ping timeout :", handshake.get("pingTimeout"))
+> print("Max payload  :", handshake.get("maxPayload"))
+>
+> if not sid:
+>     print()
+>     print("NO SID RECEIVED")
+>     sys.exit(1)
+>
+> # ------------------------------------------------------------
+> # STEP 2
+> # Ask the polling session for the Socket.IO namespace.
+> #
+> # This is the normal Engine.IO packet:
+> #
+> #   40
+> #
+> # which means Socket.IO CONNECT on namespace "/".
+> # ------------------------------------------------------------
+>
+> print()
+> print("=== STEP 2: SOCKET.IO NAMESPACE CONNECT ===")
+>
+> try:
+>     post_headers = {
+>         "User-Agent": UA,
+>         "Origin": BASE,
+>         "Referer": BASE + "/r/EMAIL",
+>         "Content-Type": "text/plain;charset=UTF-8",
+>     }
+>
+>     p = session.post(
+>         BASE + "/socket.io/",
+>         params={
+>             "EIO": "4",
+>             "transport": "polling",
+>             "sid": sid,
+>         },
+>         headers=post_headers,
+>         data="40",
+>         timeout=15,
+>     )
+>
+>     print("POST status:", p.status_code)
+>     print("POST response:", repr(p.text))
+>
+> except Exception as e:
+>     print("SOCKET.IO CONNECT POST ERROR:", repr(e))
+>
+> # ------------------------------------------------------------
+> # STEP 3
+> # Poll the existing Engine.IO session.
+> #
+> # This confirms that the SID is alive before attempting
+> # the WebSocket upgrade.
+> # ------------------------------------------------------------
+>
+> print()
+> print("=== STEP 3: VERIFY EXISTING ENGINE.IO SESSION ===")
+>
+> try:
+>     poll2 = session.get(
+>         BASE + "/socket.io/",
+>         params={
+>             "EIO": "4",
+>             "transport": "polling",
+>             "sid": sid,
+>         },
+>         headers=headers,
+>         timeout=15,
+>     )
+>
+>     print("Poll status:", poll2.status_code)
+>     print("Poll response:", repr(poll2.text[:2000]))
+>
+> except Exception as e:
+>     print("SESSION POLL ERROR:", repr(e))
+>
+> # ------------------------------------------------------------
+> # STEP 4
+> # Attempt WebSocket connection using the EXACT SID.
+> #
+> # This is the important experiment.
+> #
+> # If the server accepts the upgrade, we should see an
+> # Engine.IO WebSocket open/Socket.IO packet.
+> # ------------------------------------------------------------
+>
+> print()
+> print("=== STEP 4: SESSION-BOUND WEBSOCKET UPGRADE ===")
+>
+> WS = (
+>     "wss://cytu.be/socket.io/"
+>     "?EIO=4"
+>     "&transport=websocket"
+>     "&sid=" + sid
+> )
+>
+> print("WebSocket URL:")
+> print(WS)
+> print()
+>
+> ws_headers = [
+>     "User-Agent: " + UA,
+>     "Referer: https://cytu.be/r/EMAIL",
+> ]
+>
+> try:
+>     ws = websocket.create_connection(
+>         WS,
+>         origin=BASE,
+>         host="cytu.be",
+>         header=ws_headers,
+>         timeout=15,
+>         sslopt={
+>             "cert_reqs": ssl.CERT_REQUIRED,
+>         },
+>     )
+>
+>     print("=== WEBSOCKET CONNECTED ===")
+>     print("SUCCESS")
+>     print()
+>
+>     ws.settimeout(5)
+>
+>     print("=== RECEIVING FRAMES ===")
+>
+>     try:
+>         for i in range(10):
+>             msg = ws.recv()
+>
+>             if msg is None:
+>                 print("FRAME:", "<None>")
+>                 break
+>
+>             print("FRAME", i + 1, ":", repr(msg))
+>
+>     except Exception as e:
+>         print("RECEIVE COMPLETE:", repr(e))
+>
+>     ws.close()
+>
+> except Exception as e:
+>     print("=== WEBSOCKET CONNECTION FAILED ===")
+>     print("Exception:", type(e).__name__)
+>     print("Details  :", repr(e))
+>
+> # ------------------------------------------------------------
+> # STEP 5
+> # Negative control:
+> # Attempt a WebSocket connection WITHOUT the SID.
+> #
+> # If this fails while the session-bound attempt succeeds,
+> # that is strong evidence that the SID is required.
+> # ------------------------------------------------------------
+>
+> print()
+> print("=== STEP 5: NEGATIVE CONTROL — NO SID ===")
+>
+> WS_NO_SID = (
+>     "wss://cytu.be/socket.io/"
+>     "?EIO=4"
+>     "&transport=websocket"
+> )
+>
+> print("WebSocket URL:")
+> print(WS_NO_SID)
+> print()
+>
+> try:
+>     ws2 = websocket.create_connection(
+>         WS_NO_SID,
+>         origin=BASE,
+>         host="cytu.be",
+>         header=ws_headers,
+>         timeout=15,
+>         sslopt={
+>             "cert_reqs": ssl.CERT_REQUIRED,
+>         },
+>     )
+>
+>     print("CONNECTED WITHOUT SID")
+>
+>     try:
+>         ws2.settimeout(5)
+>         print("FRAME:", repr(ws2.recv()))
+>     except Exception as e:
+>         print("RECEIVE:", repr(e))
+>
+>     ws2.close()
+>
+> except Exception as e:
+>     print("EXPECTED FAILURE WITHOUT SID")
+>     print("Exception:", type(e).__name__)
+>     print("Details  :", repr(e))
+>
+> print()
+> print("=== WS-011 COMPLETE ===")
+> PY
+WS-011
+Date: 2026-08-13
+Purpose: Test whether Cytube requires the WebSocket transport to reuse the exact Engine.IO session ID obtained from the preceding polling handshake.
+Target: https://cytu.be/r/EMAIL
+Evidence type: EXPERIMENTALLY-CONFIRMED
+
+=== ENGINE.IO SESSION-BOUND WEBSOCKET UPGRADE TEST ===
+=== TEST PARAMETERS ===
+HTTP : https://cytu.be
+POLL : https://cytu.be/socket.io/?EIO=4&transport=polling
+UA   : Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0
+
+=== STEP 1: ENGINE.IO POLLING HANDSHAKE ===
+HTTP status: 200
+Content-Type: text/plain; charset=UTF-8
+Response: '0{"sid":"uzG-Vs06J3zBR6HtBJmz","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}'
+
+=== ENGINE.IO HANDSHAKE DATA ===
+Engine.IO SID: uzG-Vs06J3zBR6HtBJmz
+Upgrades     : ['websocket']
+Ping interval: 25000
+Ping timeout : 120000
+Max payload  : 1048576
+
+=== STEP 2: SOCKET.IO NAMESPACE CONNECT ===
+POST status: 200
+POST response: 'ok'
+
+=== STEP 3: VERIFY EXISTING ENGINE.IO SESSION ===
+Poll status: 200
+Poll response: '40{"sid":"5BgA7DHxkodV_YBtBJm0"}\x1e42["rank",-1]'
+
+=== STEP 4: SESSION-BOUND WEBSOCKET UPGRADE ===
+WebSocket URL:
+wss://cytu.be/socket.io/?EIO=4&transport=websocket&sid=uzG-Vs06J3zBR6HtBJmz
+
+=== WEBSOCKET CONNECTION FAILED ===
+Exception: WebSocketBadStatusException
+Details  : WebSocketBadStatusException('Handshake status 400 Bad Request -+-+- {\'date\': \'Fri, 14 Aug 2026 02:41:10 GMT\', \'content-type\': \'application/json\', \'transfer-encoding\': \'chunked\', \'connection\': \'keep-alive\', \'server\': \'cloudflare\', \'nel\': \'{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}\', \'access-control-allow-origin\': \'https://cytu.be\', \'vary\': \'Origin\', \'access-control-allow-credentials\': \'true\', \'cf-cache-status\': \'DYNAMIC\', \'server-timing\': \'cfEdge;dur=9,cfOrigin;dur=37\', \'report-to\': \'{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=t6as2jl5TTQkxtmo2RTevKN8vGtT%2Fm5Nae3USWSq85MODW%2BESnj53Uz7Lc4C8fKvT5UUX85MVJubBbIhkPmOQZwcJNJFJzfvKXYjFZui6zuVUxBvvCGPgrphXURgfwEBC0dxPkjA"}]}\', \'cf-ray\': \'a2ac9957bfe770f0-SJC\', \'alt-svc\': \'h3=":443"; ma=86400\'} -+-+- None')
+
+=== STEP 5: NEGATIVE CONTROL — NO SID ===
+WebSocket URL:
+wss://cytu.be/socket.io/?EIO=4&transport=websocket
+
+EXPECTED FAILURE WITHOUT SID
+Exception: WebSocketBadStatusException
+Details  : WebSocketBadStatusException('Handshake status 400 Bad Request -+-+- {\'date\': \'Fri, 14 Aug 2026 02:41:10 GMT\', \'content-type\': \'application/json\', \'transfer-encoding\': \'chunked\', \'connection\': \'keep-alive\', \'server\': \'cloudflare\', \'nel\': \'{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}\', \'access-control-allow-origin\': \'https://cytu.be\', \'vary\': \'Origin\', \'access-control-allow-credentials\': \'true\', \'cf-cache-status\': \'DYNAMIC\', \'server-timing\': \'cfEdge;dur=9,cfOrigin;dur=38\', \'report-to\': \'{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=U%2BEWeTi6z4bBuT1PctadWDYGpkxFCOlZsTd%2FTvNM1%2F1bFu9J3zuzxXXHUcU%2FizVLNpn%2Bma58ZenM6I6mVR1Og%2B0XMI64Ca3uRev5L9x5URRfHqBz4BRP3X844aJDvdIaRL%2BofRFE"}]}\', \'cf-ray\': \'a2ac99595936eb24-SJC\', \'alt-svc\': \'h3=":443"; ma=86400\'} -+-+- None')
+
+=== WS-011 COMPLETE ===
+~ $
