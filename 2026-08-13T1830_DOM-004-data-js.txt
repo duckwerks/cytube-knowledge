@@ -1,0 +1,31 @@
+~ $ echo 'DOM-004
+> Date: 2026-08-13
+> Purpose: Inspect Cytube data.js to identify client-side state structures, variables, objects, and references to users, playlists, media, channels, and Socket.IO.
+> Target: https://cytu.be/r/EMAIL
+> Evidence type: OBSERVED
+>
+> === data.js URL ===
+> https://cytu.be/js/data.js
+>
+> === DOWNLOAD ===' &&
+> curl -L --silent --show-error 'https://cytu.be/js/data.js' -o /tmp/cytube-data.js &&
+> wc -c /tmp/cytube-data.js &&
+> sha256sum /tmp/cytube-data.js &&
+> echo &&
+> echo '=== FIRST 200 LINES ===' &&
+> sed -n '1,200p' /tmp/cytube-data.js &&
+> echo &&
+> echo '=== STATE / OBJECT / VARIABLE REFERENCES ===' &&
+> grep -inE 'var |let |const |function |user|playlist|media|channel|socket|video|queue|rank|permissions|settings|chat' /tmp/cytube-data.js
+DOM-004
+Date: 2026-08-13
+Purpose: Inspect Cytube data.js to identify client-side state structures, variables, objects, and references to users, playlists, media, channels, and Socket.IO.
+Target: https://cytu.be/r/EMAIL
+Evidence type: OBSERVED
+
+=== data.js URL ===
+https://cytu.be/js/data.js
+
+=== DOWNLOAD ===
+curl: (23) client returned ERROR on write of 1360 bytes
+~ $
