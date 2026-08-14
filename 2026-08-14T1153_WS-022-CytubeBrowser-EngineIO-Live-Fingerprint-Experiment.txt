@@ -1,0 +1,451 @@
+~ $ #!/usr/bin/env bash
+=============="
+  echo
+  echo "DATE (UTC): $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+  echo "HOST: $(hostname 2>/dev/null || true)"
+  echo
+  echo "PURPOSE"
+  echo "-------"
+  echo "Determine what Cytube currently exposes for its brow~ $
+cho "Socket.IO / Engine.IO connection and whether the public HTTP"
+  echo "endpoint reveals the transport/version parameters required"
+  echo "for a browser-compatible~ $ set -u
+ not interpret a failed curl WebSocket attempt as proof"
+  echo "that Cytube itself cannot establish WebSoc~ $
+
+  echo "1. CYTUBE HOME PAGE HEADERS"
+  echo "==========================================================~ $ OUT="WS-022-CytubeBrowser-EngineIO-Live-Fingerprint-Experiment.txt"
+~ $ BASE="https://cytu.be"
+~ $
+~ $ {
+>   echo "============================================================"
+==============="
+  echo "5. ENGINE.IO POLLING HANDSHAKE — EIO=3"
+  echo "============================================================"
+  echo
+  echo "REQUEST:"
+  echo "GET /socket.io/?EIO=3&transport=polling"
+  echo
+  curl -sS \
+    --max-time 30 \
+    -D - \
+    "$BASE/socket.io/?EIO=3&transport=polling" \
+    2>&1
+  echo
+  echo
+  e>   echo "WS-022 — CYTUBE BROWSER / ENGINE.IO LIVE FINGERPRINT"
+H in \
+    "/socket.io/" \
+    "/socket.io" \
+    "/engine.io/" >   echo "============================================================"
+>   echo
+---------"
+
+    curl>   echo "DATE (UTC): $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+ead -c 1200 /tmp/ws022-body 2>/dev/>   echo "HOST: $(hostname 2>/dev/null || true)"
+============>   echo
+="
+  echo "7. WEBSOCKET U>   echo "PURPOSE"
+>   echo "-------"
+>   echo "Determine what Cytube currently exposes for its browser-side"
+>   echo "Socket.IO / Engine.IO connection and whether the public HTTP"
+    -H 'Sec-W>   echo "endpoint reveals the transport/version parameters required"
+>   echo "for a browser-compatible WebSocket upgrade."
+>   echo
+>   echo "This is an evidence-gathering experiment."
+>   echo "Do not interpret a failed curl WebSocket attempt as proof"
+echo "================================================>   echo "that Cytube itself cannot establish WebSocket."
+>   echo
+>   echo "============================================================"
+-c>   echo "1. CYTUBE HOME PAGE HEADERS"
+>   echo "============================================================"
+>   echo
+=======>   curl -sS -D - -o /dev/null \
+>     --max-time 20 \
+>     "$BASE/" 2>&1
+>   echo
+=>   echo
+>   echo "============================================================"
+ "[ ] D>   echo "2. CYTUBE HOME PAGE — SCRIPT REFERENCES"
+>   echo "============================================================"
+>   echo
+>   curl -sS \
+>     --max-time 30 \
+>     "$BASE/" 2>&1 \
+>     | grep -Eoi \
+>       '<script[^>]+src=["'\''][^"'\'']+["'\'']|src=["'\''][^"'\'']+\.js[^"'\'']*["'\'']' \
+>     | sed 's/^/SCRIPT: /'
+>   echo
+>   echo
+>   echo "============================================================"
+>   echo "3. SEARCH DOWNLOADED HTML FOR SOCKET.IO / ENGINE.IO"
+>   echo "============================================================"
+>   echo
+>   HTML="$(mktemp)"
+>   curl -sS \
+>     --max-time 30 \
+>     "$BASE/" \
+>     -o "$HTML" 2>/dev/null || true
+ho "IMPORTANT:">
+
+>   if [ -s "$HTML" ]; then
+>     echo "--- socket.io / engine.io references ---"
+>     grep -Eoi \
+>       '.{0,120}(socket\.io|engine\.io|io\(|transports|websocket|polling).{0,180}' \
+>       "$HTML" 2>/dev/null \
+oduc>       | head -80
+>   else
+owser's>     echo "HTML DOWNLOAD FAILED"
+>   fi
+from >
+>   echo
+>   echo
+>   echo "============================================================"
+>   echo "4. ENGINE.IO POLLING HANDSHAKE — DEFAULT /socket.io/"
+=>   echo "============================================================"
+ >   echo
+>   echo "REQUEST:"
+>   echo "GET /socket.io/?EIO=4&transport=polling"
+>   echo
+>   curl -sS \
+>     --max-time 30 \
+>     -D - \
+>     "$BASE/socket.io/?EIO=4&transport=polling" \
+>     2>&1
+>   echo
+>   echo
+>   echo "============================================================"
+>   echo "5. ENGINE.IO POLLING HANDSHAKE — EIO=3"
+>   echo "============================================================"
+>   echo
+>   echo "REQUEST:"
+>   echo "GET /socket.io/?EIO=3&transport=polling"
+>   echo
+>   curl -sS \
+>     --max-time 30 \
+>     -D - \
+>     "$BASE/socket.io/?EIO=3&transport=polling" \
+>     2>&1
+>   echo
+>   echo
+>   echo "============================================================"
+>   echo "6. POSSIBLE /socket.io PATH VARIANTS"
+>   echo "============================================================"
+>   echo
+>
+>   for PATH in \
+>     "/socket.io/" \
+>     "/socket.io" \
+>     "/engine.io/" \
+>     "/engine.io"
+>   do
+>     echo "------------------------------------------------------------"
+>     echo "PATH: $PATH"
+>     echo "------------------------------------------------------------"
+>
+>     curl -sS \
+>       --max-time 15 \
+>       -D - \
+>       -o /tmp/ws022-body \
+>       "$BASE${PATH}?EIO=4&transport=polling" \
+>       2>&1
+>
+>     echo "--- BODY ---"
+>     head -c 1200 /tmp/ws022-body 2>/dev/null || true
+>     echo
+>   done
+>
+>   echo
+>   echo
+>   echo "============================================================"
+>   echo "7. WEBSOCKET UPGRADE PROBE — EIO=4"
+>   echo "============================================================"
+>   echo
+>   echo "This is ONLY a protocol probe."
+>   echo
+>   echo "Request:"
+>   echo "GET /socket.io/?EIO=4&transport=websocket"
+>   echo
+>   curl -i \
+>     --http1.1 \
+>     --max-time 15 \
+>     -H 'Connection: Upgrade' \
+>     -H 'Upgrade: websocket' \
+>     -H 'Sec-WebSocket-Version: 13' \
+>     -H 'Sec-WebSocket-Key: dGVzdC13czAyMi1rZXk=' \
+>     "$BASE/socket.io/?EIO=4&transport=websocket" \
+>     2>&1
+>   echo
+>   echo
+>   echo "============================================================"
+>   echo "8. WEBSOCKET UPGRADE PROBE — EIO=3"
+>   echo "============================================================"
+>   echo
+>   curl -i \
+>     --http1.1 \
+>     --max-time 15 \
+>     -H 'Connection: Upgrade' \
+>     -H 'Upgrade: websocket' \
+>     -H 'Sec-WebSocket-Version: 13' \
+>     -H 'Sec-WebSocket-Key: dGVzdC13czAyMi1rZXk=' \
+>     "$BASE/socket.io/?EIO=3&transport=websocket" \
+>     2>&1
+>   echo
+>   echo
+>   echo "============================================================"
+>   echo "9. RESPONSE / SERVER IDENTIFICATION"
+>   echo "============================================================"
+>   echo
+>   echo "Selected headers from /:"
+>   curl -sS \
+>     --max-time 20 \
+>     -D - \
+>     -o /dev/null \
+>     "$BASE/" 2>&1 \
+>     | grep -Ei \
+>       '^(server|date|via|x-|cf-|set-cookie|content-type|location|connection|upgrade):'
+>   echo
+>   echo
+>   echo "============================================================"
+>   echo "10. TEST INTERPRETATION CHECKLIST"
+>   echo "============================================================"
+>   echo
+>   echo "[ ] Did EIO=4 polling return a valid Engine.IO open packet?"
+>   echo "[ ] Did EIO=3 polling return a valid Engine.IO open packet?"
+>   echo "[ ] Did either response contain a SID?"
+>   echo "[ ] What 'upgrades' value was returned?"
+>   echo "[ ] What pingInterval was returned?"
+>   echo "[ ] What pingTimeout was returned?"
+>   echo "[ ] What maxPayload was returned?"
+>   echo "[ ] Did /socket.io/ differ from /socket.io?"
+>   echo "[ ] Did /engine.io/ produce anything meaningful?"
+>   echo "[ ] Did the WebSocket probe return HTTP 101?"
+>   echo "[ ] Did it return HTTP 400/404/403/etc.?"
+>   echo "[ ] Did the server identify itself?"
+>   echo
+>   echo "IMPORTANT:"
+>   echo "A successful polling handshake is more important evidence"
+>   echo "than the raw WebSocket curl result. If polling succeeds but"
+>   echo "the WebSocket probe fails, the next experiment should reproduce"
+>   echo "the browser's upgrade sequence using the SID from polling."
+>   echo
+>   echo "============================================================"
+>   echo "END WS-022"
+>   echo "============================================================"
+>
+>   rm -f "$HTML" /tmp/ws022-body
+>
+> } | tee "$OUT"
+============================================================
+WS-022 — CYTUBE BROWSER / ENGINE.IO LIVE FINGERPRINT
+============================================================
+
+DATE (UTC): 2026-08-14T18:57:18Z
+HOST: localhost
+
+PURPOSE
+-------
+Determine what Cytube currently exposes for its browser-side
+Socket.IO / Engine.IO connection and whether the public HTTP
+endpoint reveals the transport/version parameters required
+for a browser-compatible WebSocket upgrade.
+
+This is an evidence-gathering experiment.
+Do not interpret a failed curl WebSocket attempt as proof
+that Cytube itself cannot establish WebSocket.
+
+============================================================
+1. CYTUBE HOME PAGE HEADERS
+============================================================
+
+HTTP/2 200
+date: Fri, 14 Aug 2026 18:57:18 GMT
+content-type: text/html; charset=utf-8
+server: cloudflare
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+x-powered-by: Express
+set-cookie: _csrf=s%3AD_NFTHNr_YSLoKxYLS1T5GPW.3a4%2FrmE9O9J0uAbJBYFSJOPPuZ8tnc7X0L6WBzK2zug; Domain=.cytu.be; Path=/; HttpOnly
+vary: Accept-Encoding
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=4z53ZeIclCEggHEAK%2BAliU8CSORhCapfu2Rzu%2BvhFH4%2BDL2PPufIicbifd7uC4%2B9WO7rgOYXSBRXXOFmAsyEdgpD5gbV9GNuxD9aUAgCrg%2BjZHYdISWtKO%2B5e5Shiyop0pm01jcH"}]}
+x-frame-options: DENY
+strict-transport-security: max-age=86400
+permissions-policy: interest-cohort=()
+cf-cache-status: DYNAMIC
+cf-ray: a2b22f3b1f37945f-SJC
+alt-svc: h3=":443"; ma=86400
+
+
+
+============================================================
+2. CYTUBE HOME PAGE — SCRIPT REFERENCES
+============================================================
+
+SCRIPT: <script src="/js/theme.js"
+SCRIPT: <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"
+SCRIPT: <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"
+SCRIPT: <script src="/js/jquery-1.12.4.min.js"
+SCRIPT: <script src="/js/jquery-ui.js"
+SCRIPT: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"
+
+
+============================================================
+3. SEARCH DOWNLOADED HTML FOR SOCKET.IO / ENGINE.IO
+============================================================
+
+--- socket.io / engine.io references ---
+
+
+============================================================
+4. ENGINE.IO POLLING HANDSHAKE — DEFAULT /socket.io/
+============================================================
+
+REQUEST:
+GET /socket.io/?EIO=4&transport=polling
+
+HTTP/2 200
+date: Fri, 14 Aug 2026 18:57:19 GMT
+content-type: text/plain; charset=UTF-8
+content-length: 119
+server: cloudflare
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+vary: Origin
+access-control-allow-credentials: true
+x-frame-options: DENY
+strict-transport-security: max-age=86400
+permissions-policy: interest-cohort=()
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=0d6MgES1Xns4gTYs2azutzhMiKbWOnEx%2ByRPenKHngfG%2Buf5fgufaT6qmcC28VJHt6qi8O9%2Fu%2FwGlt86oQbhWO1q7ZKUAfL16MILbTnQ6mF%2BUbHL0D8DtnagoxiKuFQz5dzFlTj%2F"}]}
+cf-ray: a2b22f430c472546-SJC
+alt-svc: h3=":443"; ma=86400
+
+0{"sid":"M1oVwmb0NWoKCOonBJnD","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}
+
+============================================================
+5. ENGINE.IO POLLING HANDSHAKE — EIO=3
+============================================================
+
+REQUEST:
+GET /socket.io/?EIO=3&transport=polling
+
+HTTP/2 200
+date: Fri, 14 Aug 2026 18:57:20 GMT
+content-type: text/plain; charset=UTF-8
+content-length: 123
+server: cloudflare
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+vary: Origin
+access-control-allow-credentials: true
+x-frame-options: DENY
+strict-transport-security: max-age=86400
+permissions-policy: interest-cohort=()
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=ljkN9Ch0cM3Cc5D4uQDZNjvAjjmRsFi3ddrki7%2BcRCuxmfHslVynfs%2B76cYSSFnnhf2RyYO7I90LuLwAZn5Hlv%2Fq0l%2BzXkguH7A1cK3awO8%2F%2FOMom5UWqVUo4aVRzTS1Xzpo1ae8"}]}
+cf-ray: a2b22f44bc2f33fc-SJC
+alt-svc: h3=":443"; ma=86400
+
+119:0{"sid":"1GcM_Y1EQsjsMhwzBJnE","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}
+
+============================================================
+6. POSSIBLE /socket.io PATH VARIANTS
+============================================================
+
+------------------------------------------------------------
+PATH: /socket.io/
+------------------------------------------------------------
+The program curl is not installed. Install it by executing:
+ pkg install curl
+--- BODY ---
+
+------------------------------------------------------------
+PATH: /socket.io
+------------------------------------------------------------
+The program curl is not installed. Install it by executing:
+ pkg install curl
+--- BODY ---
+
+------------------------------------------------------------
+PATH: /engine.io/
+------------------------------------------------------------
+The program curl is not installed. Install it by executing:
+ pkg install curl
+--- BODY ---
+
+------------------------------------------------------------
+PATH: /engine.io
+------------------------------------------------------------
+The program curl is not installed. Install it by executing:
+ pkg install curl
+--- BODY ---
+
+
+
+============================================================
+7. WEBSOCKET UPGRADE PROBE — EIO=4
+============================================================
+
+This is ONLY a protocol probe.
+
+Request:
+GET /socket.io/?EIO=4&transport=websocket
+
+The program curl is not installed. Install it by executing:
+ pkg install curl
+
+
+============================================================
+8. WEBSOCKET UPGRADE PROBE — EIO=3
+============================================================
+
+The program curl is not installed. Install it by executing:
+ pkg install curl
+
+
+============================================================
+9. RESPONSE / SERVER IDENTIFICATION
+============================================================
+
+Selected headers from /:
+The program grep is not installed. Install it by executing:
+ pkg install grep
+
+
+============================================================
+10. TEST INTERPRETATION CHECKLIST
+============================================================
+
+[ ] Did EIO=4 polling return a valid Engine.IO open packet?
+[ ] Did EIO=3 polling return a valid Engine.IO open packet?
+[ ] Did either response contain a SID?
+[ ] What 'upgrades' value was returned?
+[ ] What pingInterval was returned?
+[ ] What pingTimeout was returned?
+[ ] What maxPayload was returned?
+[ ] Did /socket.io/ differ from /socket.io?
+[ ] Did /engine.io/ produce anything meaningful?
+[ ] Did the WebSocket probe return HTTP 101?
+[ ] Did it return HTTP 400/404/403/etc.?
+[ ] Did the server identify itself?
+
+IMPORTANT:
+A successful polling handshake is more important evidence
+than the raw WebSocket curl result. If polling succeeds but
+the WebSocket probe fails, the next experiment should reproduce
+the browser's upgrade sequence using the SID from polling.
+
+============================================================
+END WS-022
+============================================================
+The program rm is not installed. Install it by executing:
+ pkg install coreutils
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "RESULT FILE:"
+RESULT FILE:
+~ $ echo "$OUT"
+WS-022-CytubeBrowser-EngineIO-Live-Fingerprint-Experiment.txt
+~ $ echo "============================================================"
+============================================================
+~ $
