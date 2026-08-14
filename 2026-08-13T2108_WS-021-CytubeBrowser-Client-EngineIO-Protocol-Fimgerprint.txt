@@ -1,0 +1,1228 @@
+~ $ echo 'WS-021
+> Date: 2026-08-13
+> Purpose: Determine exactly how the live Cytube client configures and uses Socket.IO/Engine.IO, and compare that behavior against the manually constructed WebSocket requests from WS-019 and WS-020.
+>
+> WS-018 established:
+>     polling works
+>     WebSocket-client receives HTTP 400
+>
+> WS-019 established:
+>     raw RFC6455 WebSocket request reaches cytu.be
+>     HTTP 400 is returned
+>     response body is:
+>         {"code":3,"message":"Bad request"}
+P 3
+# Extrac>
+")
+
+script_ur> WS-020 established:
+"\']+)["\']',
+    html,
+    re.I,
+):
+   >     fresh polling SID is valid
+rls, 1):
+    print("[{}] {}".f>     SID-bound WebSocket receives HTTP 400
+EP 4
+# Fetch JavaScript files and sear>     SID remains active afterward
+iles = []
+
+for i, url in enumer>     direct WebSocket without SID also receives HTTP 400
+("--- SCRIPT {} ---".format(i))
+    print(url)
+
+    try:
+        sr = session.g>
+> WS-021 therefore does NOT primarily test another WebSocket client.
+>
+> Instead it determines:
+>     1. Which Socket.IO/Engine.IO client Cytube actually serves
+>     2. Which version/configuration it uses
+t",
+        "websocket",
+     >     3. Which socket path it uses
+join(found))
+        interesting_files.append((url, js))
+
+       >     4. Which transports it requests
+>     5. Whether the live browser client attempts WebSocket
+>     6. Whether the browser client falls back to polling
+>     7. Whether Cytube uses parameters that our tests have omitted
+>     8. Whether alternate Engine.IO URL forms behave differently
+>
+ > Target:
+>     https://cytu.be/r/EMAIL
+>
+> Evidence type:
+]
+
+            >     EXPERIMENTALLY-CONFIRMED
+>
+> === WS-021 CYTUBE CLIENT / ENGINE.IO FINGERPRINT ===' &&
+> python - <<'PY'
+> import requests
+> import re
+> import json
+       if count> import sys
+> from urllib.parse import urljoin, urlparse
+>
+> BASE = "https://cytu.be"
+> ROOM = "https://cytu.be/r/EMAIL"
+>
+> UA = (
+========>     "Mozilla/5.0 (Android 10; Mobile; rv:153.0) "
+>     "Gecko/153.0 Firefox/153.0"
+> )
+>
+> headers = {
+>     "User-Agent": UA,
+>     "Origin": BASE,
+>     "Referer": ROOM,
+>     "Accept": "*/*",
+>     "Cache-Control": "no-cache",
+>     "Pragma": "no-cache",
+> }
+>
+> session = requests.Session()
+>
+> print("=== WS-021 PARAMETERS ===")
+> print("BASE:", BASE)
+> print("ROOM:", ROOM)
+> print("UA:", UA)
+> print()
+>
+> # ============================================================
+> # STEP 1
+> # Fetch the actual Cytube room page.
+> # ============================================================
+>
+> print("=== STEP 1: FETCH LIVE CYTUBE ROOM ===")
+>
+> try:
+>     r = session.get(
+>         ROOM,
+or not pr.text>         headers=headers,
+>         timeout=15,
+>     )
+>
+>     print("HTTP:", r.status_code)
+>     print("Content-Type:", r.headers.get("content-type"))
+>     print("Content-Length:", r.headers.get("content-length"))
+>     print("Final URL:", r.url)
+>     print()
+>
+> except Exception as e:
+>     print("ROOM FETCH ERROR:", repr(e))
+>     raise SystemExit(1)
+>
+> html = r.text
+>
+> print("HTML BYTES:", len(html))
+> print()
+>
+(> # ============================================================
+> # STEP 2
+> # Search HTML for Socket.IO / Engine.IO references.
+> # ============================================================
+>
+> print("=== STEP 2: SEARCH ROOM HTML FOR SOCKET/ENGINE REFERENCES ===")
+>
+> patterns = [
+>     r"socket\.io",
+>     r"socketio",
+>     r"engine\.io",
+>     r"engineio",
+>     r"WebSocket",
+>     r"websocket",
+>     r"transport",
+>     r"/socket\.io/",
+>     r"io\s*\(",
+>     r"Socket\s*\(",
+> ]
+>
+> for pattern in patterns:
+>     matches = list(re.finditer(pattern, html, re.I))
+>
+>     print(
+>         "{:<25} {}".format(
+>             pattern,
+>             len(matches),
+>         )
+>     )
+>
+> print()
+C: websoc>
+> # ============================================================
+> # STEP 3
+> # Extract script URLs.
+> # ============================================================
+>
+SE
+  > print("=== STEP 3: SCRIPT URLS ===")
+>
+> script_urls = []
+>
+> for m in re.finditer(
+>     r'<script[^>]+src=["\']([^"\']+)["\']',
+>     html,
+polli>     re.I,
+> ):
+>     src = m.group(1)
+>     absolute = urljoin(ROOM, src)
+>     script_urls.append(absolute)
+>
+> for i, url in enumerate(script_urls, 1):
+>     print("[{}] {}".format(i, url))
+>
+> print()
+> print("SCRIPT COUNT:", len(script_urls))
+> print()
+>
+> # ============================================================
+> # STEP 4
+> # Fetch JavaScript files and search them.
+> # ============================================================
+>
+> print("=== STEP 4: INSPECT JAVASCRIPT SOURCES ===")
+>
+,> interesting_files = []
+>
+> for i, url in enumerate(script_urls, 1):
+>
+vr.headers.g>     print()
+>     print("--- SCRIPT {} ---".format(i))
+>     print(url)
+>
+>     try:
+>         sr = session.get(
+>             url,
+.text[:1000]))
+
+ >             headers=headers,
+>             timeout=15,
+>         )
+>
+>         print("HTTP:", sr.status_code)
+>         print("TYPE:", sr.headers.get("content-type"))
+>         print("BYTES:", len(sr.content))
+>
+=>         js = sr.text
+>
+=>     except Exception as e:
+>         print("FETCH ERROR:", repr(e))
+>         continue
+>
+=>     found = []
+>
+================>     js_patterns = [
+>         "socket.io",
+>         "socketio",
+>         "engine.io",
+>         "engineio",
+>         "WebSocket",
+>         "websocket",
+>         "transports",
+>         "upgrade",
+t(
+  >         "allowUpgrades",
+>         "path",
+>         "polling",
+>         "socket",
+>     ]
+>
+>     for p in js_patterns:
+>         if re.search(re.escape(p), js, re.I):
+>             found.append(p)
+>
+>     if found:
+>         print("FOUND:", ", ".join(found))
+>         interesting_files.append((url, js))
+>
+>         # Print small surrounding snippets.
+>         print()
+>         print("SNIPPETS:")
+>
+>         for p in found:
+>
+>             count = 0
+>
+>             for m in re.finditer(
+>                 re.escape(p),
+>                 js,
+>                 re.I,
+>             ):
+>
+>                 start = max(0, m.start() - 180)
+>                 end = min(len(js), m.end() + 300)
+>
+===>                 snippet = js[start:end]
+>
+E>                 print()
+>                 print(">>>", p)
+>                 print(repr(snippet))
+>
++>                 count += 1
+>
+>                 if count >= 3:
+>                     break
+>
+> print()
+> print("INTERESTING SCRIPT FILES:", len(interesting_files))
+> print()
+>
+> # ============================================================
+=======> # STEP 5
+> # Fresh Engine.IO handshake.
+> # ============================================================
+>
+o> print("=== STEP 5: FRESH ENGINE.IO HANDSHAKE ===")
+>
+> poll_url = (
+>     BASE
+>     + "/socket.io/"
+>     + "?EIO=4&transport=polling"
+> )
+>
+ js> try:
+>     pr = session.get(
+>         poll_url,
+>         headers=headers,
+>         timeout=10,
+>     )
+>
+>     print("HTTP:", pr.status_code)
+>     print("Content-Type:", pr.headers.get("content-type"))
+>     print("Response:", repr(pr.text[:2000]))
+>
+> except Exception as e:
+>     print("POLLING ERROR:", repr(e))
+>     raise SystemExit(1)
+>
+> if pr.status_code != 200 or not pr.text.startswith("0"):
+>     print()
+cation.
+# =========================>     print("ENGINE.IO HANDSHAKE FAILED")
+>     raise SystemExit(1)
+>
+A> try:
+TION >     handshake = json.loads(pr.text[1:])
+> except Exception as e:
+>     print("HANDSHAKE JSON ERROR:", repr(e))
+>     raise SystemExit(1)
+ Socket.IO/Engine.IO re>
+> sid = handshake.get("sid")
+ferences")
+print("4. Client >
+> print()
+> print("SID:", sid)
+> print("UPGRADES:", handshake.get("upgrades"))
+> print("PING INTERVAL:", handshake.get("pingInterval"))
+> print("PING TIMEOUT:", handshake.get("pingTimeout"))
+int("KEY QU> print("MAX PAYLOAD:", handshake.get("maxPayload"))
+> print()
+>
+> # ============================================================
+> # STEP 6
+ient conf> # Test exact documented Engine.IO URL forms.
+> # ============================================================
+>
+> print("=== STEP 6: ENGINE.IO URL VARIANTS ===")
+>
+> variants = [
+>
+F>     (
+>         "A: polling + SID",
+>         BASE
+>         + "/socket.io/"
+>         + "?EIO=4&transport=polling&sid="
+>         + sid
+>     ),
+>
+>     (
+>         "B: websocket + SID",
+>         BASE
+021 COMPLETE >         + "/socket.io/"
+>         + "?EIO=4&transport=websocket&sid="
+>         + sid
+>     ),
+>
+>     (
+>         "C: websocket NO SID",
+>         BASE
+>         + "/socket.io/"
+>         + "?EIO=4&transport=websocket"
+>     ),
+>
+>     (
+>         "D: websocket + SID + timestamp",
+>         BASE
+>         + "/socket.io/"
+>         + "?EIO=4&transport=websocket&sid="
+>         + sid
+>         + "&t=ws021"
+>     ),
+>
+>     (
+>         "E: polling + SID + timestamp",
+>         BASE
+>         + "/socket.io/"
+>         + "?EIO=4&transport=polling&sid="
+>         + sid
+>         + "&t=ws021"
+>     ),
+> ]
+>
+> for label, url in variants:
+>
+>     print()
+>     print("---", label, "---")
+>     print(url)
+>
+>     try:
+>
+>         vr = session.get(
+>             url,
+>             headers=headers,
+>             timeout=8,
+>         )
+>
+>         print("HTTP:", vr.status_code)
+>         print("TYPE:", vr.headers.get("content-type"))
+>         print("SERVER:", vr.headers.get("server"))
+>         print("CF-CACHE:", vr.headers.get("cf-cache-status"))
+>         print("CF-RAY:", vr.headers.get("cf-ray"))
+>         print("BODY:", repr(vr.text[:1000]))
+>
+>     except requests.exceptions.ReadTimeout:
+>         print("RESULT: READ TIMEOUT / CONNECTION REMAINED OPEN")
+>
+>     except Exception as e:
+>         print("ERROR:", repr(e))
+>
+> print()
+>
+> # ============================================================
+> # STEP 7
+> # Verify SID is still alive.
+> # ============================================================
+>
+> print("=== STEP 7: SID CONTINUITY ===")
+>
+> sid_url = (
+>     BASE
+>     + "/socket.io/"
+>     + "?EIO=4&transport=polling&sid="
+>     + sid
+> )
+>
+> try:
+>
+>     sr = session.get(
+>         sid_url,
+>         headers=headers,
+>         timeout=5,
+>     )
+>
+>     print("HTTP:", sr.status_code)
+>     print("Content-Type:", sr.headers.get("content-type"))
+>     print("BODY:", repr(sr.text[:1000]))
+>
+>     if sr.status_code == 200:
+>         print("SID RESULT: ACTIVE")
+>
+>     else:
+>         print("SID RESULT: NOT 200")
+>
+> except requests.exceptions.ReadTimeout:
+>     print("SID RESULT: ACTIVE / POLLING OPEN")
+>
+> except Exception as e:
+>     print("SID CHECK ERROR:", repr(e))
+>
+> print()
+>
+> # ============================================================
+> # STEP 8
+> # Print relevant response headers from polling handshake.
+> # ============================================================
+>
+> print("=== STEP 8: ENGINE.IO HANDSHAKE RESPONSE HEADERS ===")
+>
+> for k, v in pr.headers.items():
+>     print(k + ":", v)
+>
+> print()
+>
+> # ============================================================
+> # STEP 9
+> # Look for Socket.IO/Engine.IO version information in HTML
+> # and JavaScript.
+> # ============================================================
+>
+> print("=== STEP 9: VERSION / CLIENT IDENTIFICATION ===")
+>
+> version_patterns = [
+>     r"socket\.io[^\n\r<]{0,100}",
+>     r"socketio[^\n\r<]{0,100}",
+>     r"engine\.io[^\n\r<]{0,100}",
+>     r"engineio[^\n\r<]{0,100}",
+> ]
+>
+> for url, js in interesting_files:
+>
+>     print()
+>     print("SOURCE:", url)
+>
+>     for pattern in version_patterns:
+>
+>         matches = re.findall(
+>             pattern,
+>             js,
+>             re.I,
+>         )
+>
+>         for match in matches[:10]:
+>             print(repr(match))
+>
+> print()
+>
+> # ============================================================
+> # STEP 10
+> # Classification.
+> # ============================================================
+>
+> print("=== WS-021 CLASSIFICATION ===")
+> print()
+> print("Collected:")
+> print("1. Live Cytube HTML")
+> print("2. Live Cytube script URLs")
+> print("3. Socket.IO/Engine.IO references")
+> print("4. Client configuration snippets")
+> print("5. Engine.IO handshake")
+> print("6. Advertised upgrades")
+> print("7. Engine.IO URL variant responses")
+> print("8. SID continuity")
+> print()
+>
+> print("KEY QUESTIONS:")
+> print()
+> print("A. What Socket.IO/Engine.IO client does Cytube serve?")
+> print("B. What Engine.IO path does the client configure?")
+> print("C. Does the Cytube JavaScript explicitly request WebSocket?")
+> print("D. Does it force polling?")
+> print("E. Does it configure transports manually?")
+> print("F. Does it disable upgrades?")
+> print("G. Are there unusual query parameters?")
+> print("H. Does Cytube's own client appear to use the same endpoint?")
+> print()
+>
+> print("=== WS-021 COMPLETE ===")
+> PY
+WS-021
+Date: 2026-08-13
+Purpose: Determine exactly how the live Cytube client configures and uses Socket.IO/Engine.IO, and compare that behavior against the manually constructed WebSocket requests from WS-019 and WS-020.
+
+WS-018 established:
+    polling works
+    WebSocket-client receives HTTP 400
+
+WS-019 established:
+    raw RFC6455 WebSocket request reaches cytu.be
+    HTTP 400 is returned
+    response body is:
+        {"code":3,"message":"Bad request"}
+
+WS-020 established:
+    fresh polling SID is valid
+    SID-bound WebSocket receives HTTP 400
+    SID remains active afterward
+    direct WebSocket without SID also receives HTTP 400
+
+WS-021 therefore does NOT primarily test another WebSocket client.
+
+Instead it determines:
+    1. Which Socket.IO/Engine.IO client Cytube actually serves
+    2. Which version/configuration it uses
+    3. Which socket path it uses
+    4. Which transports it requests
+    5. Whether the live browser client attempts WebSocket
+    6. Whether the browser client falls back to polling
+    7. Whether Cytube uses parameters that our tests have omitted
+    8. Whether alternate Engine.IO URL forms behave differently
+
+Target:
+    https://cytu.be/r/EMAIL
+
+Evidence type:
+    EXPERIMENTALLY-CONFIRMED
+
+=== WS-021 CYTUBE CLIENT / ENGINE.IO FINGERPRINT ===
+=== WS-021 PARAMETERS ===
+BASE: https://cytu.be
+ROOM: https://cytu.be/r/EMAIL
+UA: Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0
+
+=== STEP 1: FETCH LIVE CYTUBE ROOM ===
+HTTP: 200
+Content-Type: text/html; charset=utf-8
+Content-Length: None
+Final URL: https://cytu.be/r/EMAIL
+
+HTML BYTES: 34981
+
+=== STEP 2: SEARCH ROOM HTML FOR SOCKET/ENGINE REFERENCES ===
+socket\.io                2
+socketio                  1
+engine\.io                0
+engineio                  0
+WebSocket                 0
+websocket                 0
+transport                 0
+/socket\.io/              1
+io\s*\(                   0
+Socket\s*\(               0
+
+=== STEP 3: SCRIPT URLS ===
+[1] https://cytu.be/js/theme.js
+[2] https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js
+[3] https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js
+[4] https://cytu.be/js/jquery-1.12.4.min.js
+[5] https://cytu.be/js/jquery-ui.js
+[6] https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js
+[7] https://cytu.be/socket.io/socket.io.js
+[8] https://cytu.be/js/data.js
+[9] https://cytu.be/js/util.js
+[10] https://cytu.be/js/tabcomplete.js
+[11] https://cytu.be/js/player.js
+[12] https://cytu.be/js/paginator.js
+[13] https://cytu.be/js/ui.js
+[14] https://cytu.be/js/callbacks.js
+[15] https://cytu.be/js/vjs/dash.all.min.js
+[16] https://cytu.be/js/vjs/video.js
+[17] https://cytu.be/js/vjs/videojs-dash.js
+[18] https://cytu.be/js/vjs/videojs-hlsjs-plugin.js
+[19] https://cytu.be/js/vjs/videojs-resolution-switcher.js
+[20] https://cytu.be/js/vjs/videojs-audio-switcher.js
+[21] https://cytu.be/js/octopus/subtitles-octopus.js
+[22] https://cytu.be/js/playerjs-0.0.12.js
+[23] https://cytu.be/js/niconico.js
+[24] https://cytu.be/js/peertube.js
+[25] https://cytu.be/js/sc.js
+[26] https://www.youtube.com/iframe_api
+[27] https://api.dmcdn.net/all.js
+[28] https://player.vimeo.com/api/player.js
+[29] https://player.twitch.tv/js/embed/v1.js
+
+SCRIPT COUNT: 29
+
+=== STEP 4: INSPECT JAVASCRIPT SOURCES ===
+
+--- SCRIPT 1 ---
+https://cytu.be/js/theme.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 806
+
+--- SCRIPT 2 ---
+https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 2730
+
+--- SCRIPT 3 ---
+https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 31
+
+--- SCRIPT 4 ---
+https://cytu.be/js/jquery-1.12.4.min.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 97163
+
+--- SCRIPT 5 ---
+https://cytu.be/js/jquery-ui.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 528735
+
+--- SCRIPT 6 ---
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js
+HTTP: 200
+TYPE: application/javascript; charset=utf-8
+BYTES: 35601
+
+--- SCRIPT 7 ---
+https://cytu.be/socket.io/socket.io.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 119021
+FOUND: socket.io, engine.io, WebSocket, websocket, transports, upgrade, path, polling, socket
+
+SNIPPETS:
+
+>>> socket.io
+"/*!\n * Socket.IO v4.5.4\n * (c) 2014-2022 Guillermo Rauch\n * Released under the MIT License.\n */\n(function (global, factory) {\n  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :\n  typeof define === 'function' && define.amd ? define(factory) :\n  (global = typeof globalThis !"
+
+>>> socket.io
+'loses the connection when the "beforeunload" event is emitted but not Chrome. This event listener\n          // ensures every browser behaves the same (no "disconnect" event at the Socket.IO level when the page is\n          // closed/reloaded)\n          _this.beforeunloadEventListener = function () {\n            if (_this.transport) {\n              // silently close the transport\n              _this.transport.removeAllListeners();\n\n              _this.transport.close();\n            }\n '
+
+>>> socket.io
+' true;\n      }\n    }\n\n    return false;\n  }\n\n  /**\n   * Replaces every Buffer | ArrayBuffer | Blob | File in packet with a numbered placeholder.\n   *\n   * @param {Object} packet - socket.io event packet\n   * @return {Object} with deconstructed packet and list of buffers\n   * @public\n   */\n\n  function deconstructPacket(packet) {\n    var buffers = [];\n    var packetData = packet.data;\n    var pack = packet;\n    pack.data = _deconstructPacket(packetData, buffers);\n    pack.attachments = '
+
+>>> engine.io
+'pts.transports || ["polling", "websocket"];\n      _this.readyState = "";\n      _this.writeBuffer = [];\n      _this.prevBufferLen = 0;\n      _this.opts = _extends({\n        path: "/engine.io",\n        agent: false,\n        withCredentials: false,\n        upgrade: true,\n        timestampParam: "t",\n        rememberUpgrade: false,\n        rejectUnauthorized: true,\n        perMessageDeflate: {\n          threshold: 1024\n        },\n        transportOptions: {},\n        closeOnBeforeunload: '
+
+>>> engine.io
+'vate\n     */\n\n\n    _createClass(Socket, [{\n      key: "createTransport",\n      value: function createTransport(name) {\n        var query = _extends({}, this.opts.query); // append engine.io protocol identifier\n\n\n        query.EIO = protocol$1; // transport name\n\n        query.transport = name; // session id if we already have one\n\n        if (this.id) query.sid = this.id;\n\n        var opts = _extends({}, this.opts.transportOptions[name], this.opts, {\n          query: query,\n          '
+
+>>> WebSocket
+' (cb) {\n        return Promise.resolve().then(cb);\n      };\n    } else {\n      return function (cb, setTimeoutFn) {\n        return setTimeoutFn(cb, 0);\n      };\n    }\n  }();\n  var WebSocket = globalThisShim.WebSocket || globalThisShim.MozWebSocket;\n  var usingBrowserWebSocket = true;\n  var defaultBinaryType = "arraybuffer";\n\n  var isReactNative = typeof navigator !== "undefined" && typeof navigator.product === "string" && navigator.product.toLowerCase() === "reactnative";\n  var WS = /'
+
+>>> WebSocket
+'ise.resolve().then(cb);\n      };\n    } else {\n      return function (cb, setTimeoutFn) {\n        return setTimeoutFn(cb, 0);\n      };\n    }\n  }();\n  var WebSocket = globalThisShim.WebSocket || globalThisShim.MozWebSocket;\n  var usingBrowserWebSocket = true;\n  var defaultBinaryType = "arraybuffer";\n\n  var isReactNative = typeof navigator !== "undefined" && typeof navigator.product === "string" && navigator.product.toLowerCase() === "reactnative";\n  var WS = /*#__PURE__*/function (_Tran'
+
+>>> WebSocket
+';\n    } else {\n      return function (cb, setTimeoutFn) {\n        return setTimeoutFn(cb, 0);\n      };\n    }\n  }();\n  var WebSocket = globalThisShim.WebSocket || globalThisShim.MozWebSocket;\n  var usingBrowserWebSocket = true;\n  var defaultBinaryType = "arraybuffer";\n\n  var isReactNative = typeof navigator !== "undefined" && typeof navigator.product === "string" && navigator.product.toLowerCase() === "reactnative";\n  var WS = /*#__PURE__*/function (_Transport) {\n    _inherits(WS, _Tra'
+
+>>> websocket
+' (cb) {\n        return Promise.resolve().then(cb);\n      };\n    } else {\n      return function (cb, setTimeoutFn) {\n        return setTimeoutFn(cb, 0);\n      };\n    }\n  }();\n  var WebSocket = globalThisShim.WebSocket || globalThisShim.MozWebSocket;\n  var usingBrowserWebSocket = true;\n  var defaultBinaryType = "arraybuffer";\n\n  var isReactNative = typeof navigator !== "undefined" && typeof navigator.product === "string" && navigator.product.toLowerCase() === "reactnative";\n  var WS = /'
+
+>>> websocket
+'ise.resolve().then(cb);\n      };\n    } else {\n      return function (cb, setTimeoutFn) {\n        return setTimeoutFn(cb, 0);\n      };\n    }\n  }();\n  var WebSocket = globalThisShim.WebSocket || globalThisShim.MozWebSocket;\n  var usingBrowserWebSocket = true;\n  var defaultBinaryType = "arraybuffer";\n\n  var isReactNative = typeof navigator !== "undefined" && typeof navigator.product === "string" && navigator.product.toLowerCase() === "reactnative";\n  var WS = /*#__PURE__*/function (_Tran'
+
+>>> websocket
+';\n    } else {\n      return function (cb, setTimeoutFn) {\n        return setTimeoutFn(cb, 0);\n      };\n    }\n  }();\n  var WebSocket = globalThisShim.WebSocket || globalThisShim.MozWebSocket;\n  var usingBrowserWebSocket = true;\n  var defaultBinaryType = "arraybuffer";\n\n  var isReactNative = typeof navigator !== "undefined" && typeof navigator.product === "string" && navigator.product.toLowerCase() === "reactnative";\n  var WS = /*#__PURE__*/function (_Transport) {\n    _inherits(WS, _Tra'
+
+>>> transports
+'e.\n       * @api public\n       */\n\n    }, {\n      key: "check",\n      value: function check() {\n        return !!WebSocket;\n      }\n    }]);\n\n    return WS;\n  }(Transport);\n\n  var transports = {\n    websocket: WS,\n    polling: Polling\n  };\n\n  // imported from https://github.com/galkn/parseuri\n\n  /**\n   * Parses an URI\n   *\n   * @author Steven Levithan <stevenlevithan.com> (MIT license)\n   * @api private\n   */\n  var re = /^(?:(?![^:@]+:[^:@\\/]*@)(http|https|ws|wss):\\/\\/)?((?:(([^:@]*)(?'
+
+>>> transports
+'" ? location.hostname : "localhost");\n      _this.port = opts.port || (typeof location !== "undefined" && location.port ? location.port : _this.secure ? "443" : "80");\n      _this.transports = opts.transports || ["polling", "websocket"];\n      _this.readyState = "";\n      _this.writeBuffer = [];\n      _this.prevBufferLen = 0;\n      _this.opts = _extends({\n        path: "/engine.io",\n        agent: false,\n        withCredentials: false,\n        upgrade: true,\n        timestampParam: "t"'
+
+>>> transports
+'ame : "localhost");\n      _this.port = opts.port || (typeof location !== "undefined" && location.port ? location.port : _this.secure ? "443" : "80");\n      _this.transports = opts.transports || ["polling", "websocket"];\n      _this.readyState = "";\n      _this.writeBuffer = [];\n      _this.prevBufferLen = 0;\n      _this.opts = _extends({\n        path: "/engine.io",\n        agent: false,\n        withCredentials: false,\n        upgrade: true,\n        timestampParam: "t",\n        remember'
+
+>>> upgrade
+'polyfill\n\n  PACKET_TYPES["open"] = "0";\n  PACKET_TYPES["close"] = "1";\n  PACKET_TYPES["ping"] = "2";\n  PACKET_TYPES["pong"] = "3";\n  PACKET_TYPES["message"] = "4";\n  PACKET_TYPES["upgrade"] = "5";\n  PACKET_TYPES["noop"] = "6";\n  var PACKET_TYPES_REVERSE = Object.create(null);\n  Object.keys(PACKET_TYPES).forEach(function (key) {\n    PACKET_TYPES_REVERSE[PACKET_TYPES[key]] = key;\n  });\n  var ERROR_PACKET = {\n    type: "error",\n    data: "parser error"\n  };\n\n  var withNativeBlob$1 = ty'
+
+>>> upgrade
+'     _this.writeBuffer = [];\n      _this.prevBufferLen = 0;\n      _this.opts = _extends({\n        path: "/engine.io",\n        agent: false,\n        withCredentials: false,\n        upgrade: true,\n        timestampParam: "t",\n        rememberUpgrade: false,\n        rejectUnauthorized: true,\n        perMessageDeflate: {\n          threshold: 1024\n        },\n        transportOptions: {},\n        closeOnBeforeunload: true\n      }, opts);\n      _this.opts.path = _this.opts.path.replace(/\\/'
+
+>>> upgrade
+'      _this.opts = _extends({\n        path: "/engine.io",\n        agent: false,\n        withCredentials: false,\n        upgrade: true,\n        timestampParam: "t",\n        rememberUpgrade: false,\n        rejectUnauthorized: true,\n        perMessageDeflate: {\n          threshold: 1024\n        },\n        transportOptions: {},\n        closeOnBeforeunload: true\n      }, opts);\n      _this.opts.path = _this.opts.path.replace(/\\/$/, "") + "/";\n\n      if (typeof _this.opts.query === "strin'
+
+>>> path
+'(query);\n        var ipv6 = this.opts.hostname.indexOf(":") !== -1;\n        return schema + "://" + (ipv6 ? "[" + this.opts.hostname + "]" : this.opts.hostname) + port + this.opts.path + (encodedQuery.length ? "?" + encodedQuery : "");\n      }\n      /**\n       * Creates a request.\n       *\n       * @param {String} method\n       * @api private\n       */\n\n    }, {\n      key: "request",\n      value: function request() {\n        var opts = arguments.length > 0 && arguments[0] !== und'
+
+>>> path
+'(query);\n        var ipv6 = this.opts.hostname.indexOf(":") !== -1;\n        return schema + "://" + (ipv6 ? "[" + this.opts.hostname + "]" : this.opts.hostname) + port + this.opts.path + (encodedQuery.length ? "?" + encodedQuery : "");\n      }\n      /**\n       * Feature detection for WebSocket.\n       *\n       * @return {Boolean} whether this transport is available.\n       * @api public\n       */\n\n    }, {\n      key: "check",\n      value: function check() {\n        return !!WebSo'
+
+>>> path
+"*\\.[^?#\\/.]+(?:[?#]|$)))*\\/?)?([^?#\\/]*))(?:\\?([^#]*))?(?:#(.*))?)/;\n  var parts = ['source', 'protocol', 'authority', 'userInfo', 'user', 'password', 'host', 'port', 'relative', 'path', 'directory', 'file', 'query', 'anchor'];\n  function parse(str) {\n    var src = str,\n        b = str.indexOf('['),\n        e = str.indexOf(']');\n\n    if (b != -1 && e != -1) {\n      str = str.substring(0, b) + str.substring(b, e).replace(/:/g, ';') + str.substring(e, str.length);\n    }\n\n    var m "
+
+>>> polling
+'atch (e) {}\n    }\n  }\n\n  function empty() {}\n\n  var hasXHR2 = function () {\n    var xhr = new XHR({\n      xdomain: false\n    });\n    return null != xhr.responseType;\n  }();\n\n  var Polling = /*#__PURE__*/function (_Transport) {\n    _inherits(Polling, _Transport);\n\n    var _super = _createSuper(Polling);\n\n    /**\n     * XHR Polling constructor.\n     *\n     * @param {Object} opts\n     * @api public\n     */\n    function Polling(opts) {\n      var _this;\n\n      _classCallCheck(this, Polli'
+
+>>> polling
+' function () {\n    var xhr = new XHR({\n      xdomain: false\n    });\n    return null != xhr.responseType;\n  }();\n\n  var Polling = /*#__PURE__*/function (_Transport) {\n    _inherits(Polling, _Transport);\n\n    var _super = _createSuper(Polling);\n\n    /**\n     * XHR Polling constructor.\n     *\n     * @param {Object} opts\n     * @api public\n     */\n    function Polling(opts) {\n      var _this;\n\n      _classCallCheck(this, Polling);\n\n      _this = _super.call(this, opts);\n      _this.poll'
+
+>>> polling
+' false\n    });\n    return null != xhr.responseType;\n  }();\n\n  var Polling = /*#__PURE__*/function (_Transport) {\n    _inherits(Polling, _Transport);\n\n    var _super = _createSuper(Polling);\n\n    /**\n     * XHR Polling constructor.\n     *\n     * @param {Object} opts\n     * @api public\n     */\n    function Polling(opts) {\n      var _this;\n\n      _classCallCheck(this, Polling);\n\n      _this = _super.call(this, opts);\n      _this.polling = false;\n\n      if (typeof location !== "undefine'
+
+>>> socket
+"/*!\n * Socket.IO v4.5.4\n * (c) 2014-2022 Guillermo Rauch\n * Released under the MIT License.\n */\n(function (global, factory) {\n  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :\n  typeof define === 'function' && define.amd ? define(factory) :\n  (global = typeof globalThi"
+
+>>> socket
+'e = false;\n      installTimerFunctions(_assertThisInitialized(_this2), opts);\n      _this2.opts = opts;\n      _this2.query = opts.query;\n      _this2.readyState = "";\n      _this2.socket = opts.socket;\n      return _this2;\n    }\n    /**\n     * Emits an error.\n     *\n     * @param {String} reason\n     * @param description\n     * @param context - the error context\n     * @return {Transport} for chaining\n     * @api protected\n     */\n\n\n    _createClass(Transport, [{\n      key: "onErro'
+
+>>> socket
+'   installTimerFunctions(_assertThisInitialized(_this2), opts);\n      _this2.opts = opts;\n      _this2.query = opts.query;\n      _this2.readyState = "";\n      _this2.socket = opts.socket;\n      return _this2;\n    }\n    /**\n     * Emits an error.\n     *\n     * @param {String} reason\n     * @param description\n     * @param context - the error context\n     * @return {Transport} for chaining\n     * @api protected\n     */\n\n\n    _createClass(Transport, [{\n      key: "onError",\n      valu'
+
+--- SCRIPT 8 ---
+https://cytu.be/js/data.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 9739
+FOUND: socketio, path, socket
+
+SNIPPETS:
+
+>>> socketio
+'ER = "";\nvar PL_CURRENT = -1;\nvar PL_WAIT_SCROLL = false;\nvar FILTER_FROM = 0;\nvar FILTER_TO = 0;\nvar NO_STORAGE = typeof localStorage == "undefined" || localStorage === null;\nvar SOCKETIO_CONNECT_ERROR_COUNT = 0;\nvar HAS_CONNECTED_BEFORE = false;\nvar IMAGE_MATCH = /<img\\s[^>]*?src\\s*=\\s*[\'\\"]([^\'\\"]*?)[\'\\"][^>]*?>/gi;\nvar CyTube = {};\nCyTube.ui = {\n    suppressedAnnouncementId: getOpt("suppressed_announcement_id")\n};\nCyTube.featureFlag = {\n    efficientEmotes: true\n};\nCyTube.channel'
+
+>>> path
+'tTime(date.getTime()+(days*24*60*60*1000));\n        var expires = "; expires="+date.toGMTString();\n    }\n    else var expires = "";\n    document.cookie = name+"="+value+expires+"; path=/";\n}\n\nfunction readCookie(name) {\n    var nameEQ = name + "=";\n    var ca = document.cookie.split(";");\n    for(var i=0;i < ca.length;i++) {\n        var c = ca[i];\n        while (c.charAt(0)==" ") c = c.substring(1,c.length);\n        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.l'
+
+>>> socket
+'if($("#videowidth").length > 0) {\n    VWIDTH = $("#videowidth").css("width").replace("px", "");\n    VHEIGHT = ""+parseInt(parseInt(VWIDTH) * 9 / 16);\n}\nvar REBUILDING = false;\nvar socket = {\n    emit: function() {\n        console.log("socket not initialized");\n        console.log(arguments);\n    }\n};\nvar CHATHIST = [];\nvar CHATHISTIDX = 0;\nvar CHATTHROTTLE = false;\nvar CHATMAXSIZE = 100;\nvar SCROLLCHAT = true;\nvar IGNORE_SCROLL_EVENT = false;\nvar LASTCHAT = {\n    name: "",\n    time'
+
+>>> socket
+'owidth").css("width").replace("px", "");\n    VHEIGHT = ""+parseInt(parseInt(VWIDTH) * 9 / 16);\n}\nvar REBUILDING = false;\nvar socket = {\n    emit: function() {\n        console.log("socket not initialized");\n        console.log(arguments);\n    }\n};\nvar CHATHIST = [];\nvar CHATHISTIDX = 0;\nvar CHATTHROTTLE = false;\nvar CHATMAXSIZE = 100;\nvar SCROLLCHAT = true;\nvar IGNORE_SCROLL_EVENT = false;\nvar LASTCHAT = {\n    name: "",\n    time: 0\n};\nvar FOCUSED = true;\nvar PAGETITLE = "CyTube";\nva'
+
+>>> socket
+'ER = "";\nvar PL_CURRENT = -1;\nvar PL_WAIT_SCROLL = false;\nvar FILTER_FROM = 0;\nvar FILTER_TO = 0;\nvar NO_STORAGE = typeof localStorage == "undefined" || localStorage === null;\nvar SOCKETIO_CONNECT_ERROR_COUNT = 0;\nvar HAS_CONNECTED_BEFORE = false;\nvar IMAGE_MATCH = /<img\\s[^>]*?src\\s*=\\s*[\'\\"]([^\'\\"]*?)[\'\\"][^>]*?>/gi;\nvar CyTube = {};\nCyTube.ui = {\n    suppressedAnnouncementId: getOpt("suppressed_announcement_id")\n};\nCyTube.featureFlag = {\n    efficientEmotes: true\n};\nCyTube.chann'
+
+--- SCRIPT 9 ---
+https://cytu.be/js/util.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 117149
+FOUND: socketio, upgrade, path, socket
+
+SNIPPETS:
+
+>>> socketio
+'eta.shadow && !USEROPTS.show_shadowchat) {\n        return;\n    }\n    // This is so we discard repeated messages\n    // which become annoying when the user is experiencing repeated socketio reconnects\n    if (data.time < LASTCHAT.time) {\n        return;\n    } else {\n        LASTCHAT.time = data.time;\n    }\n\n    var msgBuf = $("#messagebuffer");\n    var div = formatChatMessage(data, LASTCHAT);\n    // Incoming: a bunch of crap for the feature where if you hover over\n    // a message, it'
+
+>>> upgrade
+'   return $("#queueprogress").remove();\n    }\n    if (data?.type === "pt" && new RegExp(qid).test(data?.id)) {\n        $("#queueprogress").remove();\n    }\n}\n\nfunction maybePromptToUpgradeUserscript() {\n    if (document.getElementById(\'prompt-upgrade-drive-userscript\')) {\n        return;\n    }\n\n    if (!window.hasDriveUserscript) {\n        return;\n    }\n\n    var currentVersion = GS_VERSION.toString(); // data.js\n    var userscriptVersion = window.driveUserscriptVersion;\n    if (!user'
+
+>>> upgrade
+'pe === "pt" && new RegExp(qid).test(data?.id)) {\n        $("#queueprogress").remove();\n    }\n}\n\nfunction maybePromptToUpgradeUserscript() {\n    if (document.getElementById(\'prompt-upgrade-drive-userscript\')) {\n        return;\n    }\n\n    if (!window.hasDriveUserscript) {\n        return;\n    }\n\n    var currentVersion = GS_VERSION.toString(); // data.js\n    var userscriptVersion = window.driveUserscriptVersion;\n    if (!userscriptVersion) {\n        userscriptVersion = \'1.0\';\n    }\n\n   '
+
+>>> upgrade
+"urrentVersion[i]) {\n            older = true;\n        }\n    }\n\n    if (!older) {\n        return;\n    }\n\n    var alertBox = document.createElement('div');\n    alertBox.id = 'prompt-upgrade-drive-userscript';\n    alertBox.className = 'alert alert-info'\n    alertBox.innerHTML = 'A newer version of the Google Drive userscript is available.';\n    alertBox.appendChild(document.createElement('br'));\n    var infoLink = document.createElement('a');\n    infoLink.className = 'btn btn-info';\n  "
+
+>>> path
+"        data = new URL(url);\n    } catch(err){\n        throw indeterminable();\n    }\n\n    if(data.protocol == 'rtmp:') {\n        return { type: 'rt', id: url };\n    }\n    if (data.pathname.match(/\\.m3u8$/)) {\n        return { type: 'hl', id: url };\n    }\n    if (data.pathname.match(/\\.json$/)) {\n        return { type: 'cm', id: url };\n    }\n\n    switch(data.hostname.replace('www.', '')){\n        case 'youtube.com':\n            if(data.pathname == '/watch'){\n                return"
+
+>>> path
+"  if(data.protocol == 'rtmp:') {\n        return { type: 'rt', id: url };\n    }\n    if (data.pathname.match(/\\.m3u8$/)) {\n        return { type: 'hl', id: url };\n    }\n    if (data.pathname.match(/\\.json$/)) {\n        return { type: 'cm', id: url };\n    }\n\n    switch(data.hostname.replace('www.', '')){\n        case 'youtube.com':\n            if(data.pathname == '/watch'){\n                return { type: 'yt', id: data.searchParams.get('v') }\n            }\n            if(data.pathna"
+
+>>> path
+"if (data.pathname.match(/\\.json$/)) {\n        return { type: 'cm', id: url };\n    }\n\n    switch(data.hostname.replace('www.', '')){\n        case 'youtube.com':\n            if(data.pathname == '/watch'){\n                return { type: 'yt', id: data.searchParams.get('v') }\n            }\n            if(data.pathname.startsWith('/shorts/')){\n                return { type: 'yt', id: data.pathname.slice(8,19) }\n            }\n            if(data.pathname == '/playlist'){\n              "
+
+>>> socket
+'ss("btn btn-xs btn-default")\n            .appendTo(btngroup);\n        if(leader) {\n            ldr.text("Remove Leader");\n            ldr.on(\'click\', function () {\n                socket.emit("assignLeader", {\n                    name: ""\n                });\n            });\n        } else {\n            ldr.text("Give Leader");\n            ldr.on(\'click\', function () {\n                socket.emit("assignLeader", {\n                    name: name\n                });\n            });\n  '
+
+>>> socket
+' {\n                    name: ""\n                });\n            });\n        } else {\n            ldr.text("Give Leader");\n            ldr.on(\'click\', function () {\n                socket.emit("assignLeader", {\n                    name: name\n                });\n            });\n        }\n    }\n\n    /* kick button */\n    if(hasPermission("kick")) {\n        $("<button/>").addClass("btn btn-xs btn-default")\n            .text("Kick")\n            .on(\'click\', function () {\n               '
+
+>>> socket
+'tion () {\n                var reason = prompt("Enter kick reason (optional)");\n                if (reason === null) {\n                    return;\n                }\n                socket.emit("chatMsg", {\n                    msg: "/kick " + name + " " + reason,\n                    meta: {}\n                });\n            })\n            .appendTo(btngroup);\n    }\n\n    /* mute buttons */\n    if (hasPermission("mute")) {\n        var mute = $("<button/>").addClass("btn btn-xs btn-defau'
+
+--- SCRIPT 10 ---
+https://cytu.be/js/tabcomplete.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 4611
+
+--- SCRIPT 11 ---
+https://cytu.be/js/player.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 61791
+FOUND: upgrade, socket
+
+SNIPPETS:
+
+>>> upgrade
+"function(data) {\n      if (!window.hasDriveUserscript) {\n        window.promptToInstallDriveUserscript();\n      } else if (window.hasDriveUserscript) {\n        window.maybePromptToUpgradeUserscript();\n      }\n      if (typeof window.getGoogleDriveMetadata === 'function') {\n        return setTimeout((function(_this) {\n          return function() {\n            return backoffRetry(function(cb) {\n              return window.getGoogleDriveMetadata(data.id, cb);\n            }, function(er"
+
+>>> socket
+"er('apiready', function() {\n            _this.dmReady = true;\n            _this.dm.addEventListener('ended', function() {\n              if (CLIENT.leader) {\n                return socket.emit('playNext');\n              }\n            });\n            _this.dm.addEventListener('pause', function() {\n              _this.paused = true;\n              if (CLIENT.leader) {\n                return sendVideoUpdate();\n              }\n            });\n            _this.dm.addEventListener('playin"
+
+>>> socket
+"      videoId: data.id\n          });\n          removeOld($(_this.nico.iframe));\n          _this.nico.on('ended', function() {\n            if (CLIENT.leader) {\n              return socket.emit('playNext');\n            }\n          });\n          _this.nico.on('pause', function() {\n            _this.paused = true;\n            if (CLIENT.leader) {\n              return sendVideoUpdate();\n            }\n          });\n          _this.nico.on('play', function() {\n            _this.paused = f"
+
+>>> socket
+'atusUpdate\', function(status) {\n            _this.peertube.currentTime = status.position;\n            if (status.playbackState === "ended" && CLIENT.leader) {\n              return socket.emit(\'playNext\');\n            }\n          });\n          _this.peertube.addEventListener(\'volumeChange\', function(volume) {\n            var VOLUME;\n            VOLUME = volume;\n            return setOpt("volume", VOLUME);\n          });\n          _this.play();\n          return _this.setVolume(VOLUME)'
+
+--- SCRIPT 12 ---
+https://cytu.be/js/paginator.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 6180
+
+--- SCRIPT 13 ---
+https://cytu.be/js/ui.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 30031
+FOUND: socket
+
+SNIPPETS:
+
+>>> socket
+'       $("#newmessages-indicator").remove();\n    } else {\n        SCROLLCHAT = false;\n    }\n});\n\n$("#guestname").on(\'keydown\', function (ev) {\n    if (ev.keyCode === 13) {\n        socket.emit("login", {\n            name: $("#guestname").val()\n        });\n    }\n});\n\n\nCyTube.chatTabCompleteData = {\n    context: {}\n};\n\nfunction chatTabComplete(chatline) {\n    if (!CyTube.tabCompleteMethods) {\n        console.error(\'Missing CyTube.tabCompleteMethods!\');\n        return;\n    }\n    var cu'
+
+>>> socket
+'ide\n            if (CLIENT.rank >= 2 && msg.indexOf("/m ") === 0) {\n                meta.modflair = CLIENT.rank;\n                msg = msg.substring(3);\n            }\n\n            socket.emit("chatMsg", {\n                msg: msg,\n                meta: meta\n            });\n            CHATHIST.push($("#chatline").val());\n            CHATHISTIDX = CHATHIST.length;\n            $("#chatline").val("");\n        }\n        return;\n    }\n    else if(ev.keyCode == 9) { // Tab completion\n   '
+
+>>> socket
+'his channel does not allow you to search its library",\n            "alert-danger");\n        al.find(".alert").insertAfter($("#library_query").parent());\n        return;\n    }\n\n    socket.emit("searchMedia", {\n        source: "library",\n        query: $("#library_query").val().toLowerCase()\n    });\n});\n\n$("#library_query").on(\'keydown\', function(ev) {\n    if(ev.keyCode == 13) {\n        if (!hasPermission("seeplaylist")) {\n            $("#searchcontrol .alert").remove();\n            '
+
+--- SCRIPT 14 ---
+https://cytu.be/js/callbacks.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 43674
+FOUND: socket.io, socketio, socket
+
+SNIPPETS:
+
+>>> socket.io
+'nected from server.")\n            .appendTo($("#messagebuffer"));\n        scrollChat();\n    },\n\n    reconnect: function () {\n        socket.emit("reportReconnect");\n    },\n\n    // Socket.IO error callback\n    error: function (msg) {\n        window.SOCKET_ERROR_REASON = msg;\n        $("<div/>")\n            .addClass("server-msg-disconnect")\n            .text("Unable to connect: " + msg)\n            .appendTo($("#messagebuffer"));\n    },\n\n    errorMsg: function(data) {\n        if (data.'
+
+>>> socket.io
+'ect-error")\n                .appendTo($("#announcements"));\n        }\n    });\n}\n\nfunction ioServerConnect(socketConfig) {\n    if (socketConfig.error) {\n        makeAlert("Error", "Socket.io configuration returned error: " +\n                socketConfig.error, "alert-danger")\n            .appendTo($("#announcements"));\n        return;\n    }\n\n    var servers;\n    if (socketConfig.alt && socketConfig.alt.length > 0 &&\n            localStorage.useAltServer === "true") {\n        servers = '
+
+>>> socket.io
+'Server = server;\n        }\n    });\n\n    console.log("Connecting to " + JSON.stringify(chosenServer));\n\n    if (chosenServer === null) {\n        makeAlert("Error",\n                "Socket.io configuration was unable to find a suitable server",\n                "alert-danger")\n            .appendTo($("#announcements"));\n    }\n\n    var opts = {\n        secure: chosenServer.secure,\n        withCredentials: true // enable cookies for auth\n    };\n\n    window.socket = io(chosenServer.url, opt'
+
+>>> socketio
+'const Callbacks = {\n    /* fired when socket connection completes */\n    connect: function() {\n        HAS_CONNECTED_BEFORE = true;\n        SOCKETIO_CONNECT_ERROR_COUNT = 0;\n        $("#socketio-connect-error").remove();\n        socket.emit("joinChannel", {\n            name: CHANNEL.name\n        });\n\n        if (CHANNEL.opts.password) {\n            socket.emit("channelPassword", CHANNEL.opts.password);\n        }\n\n        if (CLIENT.name && CLIE'
+
+>>> socketio
+'Callbacks = {\n    /* fired when socket connection completes */\n    connect: function() {\n        HAS_CONNECTED_BEFORE = true;\n        SOCKETIO_CONNECT_ERROR_COUNT = 0;\n        $("#socketio-connect-error").remove();\n        socket.emit("joinChannel", {\n            name: CHANNEL.name\n        });\n\n        if (CHANNEL.opts.password) {\n            socket.emit("channelPassword", CHANNEL.opts.password);\n        }\n\n        if (CLIENT.name && CLIENT.guest) {\n            socket.emit("login", {'
+
+>>> socketio
+'ot because of any configuration\n        // issue.  Therefore, omit the warning message about refreshing.\n        if (HAS_CONNECTED_BEFORE) {\n            return;\n        }\n\n        SOCKETIO_CONNECT_ERROR_COUNT++;\n        if (SOCKETIO_CONNECT_ERROR_COUNT >= 3 &&\n                $("#socketio-connect-error").length === 0) {\n            var message = "Failed to connect to the server.  Try clearing your " +\n                          "cache and refreshing the page.";\n            makeAlert("'
+
+>>> socket
+'const Callbacks = {\n    /* fired when socket connection completes */\n    connect: function() {\n        HAS_CONNECTED_BEFORE = true;\n        SOCKETIO_CONNECT_ERROR_COUNT = 0;\n        $("#socketio-connect-error").remove();\n        socket.emit("joinChannel", {\n            name: CHANNEL.name\n        });\n\n        if (CHANNEL.opts.password) {\n     '
+
+>>> socket
+'const Callbacks = {\n    /* fired when socket connection completes */\n    connect: function() {\n        HAS_CONNECTED_BEFORE = true;\n        SOCKETIO_CONNECT_ERROR_COUNT = 0;\n        $("#socketio-connect-error").remove();\n        socket.emit("joinChannel", {\n            name: CHANNEL.name\n        });\n\n        if (CHANNEL.opts.password) {\n            socket.emit("channelPassword", CHANNEL.opts.password);\n        }\n\n        if (CLIENT.name && CL'
+
+>>> socket
+'Callbacks = {\n    /* fired when socket connection completes */\n    connect: function() {\n        HAS_CONNECTED_BEFORE = true;\n        SOCKETIO_CONNECT_ERROR_COUNT = 0;\n        $("#socketio-connect-error").remove();\n        socket.emit("joinChannel", {\n            name: CHANNEL.name\n        });\n\n        if (CHANNEL.opts.password) {\n            socket.emit("channelPassword", CHANNEL.opts.password);\n        }\n\n        if (CLIENT.name && CLIENT.guest) {\n            socket.emit("login",'
+
+--- SCRIPT 15 ---
+https://cytu.be/js/vjs/dash.all.min.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 636341
+FOUND: path
+
+SNIPPETS:
+
+>>> path
+'on d(e){return 0===e.indexOf("//")}return function(){try{new window.URL("x","http://y");e=a}catch(e){}finally{e=e||o}}(),{parseBaseUrl:s,parseOrigin:u,parseScheme:l,isRelative:c,isPathAbsolute:f,isSchemeRelative:d,isHTTPURL:function(e){return n.test(e)},isHTTPS:function(e){return r.test(e)},removeHostname:function(e){return/^(?:\\w+\\:\\/\\/)?([^\\/]+)(.*)$/.exec(e)[2].substring(1)},resolve:function(t,n){return e(t,n)}}}i.__dashjs_factory_name="DefaultURLUtils";var a=r.a.getSingletonF'
+
+>>> path
+'eturn r("parseBaseUrl",e)},parseOrigin:function(e){return r("parseOrigin",e)},parseScheme:function(e){return r("parseScheme",e)},isRelative:function(e){return r("isRelative",e)},isPathAbsolute:function(e){return r("isPathAbsolute",e)},isSchemeRelative:function(e){return r("isSchemeRelative",e)},isHTTPURL:function(e){return r("isHTTPURL",e)},isHTTPS:function(e){return r("isHTTPS",e)},removeHostname:function(e){return r("removeHostname",e)},resolve:function(e,t){return r("resolve",'
+
+>>> path
+'n:function(e){return r("parseOrigin",e)},parseScheme:function(e){return r("parseScheme",e)},isRelative:function(e){return r("isRelative",e)},isPathAbsolute:function(e){return r("isPathAbsolute",e)},isSchemeRelative:function(e){return r("isSchemeRelative",e)},isHTTPURL:function(e){return r("isHTTPURL",e)},isHTTPS:function(e){return r("isHTTPS",e)},removeHostname:function(e){return r("removeHostname",e)},resolve:function(e,t){return r("resolve",e,t)}}}o.__dashjs_factory_name="URLUt'
+
+--- SCRIPT 16 ---
+https://cytu.be/js/vjs/video.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 920496
+FOUND: path
+
+SNIPPETS:
+
+>>> path
+'hostname\n   *           The hostname of the url that was parsed.\n   *\n   * @property {string} port\n   *           The port of the url that was parsed.\n   *\n   * @property {string} pathname\n   *           The pathname of the url that was parsed.\n   *\n   * @property {string} search\n   *           The search query of the url that was parsed.\n   *\n   * @property {string} hash\n   *           The hash of the url that was parsed.\n   *\n   * @property {string} host\n   *           The host'
+
+>>> path
+'hostname of the url that was parsed.\n   *\n   * @property {string} port\n   *           The port of the url that was parsed.\n   *\n   * @property {string} pathname\n   *           The pathname of the url that was parsed.\n   *\n   * @property {string} search\n   *           The search query of the url that was parsed.\n   *\n   * @property {string} hash\n   *           The hash of the url that was parsed.\n   *\n   * @property {string} host\n   *           The host of the url that was parsed.'
+
+>>> path
+"s\n   */\n  var parseUrl = function parseUrl(url) {\n    // This entire method can be replace with URL once we are able to drop IE11\n    var props = ['protocol', 'hostname', 'port', 'pathname', 'search', 'hash', 'host']; // add the url to an anchor and let the browser parse the URL\n\n    var a = document.createElement('a');\n    a.href = url; // Copy the specific URL properties to a new object\n    // This is also needed for IE because the anchor loses its\n    // properties when it's r"
+
+--- SCRIPT 17 ---
+https://cytu.be/js/vjs/videojs-dash.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 2727208
+FOUND: path, socket
+
+SNIPPETS:
+
+>>> path
+'.call\n  /******/  __webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };\n  /******/\n  /******/  // __webpack_public_path__\n  /******/  __webpack_require__.p = "/dist/";\n  /******/\n  /******/\n  /******/  // Load entry module and return exports\n  /******/  return __webpack_require__(__webpack_require__.s = "./index.js");\n  /******/ })\n  /************************************************************************/\n  /*****'
+
+>>> path
+'mptyNodeForm = config.emptyNodeForm || "text";\n\n      if (config.enableToStringFunc === undefined) {\n        config.enableToStringFunc = true;\n      }\n\n      config.arrayAccessFormPaths = config.arrayAccessFormPaths || [];\n\n      if (config.skipEmptyTextNodesForObj === undefined) {\n        config.skipEmptyTextNodesForObj = true;\n      }\n\n      if (config.stripWhitespaces === undefined) {\n        config.stripWhitespaces = true;\n      }\n\n      config.datetimeAccessFormPaths = confi'
+
+>>> path
+'eForm || "text";\n\n      if (config.enableToStringFunc === undefined) {\n        config.enableToStringFunc = true;\n      }\n\n      config.arrayAccessFormPaths = config.arrayAccessFormPaths || [];\n\n      if (config.skipEmptyTextNodesForObj === undefined) {\n        config.skipEmptyTextNodesForObj = true;\n      }\n\n      if (config.stripWhitespaces === undefined) {\n        config.stripWhitespaces = true;\n      }\n\n      config.datetimeAccessFormPaths = config.datetimeAccessFormPaths || ['
+
+>>> socket
+"ding = options.defaultEncoding || 'utf8';\n\n    // not an actual buffer we keep track of, but a measurement\n    // of how much we're waiting to get pushed to some underlying\n    // socket or file.\n    this.length = 0;\n\n    // a flag to see when we're in the middle of a write.\n    this.writing = false;\n\n    // when true all writes will be buffered until .uncork() call\n    this.corked = 0;\n\n    // a flag to be able to tell if the onwrite cb is called immediately,\n    // or on a later "
+
+--- SCRIPT 18 ---
+https://cytu.be/js/vjs/videojs-hlsjs-plugin.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 241696
+FOUND: transports, path, polling
+
+SNIPPETS:
+
+>>> transports
+'.getID3Frames(e),r=0;r<t.length;r++){var i=t[r];if(o.isTimeStampFrame(i))return o._readTimeStamp(i)}},o.isTimeStampFrame=function(e){return e&&"PRIV"===e.key&&"com.apple.streaming.transportStreamTimestamp"===e.info},o._getFrameData=function(e){var t=String.fromCharCode(e[0],e[1],e[2],e[3]),r=o._readSize(e,4);return{type:t,size:r,data:e.subarray(10,10+r)}},o.getID3Frames=function(e){for(var t=0,r=[];o.isHeader(e,t);){for(var i=o._readSize(e,t+6),a=(t+=10)+i;t+8<a;){var n=o._getFrameData'
+
+>>> path
+'soluteURL:function(e,t,r){if(r=r||{},e=e.trim(),!(t=t.trim())){if(!r.alwaysNormalize)return e;var i=o.parseURL(e);if(!i)throw new Error("Error trying to parse base URL.");return i.path=o.normalizePath(i.path),o.buildURLFromParts(i)}i=o.parseURL(t);if(!i)throw new Error("Error trying to parse relative URL.");if(i.scheme)return r.alwaysNormalize?(i.path=o.normalizePath(i.path),o.buildURLFromParts(i)):t;t=o.parseURL(e);if(!t)throw new Error("Error trying to parse base URL.");!t.netL'
+
+>>> path
+'on(e,t,r){if(r=r||{},e=e.trim(),!(t=t.trim())){if(!r.alwaysNormalize)return e;var i=o.parseURL(e);if(!i)throw new Error("Error trying to parse base URL.");return i.path=o.normalizePath(i.path),o.buildURLFromParts(i)}i=o.parseURL(t);if(!i)throw new Error("Error trying to parse relative URL.");if(i.scheme)return r.alwaysNormalize?(i.path=o.normalizePath(i.path),o.buildURLFromParts(i)):t;t=o.parseURL(e);if(!t)throw new Error("Error trying to parse base URL.");!t.netLoc&&t.path&&"/"!'
+
+>>> path
+'r){if(r=r||{},e=e.trim(),!(t=t.trim())){if(!r.alwaysNormalize)return e;var i=o.parseURL(e);if(!i)throw new Error("Error trying to parse base URL.");return i.path=o.normalizePath(i.path),o.buildURLFromParts(i)}i=o.parseURL(t);if(!i)throw new Error("Error trying to parse relative URL.");if(i.scheme)return r.alwaysNormalize?(i.path=o.normalizePath(i.path),o.buildURLFromParts(i)):t;t=o.parseURL(e);if(!t)throw new Error("Error trying to parse base URL.");!t.netLoc&&t.path&&"/"!==t.pat'
+
+>>> polling
+'(this.queuedDefaultTrack)&&(this.subtitleTrack=this.queuedDefaultTrack,this.queuedDefaultTrack=null),this.trackChangeListener=this._onTextTracksChanged.bind(this),this.useTextTrackPolling=!(this.media.textTracks&&"onchange"in this.media.textTracks),this.useTextTrackPolling?this.subtitlePollingInterval=setInterval(function(){t.trackChangeListener()},500):this.media.textTracks.addEventListener("change",this.trackChangeListener))},a.onMediaDetaching=function(){this.media&&(this.useText'
+
+>>> polling
+'ultTrack=null),this.trackChangeListener=this._onTextTracksChanged.bind(this),this.useTextTrackPolling=!(this.media.textTracks&&"onchange"in this.media.textTracks),this.useTextTrackPolling?this.subtitlePollingInterval=setInterval(function(){t.trackChangeListener()},500):this.media.textTracks.addEventListener("change",this.trackChangeListener))},a.onMediaDetaching=function(){this.media&&(this.useTextTrackPolling?clearInterval(this.subtitlePollingInterval):this.media.textTracks.removeE'
+
+>>> polling
+'rackChangeListener=this._onTextTracksChanged.bind(this),this.useTextTrackPolling=!(this.media.textTracks&&"onchange"in this.media.textTracks),this.useTextTrackPolling?this.subtitlePollingInterval=setInterval(function(){t.trackChangeListener()},500):this.media.textTracks.addEventListener("change",this.trackChangeListener))},a.onMediaDetaching=function(){this.media&&(this.useTextTrackPolling?clearInterval(this.subtitlePollingInterval):this.media.textTracks.removeEventListener("change"'
+
+--- SCRIPT 19 ---
+https://cytu.be/js/vjs/videojs-resolution-switcher.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 13558
+
+--- SCRIPT 20 ---
+https://cytu.be/js/vjs/videojs-audio-switcher.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 22839
+
+--- SCRIPT 21 ---
+https://cytu.be/js/octopus/subtitles-octopus.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 71372
+
+--- SCRIPT 22 ---
+https://cytu.be/js/playerjs-0.0.12.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 27103
+
+--- SCRIPT 23 ---
+https://cytu.be/js/niconico.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 6912
+
+--- SCRIPT 24 ---
+https://cytu.be/js/peertube.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 15122
+
+--- SCRIPT 25 ---
+https://cytu.be/js/sc.js
+HTTP: 200
+TYPE: application/javascript
+BYTES: 7216
+
+--- SCRIPT 26 ---
+https://www.youtube.com/iframe_api
+HTTP: 200
+TYPE: text/javascript; charset=utf-8
+BYTES: 993
+
+--- SCRIPT 27 ---
+https://api.dmcdn.net/all.js
+HTTP: 200
+TYPE: application/x-javascript
+BYTES: 30753
+FOUND: path
+
+SNIPPETS:
+
+>>> path
+'n(c,a,b){var d=(c+"").replace(/[^!#$&-+\\--:<-\\[\\]-~]/g,encodeURIComponent);document.cookie="dms_"+DM._apiKey+\'="\'+d+\'"\'+(d&&a==0?"":"; expires="+new Date(a*1000).toGMTString())+"; path=/"+(b&&b!=="localhost"?"; domain=."+b:"");DM.Cookie._domain=b},setNeonCookies:function(c,d,b){if(typeof b==="undefined"){return}var a=new Date();a.setSeconds(a.getSeconds()+b);var f=new Date(a.getTime());var e=f.setSeconds(f.getSeconds()+3600*24*30*3);if(c){document.cookie="access_token="+c+"; expi'
+
+>>> path
+'nds(a.getSeconds()+b);var f=new Date(a.getTime());var e=f.setSeconds(f.getSeconds()+3600*24*30*3);if(c){document.cookie="access_token="+c+"; expires="+new Date(a).toUTCString()+"; path=/"}if(d){document.cookie="refresh_token="+d+"; expires="+new Date(e).toUTCString()+"; path=/"}},set:function(a){if(a){DM.Cookie.setRaw(DM.QS.encode(a),a.expires,a.base_domain)}else{DM.Cookie.clear()}},clear:function(){DM.Cookie.setRaw("",0,DM.Cookie._domain)}});DM.provide("EventProvider",{subscribe'
+
+>>> path
+'*30*3);if(c){document.cookie="access_token="+c+"; expires="+new Date(a).toUTCString()+"; path=/"}if(d){document.cookie="refresh_token="+d+"; expires="+new Date(e).toUTCString()+"; path=/"}},set:function(a){if(a){DM.Cookie.setRaw(DM.QS.encode(a),a.expires,a.base_domain)}else{DM.Cookie.clear()}},clear:function(){DM.Cookie.setRaw("",0,DM.Cookie._domain)}});DM.provide("EventProvider",{subscribers:function(){if(!this._subscribersMap){this._subscribersMap={}}return this._subscribersMap'
+
+--- SCRIPT 28 ---
+https://player.vimeo.com/api/player.js
+HTTP: 200
+TYPE: application/javascript;charset=utf-8
+BYTES: 24420
+FOUND: WebSocket, websocket, socket
+
+SNIPPETS:
+
+>>> WebSocket
+'yer=t())})(this,function(){var e="undefined"!=typeof global&&"[object global]"==={}.toString.call(global),t="undefined"!=typeof Bun,r="undefined"!=typeof Deno,n="function"==typeof WebSocketPair&&void 0!==caches?.default,e=e||t||r||n;function i(e,t){return 0===e.indexOf(t.toLowerCase())?e:""+t.toLowerCase()+e.substr(0,1).toUpperCase()+e.substr(1)}function l(e){return/^(https?:)?\\/\\/((((player|www)\\.)?vimeo\\.com)|((player\\.)?[a-zA-Z0-9-]+\\.(videoji\\.(hk|cn)|vimeo\\.work)))(?=$|\\/)/.test('
+
+>>> websocket
+'yer=t())})(this,function(){var e="undefined"!=typeof global&&"[object global]"==={}.toString.call(global),t="undefined"!=typeof Bun,r="undefined"!=typeof Deno,n="function"==typeof WebSocketPair&&void 0!==caches?.default,e=e||t||r||n;function i(e,t){return 0===e.indexOf(t.toLowerCase())?e:""+t.toLowerCase()+e.substr(0,1).toUpperCase()+e.substr(1)}function l(e){return/^(https?:)?\\/\\/((((player|www)\\.)?vimeo\\.com)|((player\\.)?[a-zA-Z0-9-]+\\.(videoji\\.(hk|cn)|vimeo\\.work)))(?=$|\\/)/.test('
+
+>>> socket
+'=t())})(this,function(){var e="undefined"!=typeof global&&"[object global]"==={}.toString.call(global),t="undefined"!=typeof Bun,r="undefined"!=typeof Deno,n="function"==typeof WebSocketPair&&void 0!==caches?.default,e=e||t||r||n;function i(e,t){return 0===e.indexOf(t.toLowerCase())?e:""+t.toLowerCase()+e.substr(0,1).toUpperCase()+e.substr(1)}function l(e){return/^(https?:)?\\/\\/((((player|www)\\.)?vimeo\\.com)|((player\\.)?[a-zA-Z0-9-]+\\.(videoji\\.(hk|cn)|vimeo\\.work)))(?=$|\\/)/.test('
+
+--- SCRIPT 29 ---
+https://player.twitch.tv/js/embed/v1.js
+HTTP: 200
+TYPE: application/x-javascript
+BYTES: 19719
+
+INTERESTING SCRIPT FILES: 12
+
+=== STEP 5: FRESH ENGINE.IO HANDSHAKE ===
+HTTP: 200
+Content-Type: text/plain; charset=UTF-8
+Response: '0{"sid":"mIG-PkKWjDUZ90NVBJm-","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}'
+
+SID: mIG-PkKWjDUZ90NVBJm-
+UPGRADES: ['websocket']
+PING INTERVAL: 25000
+PING TIMEOUT: 120000
+MAX PAYLOAD: 1048576
+
+=== STEP 6: ENGINE.IO URL VARIANTS ===
+
+--- A: polling + SID ---
+https://cytu.be/socket.io/?EIO=4&transport=polling&sid=mIG-PkKWjDUZ90NVBJm-
+RESULT: READ TIMEOUT / CONNECTION REMAINED OPEN
+
+--- B: websocket + SID ---
+https://cytu.be/socket.io/?EIO=4&transport=websocket&sid=mIG-PkKWjDUZ90NVBJm-
+HTTP: 400
+TYPE: application/json
+SERVER: cloudflare
+CF-CACHE: DYNAMIC
+CF-RAY: a2ad14f46c6198ce-SJC
+BODY: '{"code":1,"message":"Session ID unknown"}'
+
+--- C: websocket NO SID ---
+https://cytu.be/socket.io/?EIO=4&transport=websocket
+HTTP: 400
+TYPE: application/json
+SERVER: cloudflare
+CF-CACHE: DYNAMIC
+CF-RAY: a2ad14f50dca98ce-SJC
+BODY: '{"code":3,"message":"Bad request"}'
+
+--- D: websocket + SID + timestamp ---
+https://cytu.be/socket.io/?EIO=4&transport=websocket&sid=mIG-PkKWjDUZ90NVBJm-&t=ws021
+HTTP: 400
+TYPE: application/json
+SERVER: cloudflare
+CF-CACHE: DYNAMIC
+CF-RAY: a2ad14f57f0898ce-SJC
+BODY: '{"code":1,"message":"Session ID unknown"}'
+
+--- E: polling + SID + timestamp ---
+https://cytu.be/socket.io/?EIO=4&transport=polling&sid=mIG-PkKWjDUZ90NVBJm-&t=ws021
+HTTP: 400
+TYPE: application/json
+SERVER: cloudflare
+CF-CACHE: DYNAMIC
+CF-RAY: a2ad14f5e82898ce-SJC
+BODY: '{"code":1,"message":"Session ID unknown"}'
+
+=== STEP 7: SID CONTINUITY ===
+HTTP: 400
+Content-Type: application/json
+BODY: '{"code":1,"message":"Session ID unknown"}'
+SID RESULT: NOT 200
+
+=== STEP 8: ENGINE.IO HANDSHAKE RESPONSE HEADERS ===
+Date: Fri, 14 Aug 2026 04:05:25 GMT
+Content-Type: text/plain; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Access-Control-Allow-Origin: https://cytu.be
+Vary: Origin
+Access-Control-Allow-Credentials: true
+X-Frame-Options: DENY
+Strict-Transport-Security: max-age=86400
+Permissions-Policy: interest-cohort=()
+cf-cache-status: DYNAMIC
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=OxY%2FtNLsoM7LbH9qfsQ1u2nN3ZTTVvRgL4gVnzfm1IKUAiW%2FNz%2BanMINrXRkmnCpuo19CE8pY%2FXuRmmaKxslYwHfSMswcZ4euRY2ic2b9jimuI4C34ZD%2F4%2BBc%2FeZGjNouAtJ1jvM"}]}
+Content-Encoding: gzip
+CF-RAY: a2ad14bfebab349f-SJC
+alt-svc: h3=":443"; ma=86400
+
+=== STEP 9: VERSION / CLIENT IDENTIFICATION ===
+
+SOURCE: https://cytu.be/socket.io/socket.io.js
+'Socket.IO v4.5.4'
+'Socket.IO level when the page is'
+'socket.io event packet'
+'socket.io Encoder instance'
+'socket.io Decoder instance'
+'Socket.IO server in v2.x with a v3.x client, but they are not compatible (more information here: https://sock'
+'socket.io";'
+'socket.io");'
+'socket.io.js.map'
+'engine.io",'
+'engine.io protocol identifier'
+
+SOURCE: https://cytu.be/js/data.js
+'SOCKETIO_CONNECT_ERROR_COUNT = 0;'
+
+SOURCE: https://cytu.be/js/util.js
+'socketio reconnects'
+
+SOURCE: https://cytu.be/js/player.js
+
+SOURCE: https://cytu.be/js/ui.js
+
+SOURCE: https://cytu.be/js/callbacks.js
+'Socket.IO error callback'
+'Socket.io configuration returned error: " +'
+'Socket.io configuration was unable to find a suitable server",'
+'socket.io library could not be loaded from '
+'socket.io/socket.io.js",'
+'socket.io configuration.  " +'
+'SOCKETIO_CONNECT_ERROR_COUNT = 0;'
+'socketio-connect-error").remove();'
+'SOCKETIO_CONNECT_ERROR_COUNT++;'
+'SOCKETIO_CONNECT_ERROR_COUNT >= 3 &&'
+'socketio-connect-error").length === 0) {'
+'socketio-connect-error")'
+'SocketIO(socketConfig) {'
+'socketio-js");'
+'SocketIO(socketConfig);'
+
+SOURCE: https://cytu.be/js/vjs/dash.all.min.js
+
+SOURCE: https://cytu.be/js/vjs/video.js
+
+SOURCE: https://cytu.be/js/vjs/videojs-dash.js
+
+SOURCE: https://cytu.be/js/vjs/videojs-hlsjs-plugin.js
+
+SOURCE: https://api.dmcdn.net/all.js
+
+SOURCE: https://player.vimeo.com/api/player.js
+
+=== WS-021 CLASSIFICATION ===
+
+Collected:
+1. Live Cytube HTML
+2. Live Cytube script URLs
+3. Socket.IO/Engine.IO references
+4. Client configuration snippets
+5. Engine.IO handshake
+6. Advertised upgrades
+7. Engine.IO URL variant responses
+8. SID continuity
+
+KEY QUESTIONS:
+
+A. What Socket.IO/Engine.IO client does Cytube serve?
+B. What Engine.IO path does the client configure?
+C. Does the Cytube JavaScript explicitly request WebSocket?
+D. Does it force polling?
+E. Does it configure transports manually?
+F. Does it disable upgrades?
+G. Are there unusual query parameters?
+H. Does Cytube's own client appear to use the same endpoint?
+
+=== WS-021 COMPLETE ===
+~ $ '
