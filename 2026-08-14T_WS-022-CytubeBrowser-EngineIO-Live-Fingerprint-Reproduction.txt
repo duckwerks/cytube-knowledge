@@ -1,0 +1,252 @@
+WS-022
+Date: 2026-08-14
+Status: TEST PLAN / EXECUTABLE CAPTURE SCRIPT
+Purpose: Continue WS-021 without modifying it. Recover the missing experimental output and capture the real Cytube browser client's Engine.IO/Socket.IO behavior in a form that can be compared directly with WS-018, WS-019, and WS-020.
+
+IMPORTANT
+--------
+WS-021 is retained as historical evidence. Its captured transcript is incomplete/interleaved, so WS-022 deliberately separates:
+  1. static client fingerprinting,
+  2. direct Engine.IO HTTP tests,
+  3. browser-observed network evidence,
+  4. a final comparison table.
+
+Do NOT overwrite WS-021.
+Do NOT infer a successful WebSocket upgrade from a timeout.
+Do NOT label anything browser-confirmed unless it came from the browser network log.
+
+============================================================
+WS-022 EXPERIMENT
+============================================================
+
+TARGET
+------
+Room: https://cytu.be/r/EMAIL
+Base: https://cytu.be
+Expected Engine.IO endpoint candidate: https://cytu.be/socket.io/
+
+PART A — STATIC LIVE CLIENT FINGERPRINT
+---------------------------------------
+Fetch the live Cytube room HTML and every script src. For every script, record:
+  - URL
+  - HTTP status
+  - content type
+  - byte length
+  - occurrences/snippets of:
+      socket.io
+      socketio
+      engine.io
+      engineio
+      WebSocket
+      websocket
+      transports
+      upgrade
+      allowUpgrades
+      path
+      polling
+      io(
+      Manager
+      Socket
+
+Also search for recognizable Socket.IO/Engine.IO version strings and package banners.
+
+The output must preserve COMPLETE snippets rather than only a shell transcript.
+
+PART B — FRESH ENGINE.IO POLLING HANDSHAKE
+-------------------------------------------
+Request:
+  /socket.io/?EIO=4&transport=polling
+
+Record:
+  - exact URL
+  - request headers
+  - response status
+  - response headers
+  - complete response body up to a safe maximum
+  - parsed sid
+  - upgrades
+  - pingInterval
+  - pingTimeout
+  - maxPayload
+
+Save the raw handshake response verbatim.
+
+PART C — SID CONTINUITY
+-----------------------
+Using the fresh SID, request:
+  /socket.io/?EIO=4&transport=polling&sid=<SID>
+
+Record exact status, headers, and body.
+
+PART D — DIRECT WEBSOCKET PROBES
+--------------------------------
+Test these independently. Do not claim success merely because the TCP connection remains open.
+
+1. websocket + SID
+   /socket.io/?EIO=4&transport=websocket&sid=<SID>
+
+2. websocket without SID
+   /socket.io/?EIO=4&transport=websocket
+
+3. websocket + SID + timestamp
+   /socket.io/?EIO=4&transport=websocket&sid=<SID>&t=<timestamp>
+
+For each probe record:
+  - exact URL
+  - client library/version if known
+  - handshake exception/result
+  - HTTP status if available
+  - response headers if available
+  - response body if available
+  - elapsed time
+
+If using a library that cannot expose the HTTP upgrade response, explicitly record that limitation.
+
+PART E — BROWSER NETWORK EVIDENCE
+----------------------------------
+This is the critical addition to WS-022.
+
+Open the live room in Firefox/Chromium with DevTools Network logging enabled.
+Reload the room with the Network log preserved.
+Filter for:
+  socket.io
+  websocket
+  polling
+
+Record the browser's actual sequence.
+
+For the Engine.IO polling request record:
+  - full request URL/query string
+  - request method
+  - request headers visible to DevTools
+  - response status
+  - response headers visible to DevTools
+  - response payload / packet type where visible
+
+For the WebSocket request, IF ONE OCCURS, record:
+  - exact WebSocket URL including every query parameter
+  - request headers visible to DevTools
+  - response status / handshake result
+  - WebSocket Frames immediately after connection
+  - Engine.IO packet types
+  - Socket.IO packet types
+
+If NO WebSocket request occurs, record that explicitly. This is a valid result and may be the answer.
+
+Do not manually construct a WebSocket request and call it browser evidence.
+
+PART F — BROWSER-CONSOLE CAPTURE
+--------------------------------
+Run the following in the room page console if allowed by the browser:
+
+  (() => {
+    const out = {};
+    out.location = location.href;
+    out.userAgent = navigator.userAgent;
+    out.performance = performance.getEntriesByType('resource')
+      .filter(e => /socket\.io|websocket|polling/i.test(e.name))
+      .map(e => ({
+        name: e.name,
+        initiatorType: e.initiatorType,
+        duration: e.duration,
+        transferSize: e.transferSize,
+        encodedBodySize: e.encodedBodySize,
+        decodedBodySize: e.decodedBodySize
+      }));
+    console.log('WS-022-BROWSER-RESOURCE-EVIDENCE', JSON.stringify(out, null, 2));
+    return out;
+  })();
+
+This is supplemental only. The Network panel remains authoritative for the actual WebSocket upgrade and frames.
+
+PART G — EXACT COMPARISON
+-------------------------
+Produce a final table:
+
+Field                         Browser Cytube       WS-020 / Manual
+-----------------------------------------------------------------
+Engine.IO endpoint            ?                    /socket.io/
+EIO version                   ?                    4
+transport                     ?                    websocket/polling
+SID                           ?                    fresh SID
+WebSocket attempted?         YES/NO               YES
+WebSocket URL                 ?                    ?
+query parameters              ?                    ?
+Origin                        ?                    ?
+Referer                       ?                    ?
+Cookie/auth context           ?                    ?
+User-Agent                    ?                    ?
+Sec-WebSocket-Protocol       ?                    ?
+Sec-WebSocket-Version        ?                    ?
+Upgrade path                  ?                    ?
+HTTP upgrade result           ?                    400 / other
+Engine.IO OPEN                ?                    ?
+Engine.IO upgrade packet     ?                    ?
+Socket.IO CONNECT             ?                    ?
+
+============================================================
+INTERPRETATION RULES
+============================================================
+
+RESULT 1 — Browser uses polling only
+------------------------------------
+If the live Cytube client never attempts WebSocket, stop treating the 400 WebSocket result as a blocker. The next task becomes reproducing the browser's polling-only Socket.IO behavior.
+
+RESULT 2 — Browser attempts WebSocket and succeeds
+---------------------------------------------------
+This is the highest-value result. Compare the browser's exact URL, cookies, headers, Engine.IO sequence, and Socket.IO packets against WS-020. WS-023 should reproduce the smallest difference that explains the successful upgrade.
+
+RESULT 3 — Browser attempts WebSocket and also receives 400
+------------------------------------------------------------
+Then the server/browser behavior is not explained by our standalone client alone. Investigate whether the browser retries/falls back to polling and whether Cytube operates normally over polling.
+
+RESULT 4 — Browser WebSocket request differs in path/query/version
+-----------------------------------------------------------------
+Use the browser's exact parameters as the basis for WS-023. Do not continue guessing variants.
+
+RESULT 5 — Static JavaScript reveals forced polling / disabled upgrades
+-----------------------------------------------------------------------
+Treat this as strong evidence, but still preserve the browser Network capture as confirmation.
+
+============================================================
+OUTPUT REQUIREMENTS
+============================================================
+
+The completed WS-022 artifact must contain:
+  1. TEST ENVIRONMENT
+  2. STATIC CLIENT FINGERPRINT
+  3. RAW ENGINE.IO HANDSHAKE
+  4. SID CONTINUITY RESULT
+  5. DIRECT WEBSOCKET PROBE RESULTS
+  6. BROWSER NETWORK OBSERVATION
+  7. BROWSER FRAME/PACKET SEQUENCE
+  8. BROWSER RESOURCE EVIDENCE
+  9. BROWSER-vs-MANUAL COMPARISON
+ 10. CONCLUSION
+ 11. NEXT TEST RECOMMENDATION
+
+Every result must be explicitly labeled:
+  EXPERIMENTALLY-CONFIRMED
+  OBSERVED-BUT-INCOMPLETE
+  INFERRED
+  NOT-TESTED
+
+The final conclusion must answer these five questions:
+  A. What Engine.IO/Socket.IO client/version does Cytube serve?
+  B. What exact transport/path does the browser use?
+  C. Does the browser actually attempt WebSocket upgrade?
+  D. If yes, what exact request differs from WS-020?
+  E. If no, can we reproduce Cytube using polling only?
+
+============================================================
+MINIMUM NEXT STEP
+============================================================
+
+After collecting WS-022, do NOT redesign the entire Cytube client.
+The next test (WS-023) should reproduce exactly one experimentally confirmed browser behavior at a time.
+
+WS-021 remains unchanged historical evidence.
+WS-022 is the clean reproduction/capture layer.
+WS-023 will be the first targeted reproduction based on WS-022 evidence.
+
+=== WS-022 TEST DEFINITION COMPLETE ===
