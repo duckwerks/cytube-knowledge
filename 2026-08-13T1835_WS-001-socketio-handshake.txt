@@ -1,0 +1,57 @@
+~ $ echo 'WS-001
+> Date: 2026-08-13
+> Purpose: Observe Cytube Socket.IO/Engine.IO initial handshake and identify protocol version, session ID, available upgrades, ping interval, and ping timeout.
+> Target: https://cytu.be/r/EMAIL
+> Evidence type: OBSERVED
+>
+> === SOCKET.IO CLIENT ===
+> https://cytu.be/socket.io/socket.io.js
+>
+> === ENGINE.IO HANDSHAKE: POLLING ===' &&
+> curl -sS -D - \
+>   'https://cytu.be/socket.io/?EIO=3&transport=polling' \
+>   -o /tmp/ws001-body-eio3.txt &&
+> echo &&
+> echo '--- RESPONSE BODY ---' &&
+> cat /tmp/ws001-body-eio3.txt &&
+> echo &&
+> echo '=== ENGINE.IO HANDSHAKE: EIO=4 ===' &&
+> curl -sS -D - \
+>   'https://cytu.be/socket.io/?EIO=4&transport=polling' \
+>   -o /tmp/ws001-body-eio4.txt &&
+> echo &&
+> echo '--- RESPONSE BODY ---' &&
+> cat /tmp/ws001-body-eio4.txt &&
+> echo &&
+> echo '=== SOCKET.IO CLIENT VERSION / ENGINE REFERENCES ===' &&
+> curl -sS 'https://cytu.be/socket.io/socket.io.js' |
+>   grep -oE 'EIO[=:][0-9]+|engine\.io[^"]*|socket\.io[^"]*' |
+>   head -50
+WS-001
+Date: 2026-08-13
+Purpose: Observe Cytube Socket.IO/Engine.IO initial handshake and identify protocol version, session ID, available upgrades, ping interval, and ping timeout.
+Target: https://cytu.be/r/EMAIL
+Evidence type: OBSERVED
+
+=== SOCKET.IO CLIENT ===
+https://cytu.be/socket.io/socket.io.js
+
+=== ENGINE.IO HANDSHAKE: POLLING ===
+HTTP/2 200
+date: Fri, 14 Aug 2026 01:36:35 GMT
+content-type: text/plain; charset=UTF-8
+content-length: 123
+server: cloudflare
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+vary: Origin
+access-control-allow-credentials: true
+x-frame-options: DENY
+strict-transport-security: max-age=86400
+permissions-policy: interest-cohort=()
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=AD64RyFAI8XBXtDyOq4EydoPEBwcPPXCBMQEixLs3B7MTBRQg8kxg7CUWiJssumoxQ3exgdn2PUAhuBoiHfcTFWywPF4TK%2BFrSYEgBM5kAfjucemSwjtYtMejsLvE%2FidPF5NYdty"}]}
+cf-ray: a2ac3ac008075476-SJC
+alt-svc: h3=":443"; ma=86400
+
+curl: (23) client returned ERROR on write of 123 bytes
+~ $
