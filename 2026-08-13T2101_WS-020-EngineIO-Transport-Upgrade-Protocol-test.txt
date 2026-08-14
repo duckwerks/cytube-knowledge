@@ -1,0 +1,244 @@
+~ $ echo 'WS-020
+> Date: 2026-08-13
+> Purpose: Determine whether Cytube accepts the Engine.IO WebSocket transport itself and whether the failure occurs specifically during polling-to-WebSocket transport upgrade. WS-019 established that a valid RFC6455 upgrade reaches Cytube through Cloudflare and receives HTTP 400 with Engine.IO error {"code":3,"message":"Bad request"}. This test compares fresh direct WebSocket transport against a fresh polling SID and verifies SID continuity immediately after rejection.
+> Target: https://cytu.be/r/EMAIL
+> Evidence type: EXPERIMENTALLY-CONFIRMED
+>
+"wss://cytu.be/socket.io/"
+    "?EIO=4&transport=websocket&sid=" + sid
+)
+
+try:
+    ws = websocket.create_c> === WS-020 ENGINE.IO TRANSPORT UPGRADE TEST ===' &&
+e).__name__)
+
+    ws2.close()
+
+except Exception as e:
+    print("RESULT: REJECTED")
+    short_error(e)
+
+print()
+
+print("=== WS-020 CLASSIFICATION ===")
+print("R> python - <<'PY'
+> import requests
+> import websocket
+> import ssl
+> import json
+> import time
+>
+> BASE = "https://cytu.be"
+> ROOM = "https://cytu.be/r/EMAIL"
+> UA = "Mozilla/5.0 (Android 10; Mobile; rv:153.0) Gecko/153.0 Firefox/153.0"
+>
+> def short_error(e):
+>     print("TYPE:", type(e).__name__)
+>     if hasattr(e, "status_code"):
+>         print("STATUS:", e.status_code)
+>     if hasattr(e, "resp_headers"):
+>         print("SERVER:", dict(e.resp_headers).get("Server"))
+>     text = repr(e)
+>     if "code" in text:
+>         print("ENGINE.IO ERROR PRESENT: yes")
+>     else:
+>         print("ENGINE.IO ERROR PRESENT: no")
+>
+> print("=== STEP 1: FRESH POLLING HANDSHAKE ===")
+>
+> s = requests.Session()
+>
+> headers = {
+>     "User-Agent": UA,
+>     "Origin": BASE,
+>     "Referer": ROOM,
+>     "Accept": "*/*",
+>     "Cache-Control": "no-cache",
+>     "Pragma": "no-cache",
+> }
+>
+> try:
+>     r = s.get(
+>         BASE + "/socket.io/?EIO=4&transport=polling",
+>         headers=headers,
+>         timeout=10,
+>     )
+> except Exception as e:
+>     print("HANDSHAKE ERROR:", repr(e))
+>     raise SystemExit(1)
+>
+> print("HTTP:", r.status_code)
+>
+> if r.status_code != 200 or not r.text.startswith("0"):
+>     print("HANDSHAKE FAILED")
+>     raise SystemExit(1)
+>
+> h = json.loads(r.text[1:])
+> sid = h["sid"]
+>
+> print("SID:", sid)
+> print("UPGRADES:", h.get("upgrades"))
+>
+> print()
+>
+> print("=== STEP 2: SID-BOUND WEBSOCKET ===")
+>
+> ws_url = (
+>     "wss://cytu.be/socket.io/"
+>     "?EIO=4&transport=websocket&sid=" + sid
+> )
+>
+> try:
+>     ws = websocket.create_connection(
+>         ws_url,
+>         timeout=8,
+>         origin=BASE,
+>         host="cytu.be",
+>         header=[
+>             "User-Agent: " + UA,
+>             "Referer: " + ROOM,
+>             "Accept: */*",
+>         ],
+>         sslopt={
+>             "cert_reqs": ssl.CERT_REQUIRED,
+>         },
+>     )
+>
+>     print("RESULT: CONNECTED")
+>
+>     try:
+>         print("FIRST FRAME:", repr(ws.recv()))
+>     except Exception as e:
+>         print("FRAME:", type(e).__name__)
+>
+>     ws.close()
+>
+> except Exception as e:
+>     print("RESULT: REJECTED")
+>     short_error(e)
+>
+> print()
+>
+> print("=== STEP 3: VERIFY ORIGINAL SID ===")
+>
+> poll_url = (
+>     BASE
+>     + "/socket.io/?EIO=4&transport=polling&sid="
+>     + sid
+> )
+>
+> try:
+>     r2 = s.get(
+>         poll_url,
+>         headers=headers,
+>         timeout=4,
+>     )
+>
+>     print("HTTP:", r2.status_code)
+>
+>     if r2.status_code == 200:
+>         print("SID STATUS: ACTIVE")
+>     else:
+>         print("SID STATUS: HTTP", r2.status_code)
+>
+> except requests.exceptions.ReadTimeout:
+>     print("SID STATUS: ACTIVE / POLLING OPEN")
+>
+> except Exception as e:
+>     print("SID CHECK ERROR:", type(e).__name__)
+>
+> print()
+>
+> print("=== STEP 4: DIRECT WEBSOCKET / NO SID ===")
+>
+> direct_url = (
+>     "wss://cytu.be/socket.io/"
+>     "?EIO=4&transport=websocket"
+> )
+>
+> try:
+>     ws2 = websocket.create_connection(
+>         direct_url,
+>         timeout=8,
+>         origin=BASE,
+>         host="cytu.be",
+>         header=[
+>             "User-Agent: " + UA,
+>             "Referer: " + ROOM,
+>             "Accept: */*",
+>         ],
+>         sslopt={
+>             "cert_reqs": ssl.CERT_REQUIRED,
+>         },
+>     )
+>
+>     print("RESULT: CONNECTED")
+>
+>     try:
+>         print("FIRST FRAME:", repr(ws2.recv()))
+>     except Exception as e:
+>         print("FRAME:", type(e).__name__)
+>
+>     ws2.close()
+>
+> except Exception as e:
+>     print("RESULT: REJECTED")
+>     short_error(e)
+>
+> print()
+>
+> print("=== WS-020 CLASSIFICATION ===")
+> print("Record:")
+> print("1. Fresh SID obtained")
+> print("2. SID-bound WebSocket: CONNECTED or HTTP 400")
+> print("3. SID after rejection: ACTIVE or CLOSED")
+> print("4. Direct WebSocket without SID: CONNECTED or HTTP 400")
+> print()
+> print("KEY QUESTION:")
+> print("Does Cytube accept neither direct WebSocket nor")
+> print("SID-bound WebSocket while polling remains healthy?")
+> print()
+> print("=== WS-020 COMPLETE ===")
+> PY
+WS-020
+Date: 2026-08-13
+Purpose: Determine whether Cytube accepts the Engine.IO WebSocket transport itself and whether the failure occurs specifically during polling-to-WebSocket transport upgrade. WS-019 established that a valid RFC6455 upgrade reaches Cytube through Cloudflare and receives HTTP 400 with Engine.IO error {"code":3,"message":"Bad request"}. This test compares fresh direct WebSocket transport against a fresh polling SID and verifies SID continuity immediately after rejection.
+Target: https://cytu.be/r/EMAIL
+Evidence type: EXPERIMENTALLY-CONFIRMED
+
+=== WS-020 ENGINE.IO TRANSPORT UPGRADE TEST ===
+=== STEP 1: FRESH POLLING HANDSHAKE ===
+HTTP: 200
+SID: _ATxO7pXf71tz22oBJm9
+UPGRADES: ['websocket']
+
+=== STEP 2: SID-BOUND WEBSOCKET ===
+RESULT: REJECTED
+TYPE: WebSocketBadStatusException
+STATUS: 400
+SERVER: None
+ENGINE.IO ERROR PRESENT: no
+
+=== STEP 3: VERIFY ORIGINAL SID ===
+SID STATUS: ACTIVE / POLLING OPEN
+
+=== STEP 4: DIRECT WEBSOCKET / NO SID ===
+RESULT: REJECTED
+TYPE: WebSocketBadStatusException
+STATUS: 400
+SERVER: None
+ENGINE.IO ERROR PRESENT: no
+
+=== WS-020 CLASSIFICATION ===
+Record:
+1. Fresh SID obtained
+2. SID-bound WebSocket: CONNECTED or HTTP 400
+3. SID after rejection: ACTIVE or CLOSED
+4. Direct WebSocket without SID: CONNECTED or HTTP 400
+
+KEY QUESTION:
+Does Cytube accept neither direct WebSocket nor
+SID-bound WebSocket while polling remains healthy?
+
+=== WS-020 COMPLETE ===
+~ $
