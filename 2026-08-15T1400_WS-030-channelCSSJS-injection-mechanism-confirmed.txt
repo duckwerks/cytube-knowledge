@@ -1,0 +1,164 @@
+~ $ curl -s "https://cytu.be/js/callbacks.js" | grep -n "channelCSSJS"
+307:    channelCSSJS: function(data) {
+~ $
+~ $ curl -s "https://cytu.be/js/callbacks.js" | sed -n '340,375p'
+                        title: "Inline JS",
+                        htmlContent: content.outerHTML,
+                        dismissText: "Close"
+                    });
+                };
+
+                checkScriptAccess(viewSource, "embedded", function (pref) {
+                    if (pref === "ALLOW") {
+                        $("<script/>").attr("type", "text/javascript")
+                            .attr("id", "chanjs")
+                            .text(data.js)
+                            .appendTo($("body"));
+                    }
+                });
+            }
+
+            if (data.jsHash) {
+                CyTube.channelCustomizations.jsHash = data.jsHash;
+            }
+        }
+    },
+
+    banlist: function(entries) {
+        var tbl = $("#cs-banlist table");
+        tbl.data("entries", entries);
+        formatCSBanlist();
+    },
+
+    banlistRemove: function (data) {
+        var entries = $("#cs-banlist table").data("entries") || [];
+        var found = false;
+        for (var i = 0; i < entries.length; i++) {
+            if (entries[i].id === data.id) {
+                found = i;
+                break;
+            }
+~ $
+
+~ $ curl -s "https://cytu.be/js/util.js" "https://cytu.be/js/ui.js" "https://cytu.be/js/callbacks.js" | grep -n "checkScriptAccess"
+2822:function checkScriptAccess(viewSource, type, cb) {
+2830:                checkScriptAccess(viewSource, type, cb);
+4764:            checkScriptAccess(viewSource, "external", function (pref) {
+4825:                checkScriptAccess(viewSource, "embedded", function (pref) {
+~ $
+
+~ $ grep -n "checkScriptAccess" <(curl -s "https://cytu.be/js/util.js") | head -1
+2822:function checkScriptAccess(viewSource, type, cb) {
+~ $ grep -n "checkScriptAccess" <(curl -s "https://cytu.be/js/ui.js") | head -1
+~ $ grep -n "checkScriptAccess" <(curl -s "https://cytu.be/js/callbacks.js") | head -1
+285:            checkScriptAccess(viewSource, "external", function (pref) {
+~ $
+
+~ $ curl -s "https://cytu.be/js/util.js" | sed -n '2822,2870p'
+function checkScriptAccess(viewSource, type, cb) {
+    var pref = JSPREF[CHANNEL.name.toLowerCase() + "_" + type];
+    if (pref === "ALLOW") {
+        return cb("ALLOW");
+    } else if (pref !== "DENY") {
+        var div = $("#chanjs-allow-prompt");
+        if (div.length > 0) {
+            setTimeout(function () {
+                checkScriptAccess(viewSource, type, cb);
+            }, 500);
+            return;
+        }
+
+        div = $("<div/>").attr("id", "chanjs-allow-prompt");
+        var close = $("<button/>").addClass("close pull-right")
+            .html("&times;")
+            .appendTo(div);
+        var form = $("<form/>")
+            .attr("action", "javascript:void(0)")
+            .attr("id", "chanjs-allow-prompt")
+            .attr("style", "text-align: center")
+            .appendTo(div);
+        if (type === "embedded") {
+            form.append("<span>This channel has special features that require your permission to run.</span><br>");
+        } else {
+            form.append("<span>This channel has special features that require your permission to run.  This script is hosted on a third-party website and is not endorsed by the owners of the website hosting this channel.</span><br>");
+        }
+
+        $(viewSource).appendTo(form);
+
+        form.append("<div id='chanjs-allow-prompt-buttons'>" +
+                        "<button id='chanjs-allow' class='btn btn-xs btn-danger'>Allow</button>" +
+                        "<button id='chanjs-deny' class='btn btn-xs btn-danger'>Deny</button>" +
+                    "</div>");
+        form.append("<div class='checkbox'><label><input type='checkbox' " +
+                    "id='chanjs-save-pref'/>Remember my choice for this channel" +
+                    "</label></div>");
+        var dialog = chatDialog(div);
+
+        close.on('click', function () {
+            dialog.remove();
+            /* Implicit denial of script access */
+            cb("DENY");
+        });
+
+        $("#chanjs-allow").on('click', function () {
+            var save = $("#chanjs-save-pref").is(":checked");
+            dialog.remove();
+            if (save) {
+~ $
+
+~ $ curl -s "https://cytu.be/js/util.js" | grep -n "JSPREF"
+2823:    var pref = JSPREF[CHANNEL.name.toLowerCase() + "_" + type];
+2871:                JSPREF[CHANNEL.name.toLowerCase() + "_" + type] = "ALLOW";
+2872:                setOpt("channel_js_pref", JSPREF);
+2881:                JSPREF[CHANNEL.name.toLowerCase() + "_" + type] = "DENY";
+2882:                setOpt("channel_js_pref", JSPREF);
+2893:    var channels = Object.keys(JSPREF).sort();
+2899:            delete JSPREF[channel];
+2900:            setOpt("channel_js_pref", JSPREF);
+2910:            delete JSPREF[channel];
+2911:            setOpt("channel_js_pref", JSPREF);
+2915:        var pref = JSPREF[channel];
+2928:                JSPREF[channel] = "ALLOW";
+2929:                setOpt("channel_js_pref", JSPREF);
+2941:                JSPREF[channel] = "DENY";
+2942:                setOpt("channel_js_pref", JSPREF);
+2951:                delete JSPREF[channel];
+2952:                setOpt("channel_js_pref", JSPREF);
+~ $
+
+~ $ curl -s "https://cytu.be/js/util.js" | grep -n "function setOpt"
+~ $ curl -s "https://cytu.be/js/util.js" | grep -n "function setOpt"
+~ $ curl -s "https://cytu.be/js/ui.js" "https://cytu.be/js/data.js" "https://cytu.be/js/callbacks.js" "https://cytu.be/js/player.js" | grep -n "function setOpt"
+1124:function setOpt(k, v) {
+~ $
+
+~ $ grep -n "function setOpt" <(curl -s "https://cytu.be/js/ui.js")
+~ $ grep -n "function setOpt" <(curl -s "https://cytu.be/js/data.js")
+145:function setOpt(k, v) {
+~ $ grep -n "function setOpt" <(curl -s "https://cytu.be/js/callbacks.js")
+~ $ grep -n "function setOpt" <(curl -s "https://cytu.be/js/player.js")
+~ $ curl -s "https://cytu.be/js/data.js" | sed -n '145,165p'
+function setOpt(k, v) {
+    v = JSON.stringify(v);
+    NO_STORAGE ? createCookie(k, v, 1000) : localStorage.setItem(k, v);
+}
+
+function getOrDefault(k, def) {
+    var v = getOpt(k);
+    if(v === null || v === "null")
+        return def;
+    if(v === "true")
+        return true;
+    if(v === "false")
+        return false;
+    if(v.match && v.match(/^[0-9]+$/))
+        return parseInt(v);
+    if(v.match && v.match(/^[0-9\.]+$/))
+        return parseFloat(v);
+    return v;
+}
+
+var IGNORED = getOrDefault("ignorelist", []);
+~ $
+
+

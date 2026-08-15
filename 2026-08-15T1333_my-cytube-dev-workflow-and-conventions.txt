@@ -1,0 +1,97 @@
+CYTUBE DEV WORKFLOW & CONVENTIONS
+Last updated: 2026-08-15
+
+=== PURPOSE ===
+This file documents the fixed constraints and conventions for developing
+custom JS/CSS for Cytube channels/rooms. Any assistant or collaborator
+working on this project should follow these rules without exception.
+
+=== DEVICE / ENVIRONMENT ===
+- All development happens on an Android mobile smartphone.
+- No desktop/laptop is used at any point in this workflow.
+- Browser DevTools console is NOT available on mobile. There is zero
+  native way to inspect console output on Android mobile browsers.
+- Therefore all debugging solutions must be mobile-first:
+  - in-page custom JS logger (preferred), OR
+  - injectable third-party debug console (e.g. Eruda, vConsole) as a
+    fallback when a full console-like UI is needed temporarily.
+- Termux is used to run shell commands (curl, websocat, etc.) for
+  protocol-level research (DOM structure, websocket handshakes, etc.).
+- Markor is used as the text/markdown editor for creating and saving
+  files before pushing to GitHub.
+- GitHub hosts all script/style files and research notes.
+- jsDelivr is used as the CDN to serve raw GitHub files into Cytube's
+  external JS/CSS fields.
+
+=== WHERE CYTUBE CUSTOM CODE LIVES ===
+Two injection points are used depending on the situation:
+1. Cytube's built-in internal JS/CSS editor (pasted directly into the
+   channel's own settings).
+2. Cytube's external JS/CSS field, which points to a hosted URL
+   (GitHub raw file served via jsDelivr).
+External hosting via jsDelivr is preferred for anything non-trivial,
+since it allows version control, diffing, and rollback through GitHub.
+
+=== FILE NAMING / VERSIONING CONVENTION ===
+Script files use this pattern:
+
+    project-name-vX.X.js
+
+Example:
+
+    chat-overlay-v1.3.js
+
+Every meaningful change gets a new version number rather than
+overwriting the old file, so old versions remain available on jsDelivr
+via commit-pinned or tag-pinned URLs if a rollback is needed.
+
+=== jsDeliver LINK FORMAT ===
+Standard jsDelivr GitHub link pattern:
+
+    https://cdn.jsdelivr.net/gh/duckwerks/REPO-NAME@main/PATH/FILE.js
+
+Notes:
+- @main pulls the latest committed version (subject to jsDelivr cache
+  delay, roughly up to 24h unless purged).
+- Pinning to a specific commit hash or git tag instead of @main
+  guarantees an immutable, non-cached-stale version — preferred once
+  a version is considered stable.
+- Purge a stale cached file manually at:
+    https://www.jsdelivr.com/tools/purge
+
+=== TROUBLESHOOTING / ITERATION RULES ===
+1. Change ONE thing at a time. Never bundle multiple untested changes
+   into a single revision.
+2. Before writing new code, logically explain the change being made
+   and why.
+3. Show the exact snippet being changed ("before") alongside the
+   updated snippet ("after") — not just the diff description.
+4. Verify the logic of a change before it's written into the script,
+   not after.
+5. Stay on task — don't introduce unrelated changes or "while we're
+   at it" fixes during an active troubleshooting session.
+6. At the end of every response involving a script change, provide
+   the FULL complete script (not a fragment), ready to copy-paste as
+   one block.
+7. Provide the filename (with incremented version number) as its own
+   copyable code block.
+8. Provide the jsDelivr link as its own separate copyable code block.
+
+=== RESEARCH FILE NAMING (existing convention, for reference) ===
+Protocol/DOM research notes follow:
+
+    YYYY-MM-DDTHHMM_CATEGORY-###-short-description.txt
+
+Where CATEGORY is one of:
+    DOM  - DOM structure / HTML shell findings
+    WS   - WebSocket / Engine.IO / Socket.IO protocol findings
+    WA   - (as used) misc web/app findings
+
+=== OPEN QUESTIONS / TO BE FILLED IN ===
+- Socket.IO event catalog (client-facing event names + payloads)
+- Global window objects exposed by Cytube's client bundle
+- Exact mechanism Cytube uses to load the external JS/CSS field
+  (script tag vs fetch+eval vs sandboxed iframe) + any CSP restrictions
+- Rank/permission value map and how to check permissions client-side
+- Emote/chat markup parsing rules
+- LocalStorage/cookie keys already used by Cytube (to avoid collisions)
