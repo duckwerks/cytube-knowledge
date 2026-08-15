@@ -1,0 +1,1020 @@
+ $ #!/data/data/com.termux/files/usr/bin/bash
+~ $
+~ $ BASE="https://cytu.be/js"
+ks.js..."
+echo
+
+curl -fsSL "$BASE/$FILE" -o "$TMP/$FILE" || {
+    echo
+    echo "FAILED: could not download callbacks.js"
+    exit 1
+}
+
+echo "Download successful."
+echo
+
+echo "============================================================"
+echo "1. FILE INFORMATION"
+echo "============================================================"
+echo
+
+wc -c "$TMP/$FILE"
+wc -l "$TMP/$FILE"
+
+echo
+echo "============================================================"
+echo~ $ FILE="callbacks.js"
+cket\.on[[:space:]]*\(' "$TMP/$FILE" || true
+
+echo
+echo "=~ $
+======================"
+echo ~ $ echo "============================================================"
+OURCE AROUND socket.on(key, ...)"
+echo "============================================================================================================
+~ $ echo "WS-032 — Cytube Callback Registration Mechanism Test"
+D=$((LINE + 45))
+
+        echo
+ WS-032 — Cytube Callback Registration Mechanism Test
+       echo "############################################################"
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+==="
+echo "5.
+ CALLBACKS OBJECT DECLARATION"
+echo "============================================================"
+echo
+
+gr~ $ echo "Purpose:"
+Purpose:
+~ $ echo "Determine exactly how Cytube converts the Callbacks object"
+Determine exactly how Cytube converts the Callbacks object
+~ $ echo "into Socket.IO event listeners."
+into Socket.IO event listeners.
+~ $ echo
+
+~ $ echo "This test is READ-ONLY."
+This test is READ-ONLY.
+~ $ echo "It does not connect to Socket.IO."
+It does not connect to Socket.IO.
+~ $ echo "It does not emit any Cytube events."
+It does not emit any Cytube events.
+~ $ echo
+
+~ $
+~ $ TMP="$(mktemp -d)"
+st)[[:space:]]+Callbacks[[:space:]]*=|Callbacks[[:space:]]*:[[:space:]]*function|Callbacks[[:space:]]*=' \
+    "$TMP/$FILE" \
+    || true
+
+echo
+echo "============================================================"
+echo "6. CALLBACK METHOD NAMES"
+echo "============================================================"
+echo
+
+echo "Attempting to extract named callback methods..."
+echo
+
+grep -nE \
+    '^[[:space:]]*[A-Za-z0-9_$-]+[[:space:]]*:[[:space:]]*function' \
+    "$TMP/$FILE" \
+    || true
+
+echo
+echo "============================================================"
+echo "7. CALLBACK NAMES — CLEAN LIST"
+echo "============================================================"
+echo
+
+grep -E \
+    '^[[:space:]]*[A-Za-z0-9_$-]+[[:space:]]*:[[:space:]]*function' \
+    "$TMP/$FILE" \
+    | sed -E 's/^[[:space:]]*([A-Za-z0-9_$-]+)[[:space:]]*:.*/\1/' \
+    | sort -u \
+    || true
+
+echo
+echo "============================================================"
+echo "8. HOW CALLBACKS IS REFERENCED"
+echo "============================================================"
+echo
+
+echo "All lines containing the word Callbacks:"
+echo
+
+grep -nE '\bCallbacks\b' "$TMP/$FILE" || true
+
+echo
+echo "============================================================"
+echo "9. SOCKET VARIABLE OR SOCKET INITIALIZATION"
+echo "============================================================"
+echo
+
+echo "Searching for socket declaration/assignment..."
+echo
+
+grep -nEi \
+    '(^|[^A-Za-z0-9_])(var|let|const)[[:space:]]+socket|socket[[:space:]]*=[[:space:]]*io[[:space:]]*\(|socket[[:space:]]*=[[:space:]]*io\.' \
+    "$TMP/$FILE" \
+    || true
+
+echo
+echo "============================================================"
+echo "10. GLOBAL EX~ $ trap 'rm -rf "$TMP"' EXIT
+~ $
+=~ $ echo "Downloading callbacks.js..."
+Downloading callbacks.js...
+~ $ echo
+
+~ $
+=~ $ curl -fsSL "$BASE/$FILE" -o "$TMP/$FILE" || {
+>     echo
+>     echo "FAILED: could not download callbacks.js"
+w>     exit 1
+> }
+a-~ $
+~ $ echo "Download successful."
+Download successful.
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "1. FILE INFORMATION"
+1. FILE INFORMATION
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ wc -c "$TMP/$FILE"
+43674 /data/data/com.termux/files/usr/tmp/tmp.WUUSSMVWKa/callbacks.js
+~ $ wc -l "$TMP/$FILE"
+1354 /data/data/com.termux/files/usr/tmp/tmp.WUUSSMVWKa/callbacks.js
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "2. ALL SOCKET.ON() REFERENCES"
+2. ALL SOCKET.ON() REFERENCES
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+ ~ $ grep -nE 'socket\.on[[:space:]]*\(' "$TMP/$FILE" || true
+1192:            socket.on(key, function(data) {
+1207:    socket.on("connect_error", function (error) {
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "3. DYNAMIC CALLBACK REGISTRATION SEARCH"
+3. DYNAMIC CALLBACK REGISTRATION SEARCH
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ echo "Searching for:"
+Searching for:
+~ $ echo "  socket.on(key"
+  socket.on(key
+~ $ echo "  Object.keys"
+  Object.keys
+~ $ echo "  for (var key"
+  for (var key
+~ $ echo "  for (let key"
+  for (let key
+~ $ echo "  for (const key"
+  for (const key
+~ $ echo "  Callbacks"
+  Callbacks
+~ $ echo
+
+=~ $
+~ $ grep -nEi \
+>     'socket\.on[[:space:]]*\([[:space:]]*key|Object\.keys|for[[:space:]]*\([[:space:]]*(var|let|const)[[:space:]]+key|Callbacks' \
+>     "$TMP/$FILE" \
+>     || true
+1:const Callbacks = {
+398:            Callbacks.noflood({ action: "/rank", msg: data.msg });
+474:                socket.emit("initUserPLCallbacks");
+924:        Callbacks.closePoll();
+1135:        setupCallbacks();
+1177:window.Callbacks = Callbacks;
+1189:function setupCallbacks() {
+1190:    for(var key in Callbacks) {
+1192:            socket.on(key, function(data) {
+1197:                    Callbacks[key](data);
+1282:        Callbacks.disconnect();
+1297:    setupCallbacks();
+1336:            setupCallbacks();
+1352:            Callbacks.disconnect();
+~ $
+T~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "4. EXACT SOURCE AROUND socket.on(key, ...)"
+4. EXACT SOURCE AROUND socket.on(key, ...)
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+"~ $ MATCHES="$(grep -nE 'socket\.on[[:space:]]*\([[:space:]]*key' "$TMP/$FILE" | cut -d: -f1)"
+~ $
+~ $ if [ -z "$MATCHES" ]; then
+>     echo "No socket.on(key, ...) pattern found."
+> else
+>     for LINE in $MATCHES; do
+>
+>         START=$((LINE - 35))
+lowing questions >         [ "$START" -lt 1 ] && START=1
+>
+">         END=$((LINE + 45))
+c>
+>         echo
+ Jav>         echo "############################################################"
+>         echo "# MATCH AT LINE $LINE"
+>         echo "############################################################"
+>         echo
+>         echo "--- source lines $START-$END ---"
+>         echo
+>
+>         sed -n "${START},${END}p" "$TMP/$FILE"
+/g>     done
+> fi
+?"
+
+############################################################
+# MATCH AT LINE 1192
+############################################################
+
+--- source lines 1157-1237 ---
+
+        var target = $(data.target);
+        target.parent().find(".text-danger").remove();
+
+        var formGroup = target.parent();
+        while (!formGroup.hasClass("form-group") && formGroup.length > 0) {
+            formGroup = formGroup.parent();
+        }
+
+        if (formGroup.length > 0) {
+            formGroup.removeClass("has-error");
+        }
+    },
+
+    clearVoteskipVote: function () {
+        if (CHANNEL.opts.allow_voteskip && hasPermission("voteskip")) {
+            $("#voteskip").attr("disabled", false);
+        }
+    }
+};
+
+window.Callbacks = Callbacks;
+
+// For sanity, do this
+//   localStorage.setItem('cytube_socket_omissions', '["mediaUpdate"]')
+var SOCKET_DEBUG = {
+    enabled: (localStorage.getItem('cytube_socket_debug') === 'true'),
+    omit: (((data)=>{
+        const frames = data === null ? [] : JSON.parse(data);
+        return frames;
+    })(localStorage.getItem('cytube_socket_omissions')))
+};
+
+function setupCallbacks() {
+    for(var key in Callbacks) {
+        (function(key) {
+            socket.on(key, function(data) {
+                if (SOCKET_DEBUG.enabled && !SOCKET_DEBUG.omit.includes(key)) {
+                    console.log(key, data);
+                }
+                try {
+                    Callbacks[key](data);
+                } catch (e) {
+                    if (SOCKET_DEBUG.enabled) {
+                        console.log("EXCEPTION: " + e + "\n" + e.stack);
+                    }
+                }
+            });
+        })(key);
+    }
+
+    socket.on("connect_error", function (error) {
+        // If the socket has connected at least once during this
+        // session and now gets a connect error, it is likely because
+        // the server is down temporarily and not because of any configuration
+        // issue.  Therefore, omit the warning message about refreshing.
+        if (HAS_CONNECTED_BEFORE) {
+            return;
+        }
+
+        SOCKETIO_CONNECT_ERROR_COUNT++;
+        if (SOCKETIO_CONNECT_ERROR_COUNT >= 3 &&
+                $("#socketio-connect-error").length === 0) {
+            var message = "Failed to connect to the server.  Try clearing your " +
+                          "cache and refreshing the page.";
+            makeAlert("Error", message, "alert-danger")
+                .attr("id", "socketio-connect-error")
+                .appendTo($("#announcements"));
+        }
+    });
+}
+
+function ioServerConnect(socketConfig) {
+    if (socketConfig.error) {
+        makeAlert("Error", "Socket.io configuration returned error: " +
+                socketConfig.error, "alert-danger")
+            .appendTo($("#announcements"));
+        return;
+    }
+
+    var servers;
+    if (socketConfig.alt && socketConfig.alt.length > 0 &&
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "5. CALLBACKS OBJECT DECLARATION"
+5. CALLBACKS OBJECT DECLARATION
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+a~ $ grep -nE \
+>     '(^|[^A-Za-z0-9_])Callbacks[[:space:]]*=' \
+>     "$TMP/$FILE" \
+>     || true
+1:const Callbacks = {
+1177:window.Callbacks = Callbacks;
+~ $
+~ $ echo
+=
+~ $ echo "Searching for object-style declaration:"
+Searching for object-style declaration:
+~ $ echo
+
+~ $
+~ $ grep -nE \
+>     '(var|let|const)[[:space:]]+Callbacks[[:space:]]*=|Callbacks[[:space:]]*:[[:space:]]*function|Callbacks[[:space:]]*=' \
+>     "$TMP/$FILE" \
+>     || true
+1:const Callbacks = {
+1177:window.Callbacks = Callbacks;
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "6. CALLBACK METHOD NAMES"
+6. CALLBACK METHOD NAMES
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ echo "Attempting to extract named callback methods..."
+Attempting to extract named callback methods...
+~ $ echo
+
+~ $
+~ $ grep -nE \
+>     '^[[:space:]]*[A-Za-z0-9_$-]+[[:space:]]*:[[:space:]]*function' \
+>     "$TMP/$FILE" \
+>     || true
+3:    connect: function() {
+28:    disconnect: function() {
+38:    reconnect: function () {
+43:    error: function (msg) {
+51:    errorMsg: function(data) {
+59:    costanza: function (data) {
+74:    announcement: function(data) {
+92:    kick: function(data) {
+100:    noflood: function(data) {
+108:    spamFiltered: function(data) {
+124:    needPassword: function (wrongpw) {
+157:    cancelNeedPassword: function () {
+161:    cooldown: function (time) {
+176:    channelNotRegistered: function() {
+196:    setMotd: function(motd) {
+211:    chatFilters: function(entries) {
+217:    updateChatFilter: function (f) {
+236:    deleteChatFilter: function (f) {
+255:    channelOpts: function(opts) {
+301:    setPermissions: function(perms) {
+307:    channelCSSJS: function(data) {
+362:    banlist: function(entries) {
+368:    banlistRemove: function (data) {
+386:    channelRanks: function(entries) {
+392:    channelRankFail: function (data) {
+402:    readChanLog: function (data) {
+415:    voteskip: function(data) {
+428:    rank: function(r) {
+463:    login: function(data) {
+480:    usercount: function(count) {
+489:    chatMsg: function(data) {
+493:    pm: function (data) {
+520:    clearchat: function() {
+525:    userlist: function(data) {
+533:    addUser: function(data) {
+538:    setUserMeta: function (data) {
+565:    setAFK: function() {
+569:    setUserProfile: function (data) {
+577:    setLeader: function (name) {
+614:    setUserRank: function (data) {
+649:    userLeave: function(data) {
+655:    drinkCount: function(count) {
+669:    playlist: function(data) {
+686:    setPlaylistMeta: function(data) {
+698:    queue: function(data) {
+733:    queueWarn: function (data) {
+737:    queueFail: function (data) {
+744:    setTemp: function(data) {
+779:    moveVideo: function(data) {
+787:    setCurrent: function(uid) {
+802:    changeMedia: function(data) {
+854:    mediaUpdate: function(data) {
+864:    setPlaylistLocked: function (locked) {
+884:    searchResults: function(data) {
+900:            preLoadPage: function () {
+904:            generator: function (item, page, index) {
+923:    newPoll: function(data) {
+970:    updatePoll: function(data) {
+979:    closePoll: function() {
+992:    listPlaylists: function(data) {
+997:    emoteList: function (data) {
+1003:    updateEmote: function (data) {
+1035:    renameEmote: function (data) {
+1085:    removeEmote: function (data) {
+1108:    warnLargeChandump: function (data) {
+1131:    partitionChange: function (socketConfig) {
+1138:    validationError: function (error) {
+1156:    validationPassed: function (data) {
+1170:    clearVoteskipVote: function () {
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "7. CALLBACK NAMES — CLEAN LIST"
+7. CALLBACK NAMES — CLEAN LIST
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ grep -E \
+>     '^[[:space:]]*[A-Za-z0-9_$-]+[[:space:]]*:[[:space:]]*function' \
+>     "$TMP/$FILE" \
+>     | sed -E 's/^[[:space:]]*([A-Za-z0-9_$-]+)[[:space:]]*:.*/\1/' \
+>     | sort -u \
+>     || true
+addUser
+announcement
+banlist
+banlistRemove
+cancelNeedPassword
+changeMedia
+channelCSSJS
+channelNotRegistered
+channelOpts
+channelRankFail
+channelRanks
+chatFilters
+chatMsg
+clearVoteskipVote
+clearchat
+closePoll
+connect
+cooldown
+costanza
+deleteChatFilter
+disconnect
+drinkCount
+emoteList
+error
+errorMsg
+generator
+kick
+listPlaylists
+login
+mediaUpdate
+moveVideo
+needPassword
+newPoll
+noflood
+partitionChange
+playlist
+pm
+preLoadPage
+queue
+queueFail
+queueWarn
+rank
+readChanLog
+reconnect
+removeEmote
+renameEmote
+searchResults
+setAFK
+setCurrent
+setLeader
+setMotd
+setPermissions
+setPlaylistLocked
+setPlaylistMeta
+setTemp
+setUserMeta
+setUserProfile
+setUserRank
+spamFiltered
+updateChatFilter
+updateEmote
+updatePoll
+userLeave
+usercount
+userlist
+validationError
+validationPassed
+voteskip
+warnLargeChandump
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "8. HOW CALLBACKS IS REFERENCED"
+8. HOW CALLBACKS IS REFERENCED
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ echo "All lines containing the word Callbacks:"
+All lines containing the word Callbacks:
+~ $ echo
+
+~ $
+~ $ grep -nE '\bCallbacks\b' "$TMP/$FILE" || true
+1:const Callbacks = {
+398:            Callbacks.noflood({ action: "/rank", msg: data.msg });
+924:        Callbacks.closePoll();
+1177:window.Callbacks = Callbacks;
+1190:    for(var key in Callbacks) {
+1197:                    Callbacks[key](data);
+1282:        Callbacks.disconnect();
+1352:            Callbacks.disconnect();
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "9. SOCKET VARIABLE OR SOCKET INITIALIZATION"
+9. SOCKET VARIABLE OR SOCKET INITIALIZATION
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ echo "Searching for socket declaration/assignment..."
+Searching for socket declaration/assignment...
+~ $ echo
+
+~ $
+~ $ grep -nEi \
+>     '(^|[^A-Za-z0-9_])(var|let|const)[[:space:]]+socket|socket[[:space:]]*=[[:space:]]*io[[:space:]]*\(|socket[[:space:]]*=[[:space:]]*io\.' \
+>     "$TMP/$FILE" \
+>     || true
+1181:var SOCKET_DEBUG = {
+1270:    window.socket = io(chosenServer.url, opts);
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "10. GLOBAL EXPOSURE CANDIDATES"
+10. GLOBAL EXPOSURE CANDIDATES
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ echo "Searching for explicit window/global assignments:"
+Searching for explicit window/global assignments:
+~ $ echo
+
+~ $
+~ $ grep -nEi \
+>     'window\.[A-Za-z0-9_$]+[[:space:]]*=|globalThis\.[A-Za-z0-9_$]+[[:space:]]*=|window\[[^]]+\][[:space:]]*=' \
+>     "$TMP/$FILE" \
+>     || true
+44:        window.SOCKET_ERROR_REASON = msg;
+1177:window.Callbacks = Callbacks;
+1270:    window.socket = io(chosenServer.url, opts);
+~ $
+~ $ echo
+
+~ $ echo "Searching specifically for socket / Callbacks exposure:"
+Searching specifically for socket / Callbacks exposure:
+~ $ echo
+
+~ $
+~ $ grep -nEi \
+>     'window\.(socket|Callbacks)|globalThis\.(socket|Callbacks)|window\[[^]]*(socket|Callbacks)[^]]*\]' \
+>     "$TMP/$FILE" \
+>     || true
+44:        window.SOCKET_ERROR_REASON = msg;
+1132:        window.socket.disconnect();
+1177:window.Callbacks = Callbacks;
+1270:    window.socket = io(chosenServer.url, opts);
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "11. POSSIBLE INITIALIZATION FUNCTIONS"
+11. POSSIBLE INITIALIZATION FUNCTIONS
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ echo "Searching for functions that appear near callback registration:"
+Searching for functions that appear near callback registration:
+~ $ echo
+
+~ $
+~ $ grep -nE \
+>     '^[[:space:]]*(function[[:space:]]+[A-Za-z0-9_$]+|[A-Za-z0-9_$]+[[:space:]]*:[[:space:]]*function)' \
+>     "$TMP/$FILE" \
+>     | tail -n 80
+3:    connect: function() {
+28:    disconnect: function() {
+38:    reconnect: function () {
+43:    error: function (msg) {
+51:    errorMsg: function(data) {
+59:    costanza: function (data) {
+74:    announcement: function(data) {
+92:    kick: function(data) {
+100:    noflood: function(data) {
+108:    spamFiltered: function(data) {
+124:    needPassword: function (wrongpw) {
+157:    cancelNeedPassword: function () {
+161:    cooldown: function (time) {
+176:    channelNotRegistered: function() {
+196:    setMotd: function(motd) {
+211:    chatFilters: function(entries) {
+217:    updateChatFilter: function (f) {
+236:    deleteChatFilter: function (f) {
+255:    channelOpts: function(opts) {
+301:    setPermissions: function(perms) {
+307:    channelCSSJS: function(data) {
+362:    banlist: function(entries) {
+368:    banlistRemove: function (data) {
+386:    channelRanks: function(entries) {
+392:    channelRankFail: function (data) {
+402:    readChanLog: function (data) {
+415:    voteskip: function(data) {
+428:    rank: function(r) {
+445:            function addRank(r, disp) {
+463:    login: function(data) {
+480:    usercount: function(count) {
+489:    chatMsg: function(data) {
+493:    pm: function (data) {
+520:    clearchat: function() {
+525:    userlist: function(data) {
+533:    addUser: function(data) {
+538:    setUserMeta: function (data) {
+565:    setAFK: function() {
+569:    setUserProfile: function (data) {
+577:    setLeader: function (name) {
+614:    setUserRank: function (data) {
+649:    userLeave: function(data) {
+655:    drinkCount: function(count) {
+669:    playlist: function(data) {
+686:    setPlaylistMeta: function(data) {
+698:    queue: function(data) {
+733:    queueWarn: function (data) {
+737:    queueFail: function (data) {
+744:    setTemp: function(data) {
+779:    moveVideo: function(data) {
+787:    setCurrent: function(uid) {
+802:    changeMedia: function(data) {
+812:        function loadNext() {
+854:    mediaUpdate: function(data) {
+864:    setPlaylistLocked: function (locked) {
+884:    searchResults: function(data) {
+900:            preLoadPage: function () {
+904:            generator: function (item, page, index) {
+923:    newPoll: function(data) {
+970:    updatePoll: function(data) {
+979:    closePoll: function() {
+992:    listPlaylists: function(data) {
+997:    emoteList: function (data) {
+1003:    updateEmote: function (data) {
+1035:    renameEmote: function (data) {
+1085:    removeEmote: function (data) {
+1108:    warnLargeChandump: function (data) {
+1109:        function toHumanReadable(size) {
+1131:    partitionChange: function (socketConfig) {
+1138:    validationError: function (error) {
+1156:    validationPassed: function (data) {
+1170:    clearVoteskipVote: function () {
+1189:function setupCallbacks() {
+1228:function ioServerConnect(socketConfig) {
+1275:function initSocketIO(socketConfig) {
+1276:    function genericConnectionError() {
+1300:function checkLetsEncrypt(socketConfig, nonLetsEncryptError) {
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "12. SOURCE MAP / SCRIPT STRUCTURE CLUES"
+12. SOURCE MAP / SCRIPT STRUCTURE CLUES
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ echo "First 80 lines:"
+First 80 lines:
+~ $ echo
+
+~ $
+~ $ sed -n '1,80p' "$TMP/$FILE"
+const Callbacks = {
+    /* fired when socket connection completes */
+    connect: function() {
+        HAS_CONNECTED_BEFORE = true;
+        SOCKETIO_CONNECT_ERROR_COUNT = 0;
+        $("#socketio-connect-error").remove();
+        socket.emit("joinChannel", {
+            name: CHANNEL.name
+        });
+
+        if (CHANNEL.opts.password) {
+            socket.emit("channelPassword", CHANNEL.opts.password);
+        }
+
+        if (CLIENT.name && CLIENT.guest) {
+            socket.emit("login", {
+                name: CLIENT.name
+            });
+        }
+
+        $("<div/>").addClass("server-msg-reconnect")
+            .text("Connected")
+            .appendTo($("#messagebuffer"));
+        scrollChat();
+        stopQueueSpinner(null);
+    },
+
+    disconnect: function() {
+        if(KICKED)
+            return;
+        $("<div/>")
+            .addClass("server-msg-disconnect")
+            .text("Disconnected from server.")
+            .appendTo($("#messagebuffer"));
+        scrollChat();
+    },
+
+    reconnect: function () {
+        socket.emit("reportReconnect");
+    },
+
+    // Socket.IO error callback
+    error: function (msg) {
+        window.SOCKET_ERROR_REASON = msg;
+        $("<div/>")
+            .addClass("server-msg-disconnect")
+            .text("Unable to connect: " + msg)
+            .appendTo($("#messagebuffer"));
+    },
+
+    errorMsg: function(data) {
+        if (data.alert) {
+            alert(data.msg);
+        } else {
+            errDialog(data.msg);
+        }
+    },
+
+    costanza: function (data) {
+        $("#costanza-modal").modal("hide");
+        var modal = makeModal();
+        modal.attr("id", "costanza-modal")
+            .appendTo($("body"));
+
+        var body = $("<div/>").addClass("modal-body")
+            .appendTo(modal.find(".modal-content"));
+        $("<img/>").attr("src", "http://i0.kym-cdn.com/entries/icons/original/000/005/498/1300044776986.jpg")
+            .appendTo(body);
+
+        $("<strong/>").text(data.msg).appendTo(body);
+        modal.modal();
+    },
+
+    announcement: function(data) {
+        // Suppress this announcement for people who have already closed it
+        if (data.id && CyTube.ui.suppressedAnnouncementId
+                && data.id === CyTube.ui.suppressedAnnouncementId) {
+            return;
+        }
+        $("#announcements").html("");
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "13. LAST 100 LINES"
+13. LAST 100 LINES
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ tail -n 100 "$TMP/$FILE"
+
+    console.log("Connecting to " + JSON.stringify(chosenServer));
+
+    if (chosenServer === null) {
+        makeAlert("Error",
+                "Socket.io configuration was unable to find a suitable server",
+                "alert-danger")
+            .appendTo($("#announcements"));
+    }
+
+    var opts = {
+        secure: chosenServer.secure,
+        withCredentials: true // enable cookies for auth
+    };
+
+    window.socket = io(chosenServer.url, opts);
+}
+
+var USING_LETS_ENCRYPT = false;
+
+function initSocketIO(socketConfig) {
+    function genericConnectionError() {
+        var message = "The socket.io library could not be loaded from <code>" +
+                      source + "</code>.  Ensure that it is not being blocked " +
+                      "by a script blocking extension or firewall and try again.";
+        makeAlert("Error", message, "alert-danger")
+            .appendTo($("#announcements"));
+        Callbacks.disconnect();
+    }
+
+    if (typeof io === "undefined") {
+        var script = document.getElementById("socketio-js");
+        var source = "unknown";
+        if (script) {
+            source = script.src;
+        }
+
+        genericConnectionError();
+        return;
+    }
+
+    ioServerConnect(socketConfig);
+    setupCallbacks();
+}
+
+function checkLetsEncrypt(socketConfig, nonLetsEncryptError) {
+    var servers = socketConfig.servers.filter(function (server) {
+        return !server.secure && !server.ipv6Only;
+    });
+
+    if (servers.length === 0) {
+        nonLetsEncryptError();
+        return;
+    }
+
+    $.ajax({
+        url: servers[0].url + "/socket.io/socket.io.js",
+        dataType: "script",
+        timeout: 10000
+    }).done(function () {
+        var message = "Your browser cannot connect securely because it does " +
+                      "not support the newer Let's Encrypt certificate " +
+                      "authority.  Click below to acknowledge and continue " +
+                      "connecting over an unencrypted connection.  See " +
+                      "<a href=\"https://community.letsencrypt.org/t/which-browsers-and-operating-systems-support-lets-encrypt/4394\" target=\"_blank\">here</a> " +
+                      "for more details.";
+        var connectionAlert = makeAlert("Error", message, "alert-danger")
+            .appendTo($("#announcements"));
+
+        var button = document.createElement("button");
+        button.className = "btn btn-default";
+        button.textContent = "Connect Anyways";
+
+        var alertBox = connectionAlert.find(".alert")[0];
+        alertBox.appendChild(document.createElement("hr"));
+        alertBox.appendChild(button);
+
+        button.onclick = function connectAnyways() {
+            ioServerConnect({
+                servers: servers
+            });
+            setupCallbacks();
+        };
+    }).error(function () {
+        nonLetsEncryptError();
+    });
+}
+
+(function () {
+    $.getJSON("/socketconfig/" + CHANNEL.name + ".json")
+        .done(function (socketConfig) {
+            initSocketIO(socketConfig);
+        }).fail(function () {
+            makeAlert("Error", "Failed to retrieve socket.io configuration.  " +
+                               "Please try again in a few minutes.",
+                    "alert-danger")
+                .appendTo($("#announcements"));
+            Callbacks.disconnect();
+        });
+})();
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "14. IMPORTANT INTERPRETATION CHECK"
+14. IMPORTANT INTERPRETATION CHECK
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ echo "The following questions should be answerable from this output:"
+The following questions should be answerable from this output:
+~ $ echo
+
+~ $ echo "  A. Is Callbacks a plain JavaScript object?"
+  A. Is Callbacks a plain JavaScript object?
+~ $ echo
+
+~ $ echo "  B. Are its keys the actual Socket.IO event names?"
+  B. Are its keys the actual Socket.IO event names?
+~ $ echo
+
+~ $ echo "  C. Is there a loop that performs socket.on(key, ...)?"
+  C. Is there a loop that performs socket.on(key, ...)?
+~ $ echo
+
+~ $ echo "  D. Where does that loop execute?"
+  D. Where does that loop execute?
+~ $ echo
+
+~ $ echo "  E. Is socket created in callbacks.js or elsewhere?"
+  E. Is socket created in callbacks.js or elsewhere?
+~ $ echo
+
+~ $ echo "  F. Is socket exposed through window/globalThis?"
+  F. Is socket exposed through window/globalThis?
+~ $ echo
+
+~ $ echo "  G. Is Callbacks exposed through window/globalThis?"
+  G. Is Callbacks exposed through window/globalThis?
+~ $ echo
+
+~ $ echo "  H. Can an injected script potentially access either object?"
+  H. Can an injected script potentially access either object?
+~ $ echo
+
+~ $ echo "Do NOT assume that an object is globally accessible merely"
+Do NOT assume that an object is globally accessible merely
+~ $ echo "because its name appears in this source."
+because its name appears in this source.
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "WS-032 COMPLETE"
+WS-032 COMPLETE
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $ echo "Paste the complete output back for analysis."
+Paste the complete output back for analysis.
+~ $ echo "If the output is too large for one message, send it in"
+If the output is too large for one message, send it in
+~ $ echo "multiple pieces in order."
+multiple pieces in order.
+~ $ echo
+
+~ $
