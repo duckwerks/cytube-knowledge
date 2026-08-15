@@ -1,0 +1,746 @@
+~ $ #!/usr/bin/env bash
+e Engine.I~ $
+ Whether the room page identifies Socket.IO/Engine.IO."
+echo "  3. Which client/library/version appears to be used."
+echo "  4. Whether the room page contains connection configuration."
+echo "  5. Whether a fresh Engine.IO session can be established."
+echo "  6. Wheth~ $ set -u
+\
+  -D - \
+  -o /dev/null \
+  "$ROOM" \
+  2>&1
+
+echo
+echo
+
+echo "============================================================"
+echo "2. DOWNLOAD ROOM PAGE"
+echo "============================================================"
+echo
+
+curl -sS \
+  --http1.1 \
+  --max-time 30 \
+  "$ROOM" \
+  -o "$HTML" \
+  2>&1
+
+if [ -s "$HTML" ]; then
+    echo "HTML DOWNLOAD: SUCCESS"
+    echo "HTML SIZE: $(wc -c < "$HTML") bytes"
+else
+    echo "HTML DOWNLOAD: FAILED OR EMPTY"
+fi
+
+echo
+echo
+
+echo "============================================================"
+echo "3. ROOM HTML — SOCKET.IO / ENGINE.IO SEARCH"
+echo "============================================================"
+echo
+
+if [ -s "$HTML" ]; then
+
+    echo "--- Direct references ---"
+
+~ $
+~ $ OUT="WS-023-CytubeRoom-EngineIO-Browser-Client-Fingerprint.txt"
+~ $
+~ $ BASE="https://cytu.be"
+~ $ ROOM="https://cytu.be/r/EMAIL"
+~ $
+~ $ HTML="/tmp/ws023-room.html"
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "WS-023 — CYTUBE ROOM ENGINE.IO / BROWSER CLIENT FINGERPRINT"
+WS-023 — CYTUBE ROOM ENGINE.IO / BROWSER CLIENT FINGERPRINT
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $ echo "DATE (UTC): $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+
+DATE (UTC): 2026-08-15T17:28:26Z
+~ $ echo "HOST: $(hostname 2>/dev/null || true)"
+ JS_INDEX=$((JS_INDEX + 1))
+
+      HOST: localhost
+~ $ echo
+
+~ $ echo "ROOM:"
+ROOM:
+~ $ echo "$ROOM"
+https://cytu.be/r/EMAIL
+~ $ echo
+
+~ $ echo "PURPOSE"
+://*|https://*)PURPOSE
+~ $ echo "-------"
+
+       -------
+       ~ $ echo "WS-022 established that Cytube exposes a live Engine.IO"
+WS-022 established that Cytube exposes a live Engine.IO
+~ $ echo "endpoint at /socket.io/ and that both EIO=3 and EIO=4"
+endpoint at /socket.io/ and that both EIO=3 and EIO=4
+~ $ echo "polling handshakes succeed."
+polling handshakes succeed.
+~ $ echo
+
+     ~ $ echo "WS-023 moves from the Cytube homepage to an actual"
+WS-023 moves from the Cytube homepage to an actual
+~ $ echo "Cytube channel room."
+Cytube channel room.
+~ $ echo
+
+~ $ echo "The purpose is to determine:"
+The purpose is to determine:
+~ $ echo
+
+~ $ echo "  1. What JavaScript the room page loads."
+   1. What JavaScript the room page loads.
+~ $ echo "  2. Whether the room page identifies Socket.IO/Engine.IO."
+  2. Whether the room page identifies Socket.IO/Engine.IO.
+~ $ echo "  3. Which client/library/version appears to be used."
+  3. Which client/library/version appears to be used.
+~ $ echo "  4. Whether the room page contains connection configuration."
+a  4. Whether the room page contains connection configuration.
+~ $ echo "  5. Whether a fresh Engine.IO session can be established."
+  5. Whether a fresh Engine.IO session can be established.
+~ $ echo "  6. Whether that session can be polled using its SID."
+  6. Whether that session can be polled using its SID.
+ ech~ $ echo "  7. Whether a WebSocket upgrade can be attempted using that SID."
+  7. Whether a WebSocket upgrade can be attempted using that SID.
+~ $ echo
+
+~ $ echo "This is an evidence-gathering experiment."
+This is an evidence-gathering experiment.
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "0. TOOLCHAIN"
+0. TOOLCHAIN
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+ ~ $ for TOOL in curl wget grep sed awk python openssl websocat; do
+ >     if command -v "$TOOL" >/dev/null 2>&1; then
+>         echo "[FOUND] $TOOL -> $(command -v "$TOOL")"
+  >     else
+et\>         echo "[MISSING] $TOOL"
+>     fi
+> done
+;)]*|[FOUND] curl -> /data/data/com.termux/files/usr/bin/curl
+[FOUND] wget -> /data/data/com.termux/files/usr/bin/wget
+[FOUND] grep -> /data/data/com.termux/files/usr/bin/grep
+[FOUND] sed -> /data/data/com.termux/files/usr/bin/sed
+[FOUND] awk -> /data/data/com.termux/files/usr/bin/awk
+[FOUND] python -> /data/data/com.termux/files/usr/bin/python
+[MISSING] openssl
+[FOUND] websocat -> /data/data/com.termux/files/usr/bin/websocat
+~ $
+[~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "1. ROOM PAGE HEADERS"
+ he1. ROOM PAGE HEADERS
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ curl -sS \
+>   --http1.1 \
+
+>   --max-time 30 \
+>   -D - \
+>   -o /dev/null \
+>   "$ROOM" \
+>   2>&1
+HTTP/1.1 200 OK
+Date: Sat, 15 Aug 2026 17:28:26 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+X-Powered-By: Express
+Set-Cookie: _csrf=s%3ASy72BcBTN51OrMr3a1ds9NFP.TkHdT7pAXpbUovffGFKc1RWFeKGXrrjLbpyCeITQbzY; Domain=.cytu.be; Path=/; HttpOnly
+Set-Cookie: ip-session=s%3A2600%3A1010%3Ab1ab%3A22e%3A85cf%3A1c3d%3Ab818%3A8951%3A1786814906600.EnLha%2B266dZEv7JN264vAb2ODlpJUBcnN81IVfmXuiw; Path=/; Expires=Fri, 31 Dec 9999 23:59:59 GMT; HttpOnly
+Vary: Accept-Encoding
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=ywzEjp6e7m3B0NH%2BXD6DFrYPXTZhfj%2FqosabptFWjWECvJhjN4N3wT62DYxFR9Rfet4kKxLsEOqjKgjGmBOtjtn8LYQXlCpOjxAAQ9l8rFW18rAae1wrMwAMqyzl6%2BU2zs4Tzl0h"}]}
+X-Frame-Options: DENY
+Strict-Transport-Security: max-age=86400
+Permissions-Policy: interest-cohort=()
+cf-cache-status: DYNAMIC
+CF-RAY: a2b9ea6dfbcdcfcc-SJC
+alt-svc: h3=":443"; ma=86400
+
+~ $
+e~ $ echo
+
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "2. DOWNLOAD ROOM PAGE"
+2. DOWNLOAD ROOM PAGE
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ curl -sS \
+>   --http1.1 \
+>   --max-time 30 \
+>   "$ROOM" \
+>   -o "$HTML" \
+
+    [ -f "$FIL>   2>&1
+curl: (23) client returned ERROR on write of 292 bytes
+~ $
+~ $ if [ -s "$HTML" ]; then
+>     echo "HTML DOWNLOAD: SUCCESS"
+>     echo "HTML SIZE: $(wc -c < "$HTML") bytes"
+> else
+>     echo "HTML DOWNLOAD: FAILED OR EMPTY"
+> fi
+---HTML DOWNLOAD: FAILED OR EMPTY
+~ $
+-~ $ echo
+-----
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "3. ROOM HTML — SOCKET.IO / ENGINE.IO SEARCH"
+3. ROOM HTML — SOCKET.IO / ENGINE.IO SEARCH
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+
+echo~ $
+~ $ if [ -s "$HTML" ]; then
+>
+>     echo "--- Direct references ---"
+>
+>     grep -Ein \
+E.>       'socket\.io|engine\.io|socketio|engineio|websocket|polling|transports|io\(' \
+>       "$HTML" \
+>       2>/dev/null \
+>       | head -150 \
+>       || true
+>
+o> else
+>     echo "No HTML available."
+> fi
+--mNo HTML available.
+~ $
+~ $ echo
+x-tim
+~ $ echo
+
+~ $
+\~ $ echo "============================================================"
+============================================================
+~ $ echo "4. ROOM HTML — SCRIPT REFERENCES"
+4. ROOM HTML — SCRIPT REFERENCES
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ if [ -s "$HTML" ]; then
+>
+>     grep -Eoi \
+>       '<script[^>]+src=["'\''][^"'\'']+["'\'']' \
+>       "$HTML" \
+">       2>/dev/null \
+>       | sed -E \
+>         's/^.*src=["'\'']([^"'\'']+)["'\''].*$/\1/' \
+=======================>       | while read -r JS; do
+>
+>           case "$JS" in
+>               http://*|https://*)
+>                   echo "$JS"
+>                   ;;
+>               /*)
+>                   echo "$BASE$JS"
+>                   ;;
+>               *)
+>                   echo "$BASE/$JS"
+>                   ;;
+>           esac
+>
+P>       done
+>
+> else
+>     echo "No HTML available."
+> fi
+No HTML available.
+~ $
+ ~ $ echo
+json.
+~ $ echo
+
+~ $
+(~ $ echo "============================================================"
+============================================================
+~ $ echo "5. ROOM HTML — INLINE JAVASCRIPT"
+5. ROOM HTML — INLINE JAVASCRIPT
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+    p
+~ $
+r~ $ if [ -s "$HTML" ]; then
+>
+>     echo "--- Lines containing connection-related terms ---"
+>
+>     grep -Ein \
+>       'socket|engine|websocket|polling|transport|connect|io\(' \
+>       "$HTML" \
+>       2>/dev/null \
+>       | head -200 \
+>       || true
+>
+> else
+>     echo "No HTML available."
+> fi
+No HTML available.
+ng="utf-8~ $
+~ $ echo
+
+~ $ echo
+
+~ $
+", errors="r~ $ echo "============================================================"
+============================================================
+~ $ echo "6. DOWNLOAD ROOM JAVASCRIPT"
+6. DOWNLOAD ROOM JAVASCRIPT
+~ $ echo "============================================================"
+============================================================
+  except:
+        pass
+PY~ $ echo
+
+~ $
+)~ $ JS_INDEX=0
+o~ $
+
+~ $ if [ -s "$HTML" ]; then
+c>
+>     grep -Eoi \
+>       '<script[^>]+src=["'\''][^"'\'']+["'\'']' \
+>       "$HTML" \
+==>       2>/dev/null \
+>       | sed -E \
+>         's/^.*src=["'\'']([^"'\'']+)["'\''].*$/\1/' \
+>       | while read -r JS; do
+>
+>           JS_INDEX=$((JS_INDEX + 1))
+>
+>           case "$JS" in
+>               http://*|https://*)
+/>                   URL="$JS"
+>                   ;;
+>               /*)
+O >                   URL="$BASE$JS"
+>                   ;;
+>               *)
+>                   URL="$BASE/$JS"
+ >                   ;;
+>           esac
+D>
+>           FILE="/tmp/ws023-js-${JS_INDEX}.js"
+>
+>           echo
+==>           echo "------------------------------------------------------------"
+>           echo "JAVASCRIPT #$JS_INDEX"
+>           echo "URL: $URL"
+>           echo "------------------------------------------------------------"
+>
+>           curl -sS \
+>             --http1.1 \
+>             --max-time 30 \
+>             "$URL" \
+n:>             -o "$FILE" \
+>             2>&1
+>
+1>           if [ -s "$FILE" ]; then
+>
+>               echo "SIZE: $(wc -c < "$FILE") bytes"
+>
+>               echo
+>               echo "--- Socket.IO / Engine.IO matches ---"
+>
+=>               grep -Ein \
+>                 'socket\.io|engine\.io|socketio|engineio|websocket|polling|transports|io\(' \
+>                 "$FILE" \
+>                 2>/dev/null \
+>                 | head -120 \
+>                 || true
+>
+>               echo
+>               echo "--- Version-looking strings ---"
+>
+ >               grep -Eo \
+>                 'socket\.io[^"'\'' <,;)]*|engine\.io[^"'\'' <,;)]*|[0-9]+\.[0-9]+\.[0-9]+' \
+>                 "$FILE" \
+>>                 2>/dev/null \
+>                 | head -80 \
+>                 || true
+>
+>           else
+>               echo "DOWNLOAD FAILED"
+>           fi
+=======>
+>       done
+>
+> else
+=====>     echo "No HTML available."
+==> fi
+===No HTML available.
+~ $
+=~ $ echo
+
+~ $ echo
+
+o
+
+if~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "7. SHOW SOCKET.IO / ENGINE.IO CONTEXT FROM JAVASCRIPT"
+7. SHOW SOCKET.IO / ENGINE.IO CONTEXT FROM JAVASCRIPT
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+ b~ $
+e~ $ for FILE in /tmp/ws023-js-*.js; do
+>
+>     [ -f "$FILE" ] || continue
+>
+>     echo
+>     echo "------------------------------------------------------------"
+>     echo "FILE: $FILE"
+>     echo "------------------------------------------------------------"
+>
+S>     grep -Ein \
+>       'socket\.io|engine\.io|transports|websocket|polling|io\(' \
+>       "$FILE" \
+>       2>/dev/null \
+>       | head -100 \
+>       || true
+>
+_> done
+~ $
+~ $ echo
+
+~ $ echo
+
+~ $
+e~ $ echo "============================================================"
+============================================================
+~ $ echo "8. ENGINE.IO EIO=4 POLLING HANDSHAKE"
+8. ENGINE.IO EIO=4 POLLING HANDSHAKE
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+R~ $ HEADERS="/tmp/ws023-eio-headers"
+~ $ BODY="/tmp/ws023-eio-body"
+~ $
+~ $ curl -sS \
+>   --http1.1 \
+===>   --max-time 30 \
+>   -D "$HEADERS" \
+>   -o "$BODY" \
+>   "$BASE/socket.io/?EIO=4&transport=polling" \
+ >   2>&1
+ccurl: Failed to open /tmp/ws023-eio-headers
+curl: (23) Failed writing received data to disk/application
+~ $
+~ $ echo "--- HEADERS ---"
+--- HEADERS ---
+~ $ cat "$HEADERS" 2>/dev/null || true
+~ $
+~ $ echo
+
+~ $ echo "--- BODY ---"
+--- BODY ---
+~ $ cat "$BODY" 2>/dev/null || true
+~ $
+~ $ echo
+
+~ $ echo
+
+[ ] I~ $
+s~ $ echo "============================================================"
+============================================================
+~ $ echo "9. PARSE ENGINE.IO OPEN PACKET"
+9. PARSE ENGINE.IO OPEN PACKET
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+?~ $ SID=""
+"
+echo ~ $
+~ $ if [ -s "$BODY" ]; then
+>
+h>     python - "$BODY" <<'PY'
+> import sys
+> import json
+T> import re
+>
+> path = sys.argv[1]
+>
+> body = open(path, "r", encoding="utf-8", errors="replace").read()
+>
+[> print("RAW:")
+> print(body)
+t> print()
+ u>
+s> m = re.search(r'0(\{.*\})', body, re.S)
+>
+> if not m:
+>     print("OPEN PACKET: NOT FOUND")
+>     sys.exit(0)
+>
+> try:
+00>     obj = json.loads(m.group(1))
+>
+4>     print("OPEN PACKET: VALID")
+>     print("sid =", obj.get("sid"))
+>     print("upgrades =", obj.get("upgrades"))
+>     print("pingInterval =", obj.get("pingInterval"))
+>     print("pingTimeout =", obj.get("pingTimeout"))
+>     print("maxPayload =", obj.get("maxPayload"))
+>
+=> except Exception as e:
+>     print("JSON ERROR:", repr(e))
+> PY
+>
+>     SID="$(
+>       python - "$BODY" <<'PY'
+> import sys
+> import json
+> import re
+>
+> body = open(sys.argv[1], "r", encoding="utf-8", errors="replace").read()
+>
+n> m = re.search(r'0(\{.*\})', body, re.S)
+>
+> if m:
+>     try:
+>         obj = json.loads(m.group(1))
+c>         print(obj.get("sid", ""))
+>     except:
+>         pass
+> PY
+epe>     )"
+ndency.>
+> fi
+
+ec~ $
+h~ $ echo
+
+~ $ echo "EXTRACTED SID:"
+EXTRACTED SID:
+~ $ echo "$SID"
+
+~ $
+a~ $ echo
+
+~ $ echo
+
+cceed~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "10. POLLING USING FRESH SID"
+10. POLLING USING FRESH SID
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+n~ $ if [ -n "$SID" ]; then
+>
+>     curl -i \
+>       --http1.1 \
+>       --max-time 20 \
+>       "$BASE/socket.io/?EIO=4&transport=polling&sid=$SID" \
+>       2>&1
+>
+> else
+>     echo "NO SID — SKIPPED"
+> fi
+NO SID — SKIPPED
+~ $
+~ $ echo
+
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "11. WEBSOCKET UPGRADE — FRESH SID"
+11. WEBSOCKET UPGRADE — FRESH SID
+~ $ echo "============================================================"
+cho "$OUT"
+============================================================
+~ $ echo
+
+~ $
+"~ $ if [ -n "$SID" ]; then
+>
+>     echo "REQUEST:"
+>     echo "GET /socket.io/?EIO=4&transport=websocket&sid=$SID"
+>     echo
+>
+>     curl -i \
+>       --http1.1 \
+>       --max-time 20 \
+>       -H 'Origin: https://cytu.be' \
+>       -H 'Connection: Upgrade' \
+>       -H 'Upgrade: websocket' \
+>       -H 'Sec-WebSocket-Version: 13' \
+>       -H 'Sec-WebSocket-Key: d3MyMy1jaXR1YmUtd2ViLXNvY2tldA==' \
+>       "$BASE/socket.io/?EIO=4&transport=websocket&sid=$SID" \
+>       2>&1
+>
+> else
+>     echo "NO SID — SKIPPED"
+> fi
+NO SID — SKIPPED
+~ $
+~ $ echo
+
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "12. DIRECT WEBSOCKET — NO SID"
+12. DIRECT WEBSOCKET — NO SID
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ curl -i \
+>   --http1.1 \
+>   --max-time 20 \
+>   -H 'Origin: https://cytu.be' \
+>   -H 'Connection: Upgrade' \
+>   -H 'Upgrade: websocket' \
+>   -H 'Sec-WebSocket-Version: 13' \
+>   -H 'Sec-WebSocket-Key: d3MyMy1jaXR1YmUtd2ViLXNvLXNpZA==' \
+>   "$BASE/socket.io/?EIO=4&transport=websocket" \
+>   2>&1
+HTTP/1.1 400 Bad Request
+Date: Sat, 15 Aug 2026 17:28:27 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Access-Control-Allow-Origin: https://cytu.be
+Vary: Origin
+Access-Control-Allow-Credentials: true
+cf-cache-status: DYNAMIC
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Dip94bdehrNsuH8mo4MbZBxP1grbUFUxTvqSb0vLlIUNa15JzqL7rvGVp%2FadWknwouSZvVI4lGV5TGJVqFXgkSODr9kgN22pkoXWIBzdHE6ju1tJqR1bk7IzhOCRHO0RN0%2BB%2FuhK"}]}
+CF-RAY: a2b9ea755aeaed3b-SJC
+alt-svc: h3=":443"; ma=86400
+
+{"code":3,"message":"Bad request"}~ $
+~ $ echo
+
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "13. WEBSOCAT AVAILABILITY / BASIC CAPABILITY"
+13. WEBSOCAT AVAILABILITY / BASIC CAPABILITY
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ if command -v websocat >/dev/null 2>&1; then
+>
+>     echo "WEBSOCAT FOUND:"
+>     websocat --version 2>&1 || true
+>
+>     echo
+>     echo "A live WebSocket connection is NOT attempted automatically"
+>     echo "here because we want the captured HTTP handshake evidence"
+>     echo "first."
+>
+> else
+>     echo "WEBSOCAT NOT FOUND."
+>     echo "This is not a test failure."
+> fi
+WEBSOCAT FOUND:
+websocat 1.14.1
+
+A live WebSocket connection is NOT attempted automatically
+here because we want the captured HTTP handshake evidence
+first.
+~ $
+~ $ echo
+
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "14. OPENSSL TLS INFORMATION"
+14. OPENSSL TLS INFORMATION
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ echo "TLS connection to cytu.be:443"
+TLS connection to cytu.be:443
+~ $ echo
+
+~ $
+~ $ echo | openssl s_client \
+>   -connect cytu.be:443 \
+>   -servername cytu.be \
+>   -brief \
+>   2>&1 \
+>   | head -40
+The program openssl is not installed. Install it by executing:
+ pkg install openssl-tool
+~ $
+~ $ echo
+
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "15. ROOM / ENGINE.IO INTERPRETATION CHECKLIST"
+15. ROOM / ENGINE.IO INTERPRETATION CHECKLIST
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
