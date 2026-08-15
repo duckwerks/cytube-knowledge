@@ -1,0 +1,2317 @@
+~ $ #!/data/data/com.termux/files/usr/bin/bash
+==========================="
+echo "WS-031 — Cytube ~ $
+~ $ BASE="https://cytu.be/js"
+~ $
+~ $ echo "============================================================"
+t"
+echo "============================================================"
+echo
+echo "Purpose:"
+echo "Extract Cytube's client-side Socket.IO event handlers and"
+echo "out============================================================
+~ $ echo "WS-031 — Cytube Client Event Map Test"
+WS-031 — Cytube Client Event Map Test
+o "Downloading client files..."
+echo
+
+for FILE in $FILES; do
+    echo "  -> $FILE"
+    curl -fsSL "$BASE/$FILE" -o "$TMP/$FILE" || {
+        echo "FAILED: $FILE"
+        exit 1
+    }
+d~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $ echo "Purpose:"
+P"/*.js; do
+    NAME="$(basename "$FILE")"
+
+    echo
+Purpose:
+~ $ echo "Extract Cytube's client-side Socket.IO event handlers and"
+Extract Cytube's client-side Socket.IO event handlers and
+~ $ echo "outbound socket.emit() calls from the actual production JS."
+outbound socket.emit() calls from the actual production JS.
+ echo "----- $NAME :~ $ echo
+
+~ $ echo "This test is READ-ONLY."
+This test is READ-ONLY.
+~ $ echo "It does not connect to Socket.IO or send anything to Cytube."
+It does not connect to Socket.IO or send anything to Cytube.
+~ $ echo
+
+~ $
+~ $ TMP="$(mktemp -d)"
+ socket.onAny() / wildcard handlers -----"
+    grep -nE 'socket\.onAny|onAny[[:space:]]*\(' "$FILE" || true
+done
+
+echo
+echo "============================================================"
+echo "2. SOCKET.IO OUTBOUND EVENTS"
+echo "============================================================"
+echo
+
+for FILE in "$TMP"/*.js; do
+    NAME="$(basename "$FILE")"
+
+    echo
+    echo "----- $NAME : socket.emit() -----"
+    grep -nE 'socket\.emit[[:space:]]*\(' "$FILE" || true
+done
+
+echo
+echo "============================================================"
+echo "3. UNIQUE INBOUND EVENT NAMES"
+echo "============================================================"
+echo
+
+grep -hEo 'socket\.on[[:space:]]*\([[:space:]]*["'\''][^"'\'']+["'\'']' \
+    "$TMP"/*.js 2>/dev/null \
+    | sed -E 's/.*\(["'\'']([^"'\'']+)["'\''].*/\1/' \
+    | sort -u
+
+echo
+echo "============================================================"
+echo "4. UNIQUE OUTBOUND EVENT NAMES"
+echo "============================================================"
+echo
+
+grep -hEo 'socket\.emit[[:space:]]*\([[:space:]]*["'\''][^"'\'']+["'\'']' \
+    "$TMP"/*.js 2>/dev/null \
+    | sed -E 's/.*\(["'\'']([^"'\'']+)["'\''].*/\1/' \
+    | sort -u
+
+echo
+echo "============================================================"
+echo "5. CALLBACK OBJECT DEFINITIONS"
+echo "============================================================"
+echo
+
+echo "Callbacks object methods:"
+grep -nE '^[[:space:]]*[A-Za-z0-9_]+:[[:space:]]*function' \
+    "$TMP/callbacks.js" \
+    | sed -E 's/^[[:space:]]*([0-9]+):?/\1/' \
+    || true
+
+echo
+echo "============================================================"
+echo "6. IMPORTANT EVENT SEARCH"
+echo "============================================================"
+echo
+
+EVENTS="
+connect
+disconnect
+joinChannel
+login
+chatMsg
+queue
+playlist
+mediaUpdate
+setCurrent
+changeMedia
+userlist
+usercount
+userLeave
+addUser
+setUserRank
+setPermissions
+channelOpts
+channelCSSJS
+setChannelCSS
+setChannelJS
+setOptions
+setMotd
+voteskip
+newPoll
+updatePoll
+closePoll
+rank
+"
+
+for EVENT in $EVENTS; do
+    echo
+    echo "################ EVENT: $EVENT ################"
+
+    grep -nE \
+        "socket\.(on|emit)[[:space:]]*\([[:space:]]*[\"']$EVENT[\"']|^[[:space:]]*$EVENT:[[:space:]]*function" \
+        "$TMP"/*.js \
+        || echo "(not found in selected client files)"
+done
+
+echo
+echo "============================================================"
+echo "7. SOURCE CONTEXT FOR EVERY SOCKET EVENT"
+echo "============================================================"
+echo
+
+for FILE in "$TMP"/*.js; do
+    NAME="$(basename "$FILE")"
+
+    echo
+    echo "############################################################"
+    echo "# $NAME"
+    echo "############################################################"
+
+    grep -nE 'socket\.(on|emit)[[:space:]]*\(' "$FILE" |
+    while IFS=: read -r LINE REST; do
+        START=$((LINE - 3))
+        [ "$START" -lt 1 ] && START=1
+        END=$((LINE + 12))
+
+        echo
+        echo "--- lines $START-$END ---"
+        sed -n "${START},${END}p" "$FILE"
+    done
+done
+
+echo
+echo "============================================================"
+echo "WS-031 COMPLETE"
+echo "============================================================"
+echo
+echo "IMPORTANT:"
+echo "Do not interpret event names as proven API contracts yet."
+echo "The next stage is to map each event to its actual payload"
+echo "construction and handling cod~ $ trap 'rm -rf "$TMP"' EXIT
+~ $
+~ $ FILES="
+> callbacks.js
+> ui.js
+> util.js
+> player.js
+> data.js
+> tabcomplete.js
+> paginator.js
+> "
+~ $
+~ $ echo "Downloading client files..."
+Downloading client files...
+~ $ echo
+
+~ $
+~ $ for FILE in $FILES; do
+>     echo "  -> $FILE"
+>     curl -fsSL "$BASE/$FILE" -o "$TMP/$FILE" || {
+>         echo "FAILED: $FILE"
+>         exit 1
+>     }
+> done
+  -> callbacks.js
+  -> ui.js
+  -> util.js
+  -> player.js
+  -> data.js
+  -> tabcomplete.js
+  -> paginator.js
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "1. SOCKET.IO EVENT HANDLERS"
+1. SOCKET.IO EVENT HANDLERS
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ for FILE in "$TMP"/*.js; do
+>     NAME="$(basename "$FILE")"
+>
+>     echo
+>     echo "----- $NAME : socket.on() -----"
+>     grep -nE 'socket\.on[[:space:]]*\(' "$FILE" || true
+>
+>     echo
+>     echo "----- $NAME : socket.onAny() / wildcard handlers -----"
+>     grep -nE 'socket\.onAny|onAny[[:space:]]*\(' "$FILE" || true
+> done
+
+----- callbacks.js : socket.on() -----
+1192:            socket.on(key, function(data) {
+1207:    socket.on("connect_error", function (error) {
+
+----- callbacks.js : socket.onAny() / wildcard handlers -----
+
+----- data.js : socket.on() -----
+
+----- data.js : socket.onAny() / wildcard handlers -----
+
+----- paginator.js : socket.on() -----
+
+----- paginator.js : socket.onAny() / wildcard handlers -----
+
+----- player.js : socket.on() -----
+
+----- player.js : socket.onAny() / wildcard handlers -----
+
+----- tabcomplete.js : socket.on() -----
+
+----- tabcomplete.js : socket.onAny() / wildcard handlers -----
+
+----- ui.js : socket.on() -----
+563:    socket.on("playlist", callback);
+579:    socket.on("errorMsg", errCallback);
+795:    socket.on("chatFilters", callback);
+
+----- ui.js : socket.onAny() / wildcard handlers -----
+
+----- util.js : socket.on() -----
+
+----- util.js : socket.onAny() / wildcard handlers -----
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "2. SOCKET.IO OUTBOUND EVENTS"
+2. SOCKET.IO OUTBOUND EVENTS
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ for FILE in "$TMP"/*.js; do
+>     NAME="$(basename "$FILE")"
+>
+>     echo
+>     echo "----- $NAME : socket.emit() -----"
+>     grep -nE 'socket\.emit[[:space:]]*\(' "$FILE" || true
+> done
+
+----- callbacks.js : socket.emit() -----
+7:        socket.emit("joinChannel", {
+12:            socket.emit("channelPassword", CHANNEL.opts.password);
+16:            socket.emit("login", {
+39:        socket.emit("reportReconnect");
+145:            socket.emit("channelPassword", pwbox.val());
+450:                        socket.emit("borrow-rank", r);
+474:                socket.emit("initUserPLCallbacks");
+938:                    socket.emit("closePoll");
+946:                socket.emit("vote", {
+
+----- data.js : socket.emit() -----
+
+----- paginator.js : socket.emit() -----
+
+----- player.js : socket.emit() -----
+94:                return socket.emit('playNext');
+244:              return socket.emit('playNext');
+371:              return socket.emit('playNext');
+493:                return socket.emit('playNext');
+630:              return socket.emit('playNext');
+768:              return socket.emit('playNext');
+909:        return socket.emit('playNext');
+1006:              return socket.emit('playNext');
+1183:                    socket.emit('playNext');
+1556:                return socket.emit('playNext');
+
+----- tabcomplete.js : socket.emit() -----
+
+----- ui.js : socket.emit() -----
+114:        socket.emit("login", {
+189:            socket.emit("chatMsg", {
+245:    socket.emit("searchMedia", {
+262:        socket.emit("searchMedia", {
+280:    socket.emit("searchMedia", {
+294:    socket.emit("clonePlaylist", {
+306:    socket.emit("playerReady");
+321:        socket.emit("moveMedia", {
+342:        socket.emit("queue", {
+453:            socket.emit("queue", data);
+516:    socket.emit("togglePlaylistLock");
+520:    socket.emit("voteskip");
+580:    socket.emit("requestPlaylist");
+586:        socket.emit("clearPlaylist");
+593:        socket.emit("shufflePlaylist");
+600:    socket.emit("setChannelRank", {
+631:    socket.emit("setOptions", data);
+657:        socket.emit("setOptions", data);
+687:        socket.emit("setOptions", data);
+692:    socket.emit("readChanLog");
+698:    socket.emit("setMotd", {
+704:    socket.emit("setChannelCSS", {
+710:    socket.emit("setChannelJS", {
+739:    socket.emit("addFilter", {
+777:    socket.emit("updateEmote", {
+796:    socket.emit("requestChatFilters");
+818:    socket.emit("importFilters", data);
+850:    socket.emit("importEmotes", data);
+
+----- util.js : socket.emit() -----
+270:                socket.emit("assignLeader", {
+277:                socket.emit("assignLeader", {
+293:                socket.emit("chatMsg", {
+306:                socket.emit("chatMsg", {
+315:                socket.emit("chatMsg", {
+324:                socket.emit("chatMsg", {
+347:                socket.emit("chatMsg", {
+360:                socket.emit("chatMsg", {
+538:                socket.emit("jumpTo", li.data("uid"));
+547:                socket.emit("moveMedia", {
+560:                socket.emit("setTemp", {
+572:                socket.emit("delete", li.data("uid"));
+766:                socket.emit("chatMsg", {
+901:            socket.emit("newPoll", {
+1093:                    socket.emit("closePoll");
+1149:                    socket.emit("queue", {
+1161:                socket.emit("queue", {
+1174:                socket.emit("uncache", {
+1470:        socket.emit("mediaUpdate", {
+2056:        socket.emit("setPermissions", perms);
+2360:                    socket.emit("setChannelRank", {
+2417:            socket.emit("unban", {
+2494:            socket.emit("removeFilter", f);
+2503:                socket.emit("updateFilter", f);
+2564:                socket.emit("updateFilter", f);
+2580:                socket.emit("moveFilter", {
+2636:                    socket.emit("queuePlaylist", {
+2649:                    socket.emit("queuePlaylist", {
+2667:                socket.emit("deletePlaylist", {
+2802:            socket.emit("pm", {
+3142:                socket.emit("removeEmote", emote);
+3192:                    socket.emit("renameEmote", {
+3278:                    socket.emit("updateEmote", {
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "3. UNIQUE INBOUND EVENT NAMES"
+3. UNIQUE INBOUND EVENT NAMES
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ grep -hEo 'socket\.on[[:space:]]*\([[:space:]]*["'\''][^"'\'']+["'\'']' \
+>     "$TMP"/*.js 2>/dev/null \
+>     | sed -E 's/.*\(["'\'']([^"'\'']+)["'\''].*/\1/' \
+>     | sort -u
+chatFilters
+connect_error
+errorMsg
+playlist
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "4. UNIQUE OUTBOUND EVENT NAMES"
+4. UNIQUE OUTBOUND EVENT NAMES
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ grep -hEo 'socket\.emit[[:space:]]*\([[:space:]]*["'\''][^"'\'']+["'\'']' \
+>     "$TMP"/*.js 2>/dev/null \
+>     | sed -E 's/.*\(["'\'']([^"'\'']+)["'\''].*/\1/' \
+>     | sort -u
+addFilter
+assignLeader
+borrow-rank
+channelPassword
+chatMsg
+clearPlaylist
+clonePlaylist
+closePoll
+delete
+deletePlaylist
+importEmotes
+importFilters
+initUserPLCallbacks
+joinChannel
+jumpTo
+login
+mediaUpdate
+moveFilter
+moveMedia
+newPoll
+playNext
+playerReady
+pm
+queue
+queuePlaylist
+readChanLog
+removeEmote
+removeFilter
+renameEmote
+reportReconnect
+requestChatFilters
+requestPlaylist
+searchMedia
+setChannelCSS
+setChannelJS
+setChannelRank
+setMotd
+setOptions
+setPermissions
+setTemp
+shufflePlaylist
+togglePlaylistLock
+unban
+uncache
+updateEmote
+updateFilter
+vote
+voteskip
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "5. CALLBACK OBJECT DEFINITIONS"
+5. CALLBACK OBJECT DEFINITIONS
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ echo "Callbacks object methods:"
+Callbacks object methods:
+~ $ grep -nE '^[[:space:]]*[A-Za-z0-9_]+:[[:space:]]*function' \
+>     "$TMP/callbacks.js" \
+>     | sed -E 's/^[[:space:]]*([0-9]+):?/\1/' \
+>     || true
+3    connect: function() {
+28    disconnect: function() {
+38    reconnect: function () {
+43    error: function (msg) {
+51    errorMsg: function(data) {
+59    costanza: function (data) {
+74    announcement: function(data) {
+92    kick: function(data) {
+100    noflood: function(data) {
+108    spamFiltered: function(data) {
+124    needPassword: function (wrongpw) {
+157    cancelNeedPassword: function () {
+161    cooldown: function (time) {
+176    channelNotRegistered: function() {
+196    setMotd: function(motd) {
+211    chatFilters: function(entries) {
+217    updateChatFilter: function (f) {
+236    deleteChatFilter: function (f) {
+255    channelOpts: function(opts) {
+301    setPermissions: function(perms) {
+307    channelCSSJS: function(data) {
+362    banlist: function(entries) {
+368    banlistRemove: function (data) {
+386    channelRanks: function(entries) {
+392    channelRankFail: function (data) {
+402    readChanLog: function (data) {
+415    voteskip: function(data) {
+428    rank: function(r) {
+463    login: function(data) {
+480    usercount: function(count) {
+489    chatMsg: function(data) {
+493    pm: function (data) {
+520    clearchat: function() {
+525    userlist: function(data) {
+533    addUser: function(data) {
+538    setUserMeta: function (data) {
+565    setAFK: function() {
+569    setUserProfile: function (data) {
+577    setLeader: function (name) {
+614    setUserRank: function (data) {
+649    userLeave: function(data) {
+655    drinkCount: function(count) {
+669    playlist: function(data) {
+686    setPlaylistMeta: function(data) {
+698    queue: function(data) {
+733    queueWarn: function (data) {
+737    queueFail: function (data) {
+744    setTemp: function(data) {
+779    moveVideo: function(data) {
+787    setCurrent: function(uid) {
+802    changeMedia: function(data) {
+854    mediaUpdate: function(data) {
+864    setPlaylistLocked: function (locked) {
+884    searchResults: function(data) {
+900            preLoadPage: function () {
+904            generator: function (item, page, index) {
+923    newPoll: function(data) {
+970    updatePoll: function(data) {
+979    closePoll: function() {
+992    listPlaylists: function(data) {
+997    emoteList: function (data) {
+1003    updateEmote: function (data) {
+1035    renameEmote: function (data) {
+1085    removeEmote: function (data) {
+1108    warnLargeChandump: function (data) {
+1131    partitionChange: function (socketConfig) {
+1138    validationError: function (error) {
+1156    validationPassed: function (data) {
+1170    clearVoteskipVote: function () {
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "6. IMPORTANT EVENT SEARCH"
+6. IMPORTANT EVENT SEARCH
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ EVENTS="
+> connect
+> disconnect
+> joinChannel
+> login
+> chatMsg
+> queue
+> playlist
+> mediaUpdate
+> setCurrent
+> changeMedia
+> userlist
+> usercount
+> userLeave
+> addUser
+> setUserRank
+> setPermissions
+> channelOpts
+> channelCSSJS
+> setChannelCSS
+> setChannelJS
+> setOptions
+> setMotd
+> voteskip
+> newPoll
+> updatePoll
+> closePoll
+> rank
+> "
+~ $
+~ $ for EVENT in $EVENTS; do
+>     echo
+>     echo "################ EVENT: $EVENT ################"
+>
+>     grep -nE \
+>         "socket\.(on|emit)[[:space:]]*\([[:space:]]*[\"']$EVENT[\"']|^[[:space:]]*$EVENT:[[:space:]]*function" \
+>         "$TMP"/*.js \
+>         || echo "(not found in selected client files)"
+> done
+
+################ EVENT: connect ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:3:    connect: function() {
+
+################ EVENT: disconnect ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:28:    disconnect: function() {
+
+################ EVENT: joinChannel ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:7:        socket.emit("joinChannel", {
+
+################ EVENT: login ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:16:            socket.emit("login", {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:463:    login: function(data) {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/ui.js:114:        socket.emit("login", {
+
+################ EVENT: chatMsg ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:489:    chatMsg: function(data) {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/ui.js:189:            socket.emit("chatMsg", {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/util.js:293:                socket.emit("chatMsg", {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/util.js:306:                socket.emit("chatMsg", {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/util.js:315:                socket.emit("chatMsg", {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/util.js:324:                socket.emit("chatMsg", {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/util.js:347:                socket.emit("chatMsg", {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/util.js:360:                socket.emit("chatMsg", {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/util.js:766:                socket.emit("chatMsg", {
+
+################ EVENT: queue ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:698:    queue: function(data) {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/ui.js:342:        socket.emit("queue", {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/ui.js:453:            socket.emit("queue", data);
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/util.js:1149:                    socket.emit("queue", {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/util.js:1161:                socket.emit("queue", {
+
+################ EVENT: playlist ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:669:    playlist: function(data) {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/ui.js:563:    socket.on("playlist", callback);
+
+################ EVENT: mediaUpdate ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:854:    mediaUpdate: function(data) {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/util.js:1470:        socket.emit("mediaUpdate", {
+
+################ EVENT: setCurrent ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:787:    setCurrent: function(uid) {
+
+################ EVENT: changeMedia ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:802:    changeMedia: function(data) {
+
+################ EVENT: userlist ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:525:    userlist: function(data) {
+
+################ EVENT: usercount ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:480:    usercount: function(count) {
+
+################ EVENT: userLeave ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:649:    userLeave: function(data) {
+
+################ EVENT: addUser ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:533:    addUser: function(data) {
+
+################ EVENT: setUserRank ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:614:    setUserRank: function (data) {
+
+################ EVENT: setPermissions ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:301:    setPermissions: function(perms) {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/util.js:2056:        socket.emit("setPermissions", perms);
+
+################ EVENT: channelOpts ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:255:    channelOpts: function(opts) {
+
+################ EVENT: channelCSSJS ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:307:    channelCSSJS: function(data) {
+
+################ EVENT: setChannelCSS ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/ui.js:704:    socket.emit("setChannelCSS", {
+
+################ EVENT: setChannelJS ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/ui.js:710:    socket.emit("setChannelJS", {
+
+################ EVENT: setOptions ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/ui.js:631:    socket.emit("setOptions", data);
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/ui.js:657:        socket.emit("setOptions", data);
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/ui.js:687:        socket.emit("setOptions", data);
+
+################ EVENT: setMotd ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:196:    setMotd: function(motd) {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/ui.js:698:    socket.emit("setMotd", {
+
+################ EVENT: voteskip ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:415:    voteskip: function(data) {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/ui.js:520:    socket.emit("voteskip");
+
+################ EVENT: newPoll ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:923:    newPoll: function(data) {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/util.js:901:            socket.emit("newPoll", {
+
+################ EVENT: updatePoll ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:970:    updatePoll: function(data) {
+
+################ EVENT: closePoll ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:938:                    socket.emit("closePoll");
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:979:    closePoll: function() {
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/util.js:1093:                    socket.emit("closePoll");
+
+################ EVENT: rank ################
+/data/data/com.termux/files/usr/tmp/tmp.u9CakqfBjU/callbacks.js:428:    rank: function(r) {
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "7. SOURCE CONTEXT FOR EVERY SOCKET EVENT"
+7. SOURCE CONTEXT FOR EVERY SOCKET EVENT
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ for FILE in "$TMP"/*.js; do
+>     NAME="$(basename "$FILE")"
+>
+>     echo
+>     echo "############################################################"
+>     echo "# $NAME"
+>     echo "############################################################"
+>
+>     grep -nE 'socket\.(on|emit)[[:space:]]*\(' "$FILE" |
+>     while IFS=: read -r LINE REST; do
+>         START=$((LINE - 3))
+>         [ "$START" -lt 1 ] && START=1
+>         END=$((LINE + 12))
+>
+>         echo
+>         echo "--- lines $START-$END ---"
+>         sed -n "${START},${END}p" "$FILE"
+>     done
+> done
+
+############################################################
+# callbacks.js
+############################################################
+
+--- lines 4-19 ---
+        HAS_CONNECTED_BEFORE = true;
+        SOCKETIO_CONNECT_ERROR_COUNT = 0;
+        $("#socketio-connect-error").remove();
+        socket.emit("joinChannel", {
+            name: CHANNEL.name
+        });
+
+        if (CHANNEL.opts.password) {
+            socket.emit("channelPassword", CHANNEL.opts.password);
+        }
+
+        if (CLIENT.name && CLIENT.guest) {
+            socket.emit("login", {
+                name: CLIENT.name
+            });
+        }
+
+--- lines 9-24 ---
+        });
+
+        if (CHANNEL.opts.password) {
+            socket.emit("channelPassword", CHANNEL.opts.password);
+        }
+
+        if (CLIENT.name && CLIENT.guest) {
+            socket.emit("login", {
+                name: CLIENT.name
+            });
+        }
+
+        $("<div/>").addClass("server-msg-reconnect")
+            .text("Connected")
+            .appendTo($("#messagebuffer"));
+        scrollChat();
+
+--- lines 13-28 ---
+        }
+
+        if (CLIENT.name && CLIENT.guest) {
+            socket.emit("login", {
+                name: CLIENT.name
+            });
+        }
+
+        $("<div/>").addClass("server-msg-reconnect")
+            .text("Connected")
+            .appendTo($("#messagebuffer"));
+        scrollChat();
+        stopQueueSpinner(null);
+    },
+
+    disconnect: function() {
+
+--- lines 36-51 ---
+    },
+
+    reconnect: function () {
+        socket.emit("reportReconnect");
+    },
+
+    // Socket.IO error callback
+    error: function (msg) {
+        window.SOCKET_ERROR_REASON = msg;
+        $("<div/>")
+            .addClass("server-msg-disconnect")
+            .text("Unable to connect: " + msg)
+            .appendTo($("#messagebuffer"));
+    },
+
+    errorMsg: function(data) {
+
+--- lines 142-157 ---
+        var parent = chatDialog(div, '9999');
+        parent.attr("id", "needpw");
+        var sendpw = function () {
+            socket.emit("channelPassword", pwbox.val());
+            parent.remove();
+        };
+        submit.click(sendpw);
+        pwbox.keydown(function (ev) {
+            if (ev.keyCode == 13) {
+                sendpw();
+            }
+        });
+        pwbox.focus();
+    },
+
+    cancelNeedPassword: function () {
+
+--- lines 447-462 ---
+                $("<a/>").attr("href", "javascript:void(0)")
+                    .html(disp)
+                    .on('click', function() {
+                        socket.emit("borrow-rank", r);
+                    })
+                    .appendTo(li);
+            }
+
+            addRank(0, "<span class='userlist_guest'>Guest</span>");
+            addRank(1, "<span>Registered</span>");
+            addRank(2, "<span class='userlist_op'>Moderator</span>");
+            addRank(3, "<span class='userlist_owner'>Admin</span>");
+            addRank(255, "<span class='userlist_siteadmin'>Superadmin</span>");
+        }
+    },
+
+
+--- lines 471-486 ---
+            CLIENT.logged_in = true;
+
+            if (!CLIENT.guest) {
+                socket.emit("initUserPLCallbacks");
+            }
+        }
+    },
+
+    /* REGION Chat */
+    usercount: function(count) {
+        CHANNEL.usercount = count;
+        var text = count + " connected user";
+        if(count != 1) {
+            text += "s";
+        }
+        $("#usercount").text(text);
+
+--- lines 935-950 ---
+            $("<button/>").addClass("btn btn-danger btn-sm pull-right").text("End Poll")
+                .appendTo(poll)
+                .on('click', function() {
+                    socket.emit("closePoll");
+                });
+        }
+
+        $("<h3/>").html(data.title).appendTo(poll);
+        for(var i = 0; i < data.options.length; i++) {
+            (function(i) {
+            var callback = function () {
+                socket.emit("vote", {
+                    option: i
+                });
+                poll.find(".option button").each(function() {
+                    $(this).removeClass("active");
+
+--- lines 943-958 ---
+        for(var i = 0; i < data.options.length; i++) {
+            (function(i) {
+            var callback = function () {
+                socket.emit("vote", {
+                    option: i
+                });
+                poll.find(".option button").each(function() {
+                    $(this).removeClass("active");
+                    $(this).parent().removeClass("option-selected");
+                });
+                $(this).addClass("active");
+                $(this).parent().addClass("option-selected");
+            };
+            $("<button/>").addClass("btn btn-default btn-sm").text(data.counts[i])
+                .prependTo($("<div/>").addClass("option").html(data.options[i])
+                        .appendTo(poll))
+
+--- lines 1189-1204 ---
+function setupCallbacks() {
+    for(var key in Callbacks) {
+        (function(key) {
+            socket.on(key, function(data) {
+                if (SOCKET_DEBUG.enabled && !SOCKET_DEBUG.omit.includes(key)) {
+                    console.log(key, data);
+                }
+                try {
+                    Callbacks[key](data);
+                } catch (e) {
+                    if (SOCKET_DEBUG.enabled) {
+                        console.log("EXCEPTION: " + e + "\n" + e.stack);
+                    }
+                }
+            });
+        })(key);
+
+--- lines 1204-1219 ---
+        })(key);
+    }
+
+    socket.on("connect_error", function (error) {
+        // If the socket has connected at least once during this
+        // session and now gets a connect error, it is likely because
+        // the server is down temporarily and not because of any configuration
+        // issue.  Therefore, omit the warning message about refreshing.
+        if (HAS_CONNECTED_BEFORE) {
+            return;
+        }
+
+        SOCKETIO_CONNECT_ERROR_COUNT++;
+        if (SOCKETIO_CONNECT_ERROR_COUNT >= 3 &&
+                $("#socketio-connect-error").length === 0) {
+            var message = "Failed to connect to the server.  Try clearing your " +
+
+############################################################
+# data.js
+############################################################
+
+############################################################
+# paginator.js
+############################################################
+
+############################################################
+# player.js
+############################################################
+
+--- lines 91-106 ---
+            _this.dmReady = true;
+            _this.dm.addEventListener('ended', function() {
+              if (CLIENT.leader) {
+                return socket.emit('playNext');
+              }
+            });
+            _this.dm.addEventListener('pause', function() {
+              _this.paused = true;
+              if (CLIENT.leader) {
+                return sendVideoUpdate();
+              }
+            });
+            _this.dm.addEventListener('playing', function() {
+              _this.paused = false;
+              if (CLIENT.leader) {
+                sendVideoUpdate();
+
+--- lines 241-256 ---
+          removeOld($(_this.nico.iframe));
+          _this.nico.on('ended', function() {
+            if (CLIENT.leader) {
+              return socket.emit('playNext');
+            }
+          });
+          _this.nico.on('pause', function() {
+            _this.paused = true;
+            if (CLIENT.leader) {
+              return sendVideoUpdate();
+            }
+          });
+          _this.nico.on('play', function() {
+            _this.paused = false;
+            if (CLIENT.leader) {
+              return sendVideoUpdate();
+
+--- lines 368-383 ---
+          _this.peertube.addEventListener('playbackStatusUpdate', function(status) {
+            _this.peertube.currentTime = status.position;
+            if (status.playbackState === "ended" && CLIENT.leader) {
+              return socket.emit('playNext');
+            }
+          });
+          _this.peertube.addEventListener('volumeChange', function(volume) {
+            var VOLUME;
+            VOLUME = volume;
+            return setOpt("volume", VOLUME);
+          });
+          _this.play();
+          return _this.setVolume(VOLUME);
+        };
+      })(this));
+    };
+
+--- lines 490-505 ---
+            });
+            return _this.soundcloud.bind(SC.Widget.Events.FINISH, function() {
+              if (CLIENT.leader) {
+                return socket.emit('playNext');
+              }
+            });
+          });
+        };
+      })(this));
+    }
+
+    SoundCloudPlayer.prototype.load = function(data) {
+      var soundUrl;
+      this.setMediaProperties(data);
+      if (this.soundcloud && this.soundcloud.ready) {
+        if (data.meta.scuri) {
+
+--- lines 627-642 ---
+          });
+          return _this.twitch.addEventListener(Twitch.Player.ENDED, function() {
+            if (CLIENT.leader) {
+              return socket.emit('playNext');
+            }
+          });
+        };
+      })(this));
+    };
+
+    TwitchPlayer.prototype.load = function(data) {
+      var error;
+      this.setMediaProperties(data);
+      try {
+        if (data.type === 'tv') {
+          return this.twitch.setVideo(data.id);
+
+--- lines 765-780 ---
+          _this.vimeo = new Vimeo.Player(video[0]);
+          _this.vimeo.on('ended', function() {
+            if (CLIENT.leader) {
+              return socket.emit('playNext');
+            }
+          });
+          _this.vimeo.on('pause', function() {
+            _this.paused = true;
+            if (CLIENT.leader) {
+              return sendVideoUpdate();
+            }
+          });
+          _this.vimeo.on('play', function() {
+            _this.paused = false;
+            if (CLIENT.leader) {
+              return sendVideoUpdate();
+
+--- lines 906-921 ---
+        }
+      }
+      if (ev.data === YT.PlayerState.ENDED && CLIENT.leader) {
+        return socket.emit('playNext');
+      }
+    };
+
+    YouTubePlayer.prototype.play = function() {
+      this.paused = false;
+      if (this.yt && this.yt.ready) {
+        return this.yt.playVideo();
+      }
+    };
+
+    YouTubePlayer.prototype.pause = function() {
+      this.paused = true;
+
+--- lines 1003-1018 ---
+          });
+          _this.player.on('ended', function() {
+            if (CLIENT.leader) {
+              return socket.emit('playNext');
+            }
+          });
+          _this.player.on('play', function() {
+            this.paused = false;
+            if (CLIENT.leader) {
+              return sendVideoUpdate();
+            }
+          });
+          _this.player.on('pause', function() {
+            this.paused = true;
+            if (CLIENT.leader) {
+              return sendVideoUpdate();
+
+--- lines 1180-1195 ---
+              if (time.duration - time.seconds < 1 && !_this.finishing) {
+                setTimeout(function() {
+                  if (CLIENT.leader) {
+                    socket.emit('playNext');
+                  }
+                  return _this.pause();
+                }, (time.duration - time.seconds) * 1000);
+                return _this.finishing = true;
+              }
+            });
+          });
+        };
+      })(this));
+    };
+
+    return StreamablePlayer;
+
+--- lines 1553-1568 ---
+            _this.setVolume(VOLUME);
+            _this.player.on('ended', function() {
+              if (CLIENT.leader) {
+                return socket.emit('playNext');
+              }
+            });
+            _this.player.on('pause', function() {
+              _this.paused = true;
+              if (CLIENT.leader) {
+                return sendVideoUpdate();
+              }
+            });
+            _this.player.on('play', function() {
+              _this.paused = false;
+              if (CLIENT.leader) {
+                return sendVideoUpdate();
+
+############################################################
+# tabcomplete.js
+############################################################
+
+############################################################
+# ui.js
+############################################################
+
+--- lines 111-126 ---
+
+$("#guestname").on('keydown', function (ev) {
+    if (ev.keyCode === 13) {
+        socket.emit("login", {
+            name: $("#guestname").val()
+        });
+    }
+});
+
+
+CyTube.chatTabCompleteData = {
+    context: {}
+};
+
+function chatTabComplete(chatline) {
+    if (!CyTube.tabCompleteMethods) {
+
+--- lines 186-201 ---
+                msg = msg.substring(3);
+            }
+
+            socket.emit("chatMsg", {
+                msg: msg,
+                meta: meta
+            });
+            CHATHIST.push($("#chatline").val());
+            CHATHISTIDX = CHATHIST.length;
+            $("#chatline").val("");
+        }
+        return;
+    }
+    else if(ev.keyCode == 9) { // Tab completion
+        try {
+            chatTabComplete(ev.target);
+
+--- lines 242-257 ---
+        return;
+    }
+
+    socket.emit("searchMedia", {
+        source: "library",
+        query: $("#library_query").val().toLowerCase()
+    });
+});
+
+$("#library_query").on('keydown', function(ev) {
+    if(ev.keyCode == 13) {
+        if (!hasPermission("seeplaylist")) {
+            $("#searchcontrol .alert").remove();
+            var al = makeAlert("Permission Denied",
+                "This channel does not allow you to search its library",
+                "alert-danger");
+
+--- lines 259-274 ---
+            return;
+        }
+
+        socket.emit("searchMedia", {
+            source: "library",
+            query: $("#library_query").val().toLowerCase()
+        });
+    }
+});
+
+$("#youtube_search").on('click', function () {
+    var query = $("#library_query").val().toLowerCase();
+    try {
+        parseMediaLink(query);
+        makeAlert("Media Link", "If you already have the link, paste it " +
+                  "in the 'Media URL' box under Playlist Controls.  This "+
+
+--- lines 277-292 ---
+            .insertBefore($("#library"));
+    } catch (e) {}
+
+    socket.emit("searchMedia", {
+        source: "yt",
+        query: query
+    });
+});
+
+/* user playlists */
+
+$("#userpl_save").on('click', function() {
+    if($("#userpl_name").val().trim() == "") {
+        makeAlert("Invalid Name", "Playlist name cannot be empty", "alert-danger")
+            .insertAfter($("#userpl_save").parent());
+        return;
+
+--- lines 291-306 ---
+            .insertAfter($("#userpl_save").parent());
+        return;
+    }
+    socket.emit("clonePlaylist", {
+        name: $("#userpl_name").val()
+    });
+});
+
+/* video controls */
+
+$("#mediarefresh").on('click', function() {
+    PLAYER.mediaType = "";
+    PLAYER.mediaId = "";
+    // playerReady triggers the server to send a changeMedia.
+    // the changeMedia handler then reloads the player
+    socket.emit("playerReady");
+
+--- lines 303-318 ---
+    PLAYER.mediaId = "";
+    // playerReady triggers the server to send a changeMedia.
+    // the changeMedia handler then reloads the player
+    socket.emit("playerReady");
+});
+
+/* playlist controls */
+
+$("#queue").sortable({
+    start: function(ev, ui) {
+        PL_FROM = ui.item.data("uid");
+    },
+    update: function(ev, ui) {
+        var prev = ui.item.prevAll();
+        if(prev.length == 0)
+            PL_AFTER = "prepend";
+
+--- lines 318-333 ---
+            PL_AFTER = "prepend";
+        else
+            PL_AFTER = $(prev[0]).data("uid");
+        socket.emit("moveMedia", {
+            from: PL_FROM,
+            after: PL_AFTER
+        });
+        $("#queue").sortable("cancel");
+    }
+});
+$("#queue").disableSelection();
+
+function queue(pos, src) {
+    if (!src) {
+        src = "url";
+    }
+
+--- lines 339-354 ---
+        }
+        var content = $("#customembed-content").val();
+
+        socket.emit("queue", {
+            id: content,
+            title: title,
+            pos: pos,
+            type: "cu",
+            temp: $(".add-temp").prop("checked")
+        });
+    } else {
+        var linkList = $("#mediaurl").val();
+        var links = linkList.split(",http").map(function (link, i) {
+            if (i > 0) {
+                return "http" + link;
+            } else {
+
+--- lines 450-465 ---
+            var link = data.link;
+            delete data.link;
+
+            socket.emit("queue", data);
+            startQueueSpinner(data);
+            if (emitQueue.length > 0) {
+                notification.textContent = "Waiting to queue " + emitQueue[0].link;
+            } else {
+                notification.textContent = "";
+            }
+
+            setTimeout(next, nextQueueDelay);
+        }
+
+        next();
+    }
+
+--- lines 513-528 ---
+});
+
+$("#qlockbtn").on('click', function() {
+    socket.emit("togglePlaylistLock");
+});
+
+$("#voteskip").on('click', function() {
+    socket.emit("voteskip");
+    $("#voteskip").attr("disabled", true);
+});
+
+$("#getplaylist").on('click', function() {
+    var callback = function(data) {
+        var idx = socket.listeners("errorMsg").indexOf(errCallback);
+        if (idx >= 0) {
+            socket.listeners("errorMsg").splice(idx);
+
+--- lines 517-532 ---
+});
+
+$("#voteskip").on('click', function() {
+    socket.emit("voteskip");
+    $("#voteskip").attr("disabled", true);
+});
+
+$("#getplaylist").on('click', function() {
+    var callback = function(data) {
+        var idx = socket.listeners("errorMsg").indexOf(errCallback);
+        if (idx >= 0) {
+            socket.listeners("errorMsg").splice(idx);
+        }
+        idx = socket.listeners("playlist").indexOf(callback);
+        if (idx >= 0) {
+            socket.listeners("playlist").splice(idx);
+
+--- lines 560-575 ---
+        });
+        outer.modal();
+    };
+    socket.on("playlist", callback);
+    var errCallback = function(data) {
+        if (data.code !== "REQ_PLAYLIST_LIMIT_REACHED") {
+            return;
+        }
+
+        var idx = socket.listeners("errorMsg").indexOf(errCallback);
+        if (idx >= 0) {
+            socket.listeners("errorMsg").splice(idx);
+        }
+
+        idx = socket.listeners("playlist").indexOf(callback);
+        if (idx >= 0) {
+
+--- lines 576-591 ---
+            socket.listeners("playlist").splice(idx);
+        }
+    };
+    socket.on("errorMsg", errCallback);
+    socket.emit("requestPlaylist");
+});
+
+$("#clearplaylist").on('click', function() {
+    var clear = confirm("Are you sure you want to clear the playlist?");
+    if(clear) {
+        socket.emit("clearPlaylist");
+    }
+});
+
+$("#shuffleplaylist").on('click', function() {
+    var shuffle = confirm("Are you sure you want to shuffle the playlist?");
+
+--- lines 577-592 ---
+        }
+    };
+    socket.on("errorMsg", errCallback);
+    socket.emit("requestPlaylist");
+});
+
+$("#clearplaylist").on('click', function() {
+    var clear = confirm("Are you sure you want to clear the playlist?");
+    if(clear) {
+        socket.emit("clearPlaylist");
+    }
+});
+
+$("#shuffleplaylist").on('click', function() {
+    var shuffle = confirm("Are you sure you want to shuffle the playlist?");
+    if(shuffle) {
+
+--- lines 583-598 ---
+$("#clearplaylist").on('click', function() {
+    var clear = confirm("Are you sure you want to clear the playlist?");
+    if(clear) {
+        socket.emit("clearPlaylist");
+    }
+});
+
+$("#shuffleplaylist").on('click', function() {
+    var shuffle = confirm("Are you sure you want to shuffle the playlist?");
+    if(shuffle) {
+        socket.emit("shufflePlaylist");
+    }
+});
+
+/* channel ranks stuff */
+function chanrankSubmit(rank) {
+
+--- lines 590-605 ---
+$("#shuffleplaylist").on('click', function() {
+    var shuffle = confirm("Are you sure you want to shuffle the playlist?");
+    if(shuffle) {
+        socket.emit("shufflePlaylist");
+    }
+});
+
+/* channel ranks stuff */
+function chanrankSubmit(rank) {
+    var name = $("#cs-chanranks-name").val();
+    socket.emit("setChannelRank", {
+        name: name,
+        rank: rank
+    });
+}
+$("#cs-chanranks-mod").on('click', chanrankSubmit.bind(this, 2));
+
+--- lines 597-612 ---
+/* channel ranks stuff */
+function chanrankSubmit(rank) {
+    var name = $("#cs-chanranks-name").val();
+    socket.emit("setChannelRank", {
+        name: name,
+        rank: rank
+    });
+}
+$("#cs-chanranks-mod").on('click', chanrankSubmit.bind(this, 2));
+$("#cs-chanranks-adm").on('click', chanrankSubmit.bind(this, 3));
+$("#cs-chanranks-owner").on('click', chanrankSubmit.bind(this, 4));
+
+["#showmediaurl", "#showsearch", "#showcustomembed", "#showplaylistmanager"]
+    .forEach(function (id) {
+    $(id).on('click', function () {
+        var wasActive = $(id).hasClass("active");
+
+--- lines 628-643 ---
+    var value = box.prop("checked");
+    var data = {};
+    data[key] = value;
+    socket.emit("setOptions", data);
+});
+
+$(".cs-textbox").on('keyup', function () {
+    var box = $(this);
+    var key = box.attr("id").replace("cs-", "");
+    var value = box.val();
+    var lastkey = Date.now();
+    box.data("lastkey", lastkey);
+
+    setTimeout(function () {
+        if (box.data("lastkey") !== lastkey || box.val() !== value) {
+            return;
+
+--- lines 654-669 ---
+        } else {
+            data[key] = value;
+        }
+        socket.emit("setOptions", data);
+    }, 1000);
+});
+
+$(".cs-textbox-timeinput").on('keyup', function (event) {
+    var box = $(this);
+    var key = box.attr("id").replace("cs-", "");
+    var value = box.val();
+    var lastkey = Date.now();
+    box.data("lastkey", lastkey);
+
+    setTimeout(function () {
+        if (box.data("lastkey") !== lastkey || box.val() !== value) {
+
+--- lines 684-699 ---
+            $(event.target).parent().addClass("has-error");
+            return;
+        }
+        socket.emit("setOptions", data);
+    }, 1000);
+});
+
+$("#cs-chanlog-refresh").on('click', function () {
+    socket.emit("readChanLog");
+});
+
+$("#cs-chanlog-filter").on('change', filterChannelLog);
+
+$("#cs-motdsubmit").on('click', function () {
+    socket.emit("setMotd", {
+        motd: $("#cs-motdtext").val()
+
+--- lines 689-704 ---
+});
+
+$("#cs-chanlog-refresh").on('click', function () {
+    socket.emit("readChanLog");
+});
+
+$("#cs-chanlog-filter").on('change', filterChannelLog);
+
+$("#cs-motdsubmit").on('click', function () {
+    socket.emit("setMotd", {
+        motd: $("#cs-motdtext").val()
+    });
+});
+
+$("#cs-csssubmit").on('click', function () {
+    socket.emit("setChannelCSS", {
+
+--- lines 695-710 ---
+$("#cs-chanlog-filter").on('change', filterChannelLog);
+
+$("#cs-motdsubmit").on('click', function () {
+    socket.emit("setMotd", {
+        motd: $("#cs-motdtext").val()
+    });
+});
+
+$("#cs-csssubmit").on('click', function () {
+    socket.emit("setChannelCSS", {
+        css: $("#cs-csstext").val()
+    });
+});
+
+$("#cs-jssubmit").on('click', function () {
+    socket.emit("setChannelJS", {
+
+--- lines 701-716 ---
+});
+
+$("#cs-csssubmit").on('click', function () {
+    socket.emit("setChannelCSS", {
+        css: $("#cs-csstext").val()
+    });
+});
+
+$("#cs-jssubmit").on('click', function () {
+    socket.emit("setChannelJS", {
+        js: $("#cs-jstext").val()
+    });
+});
+
+$("#cs-chatfilters-newsubmit").on('click', function () {
+    var name = $("#cs-chatfilters-newname").val();
+
+--- lines 707-722 ---
+});
+
+$("#cs-jssubmit").on('click', function () {
+    socket.emit("setChannelJS", {
+        js: $("#cs-jstext").val()
+    });
+});
+
+$("#cs-chatfilters-newsubmit").on('click', function () {
+    var name = $("#cs-chatfilters-newname").val();
+    var regex = $("#cs-chatfilters-newregex").val();
+    var flags = $("#cs-chatfilters-newflags").val();
+    var replace = $("#cs-chatfilters-newreplace").val();
+    var entcheck = checkEntitiesInStr(regex);
+    if (entcheck) {
+        alert("Warning: " + entcheck.src + " will be replaced by " +
+
+--- lines 736-751 ---
+        Callbacks.validationPassed({ target: "#cs-chatfilters-newreplace" });
+    }
+
+    socket.emit("addFilter", {
+        name: name,
+        source: regex,
+        flags: flags,
+        replace: replace,
+        active: true
+    });
+
+    socket.once("addFilterSuccess", function () {
+        $("#cs-chatfilters-newname").val("");
+        $("#cs-chatfilters-newregex").val("");
+        $("#cs-chatfilters-newflags").val("");
+        $("#cs-chatfilters-newreplace").val("");
+
+--- lines 774-789 ---
+        Callbacks.validationPassed({ target: "#cs-emotes-newimage" });
+    }
+
+    socket.emit("updateEmote", {
+        name: name,
+        image: image,
+    });
+
+    $("#cs-emotes-newname").val("");
+    $("#cs-emotes-newimage").val("");
+});
+
+$("#cs-chatfilters-export").on('click', function () {
+    var callback = function (data) {
+        socket.listeners("chatFilters").splice(
+            socket.listeners("chatFilters").indexOf(callback)
+
+--- lines 792-807 ---
+        $("#cs-chatfilters-exporttext").val(JSON.stringify(data));
+    };
+
+    socket.on("chatFilters", callback);
+    socket.emit("requestChatFilters");
+});
+
+$("#cs-chatfilters-import").on('click', function () {
+    var text = $("#cs-chatfilters-exporttext").val();
+    var choose = confirm("You are about to import filters from the contents of the textbox below the import button.  If this is empty, it will clear all of your filters.  Are you sure you want to continue?");
+    if (!choose) {
+        return;
+    }
+
+    if (text.trim() === "") {
+        text = "[]";
+
+--- lines 793-808 ---
+    };
+
+    socket.on("chatFilters", callback);
+    socket.emit("requestChatFilters");
+});
+
+$("#cs-chatfilters-import").on('click', function () {
+    var text = $("#cs-chatfilters-exporttext").val();
+    var choose = confirm("You are about to import filters from the contents of the textbox below the import button.  If this is empty, it will clear all of your filters.  Are you sure you want to continue?");
+    if (!choose) {
+        return;
+    }
+
+    if (text.trim() === "") {
+        text = "[]";
+    }
+
+--- lines 815-830 ---
+        return;
+    }
+
+    socket.emit("importFilters", data);
+});
+
+$("#cs-emotes-export").on('click', function () {
+    var em = CHANNEL.emotes.map(function (f) {
+        return {
+            name: f.name,
+            image: f.image
+        };
+    });
+    $("#cs-emotes-exporttext").val(JSON.stringify(em));
+});
+
+
+--- lines 847-862 ---
+        return;
+    }
+
+    socket.emit("importEmotes", data);
+});
+
+var toggleUserlist = function () {
+    var direction = !USEROPTS.layout.match(/synchtube/) ? "glyphicon-chevron-right" : "glyphicon-chevron-left"
+    if ($("#userlist")[0].style.display === "none") {
+        $("#userlist").show();
+        $("#userlisttoggle").removeClass(direction).addClass("glyphicon-chevron-down");
+    } else {
+        $("#userlist").hide();
+        $("#userlisttoggle").removeClass("glyphicon-chevron-down").addClass(direction);
+    }
+    scrollChat();
+
+############################################################
+# util.js
+############################################################
+
+--- lines 267-282 ---
+        if(leader) {
+            ldr.text("Remove Leader");
+            ldr.on('click', function () {
+                socket.emit("assignLeader", {
+                    name: ""
+                });
+            });
+        } else {
+            ldr.text("Give Leader");
+            ldr.on('click', function () {
+                socket.emit("assignLeader", {
+                    name: name
+                });
+            });
+        }
+    }
+
+--- lines 274-289 ---
+        } else {
+            ldr.text("Give Leader");
+            ldr.on('click', function () {
+                socket.emit("assignLeader", {
+                    name: name
+                });
+            });
+        }
+    }
+
+    /* kick button */
+    if(hasPermission("kick")) {
+        $("<button/>").addClass("btn btn-xs btn-default")
+            .text("Kick")
+            .on('click', function () {
+                var reason = prompt("Enter kick reason (optional)");
+
+--- lines 290-305 ---
+                if (reason === null) {
+                    return;
+                }
+                socket.emit("chatMsg", {
+                    msg: "/kick " + name + " " + reason,
+                    meta: {}
+                });
+            })
+            .appendTo(btngroup);
+    }
+
+    /* mute buttons */
+    if (hasPermission("mute")) {
+        var mute = $("<button/>").addClass("btn btn-xs btn-default")
+            .text("Mute")
+            .on('click', function () {
+
+--- lines 303-318 ---
+        var mute = $("<button/>").addClass("btn btn-xs btn-default")
+            .text("Mute")
+            .on('click', function () {
+                socket.emit("chatMsg", {
+                    msg: "/mute " + name,
+                    meta: {}
+                });
+            })
+            .appendTo(btngroup);
+        var smute = $("<button/>").addClass("btn btn-xs btn-default")
+            .text("Shadow Mute")
+            .on('click', function () {
+                socket.emit("chatMsg", {
+                    msg: "/smute " + name,
+                    meta: {}
+                });
+
+--- lines 312-327 ---
+        var smute = $("<button/>").addClass("btn btn-xs btn-default")
+            .text("Shadow Mute")
+            .on('click', function () {
+                socket.emit("chatMsg", {
+                    msg: "/smute " + name,
+                    meta: {}
+                });
+            })
+            .appendTo(btngroup);
+        var unmute = $("<button/>").addClass("btn btn-xs btn-default")
+            .text("Unmute")
+            .on('click', function () {
+                socket.emit("chatMsg", {
+                    msg: "/unmute " + name,
+                    meta: {}
+                });
+
+--- lines 321-336 ---
+        var unmute = $("<button/>").addClass("btn btn-xs btn-default")
+            .text("Unmute")
+            .on('click', function () {
+                socket.emit("chatMsg", {
+                    msg: "/unmute " + name,
+                    meta: {}
+                });
+            })
+            .appendTo(btngroup);
+        if (meta.muted) {
+            mute.hide();
+            smute.hide();
+        } else {
+            unmute.hide();
+        }
+    }
+
+--- lines 344-359 ---
+                if (reason === null) {
+                    return;
+                }
+                socket.emit("chatMsg", {
+                    msg: "/ban " + name + " " + reason,
+                    meta: {}
+                });
+            })
+            .appendTo(btngroup);
+        $("<button/>").addClass("btn btn-xs btn-default")
+            .text("IP Ban")
+            .on('click', function () {
+                var reason = prompt("Enter ban reason (optional)");
+                if (reason === null) {
+                    return;
+                }
+
+--- lines 357-372 ---
+                if (reason === null) {
+                    return;
+                }
+                socket.emit("chatMsg", {
+                    msg: "/ipban " + name + " " + reason,
+                    meta: {}
+                });
+            })
+            .appendTo(btngroup);
+    }
+
+    var showdd = function(ev) {
+        // Workaround for Chrome
+        if (ev.shiftKey) return true;
+        ev.preventDefault();
+        if(menu.css("display") == "none") {
+
+--- lines 535-550 ---
+        $("<button/>").addClass("btn btn-xs btn-default qbtn-play")
+            .html("<span class='glyphicon glyphicon-play'></span>Play")
+            .on('click', function() {
+                socket.emit("jumpTo", li.data("uid"));
+            })
+            .appendTo(menu);
+    }
+    // Queue next
+    if(hasPermission("playlistmove")) {
+        $("<button/>").addClass("btn btn-xs btn-default qbtn-next")
+            .html("<span class='glyphicon glyphicon-share-alt'></span>Queue Next")
+            .on('click', function() {
+                socket.emit("moveMedia", {
+                    from: li.data("uid"),
+                    after: PL_CURRENT
+                });
+
+--- lines 544-559 ---
+        $("<button/>").addClass("btn btn-xs btn-default qbtn-next")
+            .html("<span class='glyphicon glyphicon-share-alt'></span>Queue Next")
+            .on('click', function() {
+                socket.emit("moveMedia", {
+                    from: li.data("uid"),
+                    after: PL_CURRENT
+                });
+            })
+            .appendTo(menu);
+    }
+    // Temp/Untemp
+    if(hasPermission("settemp")) {
+        var tempstr = li.data("temp")?"Make Permanent":"Make Temporary";
+        $("<button/>").addClass("btn btn-xs btn-default qbtn-tmp")
+            .html("<span class='glyphicon glyphicon-flag'></span>" + tempstr)
+            .on('click', function() {
+
+--- lines 557-572 ---
+        $("<button/>").addClass("btn btn-xs btn-default qbtn-tmp")
+            .html("<span class='glyphicon glyphicon-flag'></span>" + tempstr)
+            .on('click', function() {
+                socket.emit("setTemp", {
+                    uid: li.data("uid"),
+                    temp: !li.data("temp")
+                });
+            })
+            .appendTo(menu);
+    }
+    // Delete
+    if(hasPermission("playlistdelete")) {
+        $("<button/>").addClass("btn btn-xs btn-default qbtn-delete")
+            .html("<span class='glyphicon glyphicon-trash'></span>Delete")
+            .on('click', function() {
+                socket.emit("delete", li.data("uid"));
+
+--- lines 569-584 ---
+        $("<button/>").addClass("btn btn-xs btn-default qbtn-delete")
+            .html("<span class='glyphicon glyphicon-trash'></span>Delete")
+            .on('click', function() {
+                socket.emit("delete", li.data("uid"));
+            })
+            .appendTo(menu);
+    }
+
+    if(USEROPTS.qbtn_hide && !USEROPTS.qbtn_idontlikechange
+        || menu.find(".btn").length == 0)
+        menu.hide();
+
+    // I DON'T LIKE CHANGE
+    if(USEROPTS.qbtn_idontlikechange) {
+        menu.addClass("pull-left");
+        menu.detach().prependTo(li);
+
+--- lines 763-778 ---
+            .appendTo($("#chatwrap"));
+        btn.on('click', function() {
+            if($("#chatline").val().trim()) {
+                socket.emit("chatMsg", {
+                    msg: $("#chatline").val(),
+                    meta: {}
+                });
+                $("#chatline").val("");
+            }
+        });
+    }
+
+    if (USEROPTS.modhat) {
+        $("#modflair").removeClass("label-default")
+            .addClass("label-success");
+    } else {
+
+--- lines 898-913 ---
+                if($(this).val() != "")
+                    opts.push($(this).val());
+            });
+            socket.emit("newPoll", {
+                title: title.val(),
+                opts: opts,
+                obscured: hidden.prop("checked"),
+                retainVotes: retainVotes.prop("checked"),
+                timeout: t
+            }, function ack(result) {
+                if (result.error) {
+                    modalAlert({
+                        title: 'Error creating poll',
+                        textContent: result.error.message
+                    });
+                } else {
+
+--- lines 1090-1105 ---
+                .text("End Poll")
+                .insertAfter(poll.find(".close"))
+                .on('click', function() {
+                    socket.emit("closePoll");
+                });
+        }
+    }
+    var poll = $("#pollwrap .active");
+    if(poll.length > 0) {
+        poll.find(".btn").attr("disabled", !hasPermission("pollvote"));
+    }
+    var users = $("#userlist").children();
+    for(var i = 0; i < users.length; i++) {
+        addUserDropdown($(users[i]));
+    }
+
+
+--- lines 1146-1161 ---
+            $("<button/>").addClass("btn btn-xs btn-default")
+                .text("Next")
+                .on('click', function() {
+                    socket.emit("queue", {
+                        id: id,
+                        pos: "next",
+                        type: type,
+                        temp: $(".add-temp").prop("checked")
+                    });
+                })
+                .appendTo(btns);
+        }
+        $("<button/>").addClass("btn btn-xs btn-default")
+            .text("End")
+            .on('click', function() {
+                socket.emit("queue", {
+
+--- lines 1158-1173 ---
+        $("<button/>").addClass("btn btn-xs btn-default")
+            .text("End")
+            .on('click', function() {
+                socket.emit("queue", {
+                    id: id,
+                    pos: "end",
+                    type: type,
+                    temp: $(".add-temp").prop("checked")
+                });
+            })
+            .appendTo(btns);
+    }
+    if(hasPermission("deletefromchannellib") && source === "library") {
+        $("<button/>").addClass("btn btn-xs btn-danger")
+            .html("<span class='glyphicon glyphicon-trash'></span>")
+            .on('click', function() {
+
+--- lines 1171-1186 ---
+        $("<button/>").addClass("btn btn-xs btn-danger")
+            .html("<span class='glyphicon glyphicon-trash'></span>")
+            .on('click', function() {
+                socket.emit("uncache", {
+                    id: id
+                });
+                li.hide("fade", function() {
+                    li.remove();
+                });
+            })
+            .appendTo(btns);
+    }
+}
+
+/* queue stuff */
+
+
+--- lines 1467-1482 ---
+        return;
+    }
+    PLAYER.getTime(function (seconds) {
+        socket.emit("mediaUpdate", {
+            id: PLAYER.mediaId,
+            currentTime: seconds,
+            paused: PLAYER.paused,
+            type: PLAYER.mediaType
+        });
+    });
+}
+
+/* chat */
+
+function stripImages(msg){
+    if (!USEROPTS.strip_image) {
+
+--- lines 2053-2068 ---
+        form.find("select").each(function() {
+            perms[$(this).data("key")] = parseFloat($(this).val());
+        });
+        socket.emit("setPermissions", perms);
+    });
+
+    var msggroup = $("<div/>").addClass("form-group").insertAfter(sgroup);
+    var msginner = $("<div/>").addClass("col-sm-8 col-sm-offset-4").appendTo(msggroup);
+    var text = $("<span/>").addClass("text-info").text("Permissions updated")
+        .appendTo(msginner);
+
+    setTimeout(function () {
+        msggroup.hide("fade", function () {
+            msggroup.remove();
+        });
+    }, 5000);
+
+--- lines 2357-2372 ---
+                .appendTo(li);
+            if (r.rank !== entry.rank) {
+                a.on('click', function () {
+                    socket.emit("setChannelRank", {
+                        name: entry.name,
+                        rank: r.rank
+                    });
+                });
+            } else {
+                $("<span/>").addClass("glyphicon glyphicon-ok")
+                    .appendTo(a);
+                li.addClass("disabled");
+            }
+
+            if (r.rank > CLIENT.rank || (CLIENT.rank < 4 && r.rank === CLIENT.rank)) {
+                li.addClass("disabled");
+
+--- lines 2414-2429 ---
+        var unban = $("<button/>").addClass("btn btn-xs btn-danger")
+            .appendTo($("<td/>").appendTo(tr));
+        unban.on('click', function () {
+            socket.emit("unban", {
+                id: entry.id,
+                name: entry.name
+            });
+        });
+        $("<span/>").addClass("glyphicon glyphicon-remove-circle").appendTo(unban);
+        $("<td/>").text(entry.ip).appendTo(tr);
+        $("<td/>").text(entry.name).appendTo(tr);
+        $("<td/>").text(entry.bannedby).appendTo(tr);
+        tr.attr("title", "Ban Reason: " + entry.reason);
+        return tr;
+    };
+
+
+--- lines 2491-2506 ---
+            .appendTo(controlgroup);
+        $("<span/>").addClass("glyphicon glyphicon-trash").appendTo(del);
+        del.on('click', function () {
+            socket.emit("removeFilter", f);
+        });
+        var name = $("<code/>").text(f.name).appendTo($("<td/>").appendTo(tr));
+        var activetd = $("<td/>").appendTo(tr);
+        var active = $("<input/>").attr("type", "checkbox")
+            .prop("checked", f.active)
+            .appendTo(activetd)
+            .on('change', function () {
+                f.active = $(this).prop("checked");
+                socket.emit("updateFilter", f);
+            });
+
+        var reset = function () {
+
+--- lines 2500-2515 ---
+            .appendTo(activetd)
+            .on('change', function () {
+                f.active = $(this).prop("checked");
+                socket.emit("updateFilter", f);
+            });
+
+        var reset = function () {
+            control.data("editor") && control.data("editor").remove();
+            control.data("editor", null);
+            control.parent().find(".btn-success").remove();
+            var tbody = $(tbl.children()[1]);
+            if (tbody.find(".filter-edit-row").length === 0) {
+                tbody.sortable("enable");
+            }
+        };
+
+
+--- lines 2561-2576 ---
+                f.replace = replace.val();
+                f.filterlinks = filterlinks.prop("checked");
+
+                socket.emit("updateFilter", f);
+                socket.once("updateFilterSuccess", function () {
+                    reset();
+                });
+            });
+
+            control.data("editor", tr2);
+        });
+    });
+    $(tbl.children()[1]).sortable({
+        start: function(ev, ui) {
+            FILTER_FROM = ui.item.prevAll().length;
+        },
+
+--- lines 2577-2592 ---
+        update: function(ev, ui) {
+            FILTER_TO = ui.item.prevAll().length;
+            if(FILTER_TO != FILTER_FROM) {
+                socket.emit("moveFilter", {
+                    from: FILTER_FROM,
+                    to: FILTER_TO
+                });
+            }
+        }
+    });
+}
+
+function formatTime(sec) {
+    var h = Math.floor(sec / 3600) + "";
+    var m = Math.floor((sec % 3600) / 60) + "";
+    var s = sec % 60 + "";
+
+--- lines 2633-2648 ---
+                .text("End")
+                .appendTo(btns)
+                .on('click', function () {
+                    socket.emit("queuePlaylist", {
+                        name: pl.name,
+                        pos: "end",
+                        temp: $(".add-temp").prop("checked")
+                    });
+                });
+        }
+
+        if (hasPermission("playlistadd") && hasPermission("playlistnext")) {
+            $("<button/>").addClass("btn btn-xs btn-default")
+                .text("Next")
+                .prependTo(btns)
+                .on('click', function () {
+
+--- lines 2646-2661 ---
+                .text("Next")
+                .prependTo(btns)
+                .on('click', function () {
+                    socket.emit("queuePlaylist", {
+                        name: pl.name,
+                        pos: "next",
+                        temp: $(".add-temp").prop("checked")
+                    });
+                });
+        }
+
+        $("<button/>").addClass("btn btn-xs btn-danger")
+            .html("<span class='glyphicon glyphicon-trash'></span>")
+            .attr("title", "Delete playlist")
+            .appendTo(btns)
+            .on('click', function () {
+
+--- lines 2664-2679 ---
+                if (!really) {
+                    return;
+                }
+                socket.emit("deletePlaylist", {
+                    name: pl.name
+                });
+            });
+    });
+}
+
+function loadEmotes(data) {
+    function sanitizeText(str) {
+        str = str.replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;");
+
+--- lines 2799-2814 ---
+                meta.modflair = CLIENT.rank;
+                msg = msg.substring(3);
+            }
+            socket.emit("pm", {
+                to: user,
+                msg: msg,
+                meta: meta
+            });
+            input.val("");
+        } else if(ev.keyCode == 9) { // Tab completion
+            try {
+                chatTabComplete(ev.target);
+            } catch (error) {
+                console.error(error);
+            }
+            ev.preventDefault();
+
+--- lines 3139-3154 ---
+            btnDelete.onclick = function deleteEmote() {
+                document.getElementById("cs-emotes-newname").value = emote.name;
+                document.getElementById("cs-emotes-newimage").value = emote.image;
+                socket.emit("removeEmote", emote);
+            };
+
+            // Add emote name
+            var tdName = document.createElement("td");
+            var nameDisplay = document.createElement("code");
+            nameDisplay.textContent = emote.name;
+            tdName.appendChild(nameDisplay);
+            row.appendChild(tdName);
+
+            var $nameDisplay = $(nameDisplay);
+            $nameDisplay.on('click', function (clickEvent) {
+                $nameDisplay.detach();
+
+--- lines 3189-3204 ---
+
+                        return;
+                    }
+                    socket.emit("renameEmote", {
+                        old: emote.name,
+                        image: emote.image,
+                        name: val
+                    });
+                }
+
+                editInput.onblur = save;
+                editInput.onkeyup = function (event) {
+                    if (event.keyCode === 13) {
+                        save();
+                    }
+                };
+
+--- lines 3275-3290 ---
+                        return;
+                    }
+
+                    socket.emit("updateEmote", {
+                        name: emote.name,
+                        image: val
+                    });
+
+                    cleanup();
+                }
+
+                function cleanup() {
+                    tdImage.removeChild(inputGroup);
+                    tdImage.appendChild(urlDisplay);
+                    if (errorMsg.parentElement === tdImage) {
+                        tdImage.removeChild(errorMsg);
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "WS-031 COMPLETE"
+WS-031 COMPLETE
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $ echo "IMPORTANT:"
+IMPORTANT:
+~ $ echo "Do not interpret event names as proven API contracts yet."
+Do not interpret event names as proven API contracts yet.
+~ $ echo "The next stage is to map each event to its actual payload"
+The next stage is to map each event to its actual payload
+~ $ echo "construction and handling code."
+construction and handling code.
+~ $ echo
+
+~ $
