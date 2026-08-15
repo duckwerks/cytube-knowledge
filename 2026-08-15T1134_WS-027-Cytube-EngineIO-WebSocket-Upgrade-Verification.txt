@@ -1,0 +1,606 @@
+~ $ #!/usr/bin/env bash
+cleanup() {
+    rm -f "$COOKIE_JAR" "$HANDSHAKE_FILE"
+}
+trap cleanup EXIT
+
+{
+    echo "============================================================"
+    echo "WS-027 — CYTUBE ENGINE.IO WEBSOCKET UPGRADE VERIFICATION"
+    echo "============================================================"
+    echo
+    echo "DATE (UTC): $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+    echo "HOST: $(hostname 2>/dev/null || true)"
+  ~ $ set -u
+echo "--- curl ---"
+    curl --version 2>&1 | head -4
+
+    echo
+    echo "--- websocat ---"
+    websocat --version 2>&1 || true
+
+    echo
+    echo "--- timeout ---"
+    timeout --version 2>&1 | head -2 || true
+
+    echo
+
+    echo "======================================~ $
+KE"
+    echo "============================================================"
+    echo
+
+    HANDSHAKE="$(
+        curl -sS \
+            --http1.1 \
+            --max-time 30 \
+            -c "$~ $ BASE="https://cytu.be"
+Timeout|maxPayload)":[0-9]+' || true
+
+    echo
+
+    echo "============================================================"
+    echo "4. VERIFY SID WITH POLLING"
+    echo "============================================================"
+    echo
+
+    POLL_URL="$BASE/socket.io/?EIO=4&transport=polling&sid=$SID"
+
+    echo "P~ $ ROOM="https://cytu.be/r/EMAIL"
+OLL URL:"
+    echo "$POLL_URL"
+    echo
+
+    curl -sS \
+        --http1.1 \
+        --max-time 35 \
+        -c "$COOKIE_JAR" \
+        -b "$COOKIE_JAR" \
+        -D - \
+        "$POLL_URL" \
+        2>&1 || true
+
+    echo
+
+    echo "============================================================"
+    echo "5. CORRECT COOKIE EXTRACTION"
+    echo "============================================================"
+    echo
+
+    echo "COOKIE JAR:"
+    cat "$COOKIE_JAR"
+
+    echo
+
+    # Netscape cookie files normally contain:
+    #
+    # domain  include_subdomains  path  secure  expiry  name  value
+    #
+    # HttpOnly cookies are represented as:
+    #
+    # #Htt~ $
+~ $ OUT="WS-027-Cytube-EngineIO-WebSocket-Upgrade-Verification.txt"
+~ $
+~ $ COOKIE_JAR="$(mktemp)"
+~ $ HANDSHAKE_FILE="$(mktemp)"
+~ $
+o~ $ cleanup() {
+>     rm -f "$COOKIE_JAR" "$HANDSHAKE_FILE"
+> }
+t
+~ $ trap cleanup EXIT
+~ $
+ ~ $ {
+ >     echo "============================================================"
+>     echo "WS-027 — CYTUBE ENGINE.IO WEBSOCKET UPGRADE VERIFICATION"
+>     echo "============================================================"
+>     echo
+>     echo "DATE (UTC): $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+>     echo "HOST: $(hostname 2>/dev/null || true)"
+>     echo
+>
+c>     echo "PURPOSE"
+>     echo "-------"
+>     echo "Determine whether Cytube accepts an Engine.IO EIO=4"
+>     echo "WebSocket upgrade using a fresh polling SID."
+>     echo
+>     echo "This test intentionally does NOT send 3probe."
+>     echo "The first objective is to observe the actual WebSocket"
+>     echo "upgrade and determine whether the server sends 2probe."
+>     echo
+>
+>     echo "============================================================"
+>     echo "1. TOOL VERSIONS"
+>     echo "============================================================"
+ho>     echo
+>
+>     echo "--- curl ---"
+typ>     curl --version 2>&1 | head -4
+>
+>     echo
+
+    echo>     echo "--- websocat ---"
+>     websocat --version 2>&1 || true
+>
+>     echo
+>     echo "--- timeout ---"
+>     timeout --version 2>&1 | head -2 || true
+>
+>     echo
+>
+>     echo "============================================================"
+>     echo "2. FETCH CYTUBE ROOM / ESTABLISH SESSION"
+>     echo "============================================================"
+>     echo
+>
+M>     curl -sS \
+>         --http1.1 \
+>         --max-time 30 \
+>         -c "$COOKIE_JAR" \
+>         -b "$COOKIE_JAR" \
+>         -D - \
+>         -o /dev/null \
+>         "$ROOM" \
+>         2>&1 || true
+>
+>     echo
+>     echo "--- COOKIE JAR ---"
+>     cat "$COOKIE_JAR" 2>/dev/null || true
+>
+>     echo
+>
+>     echo "============================================================"
+>     echo "3. FRESH ENGINE.IO EIO=4 HANDSHAKE"
+>     echo "============================================================"
+ ">     echo
+=========>
+>     HANDSHAKE="$(
+==================>         curl -sS \
+>             --http1.1 \
+>             --max-time 30 \
+>             -c "$COOKIE_JAR" \
+>             -b "$COOKIE_JAR" \
+>             "$BASE/socket.io/?EIO=4&transport=polling"
+>     )"
+>
+>     printf '%s\n' "$HANDSHAKE" > "$HANDSHAKE_FILE"
+>
+>     echo "RAW HANDSHAKE:"
+  e>     cat "$HANDSHAKE_FILE"
+>
+>     echo
+>
+>     SID="$(
+>         printf '%s' "$HANDSHAKE" |
+o>             sed -n 's/.*"sid":"\([^"]*\)".*/\1/p' |
+>             head -1
+>     )"
+till re>
+>     echo "EXTRACTED SID:"
+>     echo "$SID"
+>
+>     if [ -z "$SID" ]; then
+>         echo
+>         echo "ERROR: No SID extracted."
+   >         echo "Cannot continue."
+>         exit 1
+>     fi
+>
+>     echo
+>     echo "--- ENGINE.IO PARAMETERS ---"
+>
+>     printf '%s\n' "$HANDSHAKE" |
+>         grep -o '"upgrades":\[[^]]*\]' || true
+>
+>     printf '%s\n' "$HANDSHAKE" |
+>         grep -oE '"(pingInterval|pingTimeout|maxPayload)":[0-9]+' || true
+>
+>     echo
+>
+th mismatc>     echo "============================================================"
+>     echo "4. VERIFY SID WITH POLLING"
+>     echo "============================================================"
+er>     echo
+>
+>     POLL_URL="$BASE/socket.io/?EIO=4&transport=polling&sid=$SID"
+>
+>     echo "POLL URL:"
+>     echo "$POLL_URL"
+>     echo
+>
+>     curl -sS \
+>         --http1.1 \
+>         --max-time 35 \
+>         -c "$COOKIE_JAR" \
+>         -b "$COOKIE_JAR" \
+>         -D - \
+>         "$POLL_URL" \
+>         2>&1 || true
+>
+>     echo
+>
+>     echo "============================================================"
+>     echo "5. CORRECT COOKIE EXTRACTION"
+>     echo "============================================================"
+>     echo
+>
+>     echo "COOKIE JAR:"
+>     cat "$COOKIE_JAR"
+>
+>     echo
+>
+>     # Netscape cookie files normally contain:
+ co>     #
+nfirme>     # domain  include_subdomains  path  secure  expiry  name  value
+>     #
+======>     # HttpOnly cookies are represented as:
+">     #
+>     # #HttpOnly_domain ...
+>     #
+>     # We deliberately remove only the "#HttpOnly_" marker rather
+>     # than discarding the entire line.
+>
+>     COOKIE_HEADER="$(
+>         awk '
+>             /^#HttpOnly_/ {
+>                 sub(/^#HttpOnly_/, "")
+>                 line=$0
+>                 n=split(line, f, "\t")
+>                 if (n >= 7) {
+>                     if (cookie != "") cookie=cookie"; "
+>                     cookie=cookie f[6]"="f[7]
+>                 }
+>                 next
+>             }
+>
+>             /^#/ {
+>                 next
+>             }
+>
+>             NF >= 7 {
+>                 if (cookie != "") cookie=cookie"; "
+>                 cookie=cookie $6"="$7
+>             }
+>
+>             END {
+>                 print cookie
+>             }
+>         ' "$COOKIE_JAR"
+>     )"
+>
+>     echo "COOKIE HEADER:"
+>     echo "$COOKIE_HEADER"
+>
+>     echo
+>
+>     echo "============================================================"
+>     echo "6. PREPARE SID-BASED WEBSOCKET URL"
+>     echo "============================================================"
+>     echo
+>
+>     WS_URL="wss://cytu.be/socket.io/?EIO=4&transport=websocket&sid=$SID"
+>
+>     echo "WEBSOCKET URL:"
+>     echo "$WS_URL"
+>
+>     echo
+>
+>     echo "============================================================"
+>     echo "7. RAW ENGINE.IO WEBSOCKET UPGRADE TEST"
+>     echo "============================================================"
+>     echo
+>
+>     echo "IMPORTANT:"
+>     echo "Do NOT type anything into websocat."
+>     echo
+>     echo "This test is observational."
+>     echo
+>     echo "We are looking for evidence of:"
+>     echo
+>     echo "    HTTP 101 Switching Protocols"
+>     echo
+>     echo "followed by:"
+>     echo
+>     echo "    2probe"
+>     echo
+>     echo "If 2probe appears, the Engine.IO WebSocket transport is"
+>     echo "alive and the server has accepted the SID."
+>     echo
+>
+>     echo "WEBSOCAT COMMAND:"
+>     echo "-----------------"
+>     echo "timeout 20 websocat -v --text --no-line ..."
+>     echo
+>
+>     timeout 20 websocat \
+>         -v \
+>         --text \
+>         --no-line \
+>         --header="Origin: https://cytu.be" \
+>         --header="User-Agent: Mozilla/5.0" \
+>         --header="Cookie: $COOKIE_HEADER" \
+>         "$WS_URL" \
+>         2>&1 || true
+>
+>     echo
+>
+>     echo "============================================================"
+>     echo "8. INTERPRETATION"
+>     echo "============================================================"
+>     echo
+>
+>     echo "A. HTTP 101 + 2probe"
+>     echo "--------------------"
+>     echo "SUCCESS."
+>     echo
+>     echo "Cytube accepted the Engine.IO WebSocket upgrade and"
+>     echo "associated the WebSocket with the supplied SID."
+>     echo
+>
+>     echo "B. HTTP 101 BUT NO 2probe"
+>     echo "-------------------------"
+>     echo "WebSocket HTTP upgrade succeeded, but Engine.IO session"
+>     echo "behavior still requires investigation."
+>     echo
+>
+>     echo "C. HTTP 400 / Session ID unknown"
+>     echo "--------------------------------"
+>     echo "The WebSocket reached Engine.IO but the SID was not accepted."
+>     echo
+>
+>     echo "D. HTTP 403"
+>     echo "-----------"
+>     echo "Possible Origin, cookie, proxy, or access-control rejection."
+>     echo
+>
+>     echo "E. HTTP 404"
+>     echo "-----------"
+>     echo "Possible WebSocket endpoint/path mismatch."
+>     echo
+>
+>     echo "F. TLS / connection failure"
+>     echo "----------------------------"
+>     echo "The connection may be failing before the Engine.IO application"
+>     echo "layer is reached."
+>     echo
+>
+>     echo "============================================================"
+>     echo "9. RESULT CHECKLIST"
+>     echo "============================================================"
+>     echo
+>
+>     echo "[ ] Room HTTP 200"
+>     echo "[ ] Cytube cookies received"
+>     echo "[ ] EIO=4 handshake succeeded"
+>     echo "[ ] Fresh SID received"
+>     echo "[ ] SID polling request succeeded"
+>     echo "[ ] Cookie header extracted"
+>     echo "[ ] WebSocket connection attempted"
+>     echo "[ ] HTTP 101 Switching Protocols"
+>     echo "[ ] Server sent 2probe"
+>     echo "[ ] Engine.IO WebSocket transport confirmed"
+>     echo
+>
+>     echo "============================================================"
+>     echo "END WS-027"
+>     echo "============================================================"
+>
+> } | tee "$OUT"
+============================================================
+WS-027 — CYTUBE ENGINE.IO WEBSOCKET UPGRADE VERIFICATION
+============================================================
+
+DATE (UTC): 2026-08-15T18:34:27Z
+HOST: localhost
+
+PURPOSE
+-------
+Determine whether Cytube accepts an Engine.IO EIO=4
+WebSocket upgrade using a fresh polling SID.
+
+This test intentionally does NOT send 3probe.
+The first objective is to observe the actual WebSocket
+upgrade and determine whether the server sends 2probe.
+
+============================================================
+1. TOOL VERSIONS
+============================================================
+
+--- curl ---
+curl 8.21.0 (aarch64-unknown-linux-android) libcurl/8.21.0 OpenSSL/3.6.3 zlib/1.3.2 libssh2/1.11.1 nghttp2/1.69.0 ngtcp2/1.23.0 nghttp3/1.16.0
+Release-Date: 2026-06-24
+Protocols: dict file ftp ftps gopher gophers http https imap imaps ipfs ipns mqtt mqtts pop3 pop3s rtsp scp sftp smtp smtps telnet tftp ws wss
+Features: alt-svc AsynchDNS HSTS HTTP2 HTTP3 HTTPS-proxy IPv6 Largefile libz SSL threadsafe UnixSockets
+
+--- websocat ---
+websocat 1.14.1
+
+--- timeout ---
+timeout (GNU coreutils) 9.11
+Packaged by Termux
+
+============================================================
+2. FETCH CYTUBE ROOM / ESTABLISH SESSION
+============================================================
+
+HTTP/1.1 200 OK
+Date: Sat, 15 Aug 2026 18:34:28 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+X-Powered-By: Express
+Set-Cookie: _csrf=s%3AqIPHeugC86l9PMf5Bxy9fK3w.hyqVrtn3pR4QH9h%2BSf%2Fp%2F4VjO42DtwIshfFGpt4p4Ds; Domain=.cytu.be; Path=/; HttpOnly
+Set-Cookie: ip-session=s%3A2600%3A1010%3Ab1ab%3A22e%3A85cf%3A1c3d%3Ab818%3A8951%3A1786818868350.QRCE55F%2BEMX8q2NKJvMg%2BX0jbA61MkYrvGiQ1%2BFgeCE; Path=/; Expires=Fri, 31 Dec 9999 23:59:59 GMT; HttpOnly
+Vary: Accept-Encoding
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=YSKJL05i%2BHze3FFz8zgNlqmFf7F%2F7E4e0AlAmRULYBkjR0%2BQ9mQlHp%2F5WhhIvJVj2ZmCVvVd6mSoYFqayu0BUskX%2BMJre9OmNnitAhHUyk0nMzuGx%2BNwJwmGO75X65EsmsEZrwoi"}]}
+X-Frame-Options: DENY
+Strict-Transport-Security: max-age=86400
+Permissions-Policy: interest-cohort=()
+cf-cache-status: DYNAMIC
+CF-RAY: a2ba4b26e9be138a-SJC
+alt-svc: h3=":443"; ma=86400
+
+
+--- COOKIE JAR ---
+# Netscape HTTP Cookie File
+# https://curl.se/docs/http-cookies.html
+# This file was generated by libcurl! Edit at your own risk.
+
+#HttpOnly_cytu.be       FALSE   /       FALSE   1821378840      ip-session      s%3A2600%3A1010%3Ab1ab%3A22e%3A85cf%3A1c3d%3Ab818%3A8951%3A1786818868350.QRCE55F%2BEMX8q2NKJvMg%2BX0jbA61MkYrvGiQ1%2BFgeCE
+#HttpOnly_.cytu.be      TRUE    /       FALSE   0       _csrf   s%3AqIPHeugC86l9PMf5Bxy9fK3w.hyqVrtn3pR4QH9h%2BSf%2Fp%2F4VjO42DtwIshfFGpt4p4Ds
+
+============================================================
+3. FRESH ENGINE.IO EIO=4 HANDSHAKE
+============================================================
+
+RAW HANDSHAKE:
+0{"sid":"ErcUm82giKK3o7lGBJnK","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}
+
+EXTRACTED SID:
+ErcUm82giKK3o7lGBJnK
+
+--- ENGINE.IO PARAMETERS ---
+"upgrades":["websocket"]
+"pingInterval":25000
+"pingTimeout":120000
+"maxPayload":1048576
+
+============================================================
+4. VERIFY SID WITH POLLING
+============================================================
+
+POLL URL:
+https://cytu.be/socket.io/?EIO=4&transport=polling&sid=ErcUm82giKK3o7lGBJnK
+
+HTTP/1.1 200 OK
+Date: Sat, 15 Aug 2026 18:34:53 GMT
+Content-Type: text/plain; charset=UTF-8
+Content-Length: 1
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Vary: Origin
+Access-Control-Allow-Credentials: true
+X-Frame-Options: DENY
+Strict-Transport-Security: max-age=86400
+Permissions-Policy: interest-cohort=()
+cf-cache-status: DYNAMIC
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=cB9Hgk4FzQdSs872jXbMkjwrTjhwKKLCaxRPHaRQuyUX%2FKOoTakWfst8Up19CCapkXV1kiSKn6BMuEhDpSwmN7lylyGu0lW9n%2FhoDgxidOLF2GMDNp71w8kh5sNZztm1kUx4wRdj"}]}
+CF-RAY: a2ba4b2c7cc8cc8b-SJC
+alt-svc: h3=":443"; ma=86400
+
+2
+============================================================
+5. CORRECT COOKIE EXTRACTION
+============================================================
+
+COOKIE JAR:
+# Netscape HTTP Cookie File
+# https://curl.se/docs/http-cookies.html
+# This file was generated by libcurl! Edit at your own risk.
+
+#HttpOnly_cytu.be       FALSE   /       FALSE   1821378840      ip-session      s%3A2600%3A1010%3Ab1ab%3A22e%3A85cf%3A1c3d%3Ab818%3A8951%3A1786818868350.QRCE55F%2BEMX8q2NKJvMg%2BX0jbA61MkYrvGiQ1%2BFgeCE
+#HttpOnly_.cytu.be      TRUE    /       FALSE   0       _csrf   s%3AqIPHeugC86l9PMf5Bxy9fK3w.hyqVrtn3pR4QH9h%2BSf%2Fp%2F4VjO42DtwIshfFGpt4p4Ds
+
+COOKIE HEADER:
+ip-session=s%3A2600%3A1010%3Ab1ab%3A22e%3A85cf%3A1c3d%3Ab818%3A8951%3A1786818868350.QRCE55F%2BEMX8q2NKJvMg%2BX0jbA61MkYrvGiQ1%2BFgeCE; _csrf=s%3AqIPHeugC86l9PMf5Bxy9fK3w.hyqVrtn3pR4QH9h%2BSf%2Fp%2F4VjO42DtwIshfFGpt4p4Ds
+
+============================================================
+6. PREPARE SID-BASED WEBSOCKET URL
+============================================================
+
+WEBSOCKET URL:
+wss://cytu.be/socket.io/?EIO=4&transport=websocket&sid=ErcUm82giKK3o7lGBJnK
+
+============================================================
+7. RAW ENGINE.IO WEBSOCKET UPGRADE TEST
+============================================================
+
+IMPORTANT:
+Do NOT type anything into websocat.
+
+This test is observational.
+
+We are looking for evidence of:
+
+    HTTP 101 Switching Protocols
+
+followed by:
+
+    2probe
+
+If 2probe appears, the Engine.IO WebSocket transport is
+alive and the server has accepted the SID.
+
+WEBSOCAT COMMAND:
+-----------------
+timeout 20 websocat -v --text --no-line ...
+
+[INFO  websocat::stdio_threaded_peer] get_stdio_peer (threaded)
+
+============================================================
+8. INTERPRETATION
+============================================================
+
+A. HTTP 101 + 2probe
+--------------------
+SUCCESS.
+
+Cytube accepted the Engine.IO WebSocket upgrade and
+associated the WebSocket with the supplied SID.
+
+B. HTTP 101 BUT NO 2probe
+-------------------------
+WebSocket HTTP upgrade succeeded, but Engine.IO session
+behavior still requires investigation.
+
+C. HTTP 400 / Session ID unknown
+--------------------------------
+The WebSocket reached Engine.IO but the SID was not accepted.
+
+D. HTTP 403
+-----------
+Possible Origin, cookie, proxy, or access-control rejection.
+
+E. HTTP 404
+-----------
+Possible WebSocket endpoint/path mismatch.
+
+F. TLS / connection failure
+----------------------------
+The connection may be failing before the Engine.IO application
+layer is reached.
+
+============================================================
+9. RESULT CHECKLIST
+============================================================
+
+[ ] Room HTTP 200
+[ ] Cytube cookies received
+[ ] EIO=4 handshake succeeded
+[ ] Fresh SID received
+[ ] SID polling request succeeded
+[ ] Cookie header extracted
+[ ] WebSocket connection attempted
+[ ] HTTP 101 Switching Protocols
+[ ] Server sent 2probe
+[ ] Engine.IO WebSocket transport confirmed
+
+============================================================
+END WS-027
+============================================================
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "RESULT FILE:"
+RESULT FILE:
+~ $ echo "$OUT"
+WS-027-Cytube-EngineIO-WebSocket-Upgrade-Verification.txt
+~ $ echo "============================================================"
+============================================================
+~ $
+~ $
