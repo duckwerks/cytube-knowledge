@@ -1,0 +1,863 @@
+~ $ #!/usr/bin/env bash
+OOM_URL:-https://cytu.be/}"
+
+echo "============================================================"
+echo "WS-023 — CYTUBE BROWSER / ENGINE.IO WEBSOCKET UPGRADE"
+echo "==============================~ $
+~ $ set -u
+echo "NOT FOUND"
+fi
+
+echo
+echo "python:"
+if command -v python >/dev/null 2>&1; then
+    echo "FOUND: $(command -v python)"
+    python --version 2>&1
+elif command -v python3 >/dev/null 2>&1; then
+    echo "FOUND: $(command -v python3)"
+    python3 --version 2>&1
+else
+    echo "NOT FOUND"
+fi
+
+echo
+echo "websocat:"
+if command -v websocat >/dev/null 2>&1; then
+    echo "FOUND: $(command -v websocat)"
+else
+    echo "NOT FOUND"
+fi
+
+echo
+echo "============================================================"
+echo "1. TARGET PAGE"
+echo "============================================================"
+echo
+echo "ROOM_URL:"
+echo "$ROOM_URL"
+echo
+
+if ! command -v curl >/dev/null 2>&1; then
+    echo "curl is unavailable."
+    echo "Install it with:"
+    echo
+    echo "pkg install curl"
+    echo
+    echo "Then rerun WS-023."
+    exit 0
+fi
+
+echo "============================================================"
+echo "2. TARGET PAGE HEADERS"
+echo "============================================================"
+echo
+
+curl -sS \
+  --max-time 30 \
+  -D - \
+  -o /dev/nu~ $
+~ $ OUT="WS-023-CytubeBrowser-EngineIO-WebSocket-Upgrade-Reproduction-Experiment.txt"
+~ $
+1~ $ BASE="https://cytu.be"
+~ $
+~ $ # Optional:
+~ $ # Run as:
+~ $ #   ROOM_URL="https://cytu.be/r/YourRoom" bash this-test.sh
+~ $ #
+~ $ # If no room is supplied, use the Cytube front page first.
+~ $ ROOM_URL="${ROOM_URL:-https://cytu.be/}"
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "WS-023 — CYTUBE BROWSER / ENGINE.IO WEBSOCKET UPGRADE"
+WS-023 — CYTUBE BROWSER / ENGINE.IO WEBSOCKET UPGRADE
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $ echo "DATE (UTC): $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
++)["'\''].*$/\1/' \
+      | while read -r JS; do
+
+       DATE (UTC): 2026-08-15T17:11:35Z
+~ $ echo "HOST: $(hostname 2>/dev/null || true)"
+   case "$JS" in
+              http://*|httpsHOST: localhost
+~ $ echo
+
+~ $ echo "PURPOSE"
+PURPOSE
+~ $ echo "-------"
+-------
+~ $ echo "WS-022 established that Cytube currently exposes a live"
+WS-022 established that Cytube currently exposes a live
+~ $ echo "Engine.IO endpoint at /socket.io/."
+Engine.IO endpoint at /socket.io/.
+~ $ echo
+    ;
+~ $ echo "Both EIO=4 and EIO=3 accepted polling handshakes and"
+Both EIO=4 and EIO=3 accepted polling handshakes and
+~ $ echo "returned a SID with upgrades=[\"websocket\"]."
+returned a SID with upgrades=["websocket"].
+~ $ echo
+   ec
+~ $ echo "WS-023 attempts to reproduce the next protocol step:"
+WS-023 attempts to reproduce the next protocol step:
+~ $ echo
+
+~ $ echo "    HTTP polling handshake"
+    HTTP polling handshake
+~ $ echo "             |"
+             |
+~ $ echo "             v"
+             v
+SEA~ $ echo "          Engine.IO SID"
+          Engine.IO SID
+~ $ echo "             |"
+             |
+~ $ echo "             v"
+             v
+~ $ echo "    WebSocket upgrade using SID"
+]; th    WebSocket upgrade using SID
+~ $ echo
+
+en
+
+ ~ $ echo "The experiment also examines an actual Cytube page for"
+The experiment also examines an actual Cytube page for
+~ $ echo "the JavaScript resources used by the browser client."
+the JavaScript resources used by the browser client.
+~ $ echo
+
+~ $ echo "This is an evidence-gathering experiment."
+This is an evidence-gathering experiment.
+~ $ echo "A failed raw curl WebSocket probe does NOT by itself prove"
+A failed raw curl WebSocket probe does NOT by itself prove
+~ $ echo that the Cytube browser client cannot establish WebSocket."
+> echo
+> echo "============================================================"
+*)> echo "0. TOOL AVAILABILITY"
+> echo "============================================================"
+> echo
+>
+> echo "curl:"
+> if command -v curl >/dev/null 2>&1; then
+>     echo "FOUND: $(command -v curl)"
+>     curl --version 2>&1 | head -1
+> else
+----->     echo "NOT FOUND"
+>     echo "Install with: pkg install curl"
+> fi
+ASC>
+R> echo
+IPT #> echo "grep:"
+> if command -v grep >/dev/null 2>&1; then
+>     echo "FOUND: $(command -v grep)"
+--> else
+>     echo "NOT FOUND"
+>     echo "Install with: pkg install grep"
+> fi
+>
+> echo
+> echo "sed:"
+> if command -v sed >/dev/null 2>&1; then
+>     echo "FOUND: $(command -v sed)"
+> else
+>     echo "NOT FOUND"
+> fi
+>
+> echo
+> echo "python:"
+> if command -v python >/dev/null 2>&1; then
+>     echo "FOUND: $(command -v python)"
+>     python --version 2>&1
+> elif command -v python3 >/dev/null 2>&1; then
+>     echo "FOUND: $(command -v python3)"
+>     python3 --version 2>&1
+> else
+     >     echo "NOT FOUND"
+> fi
+   >
+> echo
+> echo "websocat:"
+> if command -v websocat >/dev/null 2>&1; then
+>     echo "FOUND: $(command -v websocat)"
+> else
+>     echo "NOT FOUND"
+> fi
+>
+> echo
+> echo "============================================================"
+> echo "1. TARGET PAGE"
+> echo "============================================================"
+> echo
+> echo "ROOM_URL:"
+> echo "$ROOM_URL"
+> echo
+>
+=> if ! command -v curl >/dev/null 2>&1; then
+>     echo "curl is unavailable."
+>     echo "Install it with:"
+>     echo
+>     echo "pkg install curl"
+>     echo
+E_>     echo "Then rerun WS-023."
+>     exit 0
+> fi
+>
+NDSH> echo "============================================================"
+> echo "2. TARGET PAGE HEADERS"
+> echo "============================================================"
+> echo
+>
+> curl -sS \
+  >   --max-time 30 \
+>   -D - \
+>   -o /dev/null \
+ADERS ---"
+cat "$>   "$ROOM_URL" \
+>   2>&1
+>
+> echo
+> echo
+>
+> echo "============================================================"
+> echo "3. DOWNLOAD TARGET PAGE"
+> echo "============================================================"
+> echo
+>
+> HTML="/tmp/ws023-cytube.html"
+>
+  if command -v python >/dev/null 2> curl -sS \
+>   --max-time 30 \
+>   "$ROOM_URL" \
+>   -o "$HTML" \
+>   2>&1
+>
+> if [ -s "$HTML" ]; then
+>     echo "HTML DOWNLOAD: SUCCESS"
+>     echo "SIZE: $(wc -c < "$HTML" 2>/dev/null || true)"
+> else
+>     echo "HTML DOWNLOAD: FAILED OR EMPTY"
+> fi
+
+pa>
+> echo
+> echo
+>
+> echo "============================================================"
+> echo "4. JAVASCRIPT REFERENCES FROM TARGET PAGE"
+> echo "============================================================"
+> echo
+>
+> if [ -s "$HTML" ]; then
+>
+>     grep -Eoi \
+>       '<script[^>]+src=["'\''][^"'\'']+["'\'']' \
+>       "$HTML" \
+.>       2>/dev/null \
+>       | sed 's/^/SCRIPT: /'
+bash: HTML: unbound variable
+~ $
+~ $     echo
+
+~ $     echo "--- Possible Socket.IO / Engine.IO references ---"
+--- Possible Socket.IO / Engine.IO references ---
+~ $
+~ $     grep -Ein \
+>       'socket\.io|engine\.io|socketio|engineio|io\(|transports|websocket|polling' \
+>       "$HTML" \
+>       2>/dev/null \
+ >       | head -100
+bash: HTML: unbound variable
+~ $
+d~ $ else
+")bash: syntax error near unexpected token `else'
+
+
+ ~ $     echo "No HTML available."
+No HTML available.
+t("SID_~ $ fi
+bash: syntax error near unexpected token `fi'
+~ $
+~ $ echo
+UPGRA
+~ $ echo
+
+DE:",~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "5. EXTRACT JAVASCRIPT URLS"
+5. EXTRACT JAVASCRIPT URLS
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ if [ -s "$HTML" ]; then
+>
+2>     grep -Eoi \
+>       '<script[^>]+src=["'\''][^"'\'']+["'\'']' \
+>       "$HTML" \
+>       2>/dev/null \
+>       | sed -E \
+>         's/^.*src=["'\'']([^"'\'']+)["'\''].*$/\1/' \
+>       | while read -r JS; do
+>
+>           case "$JS" in
+>               http://*|https://*)
+>                   echo "JS: $JS"
+>                   ;;
+="replace").read()
+
+m>               /*)
+>                   echo "JS: https://cytu.be$JS"
+>                   ;;
+>               *)
+>                   echo "JS: $BASE/$JS"
+ >                   ;;
+>           esac
+>
+>       done
+>
+> else
+>     echo "No HTML available."
+> fi
+bash: HTML: unbound variable
+~ $
+~ $ echo
+
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+U============================================================
+~ $ echo "6. DOWNLOAD JAVASCRIPT AND SEARCH FOR SOCKET.IO"
+6. DOWNLOAD JAVASCRIPT AND SEARCH FOR SOCKET.IO
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ if [ -s "$HTML" ]; then
+>
+>     JS_INDEX=0
+>
+o>     grep -Eoi \
+>       '<script[^>]+src=["'\''][^"'\'']+["'\'']' \
+ID:"
+    ech>       "$HTML" \
+ch>       2>/dev/null \
+>       | sed -E \
+>         's/^.*src=["'\'']([^"'\'']+)["'\''].*$/\1/' \
+>       | while read -r JS; do
+>
+>           JS_INDEX=$((JS_INDEX + 1))
+>
+>           case "$JS" in
+>               http://*|https://*)
+>                   URL="$JS"
+>                   ;;
+>               /*)
+>                   URL="https://cytu.be$JS"
+>                   ;;
+>               *)
+>                   URL="$BASE/$JS"
+>                   ;;
+>           esac
+Version: 13' \
+>
+ >           FILE="/tmp/ws023-js-$JS_INDEX.js"
+>
+d>           echo "------------------------------------------------------------"
+>           echo "JAVASCRIPT #$JS_INDEX"
+echo
+
+echo >           echo "URL: $URL"
+>           echo "------------------------------------------------------------"
+>
+>           curl -sS \
+>             --max-time 30 \
+>             "$URL" \
+>             -o "$FILE" \
+>             2>&1
+>
+>           if [ -s "$FILE" ]; then
+>
+>               echo "SIZE: $(wc -c < "$FILE" 2>/dev/null || true)"
+   >
+>               echo
+>               echo "SOCKET / ENGINE REFERENCES:"
+>
+>               grep -Ein \
+>                 'socket\.io|engine\.io|socketio|engineio|io\(|transports|websocket|polling' \
+>                 "$FILE" \
+>                 2>/dev/null \
+>                 | head -80 \
+>                 || true
+>
+>           else
+>               echo "DOWNLOAD FAILED"
+D was obtained."
+fi
+
+echo
+echo
+
+echo >           fi
+>
+>           echo
+>       done
+>
+> else
+>     echo "No HTML available."
+> fi
+bash: HTML: unbound variable
+========"
+echo "10. DIRECT~ $
+~ $ echo
+
+~ $ echo
+
+WEBSOCKET ~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "7. FRESH ENGINE.IO EIO=4 POLLING HANDSHAKE"
+7. FRESH ENGINE.IO EIO=4 POLLING HANDSHAKE
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $ echo "REQUEST:"
+REQUEST:
+~ $ echo "GET /socket.io/?EIO=4&transport=polling"
+GET /socket.io/?EIO=4&transport=polling
+~ $ echo
+
+~ $
+~ $ SID=""
+  -H 'Se~ $
+c~ $ HANDSHAKE_HEADERS="/tmp/ws023-handshake-headers"
+SE/~ $ HANDSHAKE_BODY="/tmp/ws023-handshake-body"
+~ $
+~ $ curl -sS \
+>   --http1.1 \
+>   --max-time 30 \
+==>   -D "$HANDSHAKE_HEADERS" \
+>   -o "$HANDSHAKE_BODY" \
+>   "$BASE/socket.io/?EIO=4&transport=polling" \
+>   2>&1
+=======curl: Failed to open /tmp/ws023-handshake-headers
+curl: (23) Failed writing received data to disk/application
+~ $
+=~ $ echo "--- RESPONSE HEADERS ---"
+--- RESPONSE HEADERS ---
+~ $ cat "$HANDSHAKE_HEADERS" 2>/dev/null || true
+~ $
+ ~ $ echo
+
+~ $ echo "--- RESPONSE BODY ---"
+--- RESPONSE BODY ---
+~ $ cat "$HANDSHAKE_BODY" 2>/dev/null || true
+~ $
+~ $ echo
+
+~ $ echo "--- PARSED ENGINE.IO OPEN PACKET ---"
+--- PARSED ENGINE.IO OPEN PACKET ---
+~ $
+~ $ if [ -s "$HANDSHAKE_BODY" ]; then
+max>
+->     if command -v python >/dev/null 2>&1; then
+>         PY=python
+>     elif command -v python3 >/dev/null 2>&1; then
+>         PY=python3
+>     else
+o>         PY=""
+>     fi
+>
+>     if [ -n "$PY" ]; then
+>
+>         "$PY" - "$HANDSHAKE_BODY" <<'PY'
+> import sys
+> import json
+> import re
+"=========>
+> path = sys.argv[1]
+=>
+=> body = open(path, "r", encoding="utf-8", errors="replace").read()
+>
+> print("RAW LENGTH:", len(body))
+> print("RAW:", body)
+>
+SE/" \
+  2>&1 \
+  | g> m = re.search(r'0(\{.*\})', body, re.S)
+>
+> if not m:
+>     print("ENGINE.IO OPEN PACKET: NOT PARSED")
+>     sys.exit(0)
+>
+rep -Ei \
+      '^(server|date|via|x-|cf-|set-cookie|co> try:
+>     obj = json.loads(m.group(1))
+true
+
+echo
+echo
+
+echo "==========>
+>     print("ENGINE.IO OPEN PACKET: VALID")
+>     print("sid:", obj.get("sid"))
+>     print("upgrades:", obj.get("upgrades"))
+>     print("pingInterval:", obj.get("pingInterval"))
+>     print("pingTimeout:", obj.get("pingTimeout"))
+>     print("maxPayload:", obj.get("maxPayload"))
+>
+>     sid = obj.get("sid")
+>
+d>     if sid:
+>         print("SID_FOR_UPGRADE:", sid)
+>
+ > except Exception as e:
+>     print("JSON PARSE ERROR:", repr(e))
+> PY
+>
+>     else
+>         echo "Python unavailable; displaying raw packet only."
+>     fi
+>
+s> fi
+h S~ $
+~ $ echo
+
+~ $ echo
+
+cho "~ $
+~ $ if command -v python >/dev/null 2>&1; then
+>     PY=python
+ID-based webso> elif command -v python3 >/dev/null 2>&1; then
+>     PY=python3
+SID-based upgra> else
+>     PY=""
+turn HTTP > fi
+400~ $
+~ $ if [ -n "$PY" ] && [ -s "$HANDSHAKE_BODY" ]; then
+>
+>     SID="$(
+>       "$PY" - "$HANDSHAKE_BODY" <<'PY'
+> import sys
+> import re
+> import json
+>
+> body = open(sys.argv[1], "r", encoding="utf-8", errors="replace").read()
+>
+t> m = re.search(r'0(\{.*\})', body, re.S)
+>
+> if m:
+ho "IM>     try:
+>         obj = json.loads(m.group(1))
+>         print(obj.get("sid", ""))
+>     except:
+>         pass
+> PY
+>     )"
+t with >
+f> fi
+~ $
+~ $ echo "EXTRACTED SID:"
+EXTRACTED SID:
+~ $ echo "$SID"
+
+~ $
+  C) websocke~ $ echo
+
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "8. ENGINE.IO WEBSOCKET UPGRADE USING FRESH SID"
+8. ENGINE.IO WEBSOCKET UPGRADE USING FRESH SID
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+ desp~ $
+~ $ if [ -z "$SID" ]; then
+>
+>     echo "NO SID WAS EXTRACTED."
+>     echo "Cannot perform SID-based upgrade probe."
+>
+> else
+ HTTP >
+>     echo "SID:"
+>     echo "$SID"
+>     echo
+>     echo "REQUEST:"
+>     echo "GET /socket.io/?EIO=4&transport=websocket&sid=$SID"
+>     echo
+>
+s>     echo "------------------------------------------------------------"
+ want to reproduce what C>     echo "HTTP/1.1 WEBSOCKET UPGRADE"
+>     echo "------------------------------------------------------------"
+>
+>     curl -i \
+>       --http1.1 \
+>       --max-time 20 \
+>       -H 'Connection: Upgrade' \
+>       -H 'Upgrade: websocket' \
+>       -H 'Sec-WebSocket-Version: 13' \
+>       -H 'Sec-WebSocket-Key: d3MyMy1jaXR1YmUtd2Vic29ja2V0LWtleQ==' \
+>       "$BASE/socket.io/?EIO=4&transport=websocket&sid=$SID" \
+>       2>&1
+>
+c> fi
+ho NO SID WAS EXTRACTED.
+Cannot perform SID-based upgrade probe.
+~ $
+"~ $ echo
+
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "9. SID-BASED UPGRADE WITH ORIGIN"
+9. SID-BASED UPGRADE WITH ORIGIN
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ if [ -n "$SID" ]; then
+>
+>     echo "This probe adds the browser-like Origin header."
+>
+>     curl -i \
+>       --http1.1 \
+>       --max-time 20 \
+>       -H 'Origin: https://cytu.be' \
+>       -H 'Connection: Upgrade' \
+>       -H 'Upgrade: websocket' \
+>       -H 'Sec-WebSocket-Version: 13' \
+>       -H 'Sec-WebSocket-Key: d3MyMy1jaXR1YmUtd2Vic29ja2V0LWtleQ==' \
+>       "$BASE/socket.io/?EIO=4&transport=websocket&sid=$SID" \
+>       2>&1
+>
+> else
+>     echo "Skipped because no SID was obtained."
+> fi
+Skipped because no SID was obtained.
+~ $
+~ $ echo
+
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "10. DIRECT WEBSOCKET PROBE WITHOUT SID"
+10. DIRECT WEBSOCKET PROBE WITHOUT SID
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ curl -i \
+>   --http1.1 \
+>   --max-time 20 \
+>   -H 'Origin: https://cytu.be' \
+>   -H 'Connection: Upgrade' \
+>   -H 'Upgrade: websocket' \
+>   -H 'Sec-WebSocket-Version: 13' \
+>   -H 'Sec-WebSocket-Key: d3MyMy1rZXktbm8tc2lk' \
+>   "$BASE/socket.io/?EIO=4&transport=websocket" \
+>   2>&1
+HTTP/1.1 400 Bad Request
+Date: Sat, 15 Aug 2026 17:11:36 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Access-Control-Allow-Origin: https://cytu.be
+Vary: Origin
+Access-Control-Allow-Credentials: true
+cf-cache-status: DYNAMIC
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=0oz7%2BYMnOwgNqkWC0IMy6d4YxIAJvMebYxSMj%2FzJMdPpCt6MSL%2Bbffp5JasFWqjk9Tma%2F3WRg6ETqpRXLsTuK1sZ%2BTzTzEsJ%2BFSS52XEwRS6C%2F%2FAJu1KFbqX"}]}
+CF-RAY: a2b9d1c4e81e15ef-SJC
+alt-svc: h3=":443"; ma=86400
+
+{"code":3,"message":"Bad request"}~ $
+~ $ echo
+
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "11. ENGINE.IO POLLING AFTER HANDSHAKE"
+11. ENGINE.IO POLLING AFTER HANDSHAKE
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ if [ -n "$SID" ]; then
+>
+>     echo "Polling the newly-created SID:"
+>     echo
+>     echo "GET /socket.io/?EIO=4&transport=polling&sid=$SID"
+>     echo
+>
+>     curl -i \
+>       --http1.1 \
+>       --max-time 20 \
+>       "$BASE/socket.io/?EIO=4&transport=polling&sid=$SID" \
+>       2>&1
+>
+> else
+>     echo "Skipped because no SID was obtained."
+> fi
+Skipped because no SID was obtained.
+~ $
+~ $ echo
+
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "12. SERVER IDENTIFICATION"
+12. SERVER IDENTIFICATION
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $
+~ $ curl -sS \
+>   --max-time 20 \
+>   -D - \
+>   -o /dev/null \
+>   "$BASE/" \
+>   2>&1 \
+>   | grep -Ei \
+>       '^(server|date|via|x-|cf-|set-cookie|content-type|location|connection|upgrade):' \
+>   2>/dev/null \
+>   || true
+date: Sat, 15 Aug 2026 17:11:36 GMT
+content-type: text/html; charset=utf-8
+server: cloudflare
+set-cookie: _csrf=s%3ASvILmGEGAgVCi7r7b-72nE-M.in0Biul1jSTrTvc58HGUI11UCYqHELEnte5RxNyYDR4; Domain=.cytu.be; Path=/; HttpOnly
+~ $
+~ $ echo
+
+~ $ echo
+
+~ $
+~ $ echo "============================================================"
+============================================================
+~ $ echo "13. WS-023 QUESTIONS"
+13. WS-023 QUESTIONS
+~ $ echo "============================================================"
+============================================================
+~ $ echo
+
+~ $ echo "[ ] Does the target Cytube page load additional JS?"
+[ ] Does the target Cytube page load additional JS?
+~ $ echo "[ ] Which JS file appears to contain the Cytube client?"
+[ ] Which JS file appears to contain the Cytube client?
+~ $ echo "[ ] Does any loaded JS contain socket.io references?"
+[ ] Does any loaded JS contain socket.io references?
+~ $ echo "[ ] Does any loaded JS contain Engine.IO references?"
+[ ] Does any loaded JS contain Engine.IO references?
+~ $ echo "[ ] Is a Socket.IO client version identifiable?"
+[ ] Is a Socket.IO client version identifiable?
+~ $ echo "[ ] Does EIO=4 still produce a valid fresh SID?"
+[ ] Does EIO=4 still produce a valid fresh SID?
+~ $ echo "[ ] What SID was assigned?"
+[ ] What SID was assigned?
+~ $ echo "[ ] Does SID-based websocket upgrade return HTTP 101?"
+[ ] Does SID-based websocket upgrade return HTTP 101?
+~ $ echo "[ ] Does SID-based upgrade return HTTP 400?"
+[ ] Does SID-based upgrade return HTTP 400?
+~ $ echo "[ ] Does it return HTTP 403?"
+[ ] Does it return HTTP 403?
+~ $ echo "[ ] Does it return HTTP 404?"
+[ ] Does it return HTTP 404?
+~ $ echo "[ ] Does adding Origin change the result?"
+[ ] Does adding Origin change the result?
+~ $ echo "[ ] Does polling continue to work using the SID?"
+[ ] Does polling continue to work using the SID?
+~ $ echo "[ ] Does direct websocket without SID behave differently?"
+[ ] Does direct websocket without SID behave differently?
+~ $ echo
+
+~ $ echo "IMPORTANT:"
+IMPORTANT:
+~ $ echo
+
+~ $ echo "The critical comparison is:"
+The critical comparison is:
+~ $ echo
+
+~ $ echo "  A) websocket without SID"
+  A) websocket without SID
+~ $ echo "  B) websocket with freshly-created SID"
+  B) websocket with freshly-created SID
+~ $ echo "  C) websocket with SID + Origin"
+  C) websocket with SID + Origin
+~ $ echo
+
+~ $ echo "If B or C returns HTTP 101, we have reproduced the"
+If B or C returns HTTP 101, we have reproduced the
+~ $ echo "Engine.IO transport upgrade path at the HTTP/WebSocket"
+Engine.IO transport upgrade path at the HTTP/WebSocket
+~ $ echo "handshake level."
+handshake level.
+~ $ echo
+
+~ $ echo "If the upgrade fails despite the server advertising"
+If the upgrade fails despite the server advertising
+~ $ echo 'upgrades=["websocket"], the failure itself becomes useful.'
+upgrades=["websocket"], the failure itself becomes useful.
+~ $ echo "The exact HTTP status and response will tell us what"
+The exact HTTP status and response will tell us what
+~ $ echo "additional browser behavior must be reproduced."
+additional browser behavior must be reproduced.
+~ $ echo
+
+~ $ echo "The JavaScript fingerprint is equally important because"
+The JavaScript fingerprint is equally important because
+~ $ echo "we ultimately want to reproduce what Cytube's browser"
+we ultimately want to reproduce what Cytube's browser
+~ $ echo "client actually does, not merely what a generic curl"
+client actually does, not merely what a generic curl
+~ $ echo "request can do."
+request can do.
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "END WS-023"
+END WS-023
+~ $ echo "============================================================"
+============================================================
+~ $
+~ $ rm -f \
+>   "$HTML" \
+>   "$HANDSHAKE_HEADERS" \
+>   "$HANDSHAKE_BODY" \
+>   /tmp/ws023-js-*.js \
+>   2>/dev/null || true
+bash: HTML: unbound variable
+~ $
+~ $ echo
+
+~ $ echo "RESULT FILE:"
+RESULT FILE:
+~ $ echo "$OUT"
+WS-023-CytubeBrowser-EngineIO-WebSocket-Upgrade-Reproduction-Experiment.txt
+~ $ echo "============================================================"
+============================================================
+~ $
