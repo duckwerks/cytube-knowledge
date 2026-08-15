@@ -1,0 +1,884 @@
+~ $ #!/usr/bin/env bash
+SION / WEBSOCKET SEQUENCE"
+
+    echo "DATE (UTC): $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+    echo "HOST: $(hostname 2>/dev/null || true)"
+    echo "ROOM: $ROOM"
+    echo
+    echo "PURPOSE"
+    echo "-------"
+    echo "Determine whether the browser-visible Cytube r~ $
+ng -> WebSocket sequence."
+    echo
+    echo "T~ $ set -u
+ocket."
+
+    section "0. TOOLCHAIN"
+
+    for TOOL in curl wget grep sed awk python websocat; do
+        if command -v "$TOOL" >/dev/null 2>&1; then
+            echo "[FOUND]   $TOOL -> $(command -v "$TOOL")"
+        else
+            echo "[MISSING] $TOOL"
+        fi
+    done
+
+    s~ $
+http1.1 \
+        --max-time 30 \
+        -c "$COOK~ $ BASE="https://cytu.be"
+  echo "REQUEST:"
+    echo "GET $ROOM"
+    echo
+
+    if curl -sS \
+        --http1.1 \
+        --max-time 30 \
+        -b "$COOKIE" \
+        -c "$COOKIE" \
+        "$ROOM" \
+        -o "$ROOMHTML" \
+        2>&1
+    then
+    ~ $ ROOM="https://cytu.be/r/EMAIL"
+~ $ OUT="WS-024-CytubeRoom-EngineIO-Cookie-Session-WebSocket-Sequence.txt"
+~ $
+~ $ TMPDIR="${TMPDIR:-/tmp}/ws024"
+~ $ mkdir -p "$TMPDIR"
+    if [ -s "$ROOMHTML" ]; then
+            echo "HTML DOWNLOAD: SUCCESS"
+            echo "HTML SIZE: $(wc -c < "$ROOMHTML") bytes"
+        else
+            echo "HTML DOWNLOAD: EMPTY"
+        fi
+    else
+        echo "HTML DOWNLOAD: CURL ERROR"
+    fi
+
+    section "3. ROOM HTML — SCRIPT REFERENCES"
+
+    if [ -s "$ROOMHTML" ]; then
+
+        echo "--- SCRIPT SOURCES ---"
+
+        grep -Eoi \
+            '<script[^>]+src=["'\''][^"'\'']+["'\'']' \
+            "$ROOMHTML" \
+            2>/dev/null \
+            | sed -E \
+                's/^.*src=["'\'']([^"'\'']+)["'\''].*$/\1/' \
+            | while read -r JS; do
+
+                case "$JS" in
+                    http://*|https://*)
+                        echo "$JS"
+                        ;;
+                    /*)
+                        echo "$BASE$JS"
+                        ;;
+                    *)
+                        echo "$BASE/$JS"
+                        ;;
+                esac
+
+            done
+
+    else
+        echo "NO ROOM HTML AVAILABLE"
+    fi
+
+    section "4. ROOM HTML — ENGINE.IO / SOCKET.IO / WEBSOCKET REFERENCES"
+
+    if [ -s "$ROOMHTML" ]; then
+
+        grep -Ein \
+            'socket\.io|engine\.io|socketio|engineio|websocket|polling|transport|io\(' \
+            "$ROOMHTML" \
+            2>/dev/null \
+            | head -200 \
+            || true
+
+    else
+        echo "NO ROOM HTML AVAILABLE"
+    fi
+
+    section "5. ENGINE.IO EIO=4 POLLING HANDSHAKE — WITH ROOM COOKIES"
+
+    echo "REQUEST:"
+    echo "GET $BASE/socket.io/?EIO=4&transport=polling"
+    echo
+
+    curl -sS \
+        --http1.1 \
+        --max-time 30 \
+        -b "$COOKIE" \
+        -c "$COOKIE" \
+        -D "$EIO_HEADERS" \
+        -o "$EIO_BODY" \
+        "$BASE/socket.io/?EIO=4&transport=polling" \
+        2>&1
+
+    echo
+    echo "--- RESPONSE HEADERS ---"
+
+    if [ -f "$EIO_HEADERS" ]; then
+        cat "$EIO_HEADERS"
+    else
+        echo "NO HEADER FILE"
+    fi
+
+    echo
+    echo "--- RESPONSE BODY ---"
+
+    if [ -f "$EIO_BODY" ]; then
+        cat "$EIO_BODY"
+    else
+        echo "NO BODY FILE"
+    fi
+
+    section~ $
+~ $ COOKIE="$TMPDIR/cookies.txt"
+~ $ ROOMHTML="$TMPDIR/room.html"
+~ $ EIO_HEADERS="$TMPDIR/eio-headers.txt"
+~ $ EIO_BODY="$TMPDIR/eio-body.txt"
+"
+~ $
+~ $ rm -f "$COOKIE" "$ROOMHTML" "$EIO_HEADERS" "$EIO_BODY"
+t~ $
+~ $ say() {
+hon - "$E>     printf '%s\n' "$*"
+> }
+sy~ $
+~ $ section() {
+>     echo
+>     echo "============================================================"
+>     echo "$1"
+>     echo "============================================================"
+>     echo
+> }
+~ $
+~ $ {
+m:
+>     section "WS-024 — CYTUBE ROOM ENGINE.IO COOKIE / SESSION / WEBSOCKET SEQUENCE"
+>
+>     echo "DATE (UTC): $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+>     echo "HOST: $(hostname 2>/dev/null || true)"
+>     echo "ROOM: $ROOM"
+>     echo
+>     echo "PURPOSE"
+>     echo "-------"
+>     echo "Determine whether the browser-visible Cytube room establishes"
+>     echo "state/cookies that matter to Engine.IO, and reproduce the"
+>     echo "Engine.IO polling -> SID -> polling -> WebSocket sequence."
+>     echo
+>     echo "This is an evidence-gathering experiment."
+>     echo "A failed websocat connection is NOT by itself proof that"
+>     echo "Cytube cannot establish WebSocket."
+k>
+>     section "0. TOOLCHAIN"
+>
+>     for TOOL in curl wget grep sed awk python websocat; do
+>         if command -v "$TOOL" >/dev/null 2>&1; then
+>             echo "[FOUND]   $TOOL -> $(command -v "$TOOL")"
+>         else
+>             echo "[MISSING] $TOOL"
+>         fi
+>     done
+>
+>     section "1. ROOM PAGE — HEADERS AND COOKIES"
+>
+>     echo "REQUEST:"
+>     echo "GET $ROOM"
+>     echo
+>
+    curl ->     curl -sS \
+>         --http1.1 \
+>         --max-time 30 \
+>         -c "$COOKIE" \
+          -b "$COOKIE" >         -D - \
+    ->         -o /dev/null \
+>         "$ROOM" \
+>         2>&1
+>
+>     echo
+o/?E>     echo "--- COOKIE JAR ---"
+>
+>     if [ -s "$COOKIE" ]; then
+>         cat "$COOKIE"
+>     else
+>         echo "COOKIE JAR EMPTY"
+>     fi
+>
+>     section "2. DOWNLOAD ROOM HTML"
+>
+>     echo "REQUEST:"
+>     echo "GET $ROOM"
+>     echo
+int accep>
+>     if curl -sS \
+>         --http1.1 \
+oc>         --max-time 30 \
+>         -b "$COOKIE" \
+>         -c "$COOKIE" \
+>         "$ROOM" \
+>         -o "$ROOMHTML" \
+>         2>&1
+>     then
+>         if [ -s "$ROOMHTML" ]; then
+>             echo "HTML DOWNLOAD: SUCCESS"
+>             echo "HTML SIZE: $(wc -c < "$ROOMHTML") bytes"
+>         else
+>             echo "HTML DOWNLOAD: EMPTY"
+>         fi
+>     else
+>         echo "HTML DOWNLOAD: CURL ERROR"
+>     fi
+>
+>     section "3. ROOM HTML — SCRIPT REFERENCES"
+>
+>     if [ -s "$ROOMHTML" ]; then
+>
+>         echo "--- SCRIPT SOURCES ---"
+>
+>         grep -Eoi \
+>             '<script[^>]+src=["'\''][^"'\'']+["'\'']' \
+>             "$ROOMHTML" \
+>             2>/dev/null \
+ SID"
+
+    if [ -n "$SID" ]; then
+
+        WSURL="$BASE/socket.io/?EIO=4&transport=websocket&sid=$SID"
+
+        echo "TARGET:"
+        echo "$WSURL"
+        echo
+        echo "The SID came from the succe>             | sed -E \
+>                 's/^.*src=["'\'']([^"'\'']+)["'\''].*$/\1/' \
+>             | while read -r JS; do
+b>
+>                 case "$JS" in
+\
+  >                     http://*|https://*)
+>                         echo "$JS"
+>                         ;;
+>                     /*)
+>                         echo "$BASE$JS"
+>                         ;;
+>                     *)
+>                         echo "$BASE/$JS"
+>                         ;;
+>                 esac
+>
+>             done
+>
+>     else
+>         echo "NO ROOM HTML AVAILABLE"
+>     fi
+>
+>     section "4. ROOM HTML — ENGINE.IO / SOCKET.IO / WEBSOCKET REFERENCES"
+>
+>     if [ -s "$ROOMHTML" ]; then
+>
+ >         grep -Ein \
+>             'socket\.io|engine\.io|socketio|engineio|websocket|polling|transport|io\(' \
+>             "$ROOMHTML" \
+>             2>/dev/null \
+>             | head -200 \
+>             || true
+>
+>     else
+>         echo "NO ROOM HTML AVAILABLE"
+>     fi
+>
+>     section "5. ENGINE.IO EIO=4 POLLING HANDSHAKE — WITH ROOM COOKIES"
+&transport=>
+>     echo "REQUEST:"
+>     echo "GET $BASE/socket.io/?EIO=4&transport=polling"
+>     echo
+>
+
+        ->     curl -sS \
+>         --http1.1 \
+>         --max-time 30 \
+\
+        -D - \
+       >         -b "$COOKIE" \
+>         -c "$COOKIE" \
+>         -D "$EIO_HEADERS" \
+>         -o "$EIO_BODY" \
+>         "$BASE/socket.io/?EIO=4&transport=polling" \
+>         2>&1
+>
+>     echo
+>     echo "--- RESPONSE HEADERS ---"
+>
+>     if [ -f "$EIO_HEADERS" ]; then
+>         cat "$EIO_HEADERS"
+>     else
+Ro>         echo "NO HEADER FILE"
+>     fi
+>
+>     echo
+>     echo "--- RESPONSE BODY ---"
+>
+>     if [ -f "$EIO_BODY" ]; then
+>         cat "$EIO_BODY"
+>     else
+>         echo "NO BODY FILE"
+>     fi
+>
+>     section "6. EXTRACT ENGINE.IO SESSION INFORMATION"
+>
+>     SID=""
+>
+>     if [ -s "$EIO_BODY" ]; then
+>
+>         echo "--- RAW OPEN PACKET ---"
+>         cat "$EIO_BODY"
+>         echo
+>
+>         SID="$(python - "$EIO_BODY" <<'PY'
+> import sys
+> import re
+>
+> path = sys.argv[1]
+>
+> try:
+>     data = open(path, "r", encoding="utf-8", errors="replace").read()
+"[> except Exception:
+>     data = ""
+>
+> m = re.search(r'"sid"\s*:\s*"([^"]+)"', data)
+>
+> if m:
+ho "Th>     print(m.group(1))
+> PY
+> )"
+>
+>     fi
+>
+>     if [ -n "$SID" ]; then
+>         echo "ENGINE.IO SID: $SID"
+>     else
+OO>         echo "ENGINE.IO SID: NOT FOUND"
+>     fi
+>
+>     echo
+>     echo "--- PARSED ENGINE.IO VALUES ---"
+>
+>     if [ -s "$EIO_BODY" ]; then
+>         python - "$EIO_BODY" <<'PY'
+> import sys
+> import re
+> import json
+>
+> path = sys.argv[1]
+>
+> data = open(path, "r", encoding="utf-8", errors="replace").read()
+>
+> print("RAW:", data)
+>
+> m = re.search(r'0(\{.*\})', data)
+>
+> if not m:
+>     print("OPEN PACKET JSON: NOT FOUND")
+>     raise SystemExit
+oc>
+> try:
+>     obj = json.loads(m.group(1))
+> except Exception as e:
+>     print("JSON PARSE ERROR:", e)
+>     raise SystemExit
+>
+> for key in [
+>     "sid",
+>     "upgrades",
+>     "pingInterval",
+>     "pingTimeout",
+>     "maxPayload"
+> ]:
+=>     print(f"{key}: {obj.get(key)}")
+> PY
+>     else
+========>         echo "NO BODY"
+>     fi
+>
+>     section "7. POLL THE SAME ENGINE.IO SESSION"
+>
+>     if [ -n "$SID" ]; then
+>
+>         echo "REQUEST:"
+>         echo "GET $BASE/socket.io/?EIO=4&transport=polling&sid=$SID"
+>         echo
+>
+>         curl -sS \
+>             --http1.1 \
+>             --max-time 35 \
+>             -b "$COOKIE" \
+>             -c "$COOKIE" \
+>             -D - \
+>             "$BASE/socket.io/?EIO=4&transport=polling&sid=$SID" \
+>             2>&1
+>
+>     else
+>         echo "SKIPPED — NO SID"
+>     fi
+>
+>     section "8. WEBSOCKET DIRECT CONNECTION — EIO=4 WITHOUT SID"
+>
+>     echo "This tests whether the endpoint accepts a direct"
+>     echo "Engine.IO WebSocket connection."
+>
+>     echo
+>     echo "TARGET:"
+>     echo "$BASE/socket.io/?EIO=4&transport=websocket"
+>     echo
+>
+>     if command -v websocat >/dev/null 2>&1; then
+>
+>         timeout 12 websocat \
+>             -v \
+>             "$BASE/socket.io/?EIO=4&transport=websocket" \
+>             </dev/null \
+>             2>&1 \
+>             || true
+>
+>     else
+>         echo "WEBSOCAT NOT INSTALLED"
+>     fi
+>
+>     section "9. WEBSOCKET UPGRADE — USING THE POLLING SID"
+>
+>     if [ -n "$SID" ]; then
+>
+>         WSURL="$BASE/socket.io/?EIO=4&transport=websocket&sid=$SID"
+>
+>         echo "TARGET:"
+>         echo "$WSURL"
+>         echo
+>         echo "The SID came from the successful polling handshake."
+>         echo
+>
+>         if command -v websocat >/dev/null 2>&1; then
+>
+>             timeout 15 websocat \
+>                 -v \
+>                 "$WSURL" \
+>                 </dev/null \
+>                 2>&1 \
+>                 || true
+>
+>         else
+>             echo "WEBSOCAT NOT INSTALLED"
+>         fi
+>
+>     else
+>         echo "SKIPPED — NO SID"
+>     fi
+>
+>     section "10. WEBSOCKET — USING ROOM COOKIE JAR"
+>
+>     if [ -n "$SID" ] && command -v websocat >/dev/null 2>&1; then
+>
+>         echo "Cookie jar contents:"
+>         cat "$COOKIE" 2>/dev/null || true
+>         echo
+>
+>         echo "Attempting WebSocket using SID."
+>         echo
+>
+>         timeout 15 websocat \
+>             -v \
+>             "$BASE/socket.io/?EIO=4&transport=websocket&sid=$SID" \
+>             </dev/null \
+>             2>&1 \
+>             || true
+>
+>     else
+>         echo "SKIPPED"
+>     fi
+>
+>     section "11. EIO=3 CONTROL HANDSHAKE"
+>
+>     echo "REQUEST:"
+>     echo "GET $BASE/socket.io/?EIO=3&transport=polling"
+>     echo
+>
+>     curl -sS \
+>         --http1.1 \
+>         --max-time 30 \
+>         -b "$COOKIE" \
+>         -c "$COOKIE" \
+>         -D - \
+>         "$BASE/socket.io/?EIO=3&transport=polling" \
+>         2>&1
+>
+>     section "12. FINAL COOKIE STATE"
+>
+>     echo "--- COOKIE JAR ---"
+>
+>     if [ -s "$COOKIE" ]; then
+>         cat "$COOKIE"
+>     else
+>         echo "COOKIE JAR EMPTY"
+>     fi
+>
+>     section "13. RESULTS CHECKLIST"
+>
+>     echo "[ ] Room returned HTTP 200."
+>     echo "[ ] Room established cookies."
+>     echo "[ ] Room HTML downloaded successfully."
+>     echo "[ ] Room HTML contained Socket.IO/Engine.IO references."
+>     echo "[ ] EIO=4 polling returned an open packet."
+>     echo "[ ] EIO=4 returned a SID."
+>     echo "[ ] EIO=4 advertised websocket upgrade."
+>     echo "[ ] Polling with the SID returned a valid response."
+>     echo "[ ] Direct EIO=4 WebSocket connection succeeded."
+>     echo "[ ] SID-based EIO=4 WebSocket connection succeeded."
+>     echo "[ ] EIO=3 polling still succeeds."
+>     echo
+>     echo "IMPORTANT:"
+>     echo
+>     echo "The most important evidence in this experiment is the"
+>     echo "relationship between:"
+>     echo
+>     echo "ROOM COOKIES"
+>     echo "     ->"
+>     echo "EIO=4 POLLING HANDSHAKE"
+>     echo "     ->"
+>     echo "SID"
+>     echo "     ->"
+>     echo "SID POLL"
+>     echo "     ->"
+>     echo "SID WEBSOCKET"
+>     echo
+>     echo "Do not interpret a websocat failure by itself."
+>     echo "We need the complete sequence to determine whether the"
+>     echo "failure is caused by the endpoint, cookies, WebSocket"
+>     echo "handshake details, or websocat's request format."
+>
+>     section "END WS-024"
+>
+> } | tee "$OUT"
+
+============================================================
+WS-024 — CYTUBE ROOM ENGINE.IO COOKIE / SESSION / WEBSOCKET SEQUENCE
+============================================================
+
+DATE (UTC): 2026-08-15T17:39:42Z
+HOST: localhost
+ROOM: https://cytu.be/r/EMAIL
+
+PURPOSE
+-------
+Determine whether the browser-visible Cytube room establishes
+state/cookies that matter to Engine.IO, and reproduce the
+Engine.IO polling -> SID -> polling -> WebSocket sequence.
+
+This is an evidence-gathering experiment.
+A failed websocat connection is NOT by itself proof that
+Cytube cannot establish WebSocket.
+
+============================================================
+0. TOOLCHAIN
+============================================================
+
+[FOUND]   curl -> /data/data/com.termux/files/usr/bin/curl
+[FOUND]   wget -> /data/data/com.termux/files/usr/bin/wget
+[FOUND]   grep -> /data/data/com.termux/files/usr/bin/grep
+[FOUND]   sed -> /data/data/com.termux/files/usr/bin/sed
+[FOUND]   awk -> /data/data/com.termux/files/usr/bin/awk
+[FOUND]   python -> /data/data/com.termux/files/usr/bin/python
+[FOUND]   websocat -> /data/data/com.termux/files/usr/bin/websocat
+
+============================================================
+1. ROOM PAGE — HEADERS AND COOKIES
+============================================================
+
+REQUEST:
+GET https://cytu.be/r/EMAIL
+
+HTTP/1.1 200 OK
+Date: Sat, 15 Aug 2026 17:39:42 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+X-Powered-By: Express
+Set-Cookie: _csrf=s%3A98WPt2un82sFpHrimDnE74q6.jN6fYR7iIobfVPP3c2Wh%2BR%2Fq1BIz3XixM3wHyJpxvWg; Domain=.cytu.be; Path=/; HttpOnly
+Set-Cookie: ip-session=s%3A2600%3A1010%3Ab1ab%3A22e%3A85cf%3A1c3d%3Ab818%3A8951%3A1786815582561.o7zTq4BBwEqpzCKqEnTAwoc%2FYnxvp0YJCucUC5i4Jbs; Path=/; Expires=Fri, 31 Dec 9999 23:59:59 GMT; HttpOnly
+Vary: Accept-Encoding
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=1DNQsfrmhVge1K1dWuGCodeRaqC2sakNtN7aT1Fs74u%2FYIPpv%2FiP0yTq4g8nJB%2FLaN5IJT4U9Q3lEQ3oZ2WE8L6toWvQOJKE0oYYiZhFvtXiY%2FYDeBPx8veBdxDjnigTHy%2F7TCIQ"}]}
+X-Frame-Options: DENY
+Strict-Transport-Security: max-age=86400
+Permissions-Policy: interest-cohort=()
+cf-cache-status: DYNAMIC
+CF-RAY: a2b9faeec89eebf3-SJC
+alt-svc: h3=":443"; ma=86400
+
+
+--- COOKIE JAR ---
+# Netscape HTTP Cookie File
+# https://curl.se/docs/http-cookies.html
+# This file was generated by libcurl! Edit at your own risk.
+
+#HttpOnly_cytu.be       FALSE   /       FALSE   1821375600      ip-session      s%3A2600%3A1010%3Ab1ab%3A22e%3A85cf%3A1c3d%3Ab818%3A8951%3A1786815582561.o7zTq4BBwEqpzCKqEnTAwoc%2FYnxvp0YJCucUC5i4Jbs
+#HttpOnly_.cytu.be      TRUE    /       FALSE   0       _csrf   s%3A98WPt2un82sFpHrimDnE74q6.jN6fYR7iIobfVPP3c2Wh%2BR%2Fq1BIz3XixM3wHyJpxvWg
+
+============================================================
+2. DOWNLOAD ROOM HTML
+============================================================
+
+REQUEST:
+GET https://cytu.be/r/EMAIL
+
+HTML DOWNLOAD: SUCCESS
+HTML SIZE: 34981 bytes
+
+============================================================
+3. ROOM HTML — SCRIPT REFERENCES
+============================================================
+
+--- SCRIPT SOURCES ---
+https://cytu.be/js/theme.js
+https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js
+https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js
+https://cytu.be/js/jquery-1.12.4.min.js
+https://cytu.be/js/jquery-ui.js
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js
+https://cytu.be/socket.io/socket.io.js
+https://cytu.be/js/data.js
+https://cytu.be/js/util.js
+https://cytu.be/js/tabcomplete.js
+https://cytu.be/js/player.js
+https://cytu.be/js/paginator.js
+https://cytu.be/js/ui.js
+https://cytu.be/js/callbacks.js
+https://cytu.be/js/vjs/dash.all.min.js
+https://cytu.be/js/vjs/video.js
+https://cytu.be/js/vjs/videojs-dash.js
+https://cytu.be/js/vjs/videojs-hlsjs-plugin.js
+https://cytu.be/js/vjs/videojs-resolution-switcher.js
+https://cytu.be/js/vjs/videojs-audio-switcher.js
+https://cytu.be/js/octopus/subtitles-octopus.js
+https://cytu.be/js/playerjs-0.0.12.js
+https://cytu.be/js/niconico.js
+https://cytu.be/js/peertube.js
+https://cytu.be/js/sc.js
+https://www.youtube.com/iframe_api
+https://api.dmcdn.net/all.js
+https://player.vimeo.com/api/player.js
+https://player.twitch.tv/js/embed/v1.js
+
+============================================================
+4. ROOM HTML — ENGINE.IO / SOCKET.IO / WEBSOCKET REFERENCES
+============================================================
+
+12:</p></div></footer><script src="/js/jquery-1.12.4.min.js"></script><!-- Must be included before jQuery-UI since jQuery-UI overrides jQuery.fn.button--><!-- I should really abandon this crap one day--><script src="/js/jquery-ui.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script><script id="socketio-js" src="https://cytu.be/socket.io/socket.io.js"></script><script src="/js/data.js"></script><script src="/js/util.js"></script><script src="/js/tabcomplete.js"></script><script src="/js/player.js"></script><script src="/js/paginator.js"></script><script src="/js/ui.js"></script><script src="/js/callbacks.js"></script><script defer src="/js/vjs/dash.all.min.js"></script><script defer src="/js/vjs/video.js"></script><script defer src="/js/vjs/videojs-dash.js"></script><script defer src="/js/vjs/videojs-hlsjs-plugin.js"></script><script defer src="/js/vjs/videojs-resolution-switcher.js"></script><script defer src="/js/vjs/videojs-audio-switcher.js"></script><script defer src="/js/octopus/subtitles-octopus.js"></script><script defer src="/js/playerjs-0.0.12.js"></script><script defer src="/js/niconico.js"></script><script defer src="/js/peertube.js"></script><script defer src="/js/sc.js"></script><script defer src="https://www.youtube.com/iframe_api"></script><script defer src="https://api.dmcdn.net/all.js"></script><script defer src="https://player.vimeo.com/api/player.js"></script><script defer src="https://player.twitch.tv/js/embed/v1.js"></script></body></html>
+
+============================================================
+5. ENGINE.IO EIO=4 POLLING HANDSHAKE — WITH ROOM COOKIES
+============================================================
+
+REQUEST:
+GET https://cytu.be/socket.io/?EIO=4&transport=polling
+
+
+--- RESPONSE HEADERS ---
+HTTP/1.1 200 OK
+Date: Sat, 15 Aug 2026 17:39:43 GMT
+Content-Type: text/plain; charset=UTF-8
+Content-Length: 119
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Vary: Origin
+Access-Control-Allow-Credentials: true
+X-Frame-Options: DENY
+Strict-Transport-Security: max-age=86400
+Permissions-Policy: interest-cohort=()
+cf-cache-status: DYNAMIC
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=I8CjrGNC%2BiaKAz1OUGHqQHvSNmltvLFOPLMaic471%2ByR%2B1HfZX1o%2FcgRD%2Bnk0aufV925SNazQvwjg48h2aSWf8SHO6vqnq4AORGQnZJEyLStUVmAPgc81wOePcN6lYwC89ZPMwEt"}]}
+CF-RAY: a2b9faf4cce82fe9-SJC
+alt-svc: h3=":443"; ma=86400
+
+
+--- RESPONSE BODY ---
+0{"sid":"COhS61cV8-ZOahxNBJnF","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}
+============================================================
+6. EXTRACT ENGINE.IO SESSION INFORMATION
+============================================================
+
+--- RAW OPEN PACKET ---
+0{"sid":"COhS61cV8-ZOahxNBJnF","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}
+ENGINE.IO SID: COhS61cV8-ZOahxNBJnF
+
+--- PARSED ENGINE.IO VALUES ---
+RAW: 0{"sid":"COhS61cV8-ZOahxNBJnF","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}
+sid: COhS61cV8-ZOahxNBJnF
+upgrades: ['websocket']
+pingInterval: 25000
+pingTimeout: 120000
+maxPayload: 1048576
+
+============================================================
+7. POLL THE SAME ENGINE.IO SESSION
+============================================================
+
+REQUEST:
+GET https://cytu.be/socket.io/?EIO=4&transport=polling&sid=COhS61cV8-ZOahxNBJnF
+
+HTTP/1.1 200 OK
+Date: Sat, 15 Aug 2026 17:40:08 GMT
+Content-Type: text/plain; charset=UTF-8
+Content-Length: 1
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Vary: Origin
+Access-Control-Allow-Credentials: true
+X-Frame-Options: DENY
+Strict-Transport-Security: max-age=86400
+Permissions-Policy: interest-cohort=()
+cf-cache-status: DYNAMIC
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Qn6I3COLLReTwBy%2FIB91Ch%2BgUlY32R4qZSvQuUs6eX4nKxcyISCZqW1Mvt1y1kG5R5CmTQWqmqjrM2QIKVMcSwZw0Hl1j0A4lDHFaKKJOALTCwzz8z%2BsRp173BQJ%2BKG1IkmhcUq6"}]}
+CF-RAY: a2b9faf80db6679b-SJC
+alt-svc: h3=":443"; ma=86400
+
+2
+============================================================
+8. WEBSOCKET DIRECT CONNECTION — EIO=4 WITHOUT SID
+============================================================
+
+This tests whether the endpoint accepts a direct
+Engine.IO WebSocket connection.
+
+TARGET:
+https://cytu.be/socket.io/?EIO=4&transport=websocket
+
+Specify ws:// or wss:// URI to connect to a websocket
+websocat: Invalid command-line parameters
+
+============================================================
+9. WEBSOCKET UPGRADE — USING THE POLLING SID
+============================================================
+
+TARGET:
+https://cytu.be/socket.io/?EIO=4&transport=websocket&sid=COhS61cV8-ZOahxNBJnF
+
+The SID came from the successful polling handshake.
+
+Specify ws:// or wss:// URI to connect to a websocket
+websocat: Invalid command-line parameters
+
+============================================================
+10. WEBSOCKET — USING ROOM COOKIE JAR
+============================================================
+
+Cookie jar contents:
+# Netscape HTTP Cookie File
+# https://curl.se/docs/http-cookies.html
+# This file was generated by libcurl! Edit at your own risk.
+
+#HttpOnly_.cytu.be      TRUE    /       FALSE   0       _csrf   s%3A98WPt2un82sFpHrimDnE74q6.jN6fYR7iIobfVPP3c2Wh%2BR%2Fq1BIz3XixM3wHyJpxvWg
+#HttpOnly_cytu.be       FALSE   /       FALSE   1821375600      ip-session      s%3A2600%3A1010%3Ab1ab%3A22e%3A85cf%3A1c3d%3Ab818%3A8951%3A1786815583017.9B8yvUyuE4GLJ4lZmRHZnNMzvGbRXR7soK5xcQe9a2Q
+
+Attempting WebSocket using SID.
+
+Specify ws:// or wss:// URI to connect to a websocket
+websocat: Invalid command-line parameters
+
+============================================================
+11. EIO=3 CONTROL HANDSHAKE
+============================================================
+
+REQUEST:
+GET https://cytu.be/socket.io/?EIO=3&transport=polling
+
+HTTP/1.1 200 OK
+Date: Sat, 15 Aug 2026 17:40:09 GMT
+Content-Type: text/plain; charset=UTF-8
+Content-Length: 123
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Vary: Origin
+Access-Control-Allow-Credentials: true
+X-Frame-Options: DENY
+Strict-Transport-Security: max-age=86400
+Permissions-Policy: interest-cohort=()
+cf-cache-status: DYNAMIC
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=JRngXE57wgKXV5oVrXFbadwZk%2BsmATW%2BEy0uPjqL%2F0%2BLti3kkW8r5otA%2BhI9z%2FFXnoAgba%2Bw3oW%2Fr8jJ07qTvNVXh%2FlAp%2FCwvJ4CFsUIeMXnGYQWDaVAms8GQk46noacdc6yL2F%2F"}]}
+CF-RAY: a2b9fb93dd74cfdd-SJC
+alt-svc: h3=":443"; ma=86400
+
+119:0{"sid":"wNiW1J5GULwUK9ATBJnG","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":120000,"maxPayload":1048576}
+============================================================
+12. FINAL COOKIE STATE
+============================================================
+
+--- COOKIE JAR ---
+# Netscape HTTP Cookie File
+# https://curl.se/docs/http-cookies.html
+# This file was generated by libcurl! Edit at your own risk.
+
+#HttpOnly_cytu.be       FALSE   /       FALSE   1821375600      ip-session      s%3A2600%3A1010%3Ab1ab%3A22e%3A85cf%3A1c3d%3Ab818%3A8951%3A1786815583017.9B8yvUyuE4GLJ4lZmRHZnNMzvGbRXR7soK5xcQe9a2Q
+#HttpOnly_.cytu.be      TRUE    /       FALSE   0       _csrf   s%3A98WPt2un82sFpHrimDnE74q6.jN6fYR7iIobfVPP3c2Wh%2BR%2Fq1BIz3XixM3wHyJpxvWg
+
+============================================================
+13. RESULTS CHECKLIST
+============================================================
+
+[ ] Room returned HTTP 200.
+[ ] Room established cookies.
+[ ] Room HTML downloaded successfully.
+[ ] Room HTML contained Socket.IO/Engine.IO references.
+[ ] EIO=4 polling returned an open packet.
+[ ] EIO=4 returned a SID.
+[ ] EIO=4 advertised websocket upgrade.
+[ ] Polling with the SID returned a valid response.
+[ ] Direct EIO=4 WebSocket connection succeeded.
+[ ] SID-based EIO=4 WebSocket connection succeeded.
+[ ] EIO=3 polling still succeeds.
+
+IMPORTANT:
+
+The most important evidence in this experiment is the
+relationship between:
+
+ROOM COOKIES
+     ->
+EIO=4 POLLING HANDSHAKE
+     ->
+SID
+     ->
+SID POLL
+     ->
+SID WEBSOCKET
+
+Do not interpret a websocat failure by itself.
+We need the complete sequence to determine whether the
+failure is caused by the endpoint, cookies, WebSocket
+handshake details, or websocat's request format.
+
+============================================================
+END WS-024
+============================================================
+
+~ $
+~ $ echo
+
+~ $ echo "============================================================"
+============================================================
+~ $ echo "RESULT FILE"
+RESULT FILE
+~ $ echo "============================================================"
+============================================================
+~ $ echo "$OUT"
+WS-024-CytubeRoom-EngineIO-Cookie-Session-WebSocket-Sequence.txt
+~ $ echo "============================================================"
+============================================================
+~ $
+~ $
