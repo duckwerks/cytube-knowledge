@@ -1,0 +1,7 @@
+###
+
+here is some info i scraped using termux on andriod about https://cytu.be/ that ill be creating custom channels/rooms for. save this info to memories so i can reuse this information later.
+ill be creating these channels/on a andriod mobile smartphone using cytubes built in internal js or css editor or using cytubes external js/css field/box to host the script using github and jsdelvr. creating a custom js log is preferable to console as ill be developing the channels script using an andriod mobile browser and there is zero way to use console to debug on andriod mobile alone. so all solutions for debugging have to be mobile 1st solutions, so the work flow must reflext a mobile work flow ie always give me the full complete script at the end of the prompt, logically explain changes then write and verify code/script before writing new code, change one thing at a time and logically verify the steps before writing code, show code snippet that you are changing along with updated changed code snippet. when we are troubleshooting we are only changing one thing at a time and staying on task.
+
+i want the file name with version tracking (project-name-version.js) as a copyable code block and the jsdelvr link as a copyable code block.
+###
