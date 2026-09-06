@@ -1,0 +1,3456 @@
+{
+  "test": "WS-060",
+  "status": "COMPLETE",
+  "timestamp": "2026-09-06T23:45:52.193Z",
+  "expectedAction": "Click exactly one visible Queue Next button once",
+  "targets": [
+    {
+      "index": 0,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10809.3447265625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 1,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10760.01171875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 2,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10710.6787109375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 3,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10661.3466796875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 4,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10612.013671875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 5,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10562.6806640625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 6,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10513.34765625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 7,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10464.0146484375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 8,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10414.681640625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 9,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10365.3486328125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 10,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10316.015625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 11,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10266.68359375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 12,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10217.3505859375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 13,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10168.017578125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 14,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10118.6845703125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 15,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10069.3515625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 16,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -10020.0185546875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 17,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9970.685546875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 18,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9921.3525390625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 19,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9872.0205078125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 20,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9822.6875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 21,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9773.3544921875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 22,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9724.021484375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 23,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9674.6884765625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 24,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9625.35546875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 25,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9576.0224609375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 26,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9526.689453125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 27,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9477.357421875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 28,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9428.0244140625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 29,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9378.69140625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 30,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9329.3583984375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 31,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9280.025390625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 32,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9230.6923828125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 33,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9181.359375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 34,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9132.0263671875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 35,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9082.693359375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 36,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -9033.361328125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 37,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8984.0283203125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 38,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8934.6953125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 39,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8885.3623046875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 40,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8836.029296875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 41,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8786.6962890625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 42,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8737.36328125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 43,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8688.0302734375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 44,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8638.6982421875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 45,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8589.365234375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 46,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8540.0322265625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 47,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8490.69921875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 48,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8441.3662109375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 49,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8392.033203125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 50,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8342.7001953125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 51,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8293.3671875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 52,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8244.03515625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 53,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8194.7021484375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 54,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8145.369140625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 55,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8096.0361328125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 56,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -8046.703125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 57,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7997.3701171875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 58,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7948.03759765625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 59,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7898.70458984375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 60,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7849.37158203125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 61,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7800.03857421875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 62,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7750.70556640625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 63,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7701.373046875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 64,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7652.0400390625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 65,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7602.70703125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 66,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7553.3740234375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 67,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7504.04150390625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 68,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7454.70849609375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 69,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7405.37548828125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 70,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7356.04248046875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 71,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7306.7099609375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 72,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7257.376953125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 73,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7208.0439453125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 74,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7158.7109375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 75,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7109.37841796875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 76,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7060.04541015625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 77,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -7010.71240234375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 78,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6961.37939453125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 79,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6912.046875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 80,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6862.7138671875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 81,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6813.380859375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 82,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6764.0478515625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 83,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6714.71533203125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 84,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6665.38232421875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 85,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6616.04931640625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 86,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6566.71630859375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 87,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6517.3837890625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 88,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6468.05078125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 89,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6418.7177734375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 90,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6369.384765625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 91,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6320.05224609375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 92,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6270.71923828125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 93,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6221.38623046875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 94,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6172.05322265625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 95,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6122.72021484375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 96,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6073.3876953125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 97,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -6024.0546875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 98,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5974.7216796875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 99,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5925.388671875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 100,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5876.05615234375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 101,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5826.72314453125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 102,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5777.39013671875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 103,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5728.05712890625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 104,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5678.724609375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 105,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5629.3916015625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 106,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5580.05859375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 107,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5530.7255859375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 108,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5481.39306640625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 109,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5432.06005859375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 110,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5382.72705078125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 111,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5333.39404296875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 112,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5284.0615234375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 113,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5234.728515625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 114,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5185.3955078125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 115,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5136.0625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 116,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5086.72998046875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 117,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5037.39697265625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 118,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4988.06396484375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 119,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4938.73095703125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 120,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4889.3984375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 121,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4840.0654296875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 122,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4790.732421875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 123,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4741.3994140625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 124,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4692.06640625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 125,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4642.73388671875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 126,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4593.40087890625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 127,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4544.06787109375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 128,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4494.73486328125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 129,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4445.40234375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 130,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4396.0693359375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 131,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4346.736328125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 132,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4297.4033203125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 133,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4248.07080078125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 134,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4198.73779296875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 135,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4149.40478515625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 136,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4100.07177734375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 137,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4050.739013671875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 138,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -4001.40625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 139,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3952.0732421875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 140,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3902.740478515625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 141,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3853.407470703125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 142,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3804.07470703125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 143,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3754.74169921875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 144,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3705.408935546875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 145,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3656.075927734375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 146,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3606.7431640625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 147,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3557.41015625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 148,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3508.077392578125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 149,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3458.744384765625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 150,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3409.41162109375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 151,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3360.07861328125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 152,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3310.745849609375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 153,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3261.412841796875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 154,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3212.080078125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 155,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3162.7470703125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 156,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3113.4140625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 157,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3064.081298828125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 158,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -3014.748291015625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 159,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2965.41552734375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 160,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2916.08251953125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 161,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2866.749755859375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 162,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2817.416748046875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 163,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2768.083984375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 164,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2718.7509765625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 165,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2669.418212890625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 166,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2620.085205078125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 167,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2570.75244140625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 168,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2521.41943359375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 169,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2472.086669921875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 170,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2422.753662109375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 171,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2373.4208984375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 172,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2324.087890625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 173,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2274.755126953125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 174,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2225.422119140625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 175,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2176.08935546875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 176,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2126.75634765625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 177,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2077.423583984375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 178,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -2028.090576171875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 179,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1978.7576904296875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 180,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1929.4248046875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 181,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1880.0919189453125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 182,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1830.759033203125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 183,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1781.4261474609375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 184,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1732.09326171875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 185,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1682.7603759765625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 186,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1633.427490234375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 187,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1584.0946044921875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 188,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1534.76171875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 189,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1485.4288330078125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 190,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1436.095947265625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 191,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1386.7630615234375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 192,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1337.43017578125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 193,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1288.0972900390625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 194,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1238.764404296875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 195,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1189.4315185546875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 196,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1140.0986328125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 197,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1090.7657470703125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 198,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -1041.432861328125,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 199,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -992.0999145507812,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 200,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -942.7670288085938,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 201,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -893.4341430664062,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 202,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -844.1012573242188,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 203,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -794.7683715820312,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 204,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -745.4354858398438,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 205,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -696.1026000976562,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 206,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -646.7697143554688,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 207,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -597.4368286132812,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 208,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -548.1039428710938,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 209,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -498.7710266113281,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 210,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -449.4381408691406,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 211,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -400.1052551269531,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 212,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -350.7723693847656,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 213,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -301.4394836425781,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 214,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -252.10658264160156,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 215,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -202.77369689941406,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 216,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -153.4407958984375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 217,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -104.10791015625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 218,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -54.775020599365234,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 219,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": -5.4421305656433105,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 220,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 43.8907585144043,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 221,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 93.22364807128906,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 222,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 142.55653381347656,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 223,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 191.88943481445312,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 224,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 241.22232055664062,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 225,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 290.5552062988281,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 226,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 339.8880920410156,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 227,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 389.2209777832031,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 228,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 438.5538635253906,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 229,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 487.88677978515625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 230,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 537.2196655273438,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 231,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 586.5525512695312,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 232,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 635.8854370117188,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 233,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 685.2183227539062,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 234,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 734.5512084960938,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 235,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 783.8840942382812,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 236,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 833.2169799804688,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 237,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 882.5498657226562,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 238,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 931.8827514648438,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 239,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 981.2156372070312,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 240,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 1030.548583984375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 241,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 1079.8814697265625,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 242,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 1129.21435546875,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    },
+    {
+      "index": 243,
+      "visible": true,
+      "text": "Queue Next",
+      "tag": "BUTTON",
+      "id": null,
+      "className": "btn btn-xs btn-default qbtn-next",
+      "rect": {
+        "x": 63.50163269042969,
+        "y": 1178.5472412109375,
+        "width": 85.9068374633789,
+        "height": 21.930219650268555
+      }
+    }
+  ],
+  "clickedTarget": null,
+  "events": [
+    {
+      "timestamp": "2026-09-06T23:46:07.907Z",
+      "event": "moveMedia",
+      "argCount": 2,
+      "args": [
+        "moveMedia",
+        {
+          "from": 235,
+          "after": 243
+        }
+      ],
+      "stack": "Error\n    at Socket.wrapped [as emit] (<anonymous>:1:1408)\n    at HTMLButtonElement.<anonymous> (https://cytu.be/js/util.js:547:24)\n    at HTMLButtonElement.dispatch (https://cytu.be/js/jquery-1.12.4.min.js:3:12444)\n    at r.handle (https://cytu.be/js/jquery-1.12.4.min.js:3:9173)"
+    }
+  ],
+  "eventCounts": {
+    "moveMedia": 1
+  },
+  "targetCount": 244,
+  "clickTarget": {
+    "jQuery1124014823567612849264": 502
+  },
+  "clickTargetIndex": 0,
+  "capturedCount": 1,
+  "connectedAtEnd": true,
+  "socketIdAtEnd": "ajzSnyWnkrmfjb2zm8-G",
+  "uniqueEventNames": [
+    "moveMedia"
+  ],
+  "expectedEventCaptured": false,
+  "completed": "2026-09-06T23:47:06.978Z"
+}
