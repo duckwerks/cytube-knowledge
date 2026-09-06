@@ -3,14 +3,24 @@
  *
  * PURPOSE
  * -------
- * Observe actual runtime calls to window.socket.emit(...) without generating
- * any test traffic ourselves.
+ * Capture actual runtime calls to window.socket.emit(...) during normal
+ * CyTube operation without generating any socket traffic ourselves.
  *
- * This follows WS-054, which mapped literal socket.emit() call sites in the
- * loaded CyTube source. WS-055 answers the next question:
+ * IMPORTANT CLIPBOARD DESIGN
+ * --------------------------
+ * This test deliberately does NOT use an async/await IIFE. The previous
+ * version waited with await setTimeout(...), then attempted copy(o) after the
+ * asynchronous continuation. That made it difficult to distinguish a capture
+ * failure from a DevTools clipboard-context failure.
  *
- *   "Which outbound events are actually emitted during normal operation,
- *    and what payloads do they carry?"
+ * This version:
+ *   1. Installs the observer synchronously.
+ *   2. Immediately copies a STARTED marker, proving the command executed.
+ *   3. Uses a normal setTimeout for the capture window.
+ *   4. Builds the final JSON only when the timer fires.
+ *   5. Attempts to copy the FINAL JSON immediately from that timer callback.
+ *   6. Retains the final JSON in window.__WS055_OUTPUT__ regardless of copy.
+ *   7. Exposes window.__WS055_RESTORE__ so a stale observer can be removed.
  *
  * SAFETY / SCOPE
  * --------------
@@ -20,15 +30,16 @@
  * - Temporarily wraps the existing socket.emit method so normal application
  *   calls continue through the original method unchanged.
  * - Automatically restores the original socket.emit after the capture window.
- * - Captures only calls made after this test installs the observer.
- *
- * The capture window is intentionally finite so the observer does not remain
- * installed after the test finishes.
  */
 
-(async () => {
+(() => {
     const TEST = "WS-055";
     const CAPTURE_MS = 30000;
+
+    // Remove a previous WS-055 observer if one exists.
+    if (typeof window.__WS055_RESTORE__ === "function") {
+        try { window.__WS055_RESTORE__(); } catch (e) {}
+    }
 
     const out = {
         test: TEST,
@@ -47,13 +58,68 @@
         restored: false
     };
 
+    function copyText(text) {
+        try {
+            if (typeof copy === "function") {
+                copy(text);
+                return true;
+            }
+        } catch (e) {}
+
+        try {
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            ta.setAttribute("readonly", "");
+            ta.style.position = "fixed";
+            ta.style.left = "-9999px";
+            document.body.appendChild(ta);
+            ta.select();
+            ta.setSelectionRange(0, ta.value.length);
+            const ok = document.execCommand("copy");
+            ta.remove();
+            return !!ok;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function finishAndCopy(reason) {
+        out.captureEnded = new Date().toISOString();
+        out.runtime.connectedAtEnd = !!window.socket?.connected;
+        out.runtime.socketIdAtEnd = window.socket?.id ?? null;
+        out.uniqueEventNames = Object.keys(out.eventCounts);
+        out.finishReason = reason;
+        out.completed = new Date().toISOString();
+
+        const text = JSON.stringify(out, null, 2);
+        window.__WS055_OUTPUT__ = text;
+
+        const copied = copyText(text);
+        out.clipboard = {
+            attempted: true,
+            copied: copied
+        };
+
+        // Re-serialize because clipboard status is part of the final record.
+        const finalText = JSON.stringify(out, null, 2);
+        window.__WS055_OUTPUT__ = finalText;
+
+        // One more copy attempt using the final serialization.
+        if (!copied) copyText(finalText);
+
+        console.log(finalText);
+        console.log(
+            copied
+                ? "=== WS-055 COMPLETE OUTPUT COPIED ==="
+                : "=== WS-055 CLIPBOARD FAILED — OUTPUT RETAINED IN window.__WS055_OUTPUT__ ==="
+        );
+    }
+
     if (!window.socket || typeof window.socket.emit !== "function") {
         out.errors.push("window.socket.emit is unavailable");
-        out.completed = new Date().toISOString();
-        const o = JSON.stringify(out, null, 2);
-        window.__WS055_OUTPUT__ = o;
-        try { if (typeof copy === "function") copy(o); } catch (e) {}
-        console.log(o);
+        window.__WS055_OUTPUT__ = JSON.stringify(out, null, 2);
+        copyText(window.__WS055_OUTPUT__);
+        console.log(window.__WS055_OUTPUT__);
         console.log("=== WS-055 ABORTED — NO SOCKET.EMIT ===");
         return;
     }
@@ -61,15 +127,14 @@
     const socket = window.socket;
     const originalEmit = socket.emit;
     let active = true;
+    let timerId = null;
 
     function safeValue(value, depth = 0, seen = new WeakSet()) {
         if (depth > 6) return "[MAX_DEPTH]";
         if (value === null || value === undefined) return value;
 
         const type = typeof value;
-        if (type === "string" || type === "number" || type === "boolean") {
-            return value;
-        }
+        if (type === "string" || type === "number" || type === "boolean") return value;
         if (type === "bigint") return String(value) + "n";
         if (type === "function") return "[Function]";
         if (type === "symbol") return String(value);
@@ -134,24 +199,18 @@
                     ? args[0]
                     : String(args[0]);
 
-                const payloadArgs = args.slice(1);
-
-                const record = {
+                out.events.push({
                     timestamp: new Date().toISOString(),
                     event: eventName,
                     argCount: args.length,
                     args: safeValue(args),
                     stack: stackForCapture()
-                };
+                });
 
-                out.events.push(record);
                 out.capturedCount++;
                 out.eventCounts[eventName] = (out.eventCounts[eventName] || 0) + 1;
             } catch (e) {
-                out.errors.push({
-                    type: "capture",
-                    error: String(e)
-                });
+                out.errors.push({ type: "capture", error: String(e) });
             }
         }
 
@@ -159,62 +218,70 @@
         return originalEmit.apply(this, args);
     };
 
+    function restore() {
+        if (!active) return;
+        active = false;
+        if (timerId !== null) clearTimeout(timerId);
+        try {
+            if (socket.emit === window.__WS055_WRAPPED_EMIT__) {
+                socket.emit = originalEmit;
+                out.restored = socket.emit === originalEmit;
+            } else if (socket.emit === originalEmit) {
+                out.restored = true;
+            } else {
+                out.errors.push({
+                    type: "restore",
+                    error: "socket.emit changed after observer installation; original not overwritten"
+                });
+            }
+        } catch (e) {
+            out.errors.push({ type: "restore", error: String(e) });
+        }
+    }
+
+    window.__WS055_WRAPPED_EMIT__ = socket.emit;
+    window.__WS055_RESTORE__ = restore;
     out.captureStarted = new Date().toISOString();
 
-    console.log("WS-055 observer installed. Capturing normal outbound socket.emit() traffic for 30 seconds. No test event will be emitted by this script.");
-
-    await new Promise(resolve => setTimeout(resolve, CAPTURE_MS));
-
-    active = false;
-
-    try {
-        if (socket.emit === originalEmit || socket.emit) {
-            socket.emit = originalEmit;
-            out.restored = socket.emit === originalEmit;
-        }
-    } catch (e) {
-        out.errors.push({
-            type: "restore",
-            error: String(e)
-        });
-    }
-
-    out.captureEnded = new Date().toISOString();
-    out.runtime.connectedAtEnd = !!socket.connected;
-    out.runtime.socketIdAtEnd = socket.id ?? null;
-    out.uniqueEventNames = Object.keys(out.eventCounts);
-    out.completed = new Date().toISOString();
-
-    const o = JSON.stringify(out, null, 2);
-    window.__WS055_OUTPUT__ = o;
-
-    let copied = false;
-    try {
-        if (typeof copy === "function") {
-            copy(o);
-            copied = true;
-        }
-    } catch (e) {}
-
-    if (!copied) {
-        try {
-            const ta = document.createElement("textarea");
-            ta.value = o;
-            ta.setAttribute("readonly", "");
-            ta.style.position = "fixed";
-            ta.style.left = "-9999px";
-            document.body.appendChild(ta);
-            ta.select();
-            ta.setSelectionRange(0, ta.value.length);
-            copied = document.execCommand("copy");
-            ta.remove();
-        } catch (e) {}
-    }
-
-    console.log(o);
+    // Immediate synchronous proof that the test executed and clipboard works.
+    const startedMarker = JSON.stringify({
+        test: TEST,
+        phase: "STARTED",
+        timestamp: out.captureStarted,
+        channelName: out.channelName,
+        socketExists: true,
+        socketConnected: !!socket.connected,
+        note: "WS-055 observer installed; final JSON will replace this clipboard contents when capture completes."
+    }, null, 2);
+    window.__WS055_STARTUP__ = startedMarker;
+    const startupCopied = copyText(startedMarker);
+    console.log(startedMarker);
     console.log(
-        copied
-            ? "=== WS-055 COMPLETE OUTPUT COPIED ==="
-            : "=== WS-055 CLIPBOARD FAILED — OUTPUT RETAINED IN window.__WS055_OUTPUT__ ==="
+        startupCopied
+            ? "=== WS-055 STARTUP MARKER COPIED ==="
+            : "=== WS-055 STARTUP MARKER COPY FAILED ==="
     );
+
+    timerId = setTimeout(() => {
+        try {
+            restore();
+            finishAndCopy("timer");
+        } catch (e) {
+            out.errors.push({ type: "finalize", error: String(e), stack: e?.stack ?? null });
+            try { restore(); } catch (ignore) {}
+            out.completed = new Date().toISOString();
+            const emergency = JSON.stringify(out, null, 2);
+            window.__WS055_OUTPUT__ = emergency;
+            copyText(emergency);
+            console.log(emergency);
+            console.log("=== WS-055 FINALIZATION ERROR — OUTPUT COPIED/RETAINED ===");
+        } finally {
+            try {
+                delete window.__WS055_RESTORE__;
+                delete window.__WS055_WRAPPED_EMIT__;
+            } catch (e) {}
+        }
+    }, CAPTURE_MS);
+
+    console.log("WS-055 observer installed. No outbound test event was generated. Capture timer is active.");
 })();
