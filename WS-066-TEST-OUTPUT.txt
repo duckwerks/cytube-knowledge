@@ -1,0 +1,2577 @@
+{
+  "test": "WS-066",
+  "status": "CAPTURING",
+  "timestamp": "2026-09-07T02:48:09.384Z",
+  "channelName": "Turbo",
+  "initial": {
+    "PL_CURRENT": 2,
+    "currentDomUid": "2"
+  },
+  "transition": null,
+  "callbacks": [
+    {
+      "timestamp": "2026-09-07T02:48:09.482Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 525.0799999999992,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:48:14.539Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 530.0799999999992,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:48:19.506Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 535.0799999999992,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:48:24.490Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 540.0799999999992,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:48:29.586Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 545.0809999999992,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:48:34.544Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 550.0799999999992,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:48:39.508Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 555.0799999999992,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:48:44.530Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 560.0799999999992,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:48:49.578Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 565.0799999999992,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:48:54.540Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 570.0809999999992,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:48:59.518Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 575.0809999999992,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:49:04.620Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 580.0829999999992,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:49:09.496Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 585.0859999999991,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:49:14.515Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 590.0859999999991,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:49:19.514Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 595.087999999999,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:49:24.623Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 600.087999999999,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:49:29.503Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 605.087999999999,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:49:34.493Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 610.0869999999991,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:49:39.506Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 615.0869999999991,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:49:44.502Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 620.087999999999,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:49:49.583Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 625.087999999999,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:49:54.488Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 630.087999999999,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:49:59.512Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 635.089999999999,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:50:04.623Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 640.091999999999,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:50:09.635Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 645.091999999999,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:50:14.541Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 650.0929999999989,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:50:19.501Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 655.091999999999,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:50:24.626Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 660.0949999999989,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:50:29.579Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 665.0959999999989,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:50:34.514Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 670.0959999999989,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:50:39.503Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 675.0969999999988,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:50:44.529Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 680.0959999999989,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:50:49.511Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 685.0959999999989,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:50:54.534Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 690.0999999999988,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:50:59.538Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 695.1019999999987,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:51:04.521Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 700.1039999999987,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:51:09.578Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 705.1029999999987,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:51:14.542Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 710.1049999999987,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:51:19.505Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 715.1029999999987,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:51:24.618Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 720.1039999999987,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:51:29.579Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 725.1039999999987,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:51:34.513Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 730.1059999999986,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:51:39.658Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 735.1089999999986,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:51:44.518Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 740.1089999999986,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:51:49.585Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 745.1099999999985,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:51:54.545Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 750.1099999999985,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:51:59.671Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 755.1099999999985,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:52:04.630Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 760.1109999999985,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:52:09.515Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 765.1109999999985,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:52:14.542Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 770.1109999999985,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:52:19.512Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 775.1119999999985,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:52:24.531Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 780.1119999999985,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:52:29.577Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 785.1119999999985,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:52:34.544Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 790.1139999999984,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:52:39.523Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 795.1129999999985,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:52:44.627Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 800.1139999999984,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:52:49.550Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 805.1159999999984,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:52:54.537Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 810.1169999999984,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:52:59.664Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 815.1169999999984,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:53:04.542Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 820.1199999999983,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:53:09.523Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 825.1209999999983,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:53:14.541Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 830.1219999999983,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:53:19.528Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 835.1259999999982,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:53:24.625Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 840.1279999999981,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:53:29.585Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 845.1289999999981,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:53:34.592Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 850.130999999998,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:53:39.657Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 855.132999999998,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:53:44.928Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 860.133999999998,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:53:49.550Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 865.1359999999979,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:53:54.573Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 870.137999999998,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:53:59.544Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 875.1399999999979,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:54:04.621Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 880.1409999999979,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:54:09.579Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 885.1399999999979,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:54:14.543Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 890.1409999999979,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:54:19.543Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 895.1419999999979,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:54:24.548Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 900.1419999999979,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:54:29.586Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 905.1429999999979,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:54:34.550Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 910.1439999999978,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:54:39.659Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 915.1429999999979,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:54:44.624Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 920.1439999999978,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:54:49.578Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 925.1459999999978,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:54:54.547Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 930.1469999999978,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:54:59.659Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 935.1469999999978,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:55:04.547Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 940.1479999999978,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:55:09.553Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 945.1499999999977,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:55:14.699Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 950.1519999999977,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:55:19.556Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 955.1539999999976,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:55:24.617Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 960.1559999999976,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:55:29.583Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 965.1559999999976,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:55:34.572Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 970.1559999999976,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:55:39.663Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 975.1569999999975,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:55:44.631Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 980.1809999999975,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:55:49.620Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 985.1829999999975,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:55:54.744Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 990.1819999999975,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:55:59.583Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 995.1819999999975,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:56:04.621Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1000.1829999999975,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:56:09.586Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1005.1829999999975,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:56:14.709Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1010.1819999999975,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:56:19.590Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1015.1839999999975,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:56:24.617Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1020.1829999999975,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:56:29.597Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1025.1849999999974,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:56:34.719Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1030.1879999999974,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:56:39.589Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1035.1899999999973,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:56:44.623Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1040.1909999999973,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:56:49.597Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1045.1919999999973,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:56:54.699Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1050.1919999999973,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:56:59.592Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1055.1929999999973,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:57:04.621Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1060.1949999999972,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:57:09.599Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1065.1969999999972,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:57:14.596Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1070.1969999999972,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:57:19.657Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1075.198999999997,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:57:24.628Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1080.200999999997,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:57:29.741Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1085.199999999997,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:57:34.706Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1090.200999999997,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:57:39.602Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1095.199999999997,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:57:44.619Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1100.200999999997,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:57:49.741Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1105.200999999997,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:57:54.603Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1110.202999999997,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:57:59.667Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1115.200999999997,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:58:04.621Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1120.202999999997,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:58:09.606Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1125.203999999997,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:58:14.703Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1130.205999999997,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:58:19.656Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1135.207999999997,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:58:24.616Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1140.2099999999969,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:58:29.739Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1145.2109999999968,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:58:34.706Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1150.2109999999968,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:58:39.664Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1155.2139999999968,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:58:44.627Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1160.2159999999967,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:58:49.624Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1165.2179999999967,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:58:54.618Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1170.2189999999966,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:58:59.662Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1175.2199999999966,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:59:04.622Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1180.2209999999966,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:59:09.740Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1185.2219999999966,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:59:14.698Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1190.2209999999966,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:59:19.663Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1195.2219999999966,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:59:24.626Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1200.2219999999966,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:59:29.624Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1205.2219999999966,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:59:34.704Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1210.2219999999966,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:59:39.660Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1215.2229999999965,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:59:44.628Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1220.2239999999965,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:59:49.622Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1225.2239999999965,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:59:54.703Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1230.2249999999965,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T02:59:59.658Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1235.2249999999965,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:00:04.629Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1240.2289999999964,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:00:09.630Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1245.2299999999964,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:00:14.699Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1250.2319999999963,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:00:19.673Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1255.2319999999963,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:00:24.677Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1260.2309999999964,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:00:29.740Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1265.2329999999963,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:00:34.640Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1270.2359999999962,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:00:39.672Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1275.2359999999962,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:00:44.651Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1280.2359999999962,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:00:49.737Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1285.2369999999962,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:00:54.705Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1290.2399999999961,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:00:59.658Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1295.2399999999961,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:01:04.643Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1300.2409999999961,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:01:09.736Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1305.2409999999961,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:01:14.696Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1310.242999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:01:19.660Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1315.241999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:01:24.779Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1320.243999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:01:29.649Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1325.245999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:01:34.644Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1330.245999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:01:39.663Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1335.243999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:01:44.736Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1340.245999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:01:49.739Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1345.245999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:01:54.697Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1350.247999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:01:59.657Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1355.246999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:02:04.646Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1360.247999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:02:09.652Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1365.247999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:02:14.700Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1370.246999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:02:19.659Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1375.246999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:02:24.777Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1380.246999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:02:29.735Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1385.248999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:02:34.696Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        {
+          "currentTime": 1390.247999999996,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 2,
+      "currentDomUid_after": "2"
+    },
+    {
+      "timestamp": "2026-09-07T03:02:37.655Z",
+      "callback": "setCurrent",
+      "PL_CURRENT_before": 2,
+      "currentDomUid_before": "2",
+      "args": [
+        3
+      ],
+      "PL_CURRENT_after": 3,
+      "currentDomUid_after": "3"
+    },
+    {
+      "timestamp": "2026-09-07T03:02:37.681Z",
+      "callback": "changeMedia",
+      "PL_CURRENT_before": 3,
+      "currentDomUid_before": "3",
+      "args": [
+        {
+          "id": "https://archive.org/download/00ifukedurmom_202306/s1e4.mp4",
+          "title": "Raw Video",
+          "seconds": 1344,
+          "duration": "22:24",
+          "type": "fi",
+          "meta": {
+            "codec": "mov/h264",
+            "bitrate": 493.512
+          },
+          "currentTime": -3,
+          "paused": true
+        }
+      ],
+      "PL_CURRENT_after": 3,
+      "currentDomUid_after": "3"
+    },
+    {
+      "timestamp": "2026-09-07T03:03:10.017Z",
+      "callback": "setCurrent",
+      "PL_CURRENT_before": 3,
+      "currentDomUid_before": null,
+      "args": [
+        3
+      ],
+      "PL_CURRENT_after": 3,
+      "currentDomUid_after": "3"
+    },
+    {
+      "timestamp": "2026-09-07T03:03:10.018Z",
+      "callback": "setCurrent",
+      "PL_CURRENT_before": 3,
+      "currentDomUid_before": "3",
+      "args": [
+        3
+      ],
+      "PL_CURRENT_after": 3,
+      "currentDomUid_after": "3"
+    },
+    {
+      "timestamp": "2026-09-07T03:03:10.019Z",
+      "callback": "changeMedia",
+      "PL_CURRENT_before": 3,
+      "currentDomUid_before": "3",
+      "args": [
+        {
+          "id": "https://archive.org/download/00ifukedurmom_202306/s1e4.mp4",
+          "title": "Raw Video",
+          "seconds": 1344,
+          "duration": "22:24",
+          "type": "fi",
+          "meta": {
+            "codec": "mov/h264",
+            "bitrate": 493.512
+          },
+          "currentTime": 5.001999999999999,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 3,
+      "currentDomUid_after": "3"
+    },
+    {
+      "timestamp": "2026-09-07T03:03:10.071Z",
+      "callback": "setCurrent",
+      "PL_CURRENT_before": 3,
+      "currentDomUid_before": null,
+      "args": [
+        3
+      ],
+      "PL_CURRENT_after": 3,
+      "currentDomUid_after": "3"
+    },
+    {
+      "timestamp": "2026-09-07T03:03:14.711Z",
+      "callback": "mediaUpdate",
+      "PL_CURRENT_before": 3,
+      "currentDomUid_before": "3",
+      "args": [
+        {
+          "currentTime": 10.002999999999998,
+          "paused": false
+        }
+      ],
+      "PL_CURRENT_after": 3,
+      "currentDomUid_after": "3"
+    }
+  ],
+  "outbound": [
+    {
+      "timestamp": "2026-09-07T03:03:09.618Z",
+      "event": "joinChannel",
+      "argCount": 2,
+      "args": [
+        "joinChannel",
+        {
+          "name": "Turbo"
+        }
+      ],
+      "stack": "Error\n    at Socket.we [as emit] (<anonymous>:1:2093)\n    at Object.connect (https://cytu.be/js/callbacks.js:7:16)\n    at Socket.<anonymous> (https://cytu.be/js/callbacks.js:1197:35)\n    at Emitter.emit (https://cytu.be/socket.io/socket.io.js:628:22)\n    at Socket.onconnect (https://cytu.be/socket.io/socket.io.js:3605:14)\n    at Socket.onpacket (https://cytu.be/socket.io/socket.io.js:3474:20)\n    at Emitter.emit (https://cytu.be/socket.io/socket.io.js:628:22)\n    at https://cytu.be/socket.io/socket.io.js:4322:18"
+    },
+    {
+      "timestamp": "2026-09-07T03:03:09.632Z",
+      "event": "initUserPLCallbacks",
+      "argCount": 1,
+      "args": [
+        "initUserPLCallbacks"
+      ],
+      "stack": "Error\n    at Socket.we [as emit] (<anonymous>:1:2093)\n    at Object.login (https://cytu.be/js/callbacks.js:474:24)\n    at Socket.<anonymous> (https://cytu.be/js/callbacks.js:1197:35)\n    at Emitter.emit (https://cytu.be/socket.io/socket.io.js:628:22)\n    at Socket.emitEvent (https://cytu.be/socket.io/socket.io.js:3547:63)\n    at Socket.onevent (https://cytu.be/socket.io/socket.io.js:3521:16)\n    at Socket.onpacket (https://cytu.be/socket.io/socket.io.js:3483:18)\n    at Emitter.emit (https://cytu.be/socket.io/socket.io.js:628:22)\n    at https://cytu.be/socket.io/socket.io.js:4322:18"
+    }
+  ],
+  "errors": []
+}
