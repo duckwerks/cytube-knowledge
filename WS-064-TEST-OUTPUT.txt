@@ -1,0 +1,422 @@
+{
+  "test": "WS-064",
+  "status": "COMPLETE",
+  "timestamp": "2026-09-07T00:05:18.321Z",
+  "channelName": "Turbo",
+  "scriptCount": 29,
+  "results": {
+    "https://cytu.be/js/data.js": [
+      {
+        "term": "PL_CURRENT",
+        "index": 3567,
+        "context": " {\n    name: \"\",\n    time: 0\n};\nvar FOCUSED = true;\nvar PAGETITLE = \"CyTube\";\nvar TITLE_BLINK;\nvar CHATSOUND = new Audio(\"/boop.wav\");\nvar KICKED = false;\nvar NAME = readCookie(\"cytube_uname\");\nvar SESSION = readCookie(\"cytube_session\");\nvar LEADTMR = false;\nvar PL_FROM = \"\";\nvar PL_AFTER = \"\";\nvar PL_CURRENT = -1;\nvar PL_WAIT_SCROLL = false;\nvar FILTER_FROM = 0;\nvar FILTER_TO = 0;\nvar NO_STORAGE = typeof localStorage == \"undefined\" || localStorage === null;\nvar SOCKETIO_CONNECT_ERROR_COUNT = 0;\nvar HAS_CONNECTED_BEFORE = false;\nvar IMAGE_MATCH = /<img\\s[^>]*?src\\s*=\\s*['\\\"]([^'\\\"]*?)['\\\"][^>]*?>/gi;\nvar CyTube = {};\nCyTube.ui = {\n    suppressedAnnouncementId: getOpt(\"suppressed_announcement_id\")\n};\nCyTube.featureFlag = {\n    efficientEmotes: true\n};\nCyTube.channelCustomizations = {\n    cssHash: null,\n    jsHash: null\n};\nCyTube._internal_do_not_use_or_you_will_be_banned = {};\n\nfunction getOpt(k) {"
+      }
+    ],
+    "https://cytu.be/js/util.js": [
+      {
+        "term": "PL_CURRENT",
+        "index": 14225,
+        "context": "\n        return name1 === name2 ? 0 : (name1 < name2 ? -1 : 1);\n    });\n\n    list.forEach(function (item) {\n        $(item).detach();\n    });\n    list.forEach(function (item) {\n        $(item).appendTo($(\"#userlist\"));\n    });\n}\n\n/* queue stuff */\n\nfunction scrollQueue() {\n    var li = playlistFind(PL_CURRENT);\n    if(!li)\n        return;\n\n    li = $(li);\n    $(\"#queue\").scrollTop(0);\n    var scroll = li.position().top - $(\"#queue\").position().top;\n    $(\"#queue\").scrollTop(scroll);\n}\n\nfunction makeQueueEntry(item, addbtns) {\n    var video = item.media;\n    var li = $(\"<li/>\");\n    li.addClass(\"queue_entry\");\n    li.addClass(\"pluid-\" + item.uid);\n    li.data(\"uid\", item.uid);\n    li.data(\"media\", video);\n    li.data(\"temp\", item.temp);\n    if(video.thumb) {\n        $(\"<img/>\").attr(\"src\", video.thumb.url)\n            .css(\"float\", \"left\")\n            .css(\"clear\", \"both\")\n            .appendTo(li)"
+      },
+      {
+        "term": "PL_CURRENT",
+        "index": 16739,
+        "context": "       $(\"<button/>\").addClass(\"btn btn-xs btn-default qbtn-next\")\n            .html(\"<span class='glyphicon glyphicon-share-alt'></span>Queue Next\")\n            .on('click', function() {\n                socket.emit(\"moveMedia\", {\n                    from: li.data(\"uid\"),\n                    after: PL_CURRENT\n                });\n            })\n            .appendTo(menu);\n    }\n    // Temp/Untemp\n    if(hasPermission(\"settemp\")) {\n        var tempstr = li.data(\"temp\")?\"Make Permanent\":\"Make Temporary\";\n        $(\"<button/>\").addClass(\"btn btn-xs btn-default qbtn-tmp\")\n            .html(\"<span class='glyphicon glyphicon-flag'></span>\" + tempstr)\n            .on('click', function() {\n                socket.emit(\"setTemp\", {\n                    uid: li.data(\"uid\"),\n                    temp: !li.data(\"temp\")\n                });\n            })\n            .appendTo(menu);\n    }\n    // Delete\n    if(has"
+      }
+    ],
+    "https://cytu.be/js/player.js": [
+      {
+        "term": "setCurrent",
+        "index": 25489,
+        "context": "\n      this.paused = true;\n      if (this.vimeo) {\n        return this.vimeo.pause()[\"catch\"](function(error) {\n          return console.error('vimeo::pause():', error);\n        });\n      }\n    };\n\n    VimeoPlayer.prototype.seekTo = function(time) {\n      if (this.vimeo) {\n        return this.vimeo.setCurrentTime(time)[\"catch\"](function(error) {\n          return console.error('vimeo::setCurrentTime():', error);\n        });\n      }\n    };\n\n    VimeoPlayer.prototype.setVolume = function(volume) {\n      if (this.vimeo) {\n        return this.vimeo.setVolume(volume)[\"catch\"](function(error) {\n          return console.error('vimeo::setVolume():', error);\n        });\n      }\n    };\n\n    VimeoPlayer.prototype.getTime = function(cb) {\n      if (this.vimeo) {\n        return this.vimeo.getCurrentTime().then(function(time) {\n          return cb(parseFloat(time));\n        })[\"catch\"](function(error) {\n        "
+      },
+      {
+        "term": "setCurrent",
+        "index": 25576,
+        "context": "atch\"](function(error) {\n          return console.error('vimeo::pause():', error);\n        });\n      }\n    };\n\n    VimeoPlayer.prototype.seekTo = function(time) {\n      if (this.vimeo) {\n        return this.vimeo.setCurrentTime(time)[\"catch\"](function(error) {\n          return console.error('vimeo::setCurrentTime():', error);\n        });\n      }\n    };\n\n    VimeoPlayer.prototype.setVolume = function(volume) {\n      if (this.vimeo) {\n        return this.vimeo.setVolume(volume)[\"catch\"](function(error) {\n          return console.error('vimeo::setVolume():', error);\n        });\n      }\n    };\n\n    VimeoPlayer.prototype.getTime = function(cb) {\n      if (this.vimeo) {\n        return this.vimeo.getCurrentTime().then(function(time) {\n          return cb(parseFloat(time));\n        })[\"catch\"](function(error) {\n          return console.error('vimeo::getCurrentTime():', error);\n        });\n      } else {\n "
+      },
+      {
+        "term": "setCurrent",
+        "index": 32261,
+        "context": "  }\n    };\n\n    PlayerJSPlayer.prototype.pause = function() {\n      this.paused = true;\n      if (this.player && this.ready) {\n        return this.player.pause();\n      }\n    };\n\n    PlayerJSPlayer.prototype.seekTo = function(time) {\n      if (this.player && this.ready) {\n        return this.player.setCurrentTime(time);\n      }\n    };\n\n    PlayerJSPlayer.prototype.setVolume = function(volume) {\n      if (this.player && this.ready) {\n        return this.player.setVolume(volume * 100);\n      }\n    };\n\n    PlayerJSPlayer.prototype.getTime = function(cb) {\n      if (this.player && this.ready) {\n        return this.player.getCurrentTime(cb);\n      } else {\n        return cb(0);\n      }\n    };\n\n    PlayerJSPlayer.prototype.getVolume = function(cb) {\n      if (this.player && this.ready) {\n        return this.player.getVolume(function(volume) {\n          return cb(volume / 100);\n        });\n      } else {"
+      },
+      {
+        "term": "changeMedia",
+        "index": 42706,
+        "context": "Playlist = function() {\n    var end, now, start;\n    start = new Date('2023-04-01T00:00:00-0400').getTime();\n    end = new Date('2023-04-01T23:59:59-0400').getTime();\n    now = Date.now();\n    if ((now >= start && now <= end) || localStorage.getItem('dvd_override') === '1') {\n      return Callbacks.changeMedia({\n        type: 'dv',\n        title: 'Will it hit the corner?',\n        meta: {}\n      });\n    }\n  };\n\n  sortSources = function(sources) {\n    var flv, flvOrder, idx, j, len, nonflv, pref, qualities, quality, qualityOrder, sourceOrder;\n    if (!sources) {\n      console.error('sortSources() called with null source list');\n      return [];\n    }\n    qualities = ['2160', '1440', '1080', '720', '540', '480', '360', '240'];\n    pref = String(USEROPTS.default_quality);\n    if (USEROPTS.default_quality === 'best') {\n      pref = '2160';\n    }\n    idx = qualities.indexOf(pref);\n    if (idx < 0) {\n   "
+      },
+      {
+        "term": "Callbacks.changeMedia",
+        "index": 42696,
+        "context": "ow.onEmptyPlaylist = function() {\n    var end, now, start;\n    start = new Date('2023-04-01T00:00:00-0400').getTime();\n    end = new Date('2023-04-01T23:59:59-0400').getTime();\n    now = Date.now();\n    if ((now >= start && now <= end) || localStorage.getItem('dvd_override') === '1') {\n      return Callbacks.changeMedia({\n        type: 'dv',\n        title: 'Will it hit the corner?',\n        meta: {}\n      });\n    }\n  };\n\n  sortSources = function(sources) {\n    var flv, flvOrder, idx, j, len, nonflv, pref, qualities, quality, qualityOrder, sourceOrder;\n    if (!sources) {\n      console.error('sortSources() called with null source list');\n      return [];\n    }\n    qualities = ['2160', '1440', '1080', '720', '540', '480', '360', '240'];\n    pref = String(USEROPTS.default_quality);\n    if (USEROPTS.default_quality === 'best') {\n      pref = '2160';\n    }\n    idx = qualities.indexOf(pref);\n    if (idx < 0) {\n   "
+      }
+    ],
+    "https://cytu.be/js/ui.js": [
+      {
+        "term": "changeMedia",
+        "index": 8799,
+        "context": "userpl_save\").parent());\n        return;\n    }\n    socket.emit(\"clonePlaylist\", {\n        name: $(\"#userpl_name\").val()\n    });\n});\n\n/* video controls */\n\n$(\"#mediarefresh\").on('click', function() {\n    PLAYER.mediaType = \"\";\n    PLAYER.mediaId = \"\";\n    // playerReady triggers the server to send a changeMedia.\n    // the changeMedia handler then reloads the player\n    socket.emit(\"playerReady\");\n});\n\n/* playlist controls */\n\n$(\"#queue\").sortable({\n    start: function(ev, ui) {\n        PL_FROM = ui.item.data(\"uid\");\n    },\n    update: function(ev, ui) {\n        var prev = ui.item.prevAll();\n        if(prev.length == 0)\n            PL_AFTER = \"prepend\";\n        else\n            PL_AFTER = $(prev[0]).data(\"uid\");\n        socket.emit(\"moveMedia\", {\n            from: PL_FROM,\n            after: PL_AFTER\n        });\n        $(\"#queue\").sortable(\"cancel\");\n    }\n});\n$(\"#queue\").disableSelection();\n\nfunct"
+      },
+      {
+        "term": "changeMedia",
+        "index": 8823,
+        "context": "\n        return;\n    }\n    socket.emit(\"clonePlaylist\", {\n        name: $(\"#userpl_name\").val()\n    });\n});\n\n/* video controls */\n\n$(\"#mediarefresh\").on('click', function() {\n    PLAYER.mediaType = \"\";\n    PLAYER.mediaId = \"\";\n    // playerReady triggers the server to send a changeMedia.\n    // the changeMedia handler then reloads the player\n    socket.emit(\"playerReady\");\n});\n\n/* playlist controls */\n\n$(\"#queue\").sortable({\n    start: function(ev, ui) {\n        PL_FROM = ui.item.data(\"uid\");\n    },\n    update: function(ev, ui) {\n        var prev = ui.item.prevAll();\n        if(prev.length == 0)\n            PL_AFTER = \"prepend\";\n        else\n            PL_AFTER = $(prev[0]).data(\"uid\");\n        socket.emit(\"moveMedia\", {\n            from: PL_FROM,\n            after: PL_AFTER\n        });\n        $(\"#queue\").sortable(\"cancel\");\n    }\n});\n$(\"#queue\").disableSelection();\n\nfunction queue(pos, src) {\n  "
+      }
+    ],
+    "https://cytu.be/js/callbacks.js": [
+      {
+        "term": "setCurrent",
+        "index": 24720,
+        "context": ".release();\n                PL_WAIT_SCROLL = false;\n            });\n        });\n    },\n\n    moveVideo: function(data) {\n        PL_ACTION_QUEUE.queue(function (plq) {\n            playlistMove(data.from, data.after, function () {\n                plq.release();\n            });\n        });\n    },\n\n    setCurrent: function(uid) {\n        PL_CURRENT = uid;\n        $(\"#queue li\").removeClass(\"queue_active\");\n        var li = $(\".pluid-\" + uid);\n        if (li.length !== 0) {\n            li.addClass(\"queue_active\");\n            var tmr = setInterval(function () {\n                if (!PL_WAIT_SCROLL) {\n                    scrollQueue();\n                    clearInterval(tmr);\n                }\n            }, 100);\n        }\n    },\n\n    changeMedia: function(data) {\n        if ($(\"body\").hasClass(\"chatOnly\") || $(\"#videowrap\").length === 0) {\n            return;\n        }\n\n        // Failsafe\n        if (i"
+      },
+      {
+        "term": "PL_CURRENT",
+        "index": 22239,
+        "context": "typeof onEmptyPlaylist === 'function') {\n            onEmptyPlaylist();\n        }\n    },\n\n    queue: function(data) {\n        PL_ACTION_QUEUE.queue(function (plq) {\n            stopQueueSpinner(data.item.media);\n            var li = makeQueueEntry(data.item, true);\n            if (data.item.uid === PL_CURRENT)\n                li.addClass(\"queue_active\");\n            li.hide();\n            var q = $(\"#queue\");\n            li.attr(\"title\", data.item.queueby\n                                ? (\"Added by: \" + data.item.queueby)\n                                : \"Added by: Unknown\");\n            if (data.after === \"prepend\") {\n                li.prependTo(q);\n                li.show(\"fade\", function () {\n                    plq.release();\n                });\n            } else if (data.after === \"append\") {\n                li.appendTo(q);\n                li.show(\"fade\", function () {\n                   "
+      },
+      {
+        "term": "PL_CURRENT",
+        "index": 24756,
+        "context": "SCROLL = false;\n            });\n        });\n    },\n\n    moveVideo: function(data) {\n        PL_ACTION_QUEUE.queue(function (plq) {\n            playlistMove(data.from, data.after, function () {\n                plq.release();\n            });\n        });\n    },\n\n    setCurrent: function(uid) {\n        PL_CURRENT = uid;\n        $(\"#queue li\").removeClass(\"queue_active\");\n        var li = $(\".pluid-\" + uid);\n        if (li.length !== 0) {\n            li.addClass(\"queue_active\");\n            var tmr = setInterval(function () {\n                if (!PL_WAIT_SCROLL) {\n                    scrollQueue();\n                    clearInterval(tmr);\n                }\n            }, 100);\n        }\n    },\n\n    changeMedia: function(data) {\n        if ($(\"body\").hasClass(\"chatOnly\") || $(\"#videowrap\").length === 0) {\n            return;\n        }\n\n        // Failsafe\n        if (isNaN(VOLUME) || VOLUME > 1 || VOLUME"
+      },
+      {
+        "term": "changeMedia",
+        "index": 25158,
+        "context": "id);\n        if (li.length !== 0) {\n            li.addClass(\"queue_active\");\n            var tmr = setInterval(function () {\n                if (!PL_WAIT_SCROLL) {\n                    scrollQueue();\n                    clearInterval(tmr);\n                }\n            }, 100);\n        }\n    },\n\n    changeMedia: function(data) {\n        if ($(\"body\").hasClass(\"chatOnly\") || $(\"#videowrap\").length === 0) {\n            return;\n        }\n\n        // Failsafe\n        if (isNaN(VOLUME) || VOLUME > 1 || VOLUME < 0) {\n            VOLUME = 1;\n        }\n\n        function loadNext() {\n            if (!PLAYER || data.type !== PLAYER.mediaType) {\n                loadMediaPlayer(data);\n            } else {\n                handleMediaUpdate(data);\n            }\n        }\n\n        // Persist the user's volume preference from the the player, if possible\n        if (PLAYER && typeof PLAYER.getVolume === \"function\") "
+      }
+    ],
+    "https://cytu.be/js/vjs/dash.all.min.js": [
+      {
+        "term": "setCurrent",
+        "index": 170669,
+        "context": "aused():null}function L(){g&&o&&o.pause()}function F(){return g&&o?o.isSeeking():null}function x(){return g&&o?o.isStalled():null}function U(e,n,r){g&&o&&(e!==(isNaN(T)?o.getTime():T)&&((S=!0===r)||(T=e,C.trigger(c.a.PLAYBACK_SEEK_ASKED)),t.info(\"Requesting seek to time: \"+e+(S?\" (internal)\":\"\")),o.setCurrentTime(e,n)))}function B(){return g&&o?o.getTime():null}function k(){var e=B();if(m&&!isNaN(v)){var t=v/1e3;e>t&&(e-=t)}return e}function G(){return g&&o?o.getPlaybackRate():null}function j(){return g&&o?o.getEnded():null}function Y(){return m}function H(){if(!m||isNaN(v))return NaN;var e=k();if(isNaN(e)||0===e)return 0;var t=(new Date).getTime()+1e3*s.getClientTimeOffset();return Math.max(((t-v-1e3*e)/1e3).toFixed(3),0)}function K(){L(),E=!1,p=0,v=0,R=!1,T=NaN,o&&(C.off(c.a.DATA_UPDATE_COMPLETED,X,e),C.off(c.a.LOADING_PROGRESS,ye,e),C.off(c.a.MANIFEST_UPDATED,Se,e),C.off(c.a.STREAMS_COMPOSED,Ae"
+      },
+      {
+        "term": "setCurrent",
+        "index": 174724,
+        "context": "on le(){t.info(\"Native video element event: ended\"),L(),W();var e=n?n.getActiveStreamInfo():null;e&&C.trigger(c.a.PLAYBACK_ENDED,{isLast:e.isLast})}function ce(e){if(f&&e.isLast){t.info(\"onPlaybackEnded -- PLAYBACK_ENDED but native video element didn't fire ended\");var n=e.seekTime?e.seekTime:O();o.setCurrentTime(n),L(),W()}}function fe(e){var t=e.target||e.srcElement;C.trigger(c.a.PLAYBACK_ERROR,{error:t.error})}function de(){m&&he()&&N.get().streaming.liveCatchup.playbackRate>0&&!P()&&!F()&&(function(){try{if(he()&&N.get().streaming.liveCatchup.playbackRate>0&&B()>0){var e=ge(),t=H(),n=y.getLiveDelay(),r=y.getLiveCatchupLatencyThreshold(),i=N.get().streaming.liveCatchup.minDrift;if(e===a.a.LIVE_CATCHUP_MODE_LOLP){var o=pe(),s=N.get().streaming.liveCatchup.playbackBufferMin;return function(e,t,n,r,i,a){try{var o=Math.abs(e-t);return(isNaN(a)||e<=a)&&(o>n||r<i)}catch(e){return!1}}(t,n,i,o,s,r)}ret"
+      },
+      {
+        "term": "setCurrent",
+        "index": 203761,
+        "context": "g=NaN,E=!1,_=!1}return t={initialize:function(e){f=e,S.on(c.a.BYTES_APPENDED_END_FRAGMENT,B,t),S.on(c.a.URL_RESOLUTION_FAILED,k,t),S.on(h.a.PLAYBACK_STARTED,G,t),S.on(h.a.PLAYBACK_RATE_CHANGED,j,t),S.on(h.a.PLAYBACK_TIME_UPDATED,x,t)},getType:function(){return C},getStreamId:function(){return n.id},setCurrentRepresentation:function(e){i=e},setTimeToLoadDelay:function(e){o=e},getTimeToLoadDelay:function(){return o},setSwitchTrack:function(e){E=e},getSwitchStrack:function(){return E},startScheduleTimer:M,clearScheduleTimer:P,reset:function(){S.off(c.a.BYTES_APPENDED_END_FRAGMENT,B,t),S.off(c.a.URL_RESOLUTION_FAILED,k,t),S.off(h.a.PLAYBACK_STARTED,G,t),S.off(h.a.PLAYBACK_RATE_CHANGED,j,t),S.off(h.a.PLAYBACK_TIME_UPDATED,x,t),P(),U(!1),Y(),n=null},getBufferTarget:F,getPlaybackController:function(){return N},setCheckPlaybackQuality:function(e){v=e},setInitSegmentRequired:function(e){_=e}},r=Object(d.a)"
+      },
+      {
+        "term": "setCurrent",
+        "index": 208065,
+        "context": "ntationForQuality(t.quality):null;e=n?T.getSegmentRequestForTime(i,r,A):T.getNextSegmentRequest(i,r)}return e}function le(){h.startScheduleTimer($.get().streaming.lowLatencyEnabled?$.get().streaming.scheduling.lowLatencyTimeout:$.get().streaming.scheduling.defaultTimeout)}function ce(e){e.error||(h.setCurrentRepresentation(Y.convertRepresentationToRepresentationInfo(e.currentRepresentation)),f.getIsBufferingCompleted()||f.updateBufferTimestampOffset(e.currentRepresentation))}function fe(e){Q.addBufferState(C,e.state,h.getBufferTarget()),e.state!==u.BUFFER_EMPTY||W.isSeeking()||(n.info(\"Buffer is empty! Stalling!\"),Q.pushPlayListTraceMetrics(new Date,k.REBUFFERING_REASON))}function de(e){q.syncExecutedRequestsWithBufferedRange(f.getBuffer().getAllBufferRanges(),N.duration),e.quotaExceeded&&e.from>W.getTime()&&Ce(e.from),e.hasEnoughSpaceToAppend&&e.quotaExceeded&&h.startScheduleTimer()}function he(e"
+      },
+      {
+        "term": "setCurrent",
+        "index": 215768,
+        "context": "),e()})).catch((function(){Re(),e()}))):f.prepareForNonReplacementTrackSwitch(i.codec).then((function(){Ne(),e()})).catch((function(){Ne(),e()}))}))},prepareQualityChange:function(e){n.debug(\"Preparing quality switch for type \".concat(C));var t=e.newQuality;_=!0,h.clearScheduleTimer();var r=Ae(t);h.setCurrentRepresentation(r),p.prepareQualityChange(t),q.abortRequests(),f.updateBufferTimestampOffset(r).then((function(){e.reason&&e.reason.forceReplace?(I.trigger(c.a.BUFFER_REPLACEMENT_STARTED,{mediaType:C,streamId:N.id},{mediaType:C,streamId:N.id}),f.prepareForReplacementQualitySwitch().then((function(){Re(),_=!1})).catch((function(){Re(),_=!1}))):$.get().streaming.buffer.fastSwitchEnabled?function(e){var t=W.getTime(),n=q.getRequests({state:m.a.FRAGMENT_MODEL_EXECUTED,time:t+1.5,threshold:0})[0];if(n&&!ne()){var r=f.getBufferLevel(),i=V.getAbandonmentStateFor(N.id,C);if(n.quality<e.quality&&r>=1.5&"
+      },
+      {
+        "term": "setCurrent",
+        "index": 233564,
+        "context": "getAdapter:function(){return P},getHasFinishedBuffering:function(){return u},setPreloaded:ve,startScheduleControllers:function(){for(var e=r.length,t=0;t<e&&r[t];t++)r[t].getScheduleController().startScheduleTimer()},prepareTrackChange:function(e){if(s&&z){u=!1;var t=e.newMediaInfo,r=C.getValue();P.setCurrentMediaInfo(z.id,t.type,t);var i=pe(t);if(i){var o=G.getTime();n.info(\"Stream -  Process track changed at current time \"+o),r.refreshManifestOnSwitchTrack?(I.push(e),M.getIsUpdating()||(n.debug(\"Stream -  Refreshing manifest for switch track\"),M.refreshManifest())):i.selectMediaInfo(t).then((function(){t.type!==a.a.VIDEO&&t.type!==a.a.AUDIO||k.updateTopQualityIndex(t),i.prepareTrackSwitch()}))}}},prepareQualityChange:function(e){var t=ge(e.mediaType);t&&t.prepareQualityChange(e)}},function(){try{A=Object(d.a)(R).getInstance(),n=A.getLogger(t),ne(),S=Object(x.a)(R).getInstance(),v=ee(R).create({u"
+      },
+      {
+        "term": "setCurrent",
+        "index": 334959,
+        "context": "&&n.textTracks[o].isTTML===i&&n.textTracks[o].isEmbedded===a)return n.textTracks[o];return null}function _(e,t){e===a.a.VIDEO_ELEMENT_READY_STATES.HAVE_NOTHING||m()>=e?t():function(e,t){p(e,(function n(){g(e,n),t(e)}))}(rn.get(e),t)}return e={initialize:function(){o.on(c.a.PLAYBACK_PLAYING,h,this)},setCurrentTime:function(e,t){_(a.a.VIDEO_ELEMENT_READY_STATES.HAVE_METADATA,(function(){if(n){if(n.currentTime===e)return;try{e=t?function(e){var t=y(),n=e,r=9999999999;if(t)for(var i=0;i<t.length;i++){var a=t.start(i),o=t.end(i),s=Math.abs(a-e),u=Math.abs(o-e);if(e>=a&&e<=o)return e;s<r&&(r=s,n=a),u<r&&(r=u,n=o)}return n}(e):e,n.currentTime=e}catch(t){0===n.readyState&&t.code===t.INVALID_STATE_ERR&&setTimeout((function(){n.currentTime=e}),400)}}}))},play:function(){if(n){n.autoplay=!0;var e=n.play();e&&e.catch&&\"undefined\"!=typeof Promise&&e.catch((function(e){\"NotAllowedError\"===e.name&&o.trigger(c.a."
+      },
+      {
+        "term": "setCurrent",
+        "index": 365224,
+        "context": "t.getBaseURLsFromElement(e)},getRepresentationSortFunction:function(){return t.getRepresentationSortFunction()},getCodec:function(e,n,r){return t.getCodec(e,n,r)},getPeriodById:function(e){if(!e||0===r.length)return null;var t=r.filter((function(t){return t.id===e}));return t&&t.length>0?t[0]:null},setCurrentMediaInfo:function(e,t,n){i[e]=i[e]||{},i[e][t]=i[e][t]||{},i[e][t]=n},isPatchValid:function(e,r){var i=t.getId(e),a=n.getMpdId(r),o=t.getPublishTime(e),s=n.getPublishTime(r),u=n.getOriginalPublishTime(r);return!!(i&&a&&i==a&&o&&u&&o.getTime()==u.getTime()&&s&&o.getTime()<s.getTime())},applyPatchToManifest:function(e,t){n.getPatchOperations(t).forEach((function(t){var n=t.getMpdTarget(e);if(null!==n){var r=n.name,i=n.target,a=n.leaf;if(t.xpath.findsAttribute())switch(t.action){case\"add\":case\"replace\":i[r]=t.value;break;case\"remove\":delete i[r]}else{var o=(i[r+\"_asArray\"]||[]).indexOf(a),s=\"pre"
+      },
+      {
+        "term": "setCurrent",
+        "index": 392161,
+        "context": "return;_.push(e)}else n.warn(\"Embedded track \"+e.id+\" not supported!\")},resetEmbedded:function(){L.off(c.a.VIDEO_CHUNK_RECEIVED,k,t),L.off(c.a.BUFFER_CLEARED,q,t),C&&C.deleteAllTextTracks(),F=!1,_=[],A=[null,null],S=null},getConfig:function(){return{fragmentModel:u,fragmentedTracks:p,videoModel:w}},setCurrentFragmentedTrackIdx:G,remove:function(e,n){void 0===e&&e===n&&(e=t.buffered.start(0),n=t.buffered.end(t.buffered.length-1)),t.buffered.remove(e,n),C.deleteCuesFromTrackIdx(m,e,n)},reset:function(){U(),s=[],r=null}},n=Object(d.a)(P).getInstance().getLogger(t),r=Object(x.a)(P).getInstance(),U(),t}gr.__dashjs_factory_name=\"TextSourceBuffer\";var mr=f.a.getClassFactory(gr),yr=n(44);function Er(e){var t,n,r,i,o,s,u,f,p,g,m,y,E,_,v,T,S,A=this.context,b=Object(l.a)(A).getInstance(),I=e.videoModel,R=e.streamInfo;function N(e,t,n,r,i,a){var o=0,s=0;e/t>n/r?o=(s=t)/r*n:s=(o=e)/n*r;var u,l,c=0,f=0;return o"
+      },
+      {
+        "term": "setCurrent",
+        "index": 399709,
+        "context": "\"===t.renderingType&&w.call(this,t,!0),b.off(h.a.PLAYBACK_METADATA_LOADED,e,this)}),this);for(var y=0;y<i.length;y++){var E=M(y);E&&(E.mode=y===f?a.a.TEXT_SHOWING:a.a.TEXT_HIDDEN)}}b.trigger(c.a.TEXT_TRACKS_QUEUE_INITIALIZED,{index:s,tracks:i,streamId:R.id})},getCurrentTrackIdx:function(){return s},setCurrentTrackIdx:P,getTrackIdxForId:function(e){for(var t=-1,n=0;n<i.length;n++)if(i[n].id===e){t=n;break}return t},getCurrentTrackInfo:function(){return i[s]},setModeForTrackIdx:function(e,t){var n=M(e);n&&n.mode!==t&&(n.mode=t)},deleteCuesFromTrackIdx:function(e,t,n){var r=M(e);r&&U(r,t,n)},deleteAllTextTracks:function(){for(var e=o?o.length:0,t=0;t<e;t++){var n=M(t);n&&U.call(this,n,R.start,R.start+R.duration)}o=[],i=[],y&&(clearInterval(y),y=null),S&&I&&(S.unobserve(I.getElement()),S=null),s=-1,G.call(this)},deleteTextTrack:function(e){I.removeChild(o[e]),o.splice(e,1)}},n=Object(d.a)(A).getInstan"
+      },
+      {
+        "term": "setCurrent",
+        "index": 404126,
+        "context": "Info;t.type===a.a.TEXT&&(f={lang:t.lang,role:t.roles[0],index:t.index,codec:t.codec,accessibility:t.accessibility[0]})}}function N(){var e=!0;return p&&!g&&(e=!1),e}function w(e,t){(p=-1===t)&&S&&S.saveTextSettingsDisabled();var n=C(e);if(n!==t&&i[e]){i[e].setModeForTrackIdx(n,a.a.TEXT_HIDDEN),i[e].setCurrentTrackIdx(t),i[e].setModeForTrackIdx(t,a.a.TEXT_SHOWING);var o=i[e].getCurrentTrackInfo();o&&o.isFragmented&&!o.isEmbedded?function(e,t,n){if(!r[e])return;for(var o=r[e].getConfig().fragmentedTracks,s=0;s<o.length;s++){var l=o[s];if(t.lang===l.lang&&(l.id?t.id===l.id:t.index===l.index)){var f=S.getCurrentTrackFor(a.a.TEXT,e);(l.id?f.id!==l.id:f.index!==l.index)?(i[e].deleteCuesFromTrackIdx(n),r[e].setCurrentFragmentedTrackIdx(s)):-1===n&&u.trigger(c.a.SET_FRAGMENTED_TEXT_AFTER_DISABLED,{},{streamId:e,mediaType:a.a.TEXT})}}}(e,o,n):o&&!o.isFragmented&&function(e,t){u.trigger(c.a.SET_NON_FRAGMENT"
+      },
+      {
+        "term": "setCurrent",
+        "index": 404536,
+        "context": "mented&&!o.isEmbedded?function(e,t,n){if(!r[e])return;for(var o=r[e].getConfig().fragmentedTracks,s=0;s<o.length;s++){var l=o[s];if(t.lang===l.lang&&(l.id?t.id===l.id:t.index===l.index)){var f=S.getCurrentTrackFor(a.a.TEXT,e);(l.id?f.id!==l.id:f.index!==l.index)?(i[e].deleteCuesFromTrackIdx(n),r[e].setCurrentFragmentedTrackIdx(s)):-1===n&&u.trigger(c.a.SET_FRAGMENTED_TEXT_AFTER_DISABLED,{},{streamId:e,mediaType:a.a.TEXT})}}}(e,o,n):o&&!o.isFragmented&&function(e,t){u.trigger(c.a.SET_NON_FRAGMENTED_TEXT,{currentTrackInfo:t},{streamId:e,mediaType:a.a.TEXT})}(e,o),S.setTrack(o)}}function C(e){return i[e].getCurrentTrackIdx()}function D(){r={},i={},n={},p=!0,m=!1,y=!1}return t={deactivateStream:function(e){if(e){var t=e.id;r[t]&&r[t].resetMediaInfos(),i[t]&&i[t].deleteAllTextTracks()}},initialize:function(){u.on(c.a.CURRENT_TRACK_CHANGED,R,t),u.on(c.a.TEXT_TRACKS_QUEUE_INITIALIZED,I,t)},initializeForS"
+      },
+      {
+        "term": "setCurrent",
+        "index": 417919,
+        "context": ")throw ee;var t=G.getActiveStreamInfo();return I.getCurrentTrackFor(e,t.id)},setInitialMediaSettingsFor:function(e,t){if(!s)throw\"MediaPlayer not initialized!\";I.setInitialSettings(e,t)},getInitialMediaSettingsFor:function(e){if(!s)throw\"MediaPlayer not initialized!\";return I.getInitialSettings(e)},setCurrentTrack:function(e){if(!p)throw ee;I.setTrack(e)},addABRCustomRule:function(e,t,n){O.addABRCustomRule(e,t,n)},removeABRCustomRule:function(e){O.removeABRCustomRule(e)},removeAllABRCustomRule:function(){O.removeABRCustomRule()},getAverageThroughput:function(e){var t=S.getThroughputHistory(),n=H.getIsDynamic();return t?t.getAverageThroughput(e,n):0},retrieveManifest:function(e,t){var n=we(),r=this;ie.on(c.a.INTERNAL_MANIFEST_LOADED,(function e(i){i.error?t(null,i.error):t(i.manifest),ie.off(c.a.INTERNAL_MANIFEST_LOADED,e,r),n.reset()}),r),z.initialize(e),n.load(e)},addUTCTimingSource:function(e,t)"
+      }
+    ],
+    "https://cytu.be/js/vjs/video.js": [
+      {
+        "term": "setCurrent",
+        "index": 335725,
+        "context": " *\n     * @abstract\n     *\n     * @see {Html5#scrubbing}\n     */\n    ;\n\n    _proto.scrubbing = function scrubbing() {}\n    /**\n     * Causes a manual time update to occur if {@link Tech#manualTimeUpdatesOn} was\n     * previously called.\n     *\n     * @fires Tech#timeupdate\n     */\n    ;\n\n    _proto.setCurrentTime = function setCurrentTime() {\n      // improve the accuracy of manual timeupdates\n      if (this.manualTimeUpdates) {\n        /**\n         * A manual `timeupdate` event.\n         *\n         * @event Tech#timeupdate\n         * @type {EventTarget~Event}\n         */\n        this.trigger({\n          type: 'timeupdate',\n          target: this,\n          manuallyTriggered: true\n        });\n      }\n    }\n    /**\n     * Turn on listeners for {@link VideoTrackList}, {@link {AudioTrackList}, and\n     * {@link TextTrackList} events.\n     *\n     * This adds {@link EventTarget~EventListeners} for `add"
+      },
+      {
+        "term": "setCurrent",
+        "index": 335751,
+        "context": "\n     * @see {Html5#scrubbing}\n     */\n    ;\n\n    _proto.scrubbing = function scrubbing() {}\n    /**\n     * Causes a manual time update to occur if {@link Tech#manualTimeUpdatesOn} was\n     * previously called.\n     *\n     * @fires Tech#timeupdate\n     */\n    ;\n\n    _proto.setCurrentTime = function setCurrentTime() {\n      // improve the accuracy of manual timeupdates\n      if (this.manualTimeUpdates) {\n        /**\n         * A manual `timeupdate` event.\n         *\n         * @event Tech#timeupdate\n         * @type {EventTarget~Event}\n         */\n        this.trigger({\n          type: 'timeupdate',\n          target: this,\n          manuallyTriggered: true\n        });\n      }\n    }\n    /**\n     * Turn on listeners for {@link VideoTrackList}, {@link {AudioTrackList}, and\n     * {@link TextTrackList} events.\n     *\n     * This adds {@link EventTarget~EventListeners} for `addtrack`, and  `removetrack`"
+      },
+      {
+        "term": "setCurrent",
+        "index": 367460,
+        "context": "owedGetters = {\n    buffered: 1,\n    currentTime: 1,\n    duration: 1,\n    muted: 1,\n    played: 1,\n    paused: 1,\n    seekable: 1,\n    volume: 1,\n    ended: 1\n  };\n  /**\n   * Enumeration of allowed setters where the keys are method names.\n   *\n   * @type {Object}\n   */\n\n  var allowedSetters = {\n    setCurrentTime: 1,\n    setMuted: 1,\n    setVolume: 1\n  };\n  /**\n   * Enumeration of allowed mediators where the keys are method names.\n   *\n   * @type {Object}\n   */\n\n  var allowedMediators = {\n    play: 1,\n    pause: 1\n  };\n\n  function middlewareIterator(method) {\n    return function (value, mw) {\n      // if the previous middleware terminated, pass along the termination\n      if (value === TERMINATOR) {\n        return TERMINATOR;\n      }\n\n      if (mw[method]) {\n        return mw[method](value);\n      }\n\n      return value;\n    };\n  }\n\n  function executeRight(mws, method, value, terminated) {\n    for "
+      },
+      {
+        "term": "setCurrent",
+        "index": 668626,
+        "context": "e are no longer scrubbing\n     */\n    ;\n\n    _proto.scrubbing = function scrubbing() {\n      return this.isScrubbing_;\n    }\n    /**\n     * Set current time for the `HTML5` tech.\n     *\n     * @param {number} seconds\n     *        Set the current time of the media to this.\n     */\n    ;\n\n    _proto.setCurrentTime = function setCurrentTime(seconds) {\n      try {\n        if (this.isScrubbing_ && this.el_.fastSeek && IS_ANY_SAFARI) {\n          this.el_.fastSeek(seconds);\n        } else {\n          this.el_.currentTime = seconds;\n        }\n      } catch (e) {\n        log(e, 'Video is not ready. (Video.js)'); // this.warning(VideoJS.warnings.videoNotReady);\n      }\n    }\n    /**\n     * Get the current duration of the HTML5 media element.\n     *\n     * @return {number}\n     *         The duration of the media or 0 if there is no duration.\n     */\n    ;\n\n    _proto.duration = function duration() {\n      "
+      },
+      {
+        "term": "setCurrent",
+        "index": 668652,
+        "context": "     */\n    ;\n\n    _proto.scrubbing = function scrubbing() {\n      return this.isScrubbing_;\n    }\n    /**\n     * Set current time for the `HTML5` tech.\n     *\n     * @param {number} seconds\n     *        Set the current time of the media to this.\n     */\n    ;\n\n    _proto.setCurrentTime = function setCurrentTime(seconds) {\n      try {\n        if (this.isScrubbing_ && this.el_.fastSeek && IS_ANY_SAFARI) {\n          this.el_.fastSeek(seconds);\n        } else {\n          this.el_.currentTime = seconds;\n        }\n      } catch (e) {\n        log(e, 'Video is not ready. (Video.js)'); // this.warning(VideoJS.warnings.videoNotReady);\n      }\n    }\n    /**\n     * Get the current duration of the HTML5 media element.\n     *\n     * @return {number}\n     *         The duration of the media or 0 if there is no duration.\n     */\n    ;\n\n    _proto.duration = function duration() {\n      var _this5 = this;\n\n      "
+      },
+      {
+        "term": "setCurrent",
+        "index": 799337,
+        "context": "\n        if (!this.isReady_ || this.changingSrc_ || !this.tech_ || !this.tech_.isReady_) {\n          this.cache_.initTime = seconds;\n          this.off('canplay', this.boundApplyInitTime_);\n          this.one('canplay', this.boundApplyInitTime_);\n          return;\n        }\n\n        this.techCall_('setCurrentTime', seconds);\n        this.cache_.initTime = 0;\n        return;\n      } // cache last currentTime and return. default to 0 seconds\n      //\n      // Caching the currentTime is meant to prevent a massive amount of reads on the tech's\n      // currentTime when scrubbing, but may not provide much performance benefit afterall.\n      // Should be tested. Also something has to read the actual current time or the cache will\n      // never get updated.\n\n\n      this.cache_.currentTime = this.techGet_('currentTime') || 0;\n      return this.cache_.currentTime;\n    }\n    /**\n     * Apply the value of i"
+      }
+    ],
+    "https://cytu.be/js/vjs/videojs-dash.js": [
+      {
+        "term": "setCurrent",
+        "index": 680895,
+        "context": "return events;\n    }\n    /**\n     * Sets the current active mediaInfo for a given streamId and a given mediaType\n     * @param {number} streamId\n     * @param {MediaType} type\n     * @param {object} mediaInfo\n     * @memberOf module:DashAdapter\n     * @instance\n     * @ignore\n     */\n\n\n    function setCurrentMediaInfo(streamId, type, mediaInfo) {\n      currentMediaInfo[streamId] = currentMediaInfo[streamId] || {};\n      currentMediaInfo[streamId][type] = currentMediaInfo[streamId][type] || {};\n      currentMediaInfo[streamId][type] = mediaInfo;\n    }\n    /**\n     * Check if the given type is a text track\n     * @param {object} adaptation\n     * @returns {boolean}\n     * @memberOf module:DashAdapter\n     * @instance\n     * @ignore\n     */\n\n\n    function getIsTextTrack(adaptation) {\n      return dashManifestModel.getIsText(adaptation);\n    }\n    /**\n     * Returns the UTC Timing Sources specified in"
+      },
+      {
+        "term": "setCurrent",
+        "index": 706748,
+        "context": "stUpdatePeriod,\n      getPublishTime: getPublishTime,\n      getIsDVB: getIsDVB,\n      getIsPatch: getIsPatch,\n      getBaseURLsFromElement: getBaseURLsFromElement,\n      getRepresentationSortFunction: getRepresentationSortFunction,\n      getCodec: getCodec,\n      getPeriodById: getPeriodById,\n      setCurrentMediaInfo: setCurrentMediaInfo,\n      isPatchValid: isPatchValid,\n      applyPatchToManifest: applyPatchToManifest,\n      areMediaInfosEqual: areMediaInfosEqual,\n      reset: reset\n    };\n    setup();\n    return instance;\n  }\n\n  DashAdapter.__dashjs_factory_name = 'DashAdapter';\n  /* harmony default export */ __webpack_exports__[\"default\"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_6__[\"default\"].getSingletonFactory(DashAdapter));\n\n  /***/ }),\n\n  /***/ \"./src/dash/DashHandler.js\":\n  /*!*********************************!*\\\n    !*** ./src/dash/DashHandler.js ***!\n    \\***********************"
+      },
+      {
+        "term": "setCurrent",
+        "index": 706769,
+        "context": " getPublishTime: getPublishTime,\n      getIsDVB: getIsDVB,\n      getIsPatch: getIsPatch,\n      getBaseURLsFromElement: getBaseURLsFromElement,\n      getRepresentationSortFunction: getRepresentationSortFunction,\n      getCodec: getCodec,\n      getPeriodById: getPeriodById,\n      setCurrentMediaInfo: setCurrentMediaInfo,\n      isPatchValid: isPatchValid,\n      applyPatchToManifest: applyPatchToManifest,\n      areMediaInfosEqual: areMediaInfosEqual,\n      reset: reset\n    };\n    setup();\n    return instance;\n  }\n\n  DashAdapter.__dashjs_factory_name = 'DashAdapter';\n  /* harmony default export */ __webpack_exports__[\"default\"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_6__[\"default\"].getSingletonFactory(DashAdapter));\n\n  /***/ }),\n\n  /***/ \"./src/dash/DashHandler.js\":\n  /*!*********************************!*\\\n    !*** ./src/dash/DashHandler.js ***!\n    \\*********************************/\n  /*! exp"
+      },
+      {
+        "term": "setCurrent",
+        "index": 785957,
+        "context": "  resetInitialSettings();\n    }\n\n    function updateData(newRealAdaptation, availableRepresentations, type, isFragmented, quality) {\n      checkConfig();\n      updating = true;\n      voAvailableRepresentations = availableRepresentations;\n      var rep = getRepresentationForQuality(quality);\n\n      _setCurrentVoRepresentation(rep);\n\n      realAdaptation = newRealAdaptation;\n\n      if (type !== _streaming_constants_Constants__WEBPACK_IMPORTED_MODULE_0__[\"default\"].VIDEO && type !== _streaming_constants_Constants__WEBPACK_IMPORTED_MODULE_0__[\"default\"].AUDIO && (type !== _streaming_constants_Constants__WEBPACK_IMPORTED_MODULE_0__[\"default\"].TEXT || !isFragmented)) {\n        endDataUpdate();\n        return Promise.resolve();\n      }\n\n      var promises = [];\n\n      for (var i = 0, ln = voAvailableRepresentations.length; i < ln; i++) {\n        var currentRep = voAvailableRepresentations[i];\n        pro"
+      },
+      {
+        "term": "setCurrent",
+        "index": 792154,
+        "context": "ntRepresentationSwitch(getCurrentRepresentation().adaptation.type);\n\n        if (!repSwitch) {\n          _addRepresentationSwitch();\n        }\n\n        endDataUpdate();\n      }\n    }\n\n    function prepareQualityChange(newQuality) {\n      var newRep = getRepresentationForQuality(newQuality);\n\n      _setCurrentVoRepresentation(newRep);\n\n      _addRepresentationSwitch();\n    }\n\n    function _setCurrentVoRepresentation(value) {\n      currentVoRepresentation = value;\n    }\n\n    function onManifestValidityChanged(e) {\n      if (e.newDuration) {\n        var representation = getCurrentRepresentation();\n\n        if (representation && representation.adaptation.period) {\n          var period = representation.adaptation.period;\n          period.duration = e.newDuration;\n        }\n      }\n    }\n\n    instance = {\n      getStreamId: getStreamId,\n      getType: getType,\n      getData: getData,\n      isUpdating: i"
+      },
+      {
+        "term": "setCurrent",
+        "index": 792246,
+        "context": " {\n          _addRepresentationSwitch();\n        }\n\n        endDataUpdate();\n      }\n    }\n\n    function prepareQualityChange(newQuality) {\n      var newRep = getRepresentationForQuality(newQuality);\n\n      _setCurrentVoRepresentation(newRep);\n\n      _addRepresentationSwitch();\n    }\n\n    function _setCurrentVoRepresentation(value) {\n      currentVoRepresentation = value;\n    }\n\n    function onManifestValidityChanged(e) {\n      if (e.newDuration) {\n        var representation = getCurrentRepresentation();\n\n        if (representation && representation.adaptation.period) {\n          var period = representation.adaptation.period;\n          period.duration = e.newDuration;\n        }\n      }\n    }\n\n    instance = {\n      getStreamId: getStreamId,\n      getType: getType,\n      getData: getData,\n      isUpdating: isUpdating,\n      updateData: updateData,\n      getCurrentRepresentation: getCurrentRepresent"
+      },
+      {
+        "term": "setCurrent",
+        "index": 1153790,
+        "context": "\n    /**\n     * @param {MediaInfo} track - instance of {@link MediaInfo}\n     * @memberof module:MediaPlayer\n     * @throws {@link module:MediaPlayer~STREAMING_NOT_INITIALIZED_ERROR STREAMING_NOT_INITIALIZED_ERROR} if called before initializePlayback function\n     * @instance\n     */\n\n\n    function setCurrentTrack(track) {\n      if (!streamingInitialized) {\n        throw STREAMING_NOT_INITIALIZED_ERROR;\n      }\n\n      mediaController.setTrack(track);\n    }\n    /*\n    ---------------------------------------------------------------------------\n         PROTECTION MANAGEMENT\n     ---------------------------------------------------------------------------\n    */\n\n    /**\n     * Detects if Protection is included and returns an instance of ProtectionController.js\n     * @memberof module:MediaPlayer\n     * @instance\n     */\n\n\n    function getProtectionController() {\n      return _detectProtection();\n    "
+      },
+      {
+        "term": "setCurrent",
+        "index": 1183705,
+        "context": "getStreamsFromManifest,\n      getTracksFor: getTracksFor,\n      getTracksForTypeFromManifest: getTracksForTypeFromManifest,\n      getCurrentTrackFor: getCurrentTrackFor,\n      setInitialMediaSettingsFor: setInitialMediaSettingsFor,\n      getInitialMediaSettingsFor: getInitialMediaSettingsFor,\n      setCurrentTrack: setCurrentTrack,\n      addABRCustomRule: addABRCustomRule,\n      removeABRCustomRule: removeABRCustomRule,\n      removeAllABRCustomRule: removeAllABRCustomRule,\n      getAverageThroughput: getAverageThroughput,\n      retrieveManifest: retrieveManifest,\n      addUTCTimingSource: addUTCTimingSource,\n      removeUTCTimingSource: removeUTCTimingSource,\n      clearDefaultUTCTimingSources: clearDefaultUTCTimingSources,\n      restoreDefaultUTCTimingSources: restoreDefaultUTCTimingSources,\n      setXHRWithCredentialsForType: setXHRWithCredentialsForType,\n      getXHRWithCredentialsForType: getX"
+      },
+      {
+        "term": "setCurrent",
+        "index": 1183722,
+        "context": "ifest,\n      getTracksFor: getTracksFor,\n      getTracksForTypeFromManifest: getTracksForTypeFromManifest,\n      getCurrentTrackFor: getCurrentTrackFor,\n      setInitialMediaSettingsFor: setInitialMediaSettingsFor,\n      getInitialMediaSettingsFor: getInitialMediaSettingsFor,\n      setCurrentTrack: setCurrentTrack,\n      addABRCustomRule: addABRCustomRule,\n      removeABRCustomRule: removeABRCustomRule,\n      removeAllABRCustomRule: removeAllABRCustomRule,\n      getAverageThroughput: getAverageThroughput,\n      retrieveManifest: retrieveManifest,\n      addUTCTimingSource: addUTCTimingSource,\n      removeUTCTimingSource: removeUTCTimingSource,\n      clearDefaultUTCTimingSources: clearDefaultUTCTimingSources,\n      restoreDefaultUTCTimingSources: restoreDefaultUTCTimingSources,\n      setXHRWithCredentialsForType: setXHRWithCredentialsForType,\n      getXHRWithCredentialsForType: getXHRWithCredentials"
+      },
+      {
+        "term": "setCurrent",
+        "index": 1253737,
+        "context": "rror);\n        logger.fatal(event.error.message);\n      }\n    }\n\n    function prepareTrackChange(e) {\n      if (!isActive || !streamInfo) {\n        return;\n      }\n\n      hasFinishedBuffering = false;\n      var mediaInfo = e.newMediaInfo;\n      var manifest = manifestModel.getValue();\n      adapter.setCurrentMediaInfo(streamInfo.id, mediaInfo.type, mediaInfo);\n      var processor = getProcessorForMediaInfo(mediaInfo);\n      if (!processor) return;\n      var currentTime = playbackController.getTime();\n      logger.info('Stream -  Process track changed at current time ' + currentTime); // Applies only for MSS streams\n\n      if (manifest.refreshManifestOnSwitchTrack) {\n        trackChangedEvents.push(e);\n\n        if (!manifestUpdater.getIsUpdating()) {\n          logger.debug('Stream -  Refreshing manifest for switch track');\n          manifestUpdater.refreshManifest();\n        }\n      } else {\n      "
+      },
+      {
+        "term": "setCurrent",
+        "index": 1294355,
+        "context": "mer(settings.get().streaming.lowLatencyEnabled ? settings.get().streaming.scheduling.lowLatencyTimeout : settings.get().streaming.scheduling.defaultTimeout);\n    }\n\n    function _onDataUpdateCompleted(e) {\n      if (!e.error) {\n        // Update representation if no error\n        scheduleController.setCurrentRepresentation(adapter.convertRepresentationToRepresentationInfo(e.currentRepresentation));\n\n        if (!bufferController.getIsBufferingCompleted()) {\n          bufferController.updateBufferTimestampOffset(e.currentRepresentation);\n        }\n      }\n    }\n\n    function _onBufferLevelStateChanged(e) {\n      dashMetrics.addBufferState(type, e.state, scheduleController.getBufferTarget());\n\n      if (e.state === _constants_MetricsConstants__WEBPACK_IMPORTED_MODULE_2__[\"default\"].BUFFER_EMPTY && !playbackController.isSeeking()) {\n        logger.info('Buffer is empty! Stalling!');\n        dashMetri"
+      },
+      {
+        "term": "setCurrent",
+        "index": 1297140,
+        "context": "concat(type));\n      var newQuality = e.newQuality;\n      qualityChangeInProgress = true; // Stop scheduling until we are done with preparing the quality switch\n\n      scheduleController.clearScheduleTimer();\n      var representationInfo = getRepresentationInfo(newQuality);\n      scheduleController.setCurrentRepresentation(representationInfo);\n      representationController.prepareQualityChange(newQuality); // Abort the current request to avoid inconsistencies. A quality switch can also be triggered manually by the application.\n      // If we update the buffer values now, or initialize a request to the new init segment, the currently downloading media segment might \"work\" with wrong values.\n      // Everything that is already in the buffer queue is ok and will be handled by the corresponding function below depending on the switch mode.\n\n      fragmentModel.abortRequests(); // In any case we need t"
+      },
+      {
+        "term": "setCurrent",
+        "index": 1519265,
+        "context": "internal === true;\n\n      if (!internalSeek) {\n        seekTarget = time;\n        eventBus.trigger(_core_events_Events__WEBPACK_IMPORTED_MODULE_3__[\"default\"].PLAYBACK_SEEK_ASKED);\n      }\n\n      logger.info('Requesting seek to time: ' + time + (internalSeek ? ' (internal)' : ''));\n      videoModel.setCurrentTime(time, stickToBuffered);\n    }\n\n    function seekToLive() {\n      var type = streamController && streamController.hasVideoTrack() ? _constants_Constants__WEBPACK_IMPORTED_MODULE_0__[\"default\"].VIDEO : _constants_Constants__WEBPACK_IMPORTED_MODULE_0__[\"default\"].AUDIO;\n      var DVRMetrics = dashMetrics.getCurrentDVRInfo(type);\n      var DVRWindow = DVRMetrics ? DVRMetrics.range : null;\n\n      if (DVRWindow && !isNaN(DVRWindow.end)) {\n        seek(DVRWindow.end - mediaPlayerModel.getLiveDelay(), true, false);\n      }\n    }\n\n    function getTime() {\n      return streamInfo && videoModel ? vi"
+      },
+      {
+        "term": "setCurrent",
+        "index": 1536139,
+        "context": " {\n      if (wallclockTimeIntervalId && e.isLast) {\n        // PLAYBACK_ENDED was triggered elsewhere, react.\n        logger.info('onPlaybackEnded -- PLAYBACK_ENDED but native video element didn\\'t fire ended');\n        var seekTime = e.seekTime ? e.seekTime : getStreamEndTime();\n        videoModel.setCurrentTime(seekTime);\n        pause();\n        stopUpdatingWallclockTime();\n      }\n    }\n\n    function _onPlaybackError(event) {\n      var target = event.target || event.srcElement;\n      eventBus.trigger(_core_events_Events__WEBPACK_IMPORTED_MODULE_3__[\"default\"].PLAYBACK_ERROR, {\n        error: target.error\n      });\n    }\n\n    function _onWallclockTime() {\n      eventBus.trigger(_core_events_Events__WEBPACK_IMPORTED_MODULE_3__[\"default\"].WALLCLOCK_TIME_UPDATED, {\n        isDynamic: isDynamic,\n        time: new Date()\n      }); // Updates playback time for paused dynamic streams\n      // (video e"
+      },
+      {
+        "term": "setCurrent",
+        "index": 1559774,
+        "context": "aybackRateChanged, instance);\n      eventBus.on(_MediaPlayerEvents__WEBPACK_IMPORTED_MODULE_7__[\"default\"].PLAYBACK_TIME_UPDATED, _onPlaybackTimeUpdated, instance);\n    }\n\n    function getType() {\n      return type;\n    }\n\n    function getStreamId() {\n      return streamInfo.id;\n    }\n\n    function setCurrentRepresentation(representationInfo) {\n      currentRepresentationInfo = representationInfo;\n    }\n\n    function startScheduleTimer(value) {\n      if (bufferController.getIsBufferingCompleted()) return;\n      clearScheduleTimer();\n      var timeoutValue = !isNaN(value) ? value : 0;\n      scheduleTimeout = setTimeout(schedule, timeoutValue);\n    }\n\n    function clearScheduleTimer() {\n      if (scheduleTimeout) {\n        clearTimeout(scheduleTimeout);\n        scheduleTimeout = null;\n      }\n    }\n\n    function hasTopQualityChanged() {\n      var streamId = streamInfo.id;\n      var newTopQualityInde"
+      },
+      {
+        "term": "setCurrent",
+        "index": 1573196,
+        "context": "leTimer();\n\n      _completeQualityChange(false);\n\n      resetInitialSettings();\n      streamInfo = null;\n    }\n\n    function getPlaybackController() {\n      return playbackController;\n    }\n\n    instance = {\n      initialize: initialize,\n      getType: getType,\n      getStreamId: getStreamId,\n      setCurrentRepresentation: setCurrentRepresentation,\n      setTimeToLoadDelay: setTimeToLoadDelay,\n      getTimeToLoadDelay: getTimeToLoadDelay,\n      setSwitchTrack: setSwitchTrack,\n      getSwitchStrack: getSwitchStrack,\n      startScheduleTimer: startScheduleTimer,\n      clearScheduleTimer: clearScheduleTimer,\n      reset: reset,\n      getBufferTarget: getBufferTarget,\n      getPlaybackController: getPlaybackController,\n      setCheckPlaybackQuality: setCheckPlaybackQuality,\n      setInitSegmentRequired: setInitSegmentRequired\n    };\n    setup();\n    return instance;\n  }\n\n  ScheduleController.__dashjs"
+      },
+      {
+        "term": "setCurrent",
+        "index": 1573222,
+        "context": "eQualityChange(false);\n\n      resetInitialSettings();\n      streamInfo = null;\n    }\n\n    function getPlaybackController() {\n      return playbackController;\n    }\n\n    instance = {\n      initialize: initialize,\n      getType: getType,\n      getStreamId: getStreamId,\n      setCurrentRepresentation: setCurrentRepresentation,\n      setTimeToLoadDelay: setTimeToLoadDelay,\n      getTimeToLoadDelay: getTimeToLoadDelay,\n      setSwitchTrack: setSwitchTrack,\n      getSwitchStrack: getSwitchStrack,\n      startScheduleTimer: startScheduleTimer,\n      clearScheduleTimer: clearScheduleTimer,\n      reset: reset,\n      getBufferTarget: getBufferTarget,\n      getPlaybackController: getPlaybackController,\n      setCheckPlaybackQuality: setCheckPlaybackQuality,\n      setInitSegmentRequired: setInitSegmentRequired\n    };\n    setup();\n    return instance;\n  }\n\n  ScheduleController.__dashjs_factory_name = 'ScheduleC"
+      },
+      {
+        "term": "setCurrent",
+        "index": 1877504,
+        "context": " {\n        // If media element hasn't loaded enough data to play yet, wait until it has\n        element.addEventListener('canplay', onPlaybackCanPlay);\n      } else {\n        element.playbackRate = value;\n      }\n    } //TODO Move the DVR window calculations from MediaPlayer to Here.\n\n\n    function setCurrentTime(currentTime, stickToBuffered) {\n      waitForReadyState(_constants_Constants__WEBPACK_IMPORTED_MODULE_4__[\"default\"].VIDEO_ELEMENT_READY_STATES.HAVE_METADATA, function () {\n        if (element) {\n          //_currentTime = currentTime;\n          // We don't set the same currentTime because it can cause firing unexpected Pause event in IE11\n          // providing playbackRate property equals to zero.\n          if (element.currentTime === currentTime) {\n            return;\n          } // TODO Despite the fact that MediaSource 'open' event has been fired IE11 cannot set videoElement.currentT"
+      },
+      {
+        "term": "setCurrent",
+        "index": 1887942,
+        "context": "vent, callback) {\n      var func = function func() {\n        // Stop listening to this event.\n        removeEventListener(event, func); // Call the original listener.\n\n        callback(event);\n      };\n\n      addEventListener(event, func);\n    }\n\n    instance = {\n      initialize: initialize,\n      setCurrentTime: setCurrentTime,\n      play: play,\n      isPaused: isPaused,\n      pause: pause,\n      isStalled: isStalled,\n      isSeeking: isSeeking,\n      getTime: getTime,\n      getPlaybackRate: getPlaybackRate,\n      setPlaybackRate: setPlaybackRate,\n      getPlayedRanges: getPlayedRanges,\n      getEnded: getEnded,\n      setStallState: setStallState,\n      getElement: getElement,\n      setElement: setElement,\n      setSource: setSource,\n      getSource: getSource,\n      getTTMLRenderingDiv: getTTMLRenderingDiv,\n      setTTMLRenderingDiv: setTTMLRenderingDiv,\n      getPlaybackQuality: getPlaybackQua"
+      },
+      {
+        "term": "setCurrent",
+        "index": 1887958,
+        "context": "{\n      var func = function func() {\n        // Stop listening to this event.\n        removeEventListener(event, func); // Call the original listener.\n\n        callback(event);\n      };\n\n      addEventListener(event, func);\n    }\n\n    instance = {\n      initialize: initialize,\n      setCurrentTime: setCurrentTime,\n      play: play,\n      isPaused: isPaused,\n      pause: pause,\n      isStalled: isStalled,\n      isSeeking: isSeeking,\n      getTime: getTime,\n      getPlaybackRate: getPlaybackRate,\n      setPlaybackRate: setPlaybackRate,\n      getPlayedRanges: getPlayedRanges,\n      getEnded: getEnded,\n      setStallState: setStallState,\n      getElement: getElement,\n      setElement: setElement,\n      setSource: setSource,\n      getSource: getSource,\n      getTTMLRenderingDiv: getTTMLRenderingDiv,\n      setTTMLRenderingDiv: setTTMLRenderingDiv,\n      getPlaybackQuality: getPlaybackQuality,\n      addE"
+      },
+      {
+        "term": "setCurrent",
+        "index": 2392764,
+        "context": "ntTrackIdx(streamId); // No change, no action required\n\n      if (oldTrackIdx === idx || !textTracks[streamId]) {\n        return;\n      }\n\n      textTracks[streamId].setModeForTrackIdx(oldTrackIdx, _constants_Constants__WEBPACK_IMPORTED_MODULE_0__[\"default\"].TEXT_HIDDEN);\n      textTracks[streamId].setCurrentTrackIdx(idx);\n      textTracks[streamId].setModeForTrackIdx(idx, _constants_Constants__WEBPACK_IMPORTED_MODULE_0__[\"default\"].TEXT_SHOWING);\n      var currentTrackInfo = textTracks[streamId].getCurrentTrackInfo();\n\n      if (currentTrackInfo && currentTrackInfo.isFragmented && !currentTrackInfo.isEmbedded) {\n        _setFragmentedTextTrack(streamId, currentTrackInfo, oldTrackIdx);\n      } else if (currentTrackInfo && !currentTrackInfo.isFragmented) {\n        _setNonFragmentedTextTrack(streamId, currentTrackInfo);\n      }\n\n      mediaController.setTrack(currentTrackInfo);\n    }\n\n    function _"
+      },
+      {
+        "term": "setCurrent",
+        "index": 2394255,
+        "context": "nstants_Constants__WEBPACK_IMPORTED_MODULE_0__[\"default\"].TEXT, streamId);\n\n          if (mediaInfo.id ? currentFragTrack.id !== mediaInfo.id : currentFragTrack.index !== mediaInfo.index) {\n            textTracks[streamId].deleteCuesFromTrackIdx(oldTrackIdx);\n            textSourceBuffers[streamId].setCurrentFragmentedTrackIdx(i);\n          } else if (oldTrackIdx === -1) {\n            // in fragmented use case, if the user selects the older track (the one selected before disabled text track)\n            // no CURRENT_TRACK_CHANGED event will be triggered because the mediaInfo in the StreamProcessor is equal to the one we are selecting\n            // For that reason we reactivate the StreamProcessor and the ScheduleController\n            eventBus.trigger(_core_events_Events__WEBPACK_IMPORTED_MODULE_7__[\"default\"].SET_FRAGMENTED_TEXT_AFTER_DISABLED, {}, {\n              streamId: streamId,\n          "
+      },
+      {
+        "term": "setCurrent",
+        "index": 2405092,
+        "context": "isFragmented;\n        });\n        var currFragTrack = mediaController.getCurrentTrackFor(_constants_Constants__WEBPACK_IMPORTED_MODULE_0__[\"default\"].TEXT, streamInfo.id);\n\n        for (var i = 0; i < fragmentedTracks.length; i++) {\n          if (fragmentedTracks[i] === currFragTrack) {\n            setCurrentFragmentedTrackIdx(i);\n            break;\n          }\n        }\n      }\n\n      for (var _i = 0; _i < mInfos.length; _i++) {\n        _createTextTrackFromMediaInfo(mInfos[_i]);\n      }\n    }\n    /**\n     * Create a new track based on the mediaInfo information\n     * @param {object} mediaInfo\n     * @private\n     */\n\n\n    function _createTextTrackFromMediaInfo(mediaInfo) {\n      var textTrackInfo = new _vo_TextTrackInfo__WEBPACK_IMPORTED_MODULE_2__[\"default\"]();\n      var trackKindMap = {\n        subtitle: 'subtitles',\n        caption: 'captions'\n      }; //Dash Spec has no \"s\" on end of KIND but"
+      },
+      {
+        "term": "setCurrent",
+        "index": 2408510,
+        "context": "ger.warn('Embedded track ' + mediaInfo.id + ' not supported!');\n        }\n      }\n    }\n\n    function getConfig() {\n      var config = {\n        fragmentModel: fragmentModel,\n        fragmentedTracks: fragmentedTracks,\n        videoModel: videoModel\n      };\n      return config;\n    }\n\n    function setCurrentFragmentedTrackIdx(idx) {\n      currFragmentedTrackIdx = idx;\n    }\n\n    function _checkTtml(mediaInfo) {\n      return mediaInfo.codec && mediaInfo.codec.search(_constants_Constants__WEBPACK_IMPORTED_MODULE_0__[\"default\"].STPP) >= 0 || mediaInfo.mimeType && mediaInfo.mimeType.search(_constants_Constants__WEBPACK_IMPORTED_MODULE_0__[\"default\"].TTML) >= 0;\n    }\n\n    function _getKind(mediaInfo, trackKindMap) {\n      var kind = mediaInfo.roles && mediaInfo.roles.length > 0 ? trackKindMap[mediaInfo.roles[0]] : trackKindMap.caption;\n      kind = kind === trackKindMap.caption || kind === trackKindM"
+      },
+      {
+        "term": "setCurrent",
+        "index": 2422888,
+        "context": "nce = {\n      initialize: initialize,\n      addMediaInfos: addMediaInfos,\n      resetMediaInfos: resetMediaInfos,\n      getStreamId: getStreamId,\n      append: append,\n      abort: abort,\n      addEmbeddedTrack: addEmbeddedTrack,\n      resetEmbedded: resetEmbedded,\n      getConfig: getConfig,\n      setCurrentFragmentedTrackIdx: setCurrentFragmentedTrackIdx,\n      remove: remove,\n      reset: reset\n    };\n    setup();\n    return instance;\n  }\n\n  TextSourceBuffer.__dashjs_factory_name = 'TextSourceBuffer';\n  /* harmony default export */ __webpack_exports__[\"default\"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_5__[\"default\"].getClassFactory(TextSourceBuffer));\n\n  /***/ }),\n\n  /***/ \"./src/streaming/text/TextTracks.js\":\n  /*!******************************************!*\\\n    !*** ./src/streaming/text/TextTracks.js ***!\n    \\******************************************/\n  /*! exports provided: default"
+      },
+      {
+        "term": "setCurrent",
+        "index": 2422918,
+        "context": "ialize,\n      addMediaInfos: addMediaInfos,\n      resetMediaInfos: resetMediaInfos,\n      getStreamId: getStreamId,\n      append: append,\n      abort: abort,\n      addEmbeddedTrack: addEmbeddedTrack,\n      resetEmbedded: resetEmbedded,\n      getConfig: getConfig,\n      setCurrentFragmentedTrackIdx: setCurrentFragmentedTrackIdx,\n      remove: remove,\n      reset: reset\n    };\n    setup();\n    return instance;\n  }\n\n  TextSourceBuffer.__dashjs_factory_name = 'TextSourceBuffer';\n  /* harmony default export */ __webpack_exports__[\"default\"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_5__[\"default\"].getClassFactory(TextSourceBuffer));\n\n  /***/ }),\n\n  /***/ \"./src/streaming/text/TextTracks.js\":\n  /*!******************************************!*\\\n    !*** ./src/streaming/text/TextTracks.js ***!\n    \\******************************************/\n  /*! exports provided: default */\n  /***/ (function(module, "
+      },
+      {
+        "term": "setCurrent",
+        "index": 2430655,
+        "context": "   textTrack.renderingType = 'default';\n          }\n        }\n\n        addCaptions(i, 0, textTrackQueue[i].captionData);\n        eventBus.trigger(_streaming_MediaPlayerEvents__WEBPACK_IMPORTED_MODULE_3__[\"default\"].TEXT_TRACK_ADDED);\n      } //set current track index in textTrackQueue array\n\n\n      setCurrentTrackIdx.call(this, defaultIndex);\n\n      if (defaultIndex >= 0) {\n        var onMetadataLoaded = function onMetadataLoaded() {\n          var track = getTrackByIdx(defaultIndex);\n\n          if (track && track.renderingType === 'html') {\n            checkVideoSize.call(this, track, true);\n          }\n\n          eventBus.off(_streaming_MediaPlayerEvents__WEBPACK_IMPORTED_MODULE_3__[\"default\"].PLAYBACK_METADATA_LOADED, onMetadataLoaded, this);\n        };\n\n        eventBus.on(_streaming_MediaPlayerEvents__WEBPACK_IMPORTED_MODULE_3__[\"default\"].PLAYBACK_METADATA_LOADED, onMetadataLoaded, this);\n\n  "
+      },
+      {
+        "term": "setCurrent",
+        "index": 2446132,
+        "context": ") {\n      return currentTrackIdx;\n    }\n\n    function getTrackIdxForId(trackId) {\n      var idx = -1;\n\n      for (var i = 0; i < textTrackQueue.length; i++) {\n        if (textTrackQueue[i].id === trackId) {\n          idx = i;\n          break;\n        }\n      }\n\n      return idx;\n    }\n\n    function setCurrentTrackIdx(idx) {\n      var _this = this;\n\n      if (idx === currentTrackIdx) {\n        return;\n      }\n\n      currentTrackIdx = idx;\n      var track = getTrackByIdx(currentTrackIdx);\n      setCueStyleOnTrack.call(this, track);\n\n      if (videoSizeCheckInterval) {\n        clearInterval(videoSizeCheckInterval);\n        videoSizeCheckInterval = null;\n      }\n\n      if (track && track.renderingType === 'html') {\n        checkVideoSize.call(this, track, true);\n\n        if (window.ResizeObserver) {\n          resizeObserver = new window.ResizeObserver(function () {\n            checkVideoSize.call(_thi"
+      },
+      {
+        "term": "setCurrent",
+        "index": 2451148,
+        "context": "ntTrackInfo() {\n      return textTrackQueue[currentTrackIdx];\n    }\n\n    instance = {\n      initialize: initialize,\n      getStreamId: getStreamId,\n      addTextTrack: addTextTrack,\n      addCaptions: addCaptions,\n      createTracks: createTracks,\n      getCurrentTrackIdx: getCurrentTrackIdx,\n      setCurrentTrackIdx: setCurrentTrackIdx,\n      getTrackIdxForId: getTrackIdxForId,\n      getCurrentTrackInfo: getCurrentTrackInfo,\n      setModeForTrackIdx: setModeForTrackIdx,\n      deleteCuesFromTrackIdx: deleteCuesFromTrackIdx,\n      deleteAllTextTracks: deleteAllTextTracks,\n      deleteTextTrack: deleteTextTrack\n    };\n    setup();\n    return instance;\n  }\n\n  TextTracks.__dashjs_factory_name = 'TextTracks';\n  /* harmony default export */ __webpack_exports__[\"default\"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_4__[\"default\"].getClassFactory(TextTracks));\n\n  /***/ }),\n\n  /***/ \"./src/streaming/thu"
+      },
+      {
+        "term": "setCurrent",
+        "index": 2451168,
+        "context": "  return textTrackQueue[currentTrackIdx];\n    }\n\n    instance = {\n      initialize: initialize,\n      getStreamId: getStreamId,\n      addTextTrack: addTextTrack,\n      addCaptions: addCaptions,\n      createTracks: createTracks,\n      getCurrentTrackIdx: getCurrentTrackIdx,\n      setCurrentTrackIdx: setCurrentTrackIdx,\n      getTrackIdxForId: getTrackIdxForId,\n      getCurrentTrackInfo: getCurrentTrackInfo,\n      setModeForTrackIdx: setModeForTrackIdx,\n      deleteCuesFromTrackIdx: deleteCuesFromTrackIdx,\n      deleteAllTextTracks: deleteAllTextTracks,\n      deleteTextTrack: deleteTextTrack\n    };\n    setup();\n    return instance;\n  }\n\n  TextTracks.__dashjs_factory_name = 'TextTracks';\n  /* harmony default export */ __webpack_exports__[\"default\"] = (_core_FactoryMaker__WEBPACK_IMPORTED_MODULE_4__[\"default\"].getClassFactory(TextTracks));\n\n  /***/ }),\n\n  /***/ \"./src/streaming/thumbnail/ThumbnailCont"
+      },
+      {
+        "term": "setCurrent",
+        "index": 2697081,
+        "context": " < videojsAudioTracks.length; i++) {\n        var track = videojsAudioTracks[i];\n\n        if (track.enabled) {\n          // Find the audio track we just selected by the id\n          var dashAudioTrack = findDashAudioTrack(dashAudioTracks, track); // Set is as the current track\n\n          mediaPlayer.setCurrentTrack(dashAudioTrack); // Stop looping\n\n          continue;\n        }\n      }\n    };\n\n    videojsAudioTracks.addEventListener('change', audioTracksChangeHandler);\n    player.dash.mediaPlayer.on(dashjs$1.MediaPlayer.events.STREAM_TEARDOWN_COMPLETE, function () {\n      videojsAudioTracks.removeEventListener('change', audioTracksChangeHandler);\n    });\n  }\n  /*\n   * Call `handlePlaybackMetadataLoaded` when `mediaPlayer` emits\n   * `dashjs.MediaPlayer.events.PLAYBACK_METADATA_LOADED`.\n   */\n\n\n  function setupAudioTracks(player, tech) {\n    // When `dashjs` finishes loading metadata, create audio t"
+      }
+    ],
+    "https://cytu.be/js/octopus/subtitles-octopus.js": [
+      {
+        "term": "setCurrent",
+        "index": 56943,
+        "context": "self.hasAlphaBug) {\n            console.log(\"Detected a browser having issue with transparent pixels, applying workaround\");\n        }\n    };\n\n    self.setVideo = function (video) {\n        self.video = video;\n        if (self.video) {\n            var timeupdate = function () {\n                self.setCurrentTime(video.currentTime + self.timeOffset);\n            }\n            self.video.addEventListener(\"timeupdate\", timeupdate, false);\n            self.video.addEventListener(\"playing\", function () {\n                self.setIsPaused(false, video.currentTime + self.timeOffset);\n            }, false);\n            self.video.addEventListener(\"pause\", function () {\n                self.setIsPaused(true, video.currentTime + self.timeOffset);\n            }, false);\n            self.video.addEventListener(\"seeking\", function () {\n                self.video.removeEventListener(\"timeupdate\", timeupdate);\n "
+      },
+      {
+        "term": "setCurrent",
+        "index": 57738,
+        "context": "dEventListener(\"seeking\", function () {\n                self.video.removeEventListener(\"timeupdate\", timeupdate);\n            }, false);\n            self.video.addEventListener(\"seeked\", function () {\n                self.video.addEventListener(\"timeupdate\", timeupdate, false);\n                self.setCurrentTime(video.currentTime + self.timeOffset);\n            }, false);\n            self.video.addEventListener(\"ratechange\", function () {\n                self.setRate(video.playbackRate);\n            }, false);\n            self.video.addEventListener(\"waiting\", function () {\n                self.setIsPaused(true, video.currentTime + self.timeOffset);\n            }, false);\n\n            document.addEventListener(\"fullscreenchange\", self.resizeWithTimeout, false);\n            document.addEventListener(\"mozfullscreenchange\", self.resizeWithTimeout, false);\n            document.addEventListener(\"webki"
+      },
+      {
+        "term": "setCurrent",
+        "index": 68494,
+        "context": "{\n            target: 'runBenchmark'\n        });\n    };\n\n    self.customMessage = function (data, options) {\n        options = options || {};\n        self.worker.postMessage({\n            target: 'custom',\n            userData: data,\n            preMain: options.preMain\n        });\n    };\n\n    self.setCurrentTime = function (currentTime) {\n        self.worker.postMessage({\n            target: 'video',\n            currentTime: currentTime\n        });\n    };\n\n    self.setTrackByUrl = function (url) {\n        self.worker.postMessage({\n            target: 'set-track-by-url',\n            url: url\n        });\n    };\n\n    self.setTrack = function (content) {\n        self.worker.postMessage({\n            target: 'set-track',\n            content: content\n        });\n    };\n\n    self.freeTrack = function (content) {\n        self.worker.postMessage({\n            target: 'free-track'\n        });\n    };\n\n\n    "
+      },
+      {
+        "term": "setCurrent",
+        "index": 69123,
+        "context": "etTrack = function (content) {\n        self.worker.postMessage({\n            target: 'set-track',\n            content: content\n        });\n    };\n\n    self.freeTrack = function (content) {\n        self.worker.postMessage({\n            target: 'free-track'\n        });\n    };\n\n\n    self.render = self.setCurrentTime;\n\n    self.setIsPaused = function (isPaused, currentTime) {\n        self.worker.postMessage({\n            target: 'video',\n            isPaused: isPaused,\n            currentTime: currentTime\n        });\n    };\n\n    self.setRate = function (rate) {\n        self.worker.postMessage({\n            target: 'video',\n            rate: rate\n        });\n    };\n\n    self.dispose = function () {\n        self.worker.postMessage({\n            target: 'destroy'\n        });\n\n        self.worker.terminate();\n        self.workerActive = false;\n        // Remove the canvas element to remove residual subtit"
+      }
+    ],
+    "https://cytu.be/js/playerjs-0.0.12.js": [
+      {
+        "term": "setCurrent",
+        "index": 6217,
+        "context": "l.push(playerjs.EVENTS[key]);\n    }\n  }\n  return all;\n};\n\nplayerjs.METHODS = {\n  PLAY: 'play',\n  PAUSE: 'pause',\n  GETPAUSED: 'getPaused',\n  MUTE: 'mute',\n  UNMUTE: 'unmute',\n  GETMUTED: 'getMuted',\n  SETVOLUME: 'setVolume',\n  GETVOLUME: 'getVolume',\n  GETDURATION: 'getDuration',\n  SETCURRENTTIME: 'setCurrentTime',\n  GETCURRENTTIME:'getCurrentTime',\n  SETLOOP: 'setLoop',\n  GETLOOP: 'getLoop',\n  REMOVEEVENTLISTENER: 'removeEventListener',\n  ADDEVENTLISTENER: 'addEventListener'\n};\n\nplayerjs.METHODS.all = function(){\n  var all = [];\n  for (var key in playerjs.METHODS) {\n    if (playerjs.has(playerjs.METHODS, key) && playerjs.isString(playerjs.METHODS[key])) {\n      all.push(playerjs.METHODS[key]);\n    }\n  }\n  return all;\n};\n\nplayerjs.READIED = [];\n\nplayerjs.Player.prototype.init = function(elem, options){\n\n  var self = this;\n\n  if (playerjs.isString(elem)){\n    elem = document.getElementById(elem);\n "
+      },
+      {
+        "term": "setCurrent",
+        "index": 19218,
+        "context": "r.on('play', function(){\n    video.play();\n  });\n\n  receiver.on('pause', function(){\n    video.pause();\n  });\n\n  receiver.on('getPaused', function(callback){\n    callback(video.paused);\n  });\n\n  receiver.on('getCurrentTime', function(callback){\n    callback(video.currentTime);\n  });\n\n  receiver.on('setCurrentTime', function(value){\n    video.currentTime = value;\n  });\n\n  receiver.on('getDuration', function(callback){\n    callback(video.duration);\n  });\n\n  receiver.on('getVolume', function(callback){\n    callback(video.volume * 100);\n  });\n\n  receiver.on('setVolume', function(value){\n    video.volume = value/100;\n  });\n\n  receiver.on('mute', function(){\n    video.muted = true;\n  });\n\n  receiver.on('unmute', function(){\n    video.muted = false;\n  });\n\n  receiver.on('getMuted', function(callback){\n    callback(video.muted);\n  });\n\n  receiver.on('getLoop', function(callback){\n    callback(video.loop);"
+      },
+      {
+        "term": "setCurrent",
+        "index": 21732,
+        "context": "eiver.on('pause', function(){\n    player.pause(true);\n  });\n\n  receiver.on('getPaused', function(callback){\n    callback(player.getState().toLowerCase() !== 'PLAYING'.toLowerCase());\n  });\n\n  receiver.on('getCurrentTime', function(callback){\n    callback(player.getPosition());\n  });\n\n  receiver.on('setCurrentTime', function(value){\n    player.seek(value);\n  });\n\n  receiver.on('getDuration', function(callback){\n    callback(player.getDuration());\n  });\n\n  receiver.on('getVolume', function(callback){\n    callback(player.getVolume());\n  });\n\n  receiver.on('setVolume', function(value){\n    player.setVolume(value);\n  });\n\n  receiver.on('mute', function(){\n    player.setMute(true);\n  });\n\n  receiver.on('unmute', function(){\n    player.setMute(false);\n  });\n\n  receiver.on('getMuted', function(callback){\n    callback(player.getMute() === true);\n  });\n\n  receiver.on('getLoop', function(callback){\n    callb"
+      },
+      {
+        "term": "setCurrent",
+        "index": 23891,
+        "context": "', data);\n    };\n  });\n\n  receiver.on('pause', function(){\n    video.pause();\n    this.emit('pause');\n  });\n\n  receiver.on('getPaused', function(callback){\n    callback(!video.playing);\n  });\n\n  receiver.on('getCurrentTime', function(callback){\n    callback(video.currentTime);\n  });\n\n  receiver.on('setCurrentTime', function(value){\n    video.currentTime = value;\n  });\n\n  receiver.on('getDuration', function(callback){\n    callback(video.duration);\n  });\n\n  receiver.on('getVolume', function(callback){\n    callback(video.volume);\n  });\n\n  receiver.on('setVolume', function(value){\n    video.volume = value;\n  });\n\n  receiver.on('mute', function(){\n    video.mute = true;\n  });\n\n  receiver.on('unmute', function(){\n    video.mute = false;\n  });\n\n  receiver.on('getMuted', function(callback){\n    callback(video.mute);\n  });\n\n  receiver.on('getLoop', function(callback){\n    callback(video.loop);\n  });\n\n  rec"
+      },
+      {
+        "term": "setCurrent",
+        "index": 26008,
+        "context": "ay', function(){\n    player.play();\n  });\n\n  receiver.on('pause', function(){\n    player.pause();\n  });\n\n  receiver.on('getPaused', function(callback){\n    callback(player.paused());\n  });\n\n  receiver.on('getCurrentTime', function(callback){\n    callback(player.currentTime());\n  });\n\n  receiver.on('setCurrentTime', function(value){\n    player.currentTime(value);\n  });\n\n  receiver.on('getDuration', function(callback){\n    callback(player.duration());\n  });\n\n  receiver.on('getVolume', function(callback){\n    callback(player.volume() * 100);\n  });\n\n  receiver.on('setVolume', function(value){\n    player.volume(value/100);\n  });\n\n  receiver.on('mute', function(){\n    player.volume(0);\n  });\n\n  receiver.on('unmute', function(){\n    player.volume(1);\n  });\n\n  receiver.on('getMuted', function(callback){\n    callback(player.volume() === 0);\n  });\n\n  receiver.on('getLoop', function(callback){\n    callback(p"
+      }
+    ],
+    "https://player.vimeo.com/api/player.js": [
+      {
+        "term": "setCurrent",
+        "index": 12929,
+        "context": "n\",\"off\");this.addEventListener(\"disconnect\",()=>e.cancel())}}async updateTimingObject(e,t){var[t,r,n]=await Promise.all([t.getCurrentTime(),t.getPaused(),t.getPlaybackRate()]);e.update({position:t,velocity:r?0:n})}async updatePlayer(e,t,r){var{position:n,velocity:i}=e.query();\"number\"==typeof n&&t.setCurrentTime(n),\"number\"==typeof i&&(0===i?!1===await t.getPaused()&&t.pause():0<i&&(!0===await t.getPaused()&&(await t.play().catch(async e=>{\"NotAllowedError\"===e.name&&r.autoPlayMuted&&(await t.setMuted(!0),await t.play().catch(e=>console.error(\"Couldn't play the video from TimingSrcConnector. Error:\",e)))}),this.updatePlayer(e,t,r)),await t.getPlaybackRate()!==i)&&t.setPlaybackRate(i))}maintainPlaybackPosition(n,i,e){let{allowedDrift:o,maxAllowedDrift:a,minCheckInterval:t,maxRateAdjustment:s,maxTimeToCatchUp:l}=e;e=1e3*Math.min(l,Math.max(t,a));let r=async()=>{var e,t,r;0!==n.query().velocity&&!0!"
+      },
+      {
+        "term": "setCurrent",
+        "index": 13680,
+        "context": "lowedDrift:a,minCheckInterval:t,maxRateAdjustment:s,maxTimeToCatchUp:l}=e;e=1e3*Math.min(l,Math.max(t,a));let r=async()=>{var e,t,r;0!==n.query().velocity&&!0!==await i.getPaused()&&(e=n.query().position-await i.getCurrentTime(),t=Math.abs(e),this.log(\"Drift: \"+e),t>a?(await this.adjustSpeed(i,0),i.setCurrentTime(n.query().position),this.log(\"Resync by currentTime\")):t>o&&(t=t/l,r=s,await this.adjustSpeed(i,(t<r?(r-t)/2:r)*Math.sign(e)),this.log(\"Resync by playbackRate\")))},u=setInterval(()=>r(),e);return{cancel:()=>clearInterval(u)}}log(e){this.logger?.(\"TimingSrcConnector: \"+e)}speedAdjustment=0;adjustSpeed=async(e,t)=>{var r;this.speedAdjustment!==t&&(r=await e.getPlaybackRate()-this.speedAdjustment+t,this.log(\"New playbackRate:  \"+r),await e.setPlaybackRate(r),this.speedAdjustment=t)};waitForTOReadyState(r,n){return new Promise(e=>{let t=()=>{r.readyState===n?e():r.addEventListener(\"readystate"
+      },
+      {
+        "term": "setCurrent",
+        "index": 20742,
+        "context": "[e[0]?this.set(\"colorOne\",e[0]):t,e[1]?this.set(\"colorTwo\",e[1]):t,e[2]?this.set(\"colorThree\",e[2]):t,e[3]?this.set(\"colorFour\",e[3]):t],y.all(e)):new y((e,t)=>t(new TypeError(\"Argument must be an array.\")))}getCuePoints(){return this.get(\"cuePoints\")}getCurrentTime(){return this.get(\"currentTime\")}setCurrentTime(e){return this.set(\"currentTime\",e)}getDuration(){return this.get(\"duration\")}getEnded(){return this.get(\"ended\")}getLoop(){return this.get(\"loop\")}setLoop(e){return this.set(\"loop\",e)}setMuted(e){return this.set(\"muted\",e)}getMuted(){return this.get(\"muted\")}getPaused(){return this.get(\"paused\")}getPlaybackRate(){return this.get(\"playbackRate\")}setPlaybackRate(e){return this.set(\"playbackRate\",e)}getPlayed(){return this.get(\"played\")}getQualities(){return this.get(\"qualities\")}getQuality(){return this.get(\"quality\")}setQuality(e){return this.set(\"quality\",e)}getRemotePlaybackAvailability"
+      },
+      {
+        "term": "setCurrent",
+        "index": 23930,
+        "context": "o Id: \"+e)};window.addEventListener(\"message\",e=>{if(l(e.origin)){var r=k(e.data);if(r&&\"ready\"===r.event){r=e.source?u(e.source,t):null;if(r&&o(r.src)){let t=new Player(r);t.getVideoId().then(e=>{var e=new RegExp(`[?&]vimeo_t_${e}=([^&#]*)`).exec(window.location.href);e&&e[1]&&(e=decodeURI(e[1]),t.setCurrentTime(e))}).catch(n)}}}})}}(),window.VimeoDRMEmbedsUpdated)||(window.VimeoDRMEmbedsUpdated=!0,window.addEventListener(\"message\",e=>{var t;l(e.origin)&&(t=k(e.data))&&\"drminitfailed\"===t.event&&(t=e.source?u(e.source):null)&&!(e=t.getAttribute(\"allow\")||\"\").includes(\"encrypted-media\")&&(t.setAttribute(\"allow\",e+\"; encrypted-media\"),(e=new URL(t.getAttribute(\"src\"))).searchParams.set(\"forcereload\",\"drm\"),t.setAttribute(\"src\",e.toString()))})),Player});\n"
+      }
+    ]
+  },
+  "errors": [
+    "https://www.youtube.com/s/player/f572e43c/www-widgetapi.vflset/www-widgetapi.js :: TypeError: Failed to fetch",
+    "https://www.youtube.com/iframe_api :: TypeError: Failed to fetch",
+    "https://player.twitch.tv/js/embed/v1.js :: TypeError: Failed to fetch"
+  ],
+  "completed": "2026-09-07T00:05:18.798Z"
+}
